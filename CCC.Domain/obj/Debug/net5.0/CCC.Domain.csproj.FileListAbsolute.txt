@@ -1,0 +1,12 @@
+D:\Shahen-WorkFront\Projects\Prj_Codezen\Application\CCC\CCC.Domain\bin\Debug\net5.0\CCC.Domain.deps.json
+D:\Shahen-WorkFront\Projects\Prj_Codezen\Application\CCC\CCC.Domain\bin\Debug\net5.0\CCC.Domain.dll
+D:\Shahen-WorkFront\Projects\Prj_Codezen\Application\CCC\CCC.Domain\bin\Debug\net5.0\ref\CCC.Domain.dll
+D:\Shahen-WorkFront\Projects\Prj_Codezen\Application\CCC\CCC.Domain\bin\Debug\net5.0\CCC.Domain.pdb
+D:\Shahen-WorkFront\Projects\Prj_Codezen\Application\CCC\CCC.Domain\obj\Debug\net5.0\CCC.Domain.GeneratedMSBuildEditorConfig.editorconfig
+D:\Shahen-WorkFront\Projects\Prj_Codezen\Application\CCC\CCC.Domain\obj\Debug\net5.0\CCC.Domain.AssemblyInfoInputs.cache
+D:\Shahen-WorkFront\Projects\Prj_Codezen\Application\CCC\CCC.Domain\obj\Debug\net5.0\CCC.Domain.AssemblyInfo.cs
+D:\Shahen-WorkFront\Projects\Prj_Codezen\Application\CCC\CCC.Domain\obj\Debug\net5.0\CCC.Domain.csproj.CoreCompileInputs.cache
+D:\Shahen-WorkFront\Projects\Prj_Codezen\Application\CCC\CCC.Domain\obj\Debug\net5.0\CCC.Domain.dll
+D:\Shahen-WorkFront\Projects\Prj_Codezen\Application\CCC\CCC.Domain\obj\Debug\net5.0\ref\CCC.Domain.dll
+D:\Shahen-WorkFront\Projects\Prj_Codezen\Application\CCC\CCC.Domain\obj\Debug\net5.0\CCC.Domain.pdb
+D:\Shahen-WorkFront\Projects\Prj_Codezen\Application\CCC\CCC.Domain\obj\Debug\net5.0\CCC.Domain.csproj.AssemblyReference.cache

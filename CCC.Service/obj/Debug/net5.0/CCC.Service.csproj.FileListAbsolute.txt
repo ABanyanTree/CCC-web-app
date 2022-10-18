@@ -1,0 +1,17 @@
+D:\Shahen-WorkFront\Projects\Prj_Codezen\Application\CCC\CCC.Service\bin\Debug\net5.0\CCC.Service.deps.json
+D:\Shahen-WorkFront\Projects\Prj_Codezen\Application\CCC\CCC.Service\bin\Debug\net5.0\CCC.Service.dll
+D:\Shahen-WorkFront\Projects\Prj_Codezen\Application\CCC\CCC.Service\bin\Debug\net5.0\ref\CCC.Service.dll
+D:\Shahen-WorkFront\Projects\Prj_Codezen\Application\CCC\CCC.Service\bin\Debug\net5.0\CCC.Service.pdb
+D:\Shahen-WorkFront\Projects\Prj_Codezen\Application\CCC\CCC.Service\bin\Debug\net5.0\CCC.Data.dll
+D:\Shahen-WorkFront\Projects\Prj_Codezen\Application\CCC\CCC.Service\bin\Debug\net5.0\CCC.Domain.dll
+D:\Shahen-WorkFront\Projects\Prj_Codezen\Application\CCC\CCC.Service\bin\Debug\net5.0\CCC.Data.pdb
+D:\Shahen-WorkFront\Projects\Prj_Codezen\Application\CCC\CCC.Service\bin\Debug\net5.0\CCC.Domain.pdb
+D:\Shahen-WorkFront\Projects\Prj_Codezen\Application\CCC\CCC.Service\obj\Debug\net5.0\CCC.Service.csproj.AssemblyReference.cache
+D:\Shahen-WorkFront\Projects\Prj_Codezen\Application\CCC\CCC.Service\obj\Debug\net5.0\CCC.Service.GeneratedMSBuildEditorConfig.editorconfig
+D:\Shahen-WorkFront\Projects\Prj_Codezen\Application\CCC\CCC.Service\obj\Debug\net5.0\CCC.Service.AssemblyInfoInputs.cache
+D:\Shahen-WorkFront\Projects\Prj_Codezen\Application\CCC\CCC.Service\obj\Debug\net5.0\CCC.Service.AssemblyInfo.cs
+D:\Shahen-WorkFront\Projects\Prj_Codezen\Application\CCC\CCC.Service\obj\Debug\net5.0\CCC.Service.csproj.CoreCompileInputs.cache
+D:\Shahen-WorkFront\Projects\Prj_Codezen\Application\CCC\CCC.Service\obj\Debug\net5.0\CCC.Service.csproj.CopyComplete
+D:\Shahen-WorkFront\Projects\Prj_Codezen\Application\CCC\CCC.Service\obj\Debug\net5.0\CCC.Service.dll
+D:\Shahen-WorkFront\Projects\Prj_Codezen\Application\CCC\CCC.Service\obj\Debug\net5.0\ref\CCC.Service.dll
+D:\Shahen-WorkFront\Projects\Prj_Codezen\Application\CCC\CCC.Service\obj\Debug\net5.0\CCC.Service.pdb
