@@ -7306,11 +7306,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Shahen-WorkFront\\Projects\\Prj_Codezen\\Application\\CCC\\CCC\\CCC.UI.csproj",
+      "projectUniqueName": "D:\\Shahen-WorkFront\\Projects\\CodeZen\\CCC\\CCC\\CCC.UI.csproj",
       "projectName": "CCC.UI",
-      "projectPath": "D:\\Shahen-WorkFront\\Projects\\Prj_Codezen\\Application\\CCC\\CCC\\CCC.UI.csproj",
+      "projectPath": "D:\\Shahen-WorkFront\\Projects\\CodeZen\\CCC\\CCC\\CCC.UI.csproj",
       "packagesPath": "C:\\Users\\hp\\.nuget\\packages\\",
-      "outputPath": "D:\\Shahen-WorkFront\\Projects\\Prj_Codezen\\Application\\CCC\\CCC\\obj\\",
+      "outputPath": "D:\\Shahen-WorkFront\\Projects\\CodeZen\\CCC\\CCC\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\hp\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -7327,8 +7327,8 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "projectReferences": {
-            "D:\\Shahen-WorkFront\\Projects\\Prj_Codezen\\Application\\CCC\\CCC.Domain\\CCC.Domain.csproj": {
-              "projectPath": "D:\\Shahen-WorkFront\\Projects\\Prj_Codezen\\Application\\CCC\\CCC.Domain\\CCC.Domain.csproj"
+            "D:\\Shahen-WorkFront\\Projects\\CodeZen\\CCC\\CCC.Domain\\CCC.Domain.csproj": {
+              "projectPath": "D:\\Shahen-WorkFront\\Projects\\CodeZen\\CCC\\CCC.Domain\\CCC.Domain.csproj"
             }
           }
         }

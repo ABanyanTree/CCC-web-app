@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Shahen-WorkFront\\Projects\\Prj_Codezen\\Application\\CCC\\CCC.Domain\\CCC.Domain.csproj": {}
+    "D:\\Shahen-WorkFront\\Projects\\CodeZen\\CCC\\CCC.Domain\\CCC.Domain.csproj": {}
   },
   "projects": {
-    "D:\\Shahen-WorkFront\\Projects\\Prj_Codezen\\Application\\CCC\\CCC.Domain\\CCC.Domain.csproj": {
+    "D:\\Shahen-WorkFront\\Projects\\CodeZen\\CCC\\CCC.Domain\\CCC.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Shahen-WorkFront\\Projects\\Prj_Codezen\\Application\\CCC\\CCC.Domain\\CCC.Domain.csproj",
+        "projectUniqueName": "D:\\Shahen-WorkFront\\Projects\\CodeZen\\CCC\\CCC.Domain\\CCC.Domain.csproj",
         "projectName": "CCC.Domain",
-        "projectPath": "D:\\Shahen-WorkFront\\Projects\\Prj_Codezen\\Application\\CCC\\CCC.Domain\\CCC.Domain.csproj",
+        "projectPath": "D:\\Shahen-WorkFront\\Projects\\CodeZen\\CCC\\CCC.Domain\\CCC.Domain.csproj",
         "packagesPath": "C:\\Users\\hp\\.nuget\\packages\\",
-        "outputPath": "D:\\Shahen-WorkFront\\Projects\\Prj_Codezen\\Application\\CCC\\CCC.Domain\\obj\\",
+        "outputPath": "D:\\Shahen-WorkFront\\Projects\\CodeZen\\CCC\\CCC.Domain\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\hp\\AppData\\Roaming\\NuGet\\NuGet.Config",

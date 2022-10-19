@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "DNy3gidDnvZnuE9VVETqLhZ2byHs7Uw1/J6e5SzzoG8AoFOIwpF7k5rNDsqAIj4u/o7HkTN0sUhHUtI7vZk+Sg==",
+  "dgSpecHash": "2FKspnx7hpEOjZpqHh4hleKxj1BLr85V8kca2p/SG1rz9LitvfugbuYys1Pg7B0HGKXUS64dSod+CQZTDybJnw==",
   "success": true,
-  "projectFilePath": "D:\\Shahen-WorkFront\\Projects\\Prj_Codezen\\Application\\CCC\\CCC.API\\CCC.API.csproj",
+  "projectFilePath": "D:\\Shahen-WorkFront\\Projects\\CodeZen\\CCC\\CCC.API\\CCC.API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\hp\\.nuget\\packages\\begincollectionitemcore\\1.1.0\\begincollectionitemcore.1.1.0.nupkg.sha512",
     "C:\\Users\\hp\\.nuget\\packages\\dapper\\2.0.123\\dapper.2.0.123.nupkg.sha512",

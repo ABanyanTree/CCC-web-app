@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "/7QFC977cAwBuKGP1OTqXGBRwLMwvJLnys6TTztDEzqv8+KpPV8ePAXW/snVWS3M/5VMtDNbfBcD2qhjoGmPmA==",
+  "dgSpecHash": "8/7tKiZTSdktTCl8gFD//DBh7x28oKnxuvPNaLC+RFfJGwLZ0QQ2ysNsJnipTh13nwA4FLP7I5SLNFvLRz5OtQ==",
   "success": true,
-  "projectFilePath": "D:\\Shahen-WorkFront\\Projects\\Prj_Codezen\\Application\\CCC\\CCC\\CCC.UI.csproj",
+  "projectFilePath": "D:\\Shahen-WorkFront\\Projects\\CodeZen\\CCC\\CCC\\CCC.UI.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\hp\\.nuget\\packages\\begincollectionitemcore\\1.1.0\\begincollectionitemcore.1.1.0.nupkg.sha512",
     "C:\\Users\\hp\\.nuget\\packages\\humanizer.core\\2.2.0\\humanizer.core.2.2.0.nupkg.sha512",

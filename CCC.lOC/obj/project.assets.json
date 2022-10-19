@@ -825,11 +825,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Shahen-WorkFront\\Projects\\Prj_Codezen\\Application\\CCC\\CCC.lOC\\CCC.lOC.csproj",
+      "projectUniqueName": "D:\\Shahen-WorkFront\\Projects\\CodeZen\\CCC\\CCC.lOC\\CCC.lOC.csproj",
       "projectName": "CCC.lOC",
-      "projectPath": "D:\\Shahen-WorkFront\\Projects\\Prj_Codezen\\Application\\CCC\\CCC.lOC\\CCC.lOC.csproj",
+      "projectPath": "D:\\Shahen-WorkFront\\Projects\\CodeZen\\CCC\\CCC.lOC\\CCC.lOC.csproj",
       "packagesPath": "C:\\Users\\hp\\.nuget\\packages\\",
-      "outputPath": "D:\\Shahen-WorkFront\\Projects\\Prj_Codezen\\Application\\CCC\\CCC.lOC\\obj\\",
+      "outputPath": "D:\\Shahen-WorkFront\\Projects\\CodeZen\\CCC\\CCC.lOC\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\hp\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -846,11 +846,11 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "projectReferences": {
-            "D:\\Shahen-WorkFront\\Projects\\Prj_Codezen\\Application\\CCC\\CCC.Data\\CCC.Data.csproj": {
-              "projectPath": "D:\\Shahen-WorkFront\\Projects\\Prj_Codezen\\Application\\CCC\\CCC.Data\\CCC.Data.csproj"
+            "D:\\Shahen-WorkFront\\Projects\\CodeZen\\CCC\\CCC.Data\\CCC.Data.csproj": {
+              "projectPath": "D:\\Shahen-WorkFront\\Projects\\CodeZen\\CCC\\CCC.Data\\CCC.Data.csproj"
             },
-            "D:\\Shahen-WorkFront\\Projects\\Prj_Codezen\\Application\\CCC\\CCC.Service\\CCC.Service.csproj": {
-              "projectPath": "D:\\Shahen-WorkFront\\Projects\\Prj_Codezen\\Application\\CCC\\CCC.Service\\CCC.Service.csproj"
+            "D:\\Shahen-WorkFront\\Projects\\CodeZen\\CCC\\CCC.Service\\CCC.Service.csproj": {
+              "projectPath": "D:\\Shahen-WorkFront\\Projects\\CodeZen\\CCC\\CCC.Service\\CCC.Service.csproj"
             }
           }
         }
