@@ -4,9 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CCC.Domain.Masters
+namespace CCC.Domain
 {
-    class RoleMaster
+    public class RoleMaster
     {
+        public string RoleId { get; set; }
+        public string RoleName { get; set; }
+        public string IsActive { get; set; }
     }
 }
