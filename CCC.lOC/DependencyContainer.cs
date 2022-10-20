@@ -25,6 +25,37 @@ namespace CCC.lOC
 
             services.AddSingleton<IPetServices, PetService>();
             services.AddSingleton<IPetRepository, PetRepository>();
+
+            services.AddSingleton<ICenterMasterService, CenterMasterService>();
+            services.AddSingleton<ICenterMasterRepository, CenterMasterRepository>();
+
+            services.AddSingleton<ICityAreaMasterService, CityAreaMasterService>();
+            services.AddSingleton<ICityAreaMasterRepository, CityAreaMasterRepository>();
+
+            services.AddSingleton<ICityMasterService, CityMasterService>();
+            services.AddSingleton<ICityAreaMasterRepository, CityAreaMasterRepository>();
+
+            services.AddSingleton<ILookupMasterService, LookupMasterService>();
+            services.AddSingleton<ILookupMasterRepository, LookupMasterRepository>();
+
+            services.AddSingleton<IRoleFeatureMasterService, RoleFeatureMasterService>();
+            services.AddSingleton<IRoleFeatureMasterRepository, RoleFeatureMasterRepository>();
+
+            services.AddSingleton<IRoleMasterService, RoleMasterService>();
+            services.AddSingleton<IRoleMasterRepository, RoleMasterRepository>();
+
+            services.AddSingleton<IUserCenterMasterService, UserCenterMasterService>();
+            services.AddSingleton<IUserCenterMasterRepository, UserCenterMasterRepository>();
+
+            services.AddSingleton<IUserMasterService, UserMasterService>();
+            services.AddSingleton<IUserMasterRepository, UserMasterRepository>();
+
+            services.AddSingleton<IUserRoleMastersService, UserRoleMastersService>();
+            services.AddSingleton<IUserRoleMastersRepository, UserRoleMastersRepository>();
+
+            services.AddSingleton<IVetMasterService, VetMasterService>();
+            services.AddSingleton<IVetMasterRepository, VetMasterRepository>();
+
         }
     }
 }
