@@ -21,7 +21,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\Masters\" />
     <Folder Include="wwwroot\" />
   </ItemGroup>
 
