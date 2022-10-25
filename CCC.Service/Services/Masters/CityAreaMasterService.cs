@@ -17,24 +17,49 @@ namespace CCC.Service.Services
             _iCityAreaMasterRepository = ICityAreaMasterRepository;
         }
 
-        public Task<int> AddEditAsync(CityAreaMaster obj)
+        public async Task<int> AddEditAsync(CityAreaMaster obj)
         {
             throw new NotImplementedException();
         }
 
-        public Task<int> DeleteAsync(CityAreaMaster obj)
+        public async Task<string> AddEditCityArea(CityAreaMaster obj)
         {
-            throw new NotImplementedException();
+            if (!string.IsNullOrEmpty(obj.AreaId))
+            {
+                obj.AreaId = Utility.GeneratorUniqueId("ARA_");
+            }
+            int successCount = await _iCityAreaMasterRepository.AddEditCityArea(obj);
+            return successCount > 0 ? obj.AreaId : string.Empty;
         }
 
-        public Task<IEnumerable<CityAreaMaster>> GetAllAsync(CityAreaMaster obj)
+        public async Task<int> DeleteAsync(CityAreaMaster obj)
         {
-            throw new NotImplementedException();
+            return await _iCityAreaMasterRepository.DeleteCityArea(obj);
         }
 
-        public Task<CityAreaMaster> GetAsync(CityAreaMaster obj)
+        public async Task<IEnumerable<CityAreaMaster>> GetAllAsync(CityAreaMaster obj)
         {
-            throw new NotImplementedException();
+            return await _iCityAreaMasterRepository.GetAllCityAreaList(obj);
+        }
+
+        public async Task<IEnumerable<CityAreaMaster>> GetAllCityAreas()
+        {
+            return await _iCityAreaMasterRepository.GetAllCityAreas();
+        }
+
+        public async Task<CityAreaMaster> GetAsync(CityAreaMaster obj)
+        {
+            return await _iCityAreaMasterRepository.GetCityArea(obj);
+        }
+
+        public async Task<CityAreaMaster> IsCityAreaNameInUse(string areaName)
+        {
+            return await _iCityAreaMasterRepository.IsCityAreaNameInUse(areaName);
+        }
+
+        public async Task<CityAreaMaster> IsInUseCount(string areaId)
+        {
+            return await _iCityAreaMasterRepository.IsInUseCount(areaId);
         }
     }
 }

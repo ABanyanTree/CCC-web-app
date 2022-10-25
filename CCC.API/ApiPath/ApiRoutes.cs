@@ -26,9 +26,19 @@ namespace CCC.API.ApiPath
             
             public const string IsCenterNameInUse = Base + "/petservice/iscenternameinuse";
             public const string GetAllCenters = Base + "/petservice/getallcenters";
-            public const string IsInUseCount = Base + "/petservice/isinusecount";
+            public const string IsInUseCount = Base + "/petservice/isinusecount";            
+        }
 
-            
+        public static class CityAreaMaster
+        {
+            public const string AddEditCityArea = Base + "/petservice/addeditcityarea";
+            public const string GetCityArea = Base + "/petservice/getcityarea";
+            public const string GetAllCityAreaList = Base + "/petservice/getallcityarealist";
+            public const string DeleteCityArea = Base + "/petservice/deleteCityarea";
+
+            public const string IsCityAreaNameInUse = Base + "/petservice/iscityareanameinuse";
+            public const string GetAllCityAreas = Base + "/petservice/getallcityareas";
+            public const string IsInUseCount = Base + "/petservice/isinusecount";
         }
 
     }

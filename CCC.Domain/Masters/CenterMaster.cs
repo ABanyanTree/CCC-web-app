@@ -28,9 +28,7 @@ namespace CCC.Domain
 
         public const string SPROC_CENTERMASTER_GETALL = "sproc_CenterMaster_GetAll";
         public const string SPROC_CENTERMASTER_ISCENTERNAMEINUSE = "sproc_CenterMaster_IsCenterNameInUse";
-        public const string SPROC_CENTERMASTER_ISINCOUNTUSE = "sproc_CenterMaster_IsInCountUse";
-
-        
+        public const string SPROC_CENTERMASTER_ISINCOUNTUSE = "sproc_CenterMaster_IsInCountUse";       
 
 
     }
