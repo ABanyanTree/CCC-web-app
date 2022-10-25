@@ -25,5 +25,13 @@ namespace CCC.Domain
         public const string SPROC_CENTERMASTER_SEL = "sproc_CenterMaster_sel";
         public const string SPROC_CENTERMASTER_LSTALL = "sproc_CenterMaster_lstAll";
         public const string SPROC_CENTERMASTER_DEL = "sproc_CenterMaster_del";
+
+        public const string SPROC_CENTERMASTER_GETALL = "sproc_CenterMaster_GetAll";
+        public const string SPROC_CENTERMASTER_ISCENTERNAMEINUSE = "sproc_CenterMaster_IsCenterNameInUse";
+        public const string SPROC_CENTERMASTER_ISINCOUNTUSE = "sproc_CenterMaster_IsInCountUse";
+
+        
+
+
     }
 }

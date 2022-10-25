@@ -23,19 +23,44 @@ namespace CCC.Service.Services
             throw new NotImplementedException();
         }
 
-        public Task<int> DeleteAsync(CenterMaster obj)
+        public async Task<string> AddEditCenter(CenterMaster obj)
         {
-            throw new NotImplementedException();
+            if (!string.IsNullOrEmpty(obj.CenterId))
+            {
+                obj.CenterId = Utility.GeneratorUniqueId("CNT_");
+            }
+            int successCount = await _iCenterMasterRepository.AddEditCenter(obj);
+            return successCount > 0 ? obj.CenterId : string.Empty;
         }
 
-        public Task<IEnumerable<CenterMaster>> GetAllAsync(CenterMaster obj)
+        public async Task<int> DeleteAsync(CenterMaster obj)
         {
-            throw new NotImplementedException();
+            return await _iCenterMasterRepository.DeleteCenter(obj);
         }
 
-        public Task<CenterMaster> GetAsync(CenterMaster obj)
+        public async Task<IEnumerable<CenterMaster>> GetAllAsync(CenterMaster obj)
         {
-            throw new NotImplementedException();
+            return await _iCenterMasterRepository.GetAllCenterList(obj);
+        }
+
+        public async Task<IEnumerable<CenterMaster>> GetAllCenters()
+        {
+            return await _iCenterMasterRepository.GetAllCenters();
+        }
+
+        public async Task<CenterMaster> GetAsync(CenterMaster obj)
+        {
+            return await _iCenterMasterRepository.GetCenter(obj);
+        }
+
+        public async Task<CenterMaster> IsCenterNameInUse(string centerName)
+        {
+            return await _iCenterMasterRepository.IsCenterNameInUse(centerName);
+        }
+
+        public async Task<CenterMaster> IsInUseCount(string centerId)
+        {
+            return await _iCenterMasterRepository.IsInUseCount(centerId);
         }
     }
 }
