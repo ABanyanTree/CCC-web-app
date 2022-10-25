@@ -19,26 +19,38 @@ namespace CCC.API.ApiPath
 
         public static class CenterMaster
         {
-            public const string AddEditCenter = Base + "/petservice/addeditcenter";
-            public const string GetCenter = Base + "/petservice/getcenter";
-            public const string GetAllCenterList = Base + "/petservice/getallcenterlist";
-            public const string DeleteCenter = Base + "/petservice/deletecenter";
+            public const string AddEditCenter = Base + "/centerMaster/addeditcenter";
+            public const string GetCenter = Base + "/centerMaster/getcenter";
+            public const string GetAllCenterList = Base + "/centerMaster/getallcenterlist";
+            public const string DeleteCenter = Base + "/centerMaster/deletecenter";
             
-            public const string IsCenterNameInUse = Base + "/petservice/iscenternameinuse";
-            public const string GetAllCenters = Base + "/petservice/getallcenters";
-            public const string IsInUseCount = Base + "/petservice/isinusecount";            
+            public const string IsCenterNameInUse = Base + "/centerMaster/iscenternameinuse";
+            public const string GetAllCenters = Base + "/centerMaster/getallcenters";
+            public const string IsInUseCount = Base + "/centerMaster/isinusecount";            
         }
 
         public static class CityAreaMaster
         {
-            public const string AddEditCityArea = Base + "/petservice/addeditcityarea";
-            public const string GetCityArea = Base + "/petservice/getcityarea";
-            public const string GetAllCityAreaList = Base + "/petservice/getallcityarealist";
-            public const string DeleteCityArea = Base + "/petservice/deleteCityarea";
+            public const string AddEditCityArea = Base + "/cityareamaster/addeditcityarea";
+            public const string GetCityArea = Base + "/cityareamaster/getcityarea";
+            public const string GetAllCityAreaList = Base + "/cityareamaster/getallcityarealist";
+            public const string DeleteCityArea = Base + "/cityareamaster/deleteCityarea";
 
-            public const string IsCityAreaNameInUse = Base + "/petservice/iscityareanameinuse";
-            public const string GetAllCityAreas = Base + "/petservice/getallcityareas";
-            public const string IsInUseCount = Base + "/petservice/isinusecount";
+            public const string IsCityAreaNameInUse = Base + "/cityareamaster/iscityareanameinuse";
+            public const string GetAllCityAreas = Base + "/cityareamaster/getallcityareas";
+            public const string IsInUseCount = Base + "/cityareamaster/isinusecount";
+        }
+
+        public static class VetMaster
+        {
+            public const string AddEditVetDetail = Base + "/vetmaster/addeditvetdetail";
+            public const string GetVetDetail = Base + "/vetmaster/getvetdetail";
+            public const string GetAllVetList = Base + "/vetmaster/getallvetlist";
+            public const string DeleteVet = Base + "/vetmaster/deletevet";
+
+            public const string IsVetNameInUse = Base + "/vetmaster/isvetnameinuse";
+            public const string GetAllVetDetails = Base + "/vetmaster/getallvetdetails";
+            public const string IsInUseCount = Base + "/vetmaster/isinusecount";
         }
 
     }

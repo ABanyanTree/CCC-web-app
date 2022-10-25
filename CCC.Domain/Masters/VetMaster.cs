@@ -29,5 +29,9 @@ namespace CCC.Domain
         public const string SPROC_VETMASTER_SEL = "sproc_VetMaster_sel";
         public const string SPROC_VETMASTER_LSTALL = "sproc_VetMaster_lstAll";
         public const string SPROC_VETMASTER_DEL = "sproc_VetMaster_del";
+
+        public const string SPROC_VETMASTER_GETALL = "sproc_VetMaster_GetAll";
+        public const string SPROC_VETMASTER_ISCENTERNAMEINUSE = "sproc_VetMaster_IsCenterNameInUse";
+        public const string SPROC_VETMASTER_ISINCOUNTUSE = "sproc_VetMaster_IsInCountUse";
     }
 }

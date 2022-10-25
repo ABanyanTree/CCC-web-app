@@ -23,19 +23,44 @@ namespace CCC.Service.Services
             throw new NotImplementedException();
         }
 
-        public Task<int> DeleteAsync(VetMaster obj)
+        public async Task<string> AddEditVetDetail(VetMaster obj)
         {
-            throw new NotImplementedException();
+            if (!string.IsNullOrEmpty(obj.VetId))
+            {
+                obj.VetId = Utility.GeneratorUniqueId("VET_");
+            }
+            int successCount = await _iVetMasterRepository.AddEditVetDetail(obj);
+            return successCount > 0 ? obj.VetId : string.Empty;
         }
 
-        public Task<IEnumerable<VetMaster>> GetAllAsync(VetMaster obj)
+        public async Task<int> DeleteAsync(VetMaster obj)
         {
-            throw new NotImplementedException();
+            return await _iVetMasterRepository.DeleteVet(obj);
         }
 
-        public Task<VetMaster> GetAsync(VetMaster obj)
+        public async Task<IEnumerable<VetMaster>> GetAllAsync(VetMaster obj)
         {
-            throw new NotImplementedException();
+            return await _iVetMasterRepository.GetAllVetList(obj);
+        }
+
+        public async Task<IEnumerable<VetMaster>> GetAllVetDetails()
+        {
+            return await _iVetMasterRepository.GetAllVetDetails();
+        }
+
+        public async Task<VetMaster> GetAsync(VetMaster obj)
+        {
+            return await _iVetMasterRepository.GetVetDetail(obj);
+        }
+
+        public async Task<VetMaster> IsInUseCount(string vetId)
+        {
+            return await _iVetMasterRepository.IsInUseCount(vetId);
+        }
+
+        public async Task<VetMaster> IsVetNameInUse(string vetName)
+        {
+            return await _iVetMasterRepository.IsVetNameInUse(vetName);
         }
     }
 }
