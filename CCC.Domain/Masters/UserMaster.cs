@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CCC.Domain
 {
-    public class UserMaster
+    public class UserMaster : BaseEntity
     {
         public string UserId { get; set; }
         public string FirstName { get; set; }
@@ -15,6 +15,15 @@ namespace CCC.Domain
         public string Mobile { get; set; }
         public string LoginId { get; set; }
         public string Password { get; set; }
+        public string Salt { get; set; }
+        public string Token { get; set; }
+
+
+        public bool IsLogin { get; set; }
+        public DateTime ExpiryDate { get; set; }
+        public string RefreshToken { get; set; }
+        public List<FeatureMaster> Features { get; set; } = new List<FeatureMaster>();
+        public List<UserRoleMasters> userRoles { get; set; } = new List<UserRoleMasters>();
     }
 
     public class UserMaster_Constant : BaseEntity_Constant
@@ -31,5 +40,14 @@ namespace CCC.Domain
         public const string SPROC_USERMASTER_SEL = "sproc_UserMaster_sel";
         public const string SPROC_USERMASTER_LSTALL = "sproc_UserMaster_lstAll";
         public const string SPROC_USERMASTER_DEL = "sproc_UserMaster_del";
+
+        public const string SPROC_UserMaster_GETALL = "sproc_UserMaster_GetAll";
+        public const string SPROC_UserMaster_ISCENTERNAMEINUSE = "sproc_UserMaster_IsUserNameInUse";
+        public const string SPROC_UserMaster_ISINCOUNTUSE = "sproc_UserMaster_IsInCountUse";
+
+        public const string SPROC_USERBYEMAIL = "sproc_UserByEmail";
+        public const string SPROC_LOGINUSERBYEMAILPASSWORD = "sproc_LoginUserByEmailPassword";
+
+        
     }
 }

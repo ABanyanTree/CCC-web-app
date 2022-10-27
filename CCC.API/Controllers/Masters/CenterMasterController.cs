@@ -1,4 +1,5 @@
 ﻿using CCC.API.ApiPath;
+using CCC.API.Filters;
 using CCC.Domain;
 using CCC.Service.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -22,7 +23,7 @@ namespace CCC.API.Controllers.Masters
         [ProducesResponseType(typeof(string), statusCode: 200)]
         [ProducesResponseType(typeof(ErrorLogs), statusCode: 401)]
         [ProducesResponseType(typeof(ErrorLogs), statusCode: 400)]
-        //[CustomAuthorizeAttribute(FeatureId = FeatureMasterInfra.FEATURE_Country)]
+        [CustomAuthorizeAttribute(FeatureId = FeatureAccess.FEATURE_ManageCenter)]
         public async Task<IActionResult> AddEditCenter([FromBody] CenterMaster request)
         {
             var centerId = await _iCenterMasterService.AddEditCenter(request);
@@ -33,7 +34,7 @@ namespace CCC.API.Controllers.Masters
 
         [HttpGet(ApiRoutes.CenterMaster.GetCenter)]
         [ProducesResponseType(typeof(CenterMaster), statusCode: 200)]
-        //[CustomAuthorizeAttribute(FeatureId = FeatureMasterInfra.FEATURE_Country)]
+        [CustomAuthorizeAttribute(FeatureId = FeatureAccess.FEATURE_ManageCenter)]
         public async Task<IActionResult> GetCenter([FromQuery] string centerId)
         {
             var objResponse = await _iCenterMasterService.GetAsync(new CenterMaster { CenterId = centerId });
@@ -44,7 +45,7 @@ namespace CCC.API.Controllers.Masters
 
         [HttpDelete(ApiRoutes.CenterMaster.DeleteCenter)]
         [ProducesResponseType(typeof(string), statusCode: 200)]
-        //[CustomAuthorizeAttribute(FeatureId = FeatureMasterInfra.FEATURE_Country)]
+        [CustomAuthorizeAttribute(FeatureId = FeatureAccess.FEATURE_ManageCenter)]
         public async Task<IActionResult> DeleteCenter([FromQuery] string centerId)
         {
             var objResponse = await _iCenterMasterService.DeleteAsync(new CenterMaster { CenterId = centerId });
@@ -56,7 +57,7 @@ namespace CCC.API.Controllers.Masters
 
         [HttpGet(ApiRoutes.CenterMaster.GetAllCenterList)]
         [ProducesResponseType(typeof(CenterMaster), statusCode: 200)]
-        //[CustomAuthorizeAttribute(FeatureId = FeatureMasterInfra.FEATURE_Country)]
+        [CustomAuthorizeAttribute(FeatureId = FeatureAccess.FEATURE_ManageCenter)]
         public async Task<IActionResult> GetAllCenterList(CenterMaster request)
         {
             var objResponse = await _iCenterMasterService.GetAllAsync(request);
@@ -64,16 +65,9 @@ namespace CCC.API.Controllers.Masters
         }
 
 
-        /// <summary>
-        /// Check if Country Name Exists
-        /// </summary>
-        /// <param name="CountryName"></param>
-        /// <param name="CountryID"></param> 
-        /// <response code="200">True if CountryName does not exists else error message</response>         
-        /// <response code="401">Unauthorized</response>
         [HttpGet(ApiRoutes.CenterMaster.IsCenterNameInUse)]
         [ProducesResponseType(typeof(bool), statusCode: 200)]
-        // [CustomAuthorizeAttribute(FeatureId = FeatureMasterInfra.FEATURE_Country)]
+        [CustomAuthorizeAttribute(FeatureId = FeatureAccess.FEATURE_ManageCenter)]
         public async Task<IActionResult> IsCenterNameInUse([FromQuery] string centerName)
         {
             //if (string.IsNullOrEmpty(CountryName))
@@ -94,16 +88,10 @@ namespace CCC.API.Controllers.Masters
         }
 
 
-        /// <summary>
-        /// Get All Country
-        /// </summary>   
-        /// <returns>Get All Country </returns>
-        /// <response code="200">Lists of all Dropdown Values</response>         
-        /// <response code="401">Unauthorized</response>
+
         [HttpGet(ApiRoutes.CenterMaster.GetAllCenters)]
         [ProducesResponseType(typeof(CenterMaster), statusCode: 200)]
         [ProducesResponseType(typeof(ErrorLogs), statusCode: 400)]
-        //[CustomAuthorizeAttribute]
         public async Task<IActionResult> GetAllCenters()
         {
             var objResponse = await _iCenterMasterService.GetAllCenters();
@@ -111,14 +99,10 @@ namespace CCC.API.Controllers.Masters
         }
 
 
-        /// <summary>
-        ///  Country IsInUseCount
-        /// </summary>
-        /// <param name="CountryID">Country ID</param>      
-        /// <returns></returns>
+
         [HttpGet(ApiRoutes.CenterMaster.IsInUseCount)]
         [ProducesResponseType(typeof(string), statusCode: 200)]
-        //[CustomAuthorizeAttribute(FeatureId = FeatureMasterInfra.FEATURE_Country)]
+        [CustomAuthorizeAttribute(FeatureId = FeatureAccess.FEATURE_ManageCenter)]
         public async Task<IActionResult> IsInUseCount([FromQuery] string centerId)
         {
             var objResponse = await _iCenterMasterService.IsInUseCount(centerId);

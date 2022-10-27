@@ -1,4 +1,5 @@
 ﻿using CCC.API.ApiPath;
+using CCC.API.Filters;
 using CCC.Domain;
 using CCC.Service.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -23,7 +24,7 @@ namespace CCC.API.Controllers.Masters
         [ProducesResponseType(typeof(string), statusCode: 200)]
         [ProducesResponseType(typeof(ErrorLogs), statusCode: 401)]
         [ProducesResponseType(typeof(ErrorLogs), statusCode: 400)]
-        //[CustomAuthorizeAttribute(FeatureId = FeatureMasterInfra.FEATURE_Country)]
+        [CustomAuthorizeAttribute(FeatureId = FeatureAccess.FEATURE_ManageVet)]
         public async Task<IActionResult> AddEditVetDetail([FromBody] VetMaster request)
         {
             var areaId = await _iVetMasterService.AddEditVetDetail(request);
@@ -34,7 +35,7 @@ namespace CCC.API.Controllers.Masters
 
         [HttpGet(ApiRoutes.VetMaster.GetVetDetail)]
         [ProducesResponseType(typeof(VetMaster), statusCode: 200)]
-        //[CustomAuthorizeAttribute(FeatureId = FeatureMasterInfra.FEATURE_Country)]
+        [CustomAuthorizeAttribute(FeatureId = FeatureAccess.FEATURE_ManageVet)]
         public async Task<IActionResult> GetVetDetail([FromQuery] string vetId)
         {
             var objResponse = await _iVetMasterService.GetAsync(new VetMaster { VetId = vetId });
@@ -42,10 +43,9 @@ namespace CCC.API.Controllers.Masters
         }
 
 
-
         [HttpDelete(ApiRoutes.VetMaster.DeleteVet)]
         [ProducesResponseType(typeof(string), statusCode: 200)]
-        //[CustomAuthorizeAttribute(FeatureId = FeatureMasterInfra.FEATURE_Country)]
+        [CustomAuthorizeAttribute(FeatureId = FeatureAccess.FEATURE_ManageVet)]
         public async Task<IActionResult> DeleteVet([FromQuery] string vetId)
         {
             var objResponse = await _iVetMasterService.DeleteAsync(new VetMaster { VetId = vetId });
@@ -53,11 +53,9 @@ namespace CCC.API.Controllers.Masters
         }
 
 
-
-
         [HttpGet(ApiRoutes.VetMaster.GetAllVetList)]
         [ProducesResponseType(typeof(VetMaster), statusCode: 200)]
-        //[CustomAuthorizeAttribute(FeatureId = FeatureMasterInfra.FEATURE_Country)]
+        [CustomAuthorizeAttribute(FeatureId = FeatureAccess.FEATURE_ManageVet)]
         public async Task<IActionResult> GetAllVetList(VetMaster request)
         {
             var objResponse = await _iVetMasterService.GetAllAsync(request);
@@ -65,16 +63,9 @@ namespace CCC.API.Controllers.Masters
         }
 
 
-        /// <summary>
-        /// Check if Country Name Exists
-        /// </summary>
-        /// <param name="CountryName"></param>
-        /// <param name="CountryID"></param> 
-        /// <response code="200">True if CountryName does not exists else error message</response>         
-        /// <response code="401">Unauthorized</response>
         [HttpGet(ApiRoutes.VetMaster.IsVetNameInUse)]
         [ProducesResponseType(typeof(bool), statusCode: 200)]
-        // [CustomAuthorizeAttribute(FeatureId = FeatureMasterInfra.FEATURE_Country)]
+        [CustomAuthorizeAttribute(FeatureId = FeatureAccess.FEATURE_ManageVet)]
         public async Task<IActionResult> IsVetNameInUse([FromQuery] string vetName)
         {
             //if (string.IsNullOrEmpty(CountryName))
@@ -95,16 +86,9 @@ namespace CCC.API.Controllers.Masters
         }
 
 
-        /// <summary>
-        /// Get All Country
-        /// </summary>   
-        /// <returns>Get All Country </returns>
-        /// <response code="200">Lists of all Dropdown Values</response>         
-        /// <response code="401">Unauthorized</response>
         [HttpGet(ApiRoutes.VetMaster.GetAllVetDetails)]
         [ProducesResponseType(typeof(VetMaster), statusCode: 200)]
         [ProducesResponseType(typeof(ErrorLogs), statusCode: 400)]
-        //[CustomAuthorizeAttribute]
         public async Task<IActionResult> GetAllVetDetails()
         {
             var objResponse = await _iVetMasterService.GetAllVetDetails();
@@ -112,14 +96,9 @@ namespace CCC.API.Controllers.Masters
         }
 
 
-        /// <summary>
-        ///  Country IsInUseCount
-        /// </summary>
-        /// <param name="CountryID">Country ID</param>      
-        /// <returns></returns>
         [HttpGet(ApiRoutes.VetMaster.IsInUseCount)]
         [ProducesResponseType(typeof(string), statusCode: 200)]
-        //[CustomAuthorizeAttribute(FeatureId = FeatureMasterInfra.FEATURE_Country)]
+        [CustomAuthorizeAttribute(FeatureId = FeatureAccess.FEATURE_ManageVet)]
         public async Task<IActionResult> IsInUseCount([FromQuery] string vetId)
         {
             var objResponse = await _iVetMasterService.IsInUseCount(vetId);

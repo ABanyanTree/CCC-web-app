@@ -53,5 +53,19 @@ namespace CCC.API.ApiPath
             public const string IsInUseCount = Base + "/vetmaster/isinusecount";
         }
 
+        public static class UserMaster
+        {
+            public const string AddEditUser = Base + "/usermaster/addedituser";
+            public const string GetUser = Base + "/usermaster/getuser";
+            public const string GetAllUserList = Base + "/usermaster/getalluserlist";
+            public const string DeleteUser = Base + "/usermaster/deleteuser";
+
+            public const string IsUserNameInUse = Base + "/usermaster/isusernameinuse";
+            public const string GetAllUsers = Base + "/usermaster/getallusers";
+            public const string IsInUseCount = Base + "/usermaster/isinusecount";
+            public const string Login = Base + "/usermaster/login";
+            
+        }
+
     }
 }

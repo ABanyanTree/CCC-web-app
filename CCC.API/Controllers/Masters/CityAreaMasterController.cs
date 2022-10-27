@@ -1,4 +1,5 @@
 ﻿using CCC.API.ApiPath;
+using CCC.API.Filters;
 using CCC.Domain;
 using CCC.Service.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -23,7 +24,7 @@ namespace CCC.API.Controllers.Masters
         [ProducesResponseType(typeof(string), statusCode: 200)]
         [ProducesResponseType(typeof(ErrorLogs), statusCode: 401)]
         [ProducesResponseType(typeof(ErrorLogs), statusCode: 400)]
-        //[CustomAuthorizeAttribute(FeatureId = FeatureMasterInfra.FEATURE_Country)]
+        [CustomAuthorizeAttribute(FeatureId = FeatureAccess.FEATURE_ManageCityArea)]
         public async Task<IActionResult> AddEditCityArea([FromBody] CityAreaMaster request)
         {
             var areaId = await _iCityAreaMasterService.AddEditCityArea(request);
@@ -34,7 +35,7 @@ namespace CCC.API.Controllers.Masters
 
         [HttpGet(ApiRoutes.CityAreaMaster.GetCityArea)]
         [ProducesResponseType(typeof(CityAreaMaster), statusCode: 200)]
-        //[CustomAuthorizeAttribute(FeatureId = FeatureMasterInfra.FEATURE_Country)]
+        [CustomAuthorizeAttribute(FeatureId = FeatureAccess.FEATURE_ManageCityArea)]
         public async Task<IActionResult> GetCityArea([FromQuery] string areaId)
         {
             var objResponse = await _iCityAreaMasterService.GetAsync(new CityAreaMaster { AreaId = areaId });
@@ -45,7 +46,7 @@ namespace CCC.API.Controllers.Masters
 
         [HttpDelete(ApiRoutes.CityAreaMaster.DeleteCityArea)]
         [ProducesResponseType(typeof(string), statusCode: 200)]
-        //[CustomAuthorizeAttribute(FeatureId = FeatureMasterInfra.FEATURE_Country)]
+        [CustomAuthorizeAttribute(FeatureId = FeatureAccess.FEATURE_ManageCityArea)]
         public async Task<IActionResult> DeleteCityArea([FromQuery] string areaId)
         {
             var objResponse = await _iCityAreaMasterService.DeleteAsync(new CityAreaMaster { AreaId = areaId });
@@ -57,7 +58,7 @@ namespace CCC.API.Controllers.Masters
 
         [HttpGet(ApiRoutes.CityAreaMaster.GetAllCityAreaList)]
         [ProducesResponseType(typeof(CityAreaMaster), statusCode: 200)]
-        //[CustomAuthorizeAttribute(FeatureId = FeatureMasterInfra.FEATURE_Country)]
+        [CustomAuthorizeAttribute(FeatureId = FeatureAccess.FEATURE_ManageCityArea)]
         public async Task<IActionResult> GetAllCityAreaList(CityAreaMaster request)
         {
             var objResponse = await _iCityAreaMasterService.GetAllAsync(request);
@@ -65,16 +66,10 @@ namespace CCC.API.Controllers.Masters
         }
 
 
-        /// <summary>
-        /// Check if Country Name Exists
-        /// </summary>
-        /// <param name="CountryName"></param>
-        /// <param name="CountryID"></param> 
-        /// <response code="200">True if CountryName does not exists else error message</response>         
-        /// <response code="401">Unauthorized</response>
+        
         [HttpGet(ApiRoutes.CityAreaMaster.IsCityAreaNameInUse)]
         [ProducesResponseType(typeof(bool), statusCode: 200)]
-        // [CustomAuthorizeAttribute(FeatureId = FeatureMasterInfra.FEATURE_Country)]
+        [CustomAuthorizeAttribute(FeatureId = FeatureAccess.FEATURE_ManageCityArea)]
         public async Task<IActionResult> IsCityAreaNameInUse([FromQuery] string areaName)
         {
             //if (string.IsNullOrEmpty(CountryName))
@@ -95,16 +90,10 @@ namespace CCC.API.Controllers.Masters
         }
 
 
-        /// <summary>
-        /// Get All Country
-        /// </summary>   
-        /// <returns>Get All Country </returns>
-        /// <response code="200">Lists of all Dropdown Values</response>         
-        /// <response code="401">Unauthorized</response>
+        
         [HttpGet(ApiRoutes.CityAreaMaster.GetAllCityAreas)]
         [ProducesResponseType(typeof(CityAreaMaster), statusCode: 200)]
         [ProducesResponseType(typeof(ErrorLogs), statusCode: 400)]
-        //[CustomAuthorizeAttribute]
         public async Task<IActionResult> GetAllCityAreas()
         {
             var objResponse = await _iCityAreaMasterService.GetAllCityAreas();
@@ -112,14 +101,10 @@ namespace CCC.API.Controllers.Masters
         }
 
 
-        /// <summary>
-        ///  Country IsInUseCount
-        /// </summary>
-        /// <param name="CountryID">Country ID</param>      
-        /// <returns></returns>
+        
         [HttpGet(ApiRoutes.CityAreaMaster.IsInUseCount)]
         [ProducesResponseType(typeof(string), statusCode: 200)]
-        //[CustomAuthorizeAttribute(FeatureId = FeatureMasterInfra.FEATURE_Country)]
+        [CustomAuthorizeAttribute(FeatureId = FeatureAccess.FEATURE_ManageCityArea)]
         public async Task<IActionResult> IsInUseCount([FromQuery] string areaId)
         {
             var objResponse = await _iCityAreaMasterService.IsInUseCount(areaId);
