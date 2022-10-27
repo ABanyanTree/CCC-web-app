@@ -280,3 +280,5 @@ D:\Shahen-WorkFront\Projects\CodeZen\CCC\CCC.API\obj\Debug\net5.0\CCC.API.dll
 D:\Shahen-WorkFront\Projects\CodeZen\CCC\CCC.API\obj\Debug\net5.0\ref\CCC.API.dll
 D:\Shahen-WorkFront\Projects\CodeZen\CCC\CCC.API\obj\Debug\net5.0\CCC.API.pdb
 D:\Shahen-WorkFront\Projects\CodeZen\CCC\CCC.API\obj\Debug\net5.0\CCC.API.genruntimeconfig.cache
+D:\Shahen-WorkFront\Projects\CodeZen\CCC\CCC.API\bin\Debug\net5.0\AutoMapper.dll
+D:\Shahen-WorkFront\Projects\CodeZen\CCC\CCC.API\bin\Debug\net5.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll

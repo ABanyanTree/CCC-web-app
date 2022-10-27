@@ -1,4 +1,5 @@
-﻿using CCC.API.ApiPath;
+﻿using AutoMapper;
+using CCC.API.ApiPath;
 using CCC.API.Filters;
 using CCC.API.Options;
 using CCC.Domain;
@@ -21,6 +22,8 @@ namespace CCC.API.Controllers.Masters
         private readonly IUserMasterService _iUserMasterService;
         private readonly JwtSettings _jwtSettings;
         private readonly IRefreshTokenService _iRefreshTokenService;
+
+
 
         public UserMasterController(IUserMasterService UserMasterService, JwtSettings jwtSettings, IRefreshTokenService RefreshTokenService)
         {
@@ -119,11 +122,13 @@ namespace CCC.API.Controllers.Masters
         [HttpPost(ApiRoutes.UserMaster.Login)]
         //[ProducesResponseType(typeof(AuthSuccessResponse), statusCode: 200)]
         [ProducesResponseType(typeof(ErrorModel), statusCode: 400)]
-        public IActionResult Login([FromBody] UserMaster request)
+        public IActionResult Login([FromBody] UserLogin request)
         {
-
             DateTime startTime = DateTime.Now;
-            var user = _iUserMasterService.LoginAndGetFeatures(request);
+            var userReq = new UserMaster();
+            userReq.Email = request.Email;
+            userReq.Password = request.Password;
+            var user = _iUserMasterService.LoginAndGetFeatures(userReq);
 
             if (user != null && !string.IsNullOrEmpty(user.UserId))
             {

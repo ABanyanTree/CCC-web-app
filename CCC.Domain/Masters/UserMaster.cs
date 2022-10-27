@@ -26,6 +26,14 @@ namespace CCC.Domain
         public List<UserRoleMasters> userRoles { get; set; } = new List<UserRoleMasters>();
     }
 
+
+    //for Login purpose only
+    public class UserLogin
+    {
+        public string Email { get; set; }
+        public string Password { get; set; }
+    }
+
     public class UserMaster_Constant : BaseEntity_Constant
     {
         public const string USERID = "UserId";
@@ -48,6 +56,6 @@ namespace CCC.Domain
         public const string SPROC_USERBYEMAIL = "sproc_UserByEmail";
         public const string SPROC_LOGINUSERBYEMAILPASSWORD = "sproc_LoginUserByEmailPassword";
 
-        
+
     }
 }
