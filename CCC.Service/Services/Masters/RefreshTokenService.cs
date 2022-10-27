@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace CCC.Service.Services
 {
-    class RefreshTokenService : IRefreshTokenService
+    public class RefreshTokenService : IRefreshTokenService
     {
         IRefreshTokenRepository _IRefreshTokenRepository = null;
         private IOptions<FileSystemPath> _options;

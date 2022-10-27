@@ -33,7 +33,7 @@ namespace CCC.lOC
             services.AddSingleton<ICityAreaMasterRepository, CityAreaMasterRepository>();
 
             services.AddSingleton<ICityMasterService, CityMasterService>();
-            services.AddSingleton<ICityAreaMasterRepository, CityAreaMasterRepository>();
+            services.AddSingleton<ICityMasterRepository, CityMasterRepository>();
 
             services.AddSingleton<ILookupMasterService, LookupMasterService>();
             services.AddSingleton<ILookupMasterRepository, LookupMasterRepository>();
@@ -55,6 +55,11 @@ namespace CCC.lOC
 
             services.AddSingleton<IVetMasterService, VetMasterService>();
             services.AddSingleton<IVetMasterRepository, VetMasterRepository>();
+
+            services.AddSingleton<IRefreshTokenService, RefreshTokenService>();
+            services.AddSingleton<IRefreshTokenRepository, RefreshTokenRepository>();
+
+
 
         }
     }

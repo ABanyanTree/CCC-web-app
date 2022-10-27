@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,12 +33,20 @@ namespace CCC.API
             services.AddControllers();
 
             services.InstallServicesInAssembly(Configuration);
-            services.AddSingleton<FileHandlerMiddleWare>();
+            //services.AddSingleton<FileHandlerMiddleWare>();
             services.Configure<FormOptions>(options =>
             {
                 options.ValueLengthLimit = int.MaxValue;
                 options.MultipartBodyLengthLimit = int.MaxValue;
                 options.MultipartHeadersLengthLimit = int.MaxValue;
+            });
+            services.AddSwaggerGen(c =>
+            { //<-- NOTE 'Add' instead of 'Configure'
+                c.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Title = "GTrackAPI",
+                    Version = "v1"
+                });
             });
         }
 
@@ -106,7 +115,10 @@ namespace CCC.API
                 });
             }
 
-            app.UseMvc();
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}");
+            });
         }
     }
 }

@@ -42,7 +42,7 @@ namespace CCC.Domain
         public const string SPROC_USERMASTER_DEL = "sproc_UserMaster_del";
 
         public const string SPROC_UserMaster_GETALL = "sproc_UserMaster_GetAll";
-        public const string SPROC_UserMaster_ISCENTERNAMEINUSE = "sproc_UserMaster_IsUserNameInUse";
+        public const string SPROC_USERMASTER_ISUSERNAMEINUSE = "sproc_UserMaster_IsUserNameInUse";
         public const string SPROC_UserMaster_ISINCOUNTUSE = "sproc_UserMaster_IsInCountUse";
 
         public const string SPROC_USERBYEMAIL = "sproc_UserByEmail";

@@ -8,9 +8,9 @@ namespace CCC.API.Controllers.Masters
 {
     public class LookupMasterController : Controller
     {
-        public IActionResult Index()
-        {
-            return View();
-        }
+        //public IActionResult Index()
+        //{
+        //    return View();
+        //}
     }
 }

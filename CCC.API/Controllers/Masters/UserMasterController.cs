@@ -63,7 +63,7 @@ namespace CCC.API.Controllers.Masters
         [HttpGet(ApiRoutes.UserMaster.GetAllUserList)]
         [ProducesResponseType(typeof(UserMaster), statusCode: 200)]
         [CustomAuthorizeAttribute(FeatureId = FeatureAccess.FEATURE_ManageUsers)]
-        public async Task<IActionResult> GetAllCenterList(UserMaster request)
+        public async Task<IActionResult> GetAllUserList(UserMaster request)
         {
             var objResponse = await _iUserMasterService.GetAllAsync(request);
             return Ok(objResponse);

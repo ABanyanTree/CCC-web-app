@@ -67,7 +67,7 @@ namespace CCC.Data.Services
         {
             VetMaster obj = new VetMaster() { VetName = vetName };
             string[] addParams = new string[] { VetMaster_Constant.VETNAME };
-            return await GetAsync(obj, addParams, VetMaster_Constant.SPROC_VETMASTER_ISCENTERNAMEINUSE);
+            return await GetAsync(obj, addParams, VetMaster_Constant.SPROC_VETMASTER_ISVETNAMEINUSE);
         }
     }
 }

@@ -27,7 +27,7 @@ namespace CCC.Domain
         public const string SPROC_CITYAREAMASTER_DEL = "sproc_CityAreaMaster_del";
 
         public const string SPROC_CITYAREAMASTER_GETALL = "sproc_CityAreaMaster_GetAll";
-        public const string SPROC_CITYAREAMASTER_ISCENTERNAMEINUSE = "sproc_CityAreaMaster_IsCenterNameInUse";
+        public const string SPROC_CITYAREAMASTER_ISCITYAREANAMEINUSE = "sproc_CityAreaMaster_IsCityAreaNameInUse";
         public const string SPROC_CITYAREAMASTER_ISINCOUNTUSE = "sproc_CityAreaMaster_IsInCountUse";
     }
 }

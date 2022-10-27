@@ -75,7 +75,7 @@ namespace CCC.Data.Services
         {
             UserMaster obj = new UserMaster() { FirstName = userName };
             string[] addParams = new string[] { UserMaster_Constant.FIRSTNAME };
-            return await GetAsync(obj, addParams, UserMaster_Constant.SPROC_UserMaster_ISCENTERNAMEINUSE);
+            return await GetAsync(obj, addParams, UserMaster_Constant.SPROC_USERMASTER_ISUSERNAMEINUSE);
         }
 
         public UserMaster LoginAndGetFeatures(UserMaster obj)

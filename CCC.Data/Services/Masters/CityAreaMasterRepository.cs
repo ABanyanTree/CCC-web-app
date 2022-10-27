@@ -57,7 +57,7 @@ namespace CCC.Data.Services
         {
             CityAreaMaster obj = new CityAreaMaster() { AreaName = areaName };
             string[] addParams = new string[] { CityAreaMaster_Constant.AREANAME };
-            return await GetAsync(obj, addParams, CityAreaMaster_Constant.SPROC_CITYAREAMASTER_ISCENTERNAMEINUSE);
+            return await GetAsync(obj, addParams, CityAreaMaster_Constant.SPROC_CITYAREAMASTER_ISCITYAREANAMEINUSE);
         }
 
         public async Task<CityAreaMaster> IsInUseCount(string areaId)
