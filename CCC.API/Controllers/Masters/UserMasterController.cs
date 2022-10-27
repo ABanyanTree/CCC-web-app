@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using CCC.API.ApiPath;
+﻿using CCC.API.ApiPath;
 using CCC.API.Filters;
 using CCC.API.Options;
 using CCC.Domain;
