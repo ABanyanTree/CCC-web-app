@@ -826,7 +826,6 @@ D:\Shahen-WorkFront\Projects\CodeZen\CCC\CCC\obj\Debug\net5.0\CCC.UI.RazorCoreGe
 D:\Shahen-WorkFront\Projects\CodeZen\CCC\CCC\obj\Debug\net5.0\Razor\Views\Home\Index.cshtml.g.cs
 D:\Shahen-WorkFront\Projects\CodeZen\CCC\CCC\obj\Debug\net5.0\Razor\Views\Home\Privacy.cshtml.g.cs
 D:\Shahen-WorkFront\Projects\CodeZen\CCC\CCC\obj\Debug\net5.0\Razor\Views\Shared\Error.cshtml.g.cs
-D:\Shahen-WorkFront\Projects\CodeZen\CCC\CCC\obj\Debug\net5.0\Razor\Views\Shared\_Layout.cshtml.g.cs
 D:\Shahen-WorkFront\Projects\CodeZen\CCC\CCC\obj\Debug\net5.0\Razor\Views\Shared\_ValidationScriptsPartial.cshtml.g.cs
 D:\Shahen-WorkFront\Projects\CodeZen\CCC\CCC\obj\Debug\net5.0\Razor\Views\_ViewImports.cshtml.g.cs
 D:\Shahen-WorkFront\Projects\CodeZen\CCC\CCC\obj\Debug\net5.0\Razor\Views\_ViewStart.cshtml.g.cs
@@ -838,3 +837,9 @@ D:\Shahen-WorkFront\Projects\CodeZen\CCC\CCC\obj\Debug\net5.0\CCC.UI.dll
 D:\Shahen-WorkFront\Projects\CodeZen\CCC\CCC\obj\Debug\net5.0\ref\CCC.UI.dll
 D:\Shahen-WorkFront\Projects\CodeZen\CCC\CCC\obj\Debug\net5.0\CCC.UI.pdb
 D:\Shahen-WorkFront\Projects\CodeZen\CCC\CCC\obj\Debug\net5.0\CCC.UI.genruntimeconfig.cache
+D:\Shahen-WorkFront\Projects\CodeZen\CCC\CCC\obj\Debug\net5.0\Razor\Views\Login\Login.cshtml.g.cs
+D:\Shahen-WorkFront\Projects\CodeZen\CCC\CCC\obj\Debug\net5.0\Razor\Views\Shared\_BlankLayout.cshtml.g.cs
+D:\Shahen-WorkFront\Projects\CodeZen\CCC\CCC\obj\Debug\net5.0\Razor\Views\Shared\_Layout.cshtml.g.cs
+D:\Shahen-WorkFront\Projects\CodeZen\CCC\CCC\bin\Debug\net5.0\FluentValidation.dll
+D:\Shahen-WorkFront\Projects\CodeZen\CCC\CCC\bin\Debug\net5.0\FluentValidation.AspNetCore.dll
+D:\Shahen-WorkFront\Projects\CodeZen\CCC\CCC\bin\Debug\net5.0\FluentValidation.DependencyInjectionExtensions.dll

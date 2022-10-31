@@ -17,4 +17,8 @@
     <ProjectReference Include="..\CCC.Domain\CCC.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="ViewModels\Request\" />
+  </ItemGroup>
+
 </Project>

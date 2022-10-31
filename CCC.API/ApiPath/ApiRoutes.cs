@@ -64,7 +64,11 @@ namespace CCC.API.ApiPath
             public const string GetAllUsers = Base + "/usermaster/getallusers";
             public const string IsInUseCount = Base + "/usermaster/isinusecount";
             public const string Login = Base + "/usermaster/login";
+
+            public const string GetSalt = Base + "/usermaster/getsalt";
+
             
+
         }
 
     }

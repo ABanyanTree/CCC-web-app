@@ -2,6 +2,7 @@
 using CCC.API.Filters;
 using CCC.API.Options;
 using CCC.Domain;
+using CCC.Service.Infra;
 using CCC.Service.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
@@ -240,5 +241,21 @@ namespace CCC.API.Controllers.Masters
                 return Convert.ToBase64String(randomNumber);
             }
         }
+
+
+        [HttpGet(ApiRoutes.UserMaster.GetSalt)]
+        [ProducesResponseType(typeof(string), statusCode: 200)]
+        [ProducesResponseType(typeof(ErrorModel), statusCode: 400)]
+        public IActionResult GetSalt()
+        {
+            DateTime startTime = DateTime.Now;
+            var salt = Cryptography.CreateSalt();
+            DateTime endTime = DateTime.Now;
+
+            _iRefreshTokenService.SaveSaltTime(startTime, endTime, "GetSalt");
+
+            return Ok(salt);
+        }
+
     }
 }

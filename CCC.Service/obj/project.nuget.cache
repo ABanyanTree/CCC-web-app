@@ -1,10 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "HsK4m8q+pbn0VzCouBiLo2j71gSAAfGCz63pGVv78eTGyzvWGw0yem7X1OwfOAfT6X4ajAuEV8CX1TXOm1DATw==",
+  "dgSpecHash": "HZVir+iV+j1xMOguOE2aATzTpQSm5MhqYiLpRG8l8C7Fm/6UfWbA+uHhwO1bwfvzDW6LyoCrYJ4celwaCs69EQ==",
   "success": true,
   "projectFilePath": "D:\\Shahen-WorkFront\\Projects\\CodeZen\\CCC\\CCC.Service\\CCC.Service.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\hp\\.nuget\\packages\\dapper\\2.0.123\\dapper.2.0.123.nupkg.sha512",
+    "C:\\Users\\hp\\.nuget\\packages\\fluentvalidation\\11.2.1\\fluentvalidation.11.2.1.nupkg.sha512",
+    "C:\\Users\\hp\\.nuget\\packages\\fluentvalidation.aspnetcore\\11.2.2\\fluentvalidation.aspnetcore.11.2.2.nupkg.sha512",
+    "C:\\Users\\hp\\.nuget\\packages\\fluentvalidation.dependencyinjectionextensions\\11.2.1\\fluentvalidation.dependencyinjectionextensions.11.2.1.nupkg.sha512",
     "C:\\Users\\hp\\.nuget\\packages\\microsoft.aspnetcore.http.features\\5.0.17\\microsoft.aspnetcore.http.features.5.0.17.nupkg.sha512",
     "C:\\Users\\hp\\.nuget\\packages\\microsoft.extensions.dependencyinjection\\6.0.1\\microsoft.extensions.dependencyinjection.6.0.1.nupkg.sha512",
     "C:\\Users\\hp\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\6.0.0\\microsoft.extensions.dependencyinjection.abstractions.6.0.0.nupkg.sha512",
