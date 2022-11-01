@@ -120,7 +120,7 @@ namespace CCC.API.Controllers.Masters
 
 
         [HttpPost(ApiRoutes.UserMaster.Login)]
-        //[ProducesResponseType(typeof(AuthSuccessResponse), statusCode: 200)]
+        [ProducesResponseType(typeof(UserMaster), statusCode: 200)]
         [ProducesResponseType(typeof(ErrorModel), statusCode: 400)]
         public IActionResult Login([FromBody] UserLogin request)
         {
@@ -128,6 +128,7 @@ namespace CCC.API.Controllers.Masters
             var userReq = new UserMaster();
             userReq.Email = request.Email;
             userReq.Password = request.Password;
+            userReq.Salt = request.Salt;   
             var user = _iUserMasterService.LoginAndGetFeatures(userReq);
 
             if (user != null && !string.IsNullOrEmpty(user.UserId))
