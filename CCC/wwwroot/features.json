@@ -48,7 +48,7 @@
 
   "ManagePetService": {
     "FeatureId": "FEA00007",
-    "ControllerName": "PetServiceMaster",
+    "ControllerName": "PetService",
     "ActionName": "ManagePetService",
     "CssClass": ""
   }

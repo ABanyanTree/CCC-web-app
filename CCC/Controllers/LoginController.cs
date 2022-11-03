@@ -96,7 +96,7 @@ namespace CCC.UI.Controllers
             {
                 return Redirect(ReturnUrl);
             }
-            else if (response.IsAdmin)
+            else if (!response.IsAdmin)
             {
                 return RedirectToAction("Dashboard", "Home");
             }

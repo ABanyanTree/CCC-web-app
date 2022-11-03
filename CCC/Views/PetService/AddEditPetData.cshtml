@@ -1,0 +1,145 @@
+﻿@using CCC.UI.ViewModels
+@model CreatePetService
+@{
+    ViewData["Title"] = "AddEditPetData";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<form id="AddEditPetData" asp-action="AddEditPetData" asp-controller="PetService" method="post" enctype="multipart/form-data">
+    @Html.HiddenFor(model => model.ServiceId, new { @id = "ServiceId" })
+
+    <div class="mainContent">
+        <div class="row">
+            <div class="col-lg-12 col-lg-12 col-lg-12 col-lg-12">
+                <div class="dashMainHeading">
+                    <div class="pull-left">
+                        <h3>
+                            <span class="imgHeading"><img src="@Url.Content("~/images/add-new-show.png")" alt="" title=""></span>
+                            <span class="textHeading">Add New Pet Data</span>
+                        </h3>
+                    </div>
+                    <div class="pull-right mt20">
+                        <button type="button" id="btnBack" class="btn btnDefault"> Back</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="userBox addeditPage" id="pnlSearch">
+            <div class=" row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="row">
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                            <div class="form-group">
+                                <label class="pt20">Pet Type<span class="redColor">*</span></label>
+                                <div class="form-group2">
+                                    @Html.TextBoxFor(x => x.PetId, new { @class = "form-control", @maxlength = "50" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                            <div class="form-group">
+                                <label class="pt20">Gender</label>
+                                <div class="form-group2">
+                                    <div class="form-group fullscreen">
+                                        <label class="col-lg-3 col-md-3 col-sm-3 col-xs-12 mt15"> @Html.RadioButtonFor(x => x.Gender, new { @group = '1', @checked = "checked" }) Male</label>
+                                        <label class="col-lg-3 col-md-3 col-sm-3 col-xs-12 mt15"> @Html.RadioButtonFor(x => x.Gender, new { @group = '1' }) Female</label>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                            <div class="form-group">
+                                <label class="pt20">Certificate No</label>
+                                <div class="form-group2">
+                                    @Html.TextBoxFor(x => x.CertificateNo, new { @class = "form-control", @maxlength = "50" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                            <div class="form-group">
+                                <label class="pt20">Tag Id<span class="redColor">*</span></label>
+                                <div class="form-group2">
+                                    @Html.TextBoxFor(x => x.TagId, new { @class = "form-control", @maxlength = "50" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class=" row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="row">
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                            <div class="form-group">
+                                <label class="pt20">Entry Date<span class="redColor">*</span></label>
+                                <div class="form-group2">
+                                    @Html.TextBoxFor(x => x.PetId, new { @class = "form-control", @maxlength = "50" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                            <div class="form-group">
+                                <label class="pt20">Center</label>
+                                <div class="form-group2">
+                                    <div class="form-group fullscreen">
+                                        @Html.TextBoxFor(x => x.PetId, new { @class = "form-control", @maxlength = "50" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                            <div class="form-group">
+                                <label class="pt20">Area</label>
+                                <div class="form-group2">
+                                    @Html.TextBoxFor(x => x.PetId, new { @class = "form-control", @maxlength = "50" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                            <div class="form-group">
+                                <label class="pt20">Care Giver<span class="redColor">*</span></label>
+                                <div class="form-group2">
+                                    @Html.TextBoxFor(x => x.TagId, new { @class = "form-control", @maxlength = "50" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class=" row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="row">
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                            <div class="form-group">
+                                <label class="pt20">Surgey Date<span class="redColor">*</span></label>
+                                <div class="form-group2">
+                                    @Html.TextBoxFor(x => x.PetId, new { @class = "form-control", @maxlength = "50" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                            <div class="form-group">
+                                <label class="pt20">Release Date</label>
+                                <div class="form-group2">
+                                    <div class="form-group fullscreen">
+                                        @Html.TextBoxFor(x => x.PetId, new { @class = "form-control", @maxlength = "50" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                            <div class="form-group">
+                                <label class="pt20">Complications</label>
+                                <div class="form-group2">
+                                    @Html.TextBoxFor(x => x.PetId, new { @class = "form-control", @maxlength = "50" })
+                                </div>
+                            </div>
+                        </div>                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</form>
