@@ -98,7 +98,7 @@ namespace CCC.Data.Services
             if (User != null)
             {
                 User.userRoles = UserRoleList;
-                User.Features = FeatureList;
+                User.UserFeatures = FeatureList;
                 return User;
             }
 

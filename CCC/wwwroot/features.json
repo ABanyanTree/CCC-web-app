@@ -1,0 +1,58 @@
+{
+
+  //"Dashboard": {
+  //  "FeatureId": "FEA00000",
+  //  "ControllerName": "Home",
+  //  "ActionName": "Dashboard",
+  //  "CssClass": "IDashboard"
+  //},
+
+  "Masters": {
+    "FeatureId": "FEA00001",
+    "ControllerName": "Home",
+    "ActionName": "Dashboard",
+    "CssClass": null
+  },
+  "ManageCenter": {
+    "FeatureId": "FEA00002",
+    "ControllerName": "CenterMaster",
+    "ActionName": "ManageCenter",
+    "CssClass": null
+  },
+
+  "ManageCityArea": {
+    "FeatureId": "FEA00003",
+    "ControllerName": "CityAreaMaster",
+    "ActionName": "ManageCityArea",
+    "CssClass": null
+  },
+  "ManageLookup": {
+    "FeatureId": "FEA00004",
+    "ControllerName": "LookupMaster",
+    "ActionName": "ManageLookup",
+    "CssClass": null
+  },
+  "ManageUsers": {
+    "FeatureId": "FEA00005",
+    "ControllerName": "UserMaster",
+    "ActionName": "ManageUsers",
+    "CssClass": null
+  },
+
+  "ManageVet": {
+    "FeatureId": "FEA00006",
+    "ControllerName": "VetMaster",
+    "ActionName": "ManageVet",
+    "CssClass": "IMaster"
+  },
+
+  "ManagePetService": {
+    "FeatureId": "FEA00007",
+    "ControllerName": "PetServiceMaster",
+    "ActionName": "ManagePetService",
+    "CssClass": ""
+  }
+
+}
+
+

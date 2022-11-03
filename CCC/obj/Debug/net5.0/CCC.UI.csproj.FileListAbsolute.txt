@@ -843,3 +843,4 @@ D:\Shahen-WorkFront\Projects\CodeZen\CCC\CCC\obj\Debug\net5.0\Razor\Views\Shared
 D:\Shahen-WorkFront\Projects\CodeZen\CCC\CCC\bin\Debug\net5.0\FluentValidation.dll
 D:\Shahen-WorkFront\Projects\CodeZen\CCC\CCC\bin\Debug\net5.0\FluentValidation.AspNetCore.dll
 D:\Shahen-WorkFront\Projects\CodeZen\CCC\CCC\bin\Debug\net5.0\FluentValidation.DependencyInjectionExtensions.dll
+D:\Shahen-WorkFront\Projects\CodeZen\CCC\CCC\obj\Debug\net5.0\Razor\Views\Home\Dashboard.cshtml.g.cs

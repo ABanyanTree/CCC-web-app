@@ -23,8 +23,8 @@
 
 
 
-    List<FeatureMasterResponseVM> lstParentFeatures = objSessionUser.UserFeatures.Where(x => string.IsNullOrEmpty(x.ParentFeatureId)).Where(x => x.IsLearnerMenu == false).OrderBy(x => x.DisplayOrder).ToList();
-    List<FeatureMasterResponseVM> lstChildFeatures = objSessionUser.UserFeatures.Where(x => !string.IsNullOrEmpty(x.ParentFeatureId)).Where(x => x.IsShowInMenu == true).Where(x => x.IsLearnerMenu == false).ToList();
+    List<FeatureMasterResponseVM> lstParentFeatures = objSessionUser.UserFeatures.Where(x => string.IsNullOrEmpty(x.ParentFeatureId)).OrderBy(x => x.DisplayOrder).ToList();
+    List<FeatureMasterResponseVM> lstChildFeatures = objSessionUser.UserFeatures.Where(x => !string.IsNullOrEmpty(x.ParentFeatureId)).Where(x => x.IsLinkAsMenu == true).ToList();
 
 
     string initials = objSessionUser.FirstName?.Substring(0, 1) + objSessionUser.LastName?.Substring(0, 1);

@@ -17,12 +17,11 @@ namespace CCC.Domain
         public string Password { get; set; }
         public string Salt { get; set; }
         public string Token { get; set; }
-
-
+        public bool IsAdmin { get; set; }
         public bool IsLogin { get; set; }
         public DateTime ExpiryDate { get; set; }
         public string RefreshToken { get; set; }
-        public List<FeatureMaster> Features { get; set; } = new List<FeatureMaster>();
+        public List<FeatureMaster> UserFeatures { get; set; } = new List<FeatureMaster>();
         public List<UserRoleMasters> userRoles { get; set; } = new List<UserRoleMasters>();
     }
 

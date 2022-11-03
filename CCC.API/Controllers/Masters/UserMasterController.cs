@@ -128,7 +128,7 @@ namespace CCC.API.Controllers.Masters
             var userReq = new UserMaster();
             userReq.Email = request.Email;
             userReq.Password = request.Password;
-            userReq.Salt = request.Salt;   
+            userReq.Salt = request.Salt;
             var user = _iUserMasterService.LoginAndGetFeatures(userReq);
 
             if (user != null && !string.IsNullOrEmpty(user.UserId))
@@ -148,7 +148,7 @@ namespace CCC.API.Controllers.Masters
                 UserMaster objCart = new UserMaster()
                 {
                     RequesterUserId = user.UserId,
-                    //IsAdmin = true
+                    IsAdmin = true
                 };
                 //objCart = _user.GetCartCount(objCart).Result;
                 //responseObj.AdminCartCount = objCart.TotalCartItems;
@@ -180,9 +180,9 @@ namespace CCC.API.Controllers.Masters
         private UserMaster GenerateToken(UserMaster loggedInUser)
         {
             string strUserFeatures = string.Empty;
-            if (loggedInUser.Features != null && loggedInUser.Features.Count > 0)
+            if (loggedInUser.UserFeatures != null && loggedInUser.UserFeatures.Count > 0)
             {
-                strUserFeatures = string.Join(",", loggedInUser.Features.Select(x => x.FeatureId));
+                strUserFeatures = string.Join(",", loggedInUser.UserFeatures.Select(x => x.FeatureId));
             }
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_jwtSettings.Secret);

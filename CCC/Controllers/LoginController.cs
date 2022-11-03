@@ -102,7 +102,7 @@ namespace CCC.UI.Controllers
             }
             else
             {
-                var adminHome = response.UserFeatures.Where(x => x.FeatureId == "Home").FirstOrDefault();
+                var adminHome = response.UserFeatures.Where(x => x.FeatureId == "FEA00007").FirstOrDefault();
                 return RedirectToAction(adminHome.ActionName, adminHome.ControllerName);
             }
 
