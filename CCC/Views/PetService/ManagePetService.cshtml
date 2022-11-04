@@ -1,0 +1,330 @@
+﻿@using CCC.UI.ViewModels
+@model SearchPetData
+@{
+    ViewData["Title"] = "ManagePetService";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    SelectList lstCenter = ViewBag.lstCenter;
+    SelectList lstCityArea = ViewBag.lstCityArea;
+    SelectList lstVet = ViewBag.lstVet;
+}
+
+<link href="~/css/autocomplete.css" rel="stylesheet" />
+<script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
+<link href="~/lib/bootstrap-datepicker/css/bootstrap-datepicker.min.css" rel="stylesheet" />
+<script src="~/lib/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+<script src="~/js/jquery.btnswitch.js"></script>
+<link href="~/css/jquery.btnswitch.min.css" rel="stylesheet" />
+<link href="~/css/jquery-ui.css" rel="stylesheet" />
+
+<link href="~/lib/bootstrap-multiselect/bootstrap-multiselect.css" rel="stylesheet" />
+<script src="~/lib/bootstrap-multiselect/bootstrap-multiselect.js"></script>
+<script>
+    $(function () {
+        $(".datepkr").datepicker({
+            autoclose: true,
+            format: "dd/mm/yyyy",
+        });
+    });
+</script>
+
+
+<div class="conHeader">
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="pull-left">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item active" aria-current="page">Manage Country</li>
+                </ol>
+            </div>
+            <div class="filterMenuIcon"></div>
+            <div class="pull-right mobileFilterMenu">
+                <ul class="headerListing">
+                    <li class="active"><a href="javascript:void(0);" onclick="AddEvent()"><span class="text">Add</span> <span class="icon iconUser">&nbsp;</span></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="conInner">
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="tblFilter">
+                <!--Add/Edit User-->
+                <div id="filterBodyAddUser" class="float-right">
+                    <div class="filterWrapp">
+                        <div id="sidebarFilterAddUser" class="bulkImport">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="mobileFilter">
+        <div class="showFilterBtn" id="showBtnID"><button type="button" class="searchfilterbtn">Show Search Filter<i class="fa fa-chevron-down"></i></button></div>
+        <div class="hideShowfilter">
+            <div class="filterData mobilecofilters">
+                <div class="formGroupTop pos mobile4Lis">
+                    <ul class="formGroupTopListing">
+                        <li class="firstLastName">
+                            <div class="form-group">
+                                <label class="pt20">Center Name</label>
+                                <select asp-for="CenterId" asp-items="lstCenter" class="form-control">
+                                    <option value="">--Select--</option>
+                                </select>
+                            </div>
+                        </li>
+                        <li class="firstLastName">
+                            <div class="form-group">
+                                <label class="pt20">Area Name</label>
+                                <select asp-for="AreaId" asp-items="lstCityArea" class="form-control">
+                                    <option value="">--Select--</option>
+                                </select>
+                            </div>
+                        </li>
+                        <li class="firstLastName">
+                            <div class="form-group">
+                                <label class="pt20">Vet Name</label>
+                                <select asp-for="VetId" asp-items="lstCityArea" class="form-control">
+                                    <option value="">--Select--</option>
+                                </select>
+                            </div>
+                        </li>
+                        <li class="firstLastName">
+                            <div class="form-group">
+                                <label class="pt20">SurgeryDate</label>
+                                <input asp-for="SurgeryDate" id="dtSurgeryDate" type="text" class="form-control datepkr" />
+                            </div>
+                        </li>
+
+                        <li>
+                            <div class="form-group">
+                                <button type="button" class="btn btn-primary btn-search" id="btnSearch1"><img src='@Url.Content("~/images/search.png")' /> </button>
+                                <button type="button" class="btn btn-default btn-clear" id="btnClear"><img src='@Url.Content("~/images/refresh.png")' /></button>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="hideFilterBtn" id="hideBtnId"><button type="button" class="searchfilterbtn">Hide Search Filter <i class="fa fa-chevron-up"></i></button></div>
+        </div>
+    </div>
+
+    <div id="divDataTable_length"></div>
+    <div class="chkTBL">
+        <div class="bulkImpLogHT mngEventpage mobileTablenowrap">
+            <table id="mydatatable" class="table">
+                <thead>
+                    <tr>
+                        <th>Edit</th>
+                        <th>Delete</th>
+                        <th>Pet</th>
+                        <th>Certificate No</th>
+                        <th>Tag Id</th>
+                        <th>Entry Date</th>
+                        <th>Center Name</th>
+                        <th>Area Name</th>
+                        <th>Care Giver</th>
+                        <th>Vet Name</th>
+                        <th>Surgery Date</th>
+                        <th>Release Date</th>
+                        <th>Complications</th>
+                        <th>Created By</th>
+                        @*@if (objRights != null && objRights.IsEdit)
+        {
+            <th>Edit</th>
+        }
+        @if (objRights != null && objRights.IsDelete)
+        {
+            <th>Delete</th>
+        }
+        <th>Country</th>
+        <th>Region</th>
+        <th>Description</th>*@
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+    <div id="divdataTables_info"></div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#mydatatable").tableHeadFixer({ "head": true, "top": 1 });
+        var langUrl = $("#LangUrl").val();
+        var mytable = $('#mydatatable').dataTable({
+            "ajax": {
+                  "url": "@Url.Content("~/PetService/FillTablePetServiceAsync")?Active=1",
+
+                "type": "POST",
+                "error": function (x, y, z) {
+                }
+            },
+            "language":
+            {
+                "url": langUrl
+            },
+             //"aaSorting": [[@DefaultSearchColNo, "asc"]],
+            "pageLength": 50,
+            "serverSide": true,
+            "bStateSave": false,
+           // "pagingType": "listbox",  //pagination type using pulgin
+            "processing": true,
+            "pagingType": "full_numbers",  //pagination type using pulgin
+            "dom": '<"top"i>rt<"bottom"flp><"clear">',
+            "filter": false,
+            "oLanguage": {
+            "oPaginate": {
+            "sFirst": "<i class='fa fa-angle-double-left'></i>",
+            "sPrevious": "«",
+            "sNext": "»",
+            "sLast": "<i class='fa fa-angle-double-right'></i>"
+             }
+            },
+            //"sDom": 'lrtip',
+           "bDeferRender": true,//hide the default search filter textbox by removing "f"
+            "aoColumns":
+                [
+                      {
+                        "data": "ServiceId", "sName": "", "class": "", "orderable": false, "mRender": function (data, type, full) {
+                            if (data != null) {
+                                return "<div class='tablehoverbuttons'> <i class='fa fa-ellipsis-h'></i> <div class='buttonshover'><div class='editbtn'><a class='' href='javascript:void(0);' onClick=EditEvent('" + data + "')><span><img title='Edit' src='@Url.Content("~/images/edit.png")' /></span></a></div> </div> </div>";
+                            }
+                            else
+                                return "";
+                        }
+                      },
+                      {
+                          "data": "ServiceId", "sName": "", "class": "", "orderable": false, "mRender": function (data, type, full) {
+                            if (data != null) {
+                                return "<div class='tablehoverbuttons'> <i class='fa fa-ellipsis-h'></i> <div class='buttonshover'><div class='editbtn'><a class='' href='javascript:void(0);' onClick=DeleteEvent('" + data + "')><span><img title='Delete' src='@Url.Content("~/images/delete grey.png")' /></span></a></div> </div> </div>";
+                            }
+                            else
+                                return "";
+                        }
+                      },
+                    { "data": "Pet", "sName": "PetType" },
+                    { "data": "CertificateNo", "sName": "Certificate No" },
+                    { "data": "TagId", "sName": "Tag Id" },
+                    { "data": "EntryDate", "sName": "Entry Date" },
+                    { "data": "CenterName", "sName": "Center Id" },
+                    { "data": "AreaName", "sName": "Area Name" },
+                    { "data": "CareGiver", "sName": "Care Giver" },
+                    { "data": "VetName", "sName": "Vet Name" },
+                    { "data": "SurgeryDate", "sName": "Surgery Date" },
+                    { "data": "ReleaseDate", "sName": "Release Date" },
+                    { "data": "Complications", "sName": "Complications" },
+                    { "data": "CreatedBy", "sName": "Created By" },    
+
+                     @*@if (objRights != null && objRights.IsEdit)
+                         {
+                         <text>
+                     {
+                        "data": "CountryID", "sName": "", "class": "", "orderable": false, "mRender": function (data, type, full) {
+                            if (data != null) {
+                                return "<div class='tablehoverbuttons'> <i class='fa fa-ellipsis-h'></i> <div class='buttonshover'><div class='editbtn'><a class='' href='javascript:void(0);' onClick=EditEvent('" + data + "')><span><img title='Edit' src='@Url.Content("~/images/edit.png")' /></span></a></div> </div> </div>";
+                            }
+                            else
+                                return "";
+                        }
+                    },
+                      </text>
+                         }
+                     @if (objRights != null && objRights.IsDelete)
+                         {
+                         <text>
+                    {
+                        "data": "CountryID", "sName": "", "class": "", "orderable": false, "mRender": function (data, type, full) {
+                            if (data != null) {
+                                return "<div class='tablehoverbuttons'> <i class='fa fa-ellipsis-h'></i> <div class='buttonshover'><div class='editbtn'><a class='' href='javascript:void(0);' onClick=DeleteEvent('" + data + "')><span><img title='Delete' src='@Url.Content("~/images/delete grey.png")' /></span></a></div> </div> </div>";
+                            }
+                            else
+                                return "";
+                        }
+                    },
+                      </text>
+                         }*@
+
+                               ]
+        });
+         mytable.on('order.dt', function () { $('.dataTables_paginate,.dataTables_info').show(); });
+        mytable.on('length.dt', function (e, settings, len) { $('.dataTables_paginate,.dataTables_info').show(); });
+
+        $("#divDataTable_length").append($(".dataTables_info"));
+        $("#divdataTables_info").append($(".dataTables_length"));
+        $("#divdataTables_info").append($(".dataTables_paginate"));
+
+        function fnGetDataForActivities() {
+            var searchObj = new Object();
+            searchObj.CenterId = $('#CenterId').val();
+            searchObj.AreaId = $('#AreaId').val();
+            searchObj.VetId = $('#VetId').val();
+            searchObj.SurgeryDate = $('#SurgeryDate').val();
+            return searchObj;
+        }
+
+        function fnFilterActivities() {
+            searchObj = fnGetDataForActivities();
+            $("#mydatatable").dataTable().fnMultiFilter({
+                "CenterId": searchObj.CenterId,
+                "AreaId": searchObj.AreaId,
+                "VetId": searchObj.VetId,
+                "SurgeryDate": searchObj.SurgeryDate,
+            });
+        }
+
+        function clearfilter() {
+            //$('#MCountryName').val('');
+            //$('#MCountryD').val('');
+
+            fnFilterActivities();
+        }
+
+        $('#btnClear').click(function () {
+            clearfilter();
+        });
+
+
+        $('#btnSearch1').click(function () {
+            fnFilterActivities();
+        });
+
+
+        $("#CenterId,#AreaId,#VetId,#SurgeryDate").keyup(function (e) {
+            if (e.which == 13) {
+                fnFilterActivities();
+            }
+        });
+
+    });
+
+</script>
+
+<script>
+
+    function AddEvent() {
+        $("#sidebarFilterAddUser").html('');
+        $('#sidebarFilterAddUser').addClass('active');
+        $('#sidebarFilterAddUser').show();
+        $('.overlay').show();
+
+        var url = '@Url.Action("AddEditPetData", "PetService")'
+        $("#sidebarFilterAddUser").load(url, function () {
+        });
+    }
+    function EditEvent(ServiceId) {
+        $("#sidebarFilterAddUser").html('');
+        $('#sidebarFilterAddUser').show();
+        $('#sidebarFilterAddUser').addClass('active');
+        $('.overlay').show();
+        $('.collapse.in').toggleClass('in');
+        $('a[aria-expanded=true]').attr('aria-expanded', 'false');
+        var url = '@Url.Action("AddEditPetData", "PetService")?ServiceId=' + ServiceId + '';
+        $("#sidebarFilterAddUser").load(url);
+    }
+
+</script>

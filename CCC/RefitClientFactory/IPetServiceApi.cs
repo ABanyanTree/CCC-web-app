@@ -11,10 +11,13 @@ namespace CCC.UI.RefitClientFactory
     [Headers("Authorization: Bearer")]
     public interface IPetServiceApi
     {
-        [Post(path: "/api/petservice/getpetdata")]
+        [Get(path: "/api/petservice/getpetdata")]
         Task<ApiResponse<CreatePetService>> GetPetData(string serviceId);
 
         [Post(path: "/api/petservice/addeditpetdata")]
         Task<HttpResponseMessage> AddEditPetData(CreatePetService request);
+
+        [Get(path: "/api/petservice/getallpetdata")]
+        Task<ApiResponse<List<GetAllPetDataResponse>>> GetAllPetDataList(SearchPetData request);
     }
 }
