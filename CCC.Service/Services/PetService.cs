@@ -24,9 +24,10 @@ namespace CCC.Service.Services
 
         public async Task<string> AddEditPetData(PetServiceDetails obj)
         {
-            if (!string.IsNullOrEmpty(obj.ServiceId))
+            if (string.IsNullOrEmpty(obj.ServiceId))
             {
                 obj.ServiceId = Utility.GeneratorUniqueId("Pet");
+                obj.IsActive = true;
             }
             int successCount = await _iPetRepository.AddEditPetData(obj);
             return successCount > 0 ? obj.ServiceId : string.Empty;
@@ -46,7 +47,7 @@ namespace CCC.Service.Services
             return await _iPetRepository.DeletePetData(obj);
         }
 
-     
+
 
 
     }
