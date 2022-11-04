@@ -62,5 +62,34 @@ namespace CCC.UI.Controllers
             }
             return View(model);
         }
+
+        [HttpPost]
+        public async Task<IActionResult> AddEditPetData(CreatePetService model)
+        {
+            bool IsNewRecord = string.IsNullOrEmpty(model.ServiceId) ? true : false;
+            CreatePetService modelobj = new CreatePetService();
+
+            var objSessionUSer = HttpContext.Session.GetSessionUser();
+            var cachedToken = HttpContext.Session.GetBearerToken();
+
+            var PetServiceAPI = RestService.For<IPetServiceApi>(hostUrl: ApplicationSettings.WebApiUrl, new RefitSettings
+            {
+                AuthorizationHeaderValueGetter = () => Task.FromResult(cachedToken)
+            });
+            model.CreatedBy = objSessionUSer.UserId;
+            var apiResponse = await PetServiceAPI.AddEditPetData(model);
+            string CountryID = apiResponse?.Content?.ReadAsStringAsync().Result;
+
+            if (apiResponse != null && apiResponse.IsSuccessStatusCode)
+            {
+                string msg = IsNewRecord ? "Country added successfully." : "Country updated successfully.";
+                return Json(new { CountryID = CountryID, isSuccess = true, message = msg });
+            }
+            else
+            {
+
+                return Json(new { CountryID = 0, isSuccess = false, message = "" });
+            }
+        }
     }
 }

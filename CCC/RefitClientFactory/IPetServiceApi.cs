@@ -13,5 +13,8 @@ namespace CCC.UI.RefitClientFactory
     {
         [Post(path: "/api/petservice/getpetdata")]
         Task<ApiResponse<CreatePetService>> GetPetData(string serviceId);
+
+        [Post(path: "/api/petservice/addeditpetdata")]
+        Task<HttpResponseMessage> AddEditPetData(CreatePetService request);
     }
 }

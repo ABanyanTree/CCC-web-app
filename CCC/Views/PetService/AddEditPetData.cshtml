@@ -3,7 +3,30 @@
 @{
     ViewData["Title"] = "AddEditPetData";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
+    SelectList lstCenter = ViewBag.lstCenter;
+    SelectList lstCityArea = ViewBag.lstCityArea;
+    SelectList lstVet = ViewBag.lstVet;
 }
+
+<script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
+<link href="~/lib/bootstrap-datepicker/css/bootstrap-datepicker.min.css" rel="stylesheet" />
+<script src="~/lib/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+<script src="~/lib/jquery.alphanum/jquery.alphanum.min.js"></script>
+
+<link href="~/lib/bootstrap-multiselect/bootstrap-multiselect.css" rel="stylesheet" />
+<script src="~/lib/bootstrap-multiselect/bootstrap-multiselect.js"></script>
+<script>
+    $(function () {
+        $(".datepkr").datepicker({
+            autoclose: true,
+            format: "dd/mm/yyyy",
+        });
+    });
+</script>
 
 <form id="AddEditPetData" asp-action="AddEditPetData" asp-controller="PetService" method="post" enctype="multipart/form-data">
     @Html.HiddenFor(model => model.ServiceId, new { @id = "ServiceId" })
@@ -32,7 +55,7 @@
                             <div class="form-group">
                                 <label class="pt20">Pet Type<span class="redColor">*</span></label>
                                 <div class="form-group2">
-                                    @Html.TextBoxFor(x => x.PetId, new { @class = "form-control", @maxlength = "50" })
+                                    <input asp-for="PetId" type="text" class="form-control" />
                                 </div>
                             </div>
                         </div>
@@ -41,8 +64,11 @@
                                 <label class="pt20">Gender</label>
                                 <div class="form-group2">
                                     <div class="form-group fullscreen">
-                                        <label class="col-lg-3 col-md-3 col-sm-3 col-xs-12 mt15"> @Html.RadioButtonFor(x => x.Gender, new { @group = '1', @checked = "checked" }) Male</label>
-                                        <label class="col-lg-3 col-md-3 col-sm-3 col-xs-12 mt15"> @Html.RadioButtonFor(x => x.Gender, new { @group = '1' }) Female</label>
+                                        <input asp-for="Gender" type="radio" value="Male" id="rdMale" name="PetGender" />Male &nbsp;
+                                        <input asp-for="Gender" type="radio" value="Female" id="rdFemale" name="PetGender" />FeMale
+
+                                        @*<label class="col-lg-3 col-md-3 col-sm-3 col-xs-12 mt15"> @Html.RadioButtonFor(x => x.Gender, new { @group = '1', @checked = "checked" }) Male</label>
+                                    <label class="col-lg-3 col-md-3 col-sm-3 col-xs-12 mt15"> @Html.RadioButtonFor(x => x.Gender, new { @group = '1' }) Female</label>*@
 
                                     </div>
                                 </div>
@@ -52,7 +78,7 @@
                             <div class="form-group">
                                 <label class="pt20">Certificate No</label>
                                 <div class="form-group2">
-                                    @Html.TextBoxFor(x => x.CertificateNo, new { @class = "form-control", @maxlength = "50" })
+                                    <input asp-for="CertificateNo" type="text" class="form-control" />
                                 </div>
                             </div>
                         </div>
@@ -60,7 +86,7 @@
                             <div class="form-group">
                                 <label class="pt20">Tag Id<span class="redColor">*</span></label>
                                 <div class="form-group2">
-                                    @Html.TextBoxFor(x => x.TagId, new { @class = "form-control", @maxlength = "50" })
+                                    <input asp-for="TagId" type="text" class="form-control" />
                                 </div>
                             </div>
                         </div>
@@ -74,7 +100,7 @@
                             <div class="form-group">
                                 <label class="pt20">Entry Date<span class="redColor">*</span></label>
                                 <div class="form-group2">
-                                    @Html.TextBoxFor(x => x.PetId, new { @class = "form-control", @maxlength = "50" })
+                                    <input asp-for="EntryDate" id="dtEntryDate" type="text" value="@DateTime.Now.ToString("dd/MM/yyyy")" class="form-control datepkr" />
                                 </div>
                             </div>
                         </div>
@@ -83,16 +109,22 @@
                                 <label class="pt20">Center</label>
                                 <div class="form-group2">
                                     <div class="form-group fullscreen">
-                                        @Html.TextBoxFor(x => x.PetId, new { @class = "form-control", @maxlength = "50" })
+                                        <select asp-for="CenterId" asp-items="lstCenter" class="form-control">
+                                            <option value="">--Select--</option>
+                                        </select>
+                                        @*@Html.TextBoxFor(x => x.PetId, new { @class = "form-control", @maxlength = "50" })*@
                                     </div>
                                 </div>
                             </div>
+
                         </div>
                         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
                             <div class="form-group">
                                 <label class="pt20">Area</label>
                                 <div class="form-group2">
-                                    @Html.TextBoxFor(x => x.PetId, new { @class = "form-control", @maxlength = "50" })
+                                    <select asp-for="AreaId" asp-items="lstCityArea" class="form-control">
+                                        <option value="">--Select--</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -100,7 +132,7 @@
                             <div class="form-group">
                                 <label class="pt20">Care Giver<span class="redColor">*</span></label>
                                 <div class="form-group2">
-                                    @Html.TextBoxFor(x => x.TagId, new { @class = "form-control", @maxlength = "50" })
+                                    <input asp-for="CareGiver" type="text" class="form-control" />
                                 </div>
                             </div>
                         </div>
@@ -112,9 +144,19 @@
                     <div class="row">
                         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
                             <div class="form-group">
+                                <label class="pt20">Vet</label>
+                                <div class="form-group2">
+                                    <select asp-for="VetId" asp-items="lstVet" class="form-control">
+                                        <option value="">--Select--</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                            <div class="form-group">
                                 <label class="pt20">Surgey Date<span class="redColor">*</span></label>
                                 <div class="form-group2">
-                                    @Html.TextBoxFor(x => x.PetId, new { @class = "form-control", @maxlength = "50" })
+                                    <input asp-for="SurgeryDate" id="dtSurgeryDate" type="text" class="form-control datepkr" />
                                 </div>
                             </div>
                         </div>
@@ -123,7 +165,7 @@
                                 <label class="pt20">Release Date</label>
                                 <div class="form-group2">
                                     <div class="form-group fullscreen">
-                                        @Html.TextBoxFor(x => x.PetId, new { @class = "form-control", @maxlength = "50" })
+                                        <input asp-for="ReleaseDate" id="dtReleaseDate" type="text" class="form-control datepkr" />
                                     </div>
                                 </div>
                             </div>
@@ -132,14 +174,62 @@
                             <div class="form-group">
                                 <label class="pt20">Complications</label>
                                 <div class="form-group2">
-                                    @Html.TextBoxFor(x => x.PetId, new { @class = "form-control", @maxlength = "50" })
+                                    <input asp-for="Complications" type="text" class="form-control" />
                                 </div>
                             </div>
-                        </div>                        
+                        </div>
                     </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="userBoxFooter">
+                        <div class="pull-right">
+                            <button type="button" class="btn btn-primary btnSearch" id="btnSubmit">Submit</button>
+                            <button type="button" class="btn btn-primary btnSearch" id="btnCancel">Cancel</button>                            
+                        </div>
+                    </div>
+                    <div class="bottomSpace">&nbsp;</div>
                 </div>
             </div>
         </div>
     </div>
-
 </form>
+
+<script>
+    $("#btnSubmit").on('click', function (e) {
+        debugger;
+        e.preventDefault();
+
+        $('#AddEditPetData').find('input:text').each(function () {
+            $(this).val($.trim($(this).val()));
+        });
+
+        if ($('#AddEditPetData').valid()) {
+
+            var formAction = $('#AddEditPetData').attr("action");
+            var fdata = new FormData();
+            var params = $('#AddEditPetData').serializeArray();
+            $.each(params, function (i, val) {
+                fdata.append(val.name, val.value);
+            });
+
+            $.ajax({
+                type: 'post',
+                url: formAction,
+                data: fdata,
+                processData: false,
+                contentType: false
+            }).done(function (result) {
+                debugger;
+                if (result.isSuccess == true) {
+                    showSuccessMsg('Success');
+                    
+                } else {
+                    showWarningMsg('something went wrong ');
+                }
+            });
+        }
+    });
+
+</script>
