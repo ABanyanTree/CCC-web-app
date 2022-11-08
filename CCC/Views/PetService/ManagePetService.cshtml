@@ -7,6 +7,7 @@
     SelectList lstCenter = ViewBag.lstCenter;
     SelectList lstCityArea = ViewBag.lstCityArea;
     SelectList lstVet = ViewBag.lstVet;
+
 }
 
 <link href="~/css/autocomplete.css" rel="stylesheet" />
@@ -34,13 +35,14 @@
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <div class="pull-left">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item active" aria-current="page">Manage Country</li>
+                    <li class="breadcrumb-item active" aria-current="page">Manage Pet Service</li>
                 </ol>
             </div>
             <div class="filterMenuIcon"></div>
             <div class="pull-right mobileFilterMenu">
                 <ul class="headerListing">
-                    <li class="active"><a href="javascript:void(0);" onclick="AddEvent()"><span class="text">Add</span> <span class="icon iconUser">&nbsp;</span></a></li>
+                    @*<li class="active"><button type="button" id="btnNewUrl" class="btn btnDefault AddEditBtn">Add New</button></li>*@
+                    <li class="active"> <a href="javascript:void(0);" onclick="AddEvent()"><span class="text">Add</span> <span class="icon iconUser">&nbsp;</span></a></li>
                 </ul>
             </div>
         </div>
@@ -62,55 +64,55 @@
             </div>
         </div>
     </div>
-    <div class="mobileFilter">
-        <div class="showFilterBtn" id="showBtnID"><button type="button" class="searchfilterbtn">Show Search Filter<i class="fa fa-chevron-down"></i></button></div>
-        <div class="hideShowfilter">
-            <div class="filterData mobilecofilters">
-                <div class="formGroupTop pos mobile4Lis">
-                    <ul class="formGroupTopListing">
-                        <li class="firstLastName">
-                            <div class="form-group">
-                                <label class="pt20">Center Name</label>
-                                <select asp-for="CenterId" asp-items="lstCenter" class="form-control">
-                                    <option value="">--Select--</option>
-                                </select>
-                            </div>
-                        </li>
-                        <li class="firstLastName">
-                            <div class="form-group">
-                                <label class="pt20">Area Name</label>
-                                <select asp-for="AreaId" asp-items="lstCityArea" class="form-control">
-                                    <option value="">--Select--</option>
-                                </select>
-                            </div>
-                        </li>
-                        <li class="firstLastName">
-                            <div class="form-group">
-                                <label class="pt20">Vet Name</label>
-                                <select asp-for="VetId" asp-items="lstCityArea" class="form-control">
-                                    <option value="">--Select--</option>
-                                </select>
-                            </div>
-                        </li>
-                        <li class="firstLastName">
-                            <div class="form-group">
-                                <label class="pt20">SurgeryDate</label>
-                                <input asp-for="SurgeryDate" id="dtSurgeryDate" type="text" class="form-control datepkr" />
-                            </div>
-                        </li>
+    <!--<div class="mobileFilter">-->
+    @*<div class="showFilterBtn" id="showBtnID"><button type="button" class="searchfilterbtn">Show Search Filter<i class="fa fa-chevron-down"></i></button></div>*@
+    <!--<div class="hideShowfilter">
+        <div class="filterData mobilecofilters">
+            <div class="formGroupTop pos mobile4Lis">
+                <ul class="formGroupTopListing">
+                    <li class="firstLastName">
+                        <div class="form-group">
+                            <label class="pt20">Center Name</label>
+                            <select asp-for="CenterId" asp-items="lstCenter" class="form-control">
+                                <option value="">--Select--</option>
+                            </select>
+                        </div>
+                    </li>
+                    <li class="firstLastName">
+                        <div class="form-group">
+                            <label class="pt20">Area Name</label>
+                            <select asp-for="AreaId" asp-items="lstCityArea" class="form-control">
+                                <option value="">--Select--</option>
+                            </select>
+                        </div>
+                    </li>
+                    <li class="firstLastName">
+                        <div class="form-group">
+                            <label class="pt20">Vet Name</label>
+                            <select asp-for="VetId" asp-items="lstCityArea" class="form-control">
+                                <option value="">--Select--</option>
+                            </select>
+                        </div>
+                    </li>
+                    <li class="firstLastName">
+                        <div class="form-group">
+                            <label class="pt20">SurgeryDate</label>
+                            <input asp-for="SurgeryDate" id="dtSurgeryDate" type="text" class="form-control datepkr" />
+                        </div>
+                    </li>
 
-                        <li>
-                            <div class="form-group">
-                                <button type="button" class="btn btn-primary btn-search" id="btnSearch1"><img src='@Url.Content("~/images/search.png")' /> </button>
-                                <button type="button" class="btn btn-default btn-clear" id="btnClear"><img src='@Url.Content("~/images/refresh.png")' /></button>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
+                    <li>
+                        <div class="form-group">
+                            <button type="button" class="btn btn-primary btn-search" id="btnSearch1"><img src='@Url.Content("~/images/search.png")' /> </button>
+                            <button type="button" class="btn btn-default btn-clear" id="btnClear"><img src='@Url.Content("~/images/refresh.png")' /></button>
+                        </div>
+                    </li>
+                </ul>
             </div>
-            <div class="hideFilterBtn" id="hideBtnId"><button type="button" class="searchfilterbtn">Hide Search Filter <i class="fa fa-chevron-up"></i></button></div>
-        </div>
-    </div>
+        </div>-->
+    @*<div class="hideFilterBtn" id="hideBtnId"><button type="button" class="searchfilterbtn">Hide Search Filter <i class="fa fa-chevron-up"></i></button></div>*@
+    <!--</div>
+    </div>-->
 
     <div id="divDataTable_length"></div>
     <div class="chkTBL">
@@ -133,16 +135,16 @@
                         <th>Complications</th>
                         <th>Created By</th>
                         @*@if (objRights != null && objRights.IsEdit)
-        {
-            <th>Edit</th>
-        }
-        @if (objRights != null && objRights.IsDelete)
-        {
-            <th>Delete</th>
-        }
-        <th>Country</th>
-        <th>Region</th>
-        <th>Description</th>*@
+                            {
+                                <th>Edit</th>
+                            }
+                            @if (objRights != null && objRights.IsDelete)
+                            {
+                                <th>Delete</th>
+                            }
+                            <th>Country</th>
+                            <th>Region</th>
+                            <th>Description</th>*@
                     </tr>
                 </thead>
                 <tbody></tbody>
@@ -154,12 +156,12 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
+        debugger;
         $("#mydatatable").tableHeadFixer({ "head": true, "top": 1 });
         var langUrl = $("#LangUrl").val();
         var mytable = $('#mydatatable').dataTable({
             "ajax": {
-                  "url": "@Url.Content("~/PetService/FillTablePetServiceAsync")?Active=1",
-
+                 "url": "@Url.Content("~/PetService/FillTablePetServiceAsync")?Active=1",
                 "type": "POST",
                 "error": function (x, y, z) {
                 }
@@ -168,7 +170,7 @@
             {
                 "url": langUrl
             },
-             //"aaSorting": [[@DefaultSearchColNo, "asc"]],
+             "aaSorting": [[1, "asc"]],
             "pageLength": 50,
             "serverSide": true,
             "bStateSave": false,
@@ -218,7 +220,7 @@
                     { "data": "SurgeryDate", "sName": "Surgery Date" },
                     { "data": "ReleaseDate", "sName": "Release Date" },
                     { "data": "Complications", "sName": "Complications" },
-                    { "data": "CreatedBy", "sName": "Created By" },    
+                    { "data": "CreatedBy", "sName": "Created By" },
 
                      @*@if (objRights != null && objRights.IsEdit)
                          {
@@ -251,7 +253,7 @@
 
                                ]
         });
-         mytable.on('order.dt', function () { $('.dataTables_paginate,.dataTables_info').show(); });
+        mytable.on('order.dt', function () { $('.dataTables_paginate,.dataTables_info').show(); });
         mytable.on('length.dt', function (e, settings, len) { $('.dataTables_paginate,.dataTables_info').show(); });
 
         $("#divDataTable_length").append($(".dataTables_info"));
@@ -306,25 +308,46 @@
 
 <script>
 
+     @*$("#btnNewUrl").click(function () {
+        var url = '@Url.Action("AddEditPetData", "PetService");
+        document.location.href = url;
+    });*@
+
     function AddEvent() {
-        $("#sidebarFilterAddUser").html('');
+        var url = '@Url.Action("AddEditPetData", "PetService")';
+        document.location.href = url;
+        @*$("#sidebarFilterAddUser").html('');
         $('#sidebarFilterAddUser').addClass('active');
         $('#sidebarFilterAddUser').show();
         $('.overlay').show();
 
         var url = '@Url.Action("AddEditPetData", "PetService")'
         $("#sidebarFilterAddUser").load(url, function () {
-        });
+        });*@
     }
-    function EditEvent(ServiceId) {
-        $("#sidebarFilterAddUser").html('');
+    function EditEvent(serviceId) {
+        var url = '@Url.Action("AddEditPetData", "PetService")?serviceId=' + serviceId + '';
+        document.location.href = url;
+
+        @*$("#sidebarFilterAddUser").html('');
         $('#sidebarFilterAddUser').show();
         $('#sidebarFilterAddUser').addClass('active');
         $('.overlay').show();
         $('.collapse.in').toggleClass('in');
         $('a[aria-expanded=true]').attr('aria-expanded', 'false');
         var url = '@Url.Action("AddEditPetData", "PetService")?ServiceId=' + ServiceId + '';
-        $("#sidebarFilterAddUser").load(url);
+        $("#sidebarFilterAddUser").load(url);*@
     }
+
+
+    //$("#showBtnID").click(function () {
+    //    $(".hideShowfilter").slideDown();
+    //    $("#showBtnID").hide();
+    //});
+
+    //$("#hideBtnId").click(function () {
+    //    $(".hideShowfilter").slideUp();
+    //    $("#showBtnID").show();
+    //});
 
 </script>

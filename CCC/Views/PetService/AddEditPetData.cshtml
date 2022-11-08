@@ -42,7 +42,11 @@
                         </h3>
                     </div>
                     <div class="pull-right mt20">
-                        <button type="button" id="btnBack" class="btn btnDefault"> Back</button>
+                        @*<button type="button" id="btnBack" class="btn btnDefault">Back</button>*@
+                        <ul class="headerListing">
+                            @*<li class="active"><button type="button" id="btnNewUrl" class="btn btnDefault AddEditBtn">Add New</button></li>*@
+                            <li class="active"> <a href="javascript:void(0);" onclick="BackToManage()"><span class="text">Back</span> <span class="icon iconUser">&nbsp;</span></a></li>
+                        </ul>
                     </div>
                 </div>
             </div>
@@ -224,12 +228,17 @@
                 debugger;
                 if (result.isSuccess == true) {
                     showSuccessMsg('Success');
-                    
+
                 } else {
                     showWarningMsg('something went wrong ');
                 }
             });
         }
     });
+
+    function BackToManage() {
+        var url = '@Url.Action("ManagePetService", "PetService")';
+        document.location.href = url;
+    }
 
 </script>
