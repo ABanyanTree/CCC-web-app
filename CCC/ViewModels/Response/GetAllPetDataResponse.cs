@@ -22,6 +22,7 @@ namespace CCC.UI.ViewModels
         public string Complications { get; set; }
         public bool? IsExpired { get; set; }
 
+        public string PetType { get; set; }
         public string CenterName { get; set; }
         public string VetName { get; set; }
         public string AreaName { get; set; }

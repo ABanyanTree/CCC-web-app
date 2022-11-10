@@ -7,6 +7,7 @@
     SelectList lstCenter = ViewBag.lstCenter;
     SelectList lstCityArea = ViewBag.lstCityArea;
     SelectList lstVet = ViewBag.lstVet;
+    SelectList lstPetType = ViewBag.lstPetType;    
 }
 
 <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
@@ -49,9 +50,11 @@
                     <div class="row">
                         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
                             <div class="form-group">
-                                <label class="pt20">Pet Type<span class="redColor">*</span></label>
+                                <label class="pt20">Pet Type</label>
                                 <div class="form-group2">
-                                    <input asp-for="PetId" type="text" class="form-control" />
+                                    <select asp-for="PetId" asp-items="lstPetType" class="form-control">
+                                        <option value="">--Select--</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>

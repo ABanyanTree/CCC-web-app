@@ -41,6 +41,11 @@ namespace CCC.UI.Controllers
                 AuthorizationHeaderValueGetter = () => Task.FromResult(cachedToken)
             });
 
+            var LookupMasterAPI = RestService.For<ILookupMasterApi>(hostUrl: ApplicationSettings.WebApiUrl, new RefitSettings
+            {
+                AuthorizationHeaderValueGetter = () => Task.FromResult(cachedToken)
+            });
+
 
             var centerRes = await CenterMasterAPI.GetAllCenters();
             ViewBag.lstCenter = new SelectList(centerRes.Content, "CenterId", "CenterName");
@@ -50,6 +55,10 @@ namespace CCC.UI.Controllers
 
             var vetRes = await VetMasterAPI.GetAllVetDetails();
             ViewBag.lstVet = new SelectList(vetRes.Content, "VetId", "VetName");
+
+            var petTypes = await LookupMasterAPI.GetLookupData(CommonConstants.LOOKUPTYPE_PETTYPE);
+            ViewBag.lstPetType = new SelectList(vetRes.Content, "LookupId", "LookupValue");
+
             return View(obj);
 
         }
@@ -179,6 +188,11 @@ namespace CCC.UI.Controllers
                 AuthorizationHeaderValueGetter = () => Task.FromResult(cachedToken)
             });
 
+            var LookupMasterAPI = RestService.For<ILookupMasterApi>(hostUrl: ApplicationSettings.WebApiUrl, new RefitSettings
+            {
+                AuthorizationHeaderValueGetter = () => Task.FromResult(cachedToken)
+            });
+
 
             var centerRes = await CenterMasterAPI.GetAllCenters();
             ViewBag.lstCenter = new SelectList(centerRes.Content, "CenterId", "CenterName");
@@ -188,6 +202,10 @@ namespace CCC.UI.Controllers
 
             var vetRes = await VetMasterAPI.GetAllVetDetails();
             ViewBag.lstVet = new SelectList(vetRes.Content, "VetId", "VetName");
+            
+            var petTypes = await LookupMasterAPI.GetLookupData(CommonConstants.LOOKUPTYPE_PETTYPE);
+            ViewBag.lstPetType = new SelectList(petTypes.Content, "LookupId", "LookupValue");
+
 
             CreatePetService model = new CreatePetService();
             if (!string.IsNullOrEmpty(serviceId))

@@ -36,5 +36,10 @@ namespace CCC.Service.Services
         {
             throw new NotImplementedException();
         }
+
+        public async Task<IEnumerable<LookupMaster>> GetLookupByType(string lookupType)
+        {
+            return await _iLookupMasterRepository.GetLookupByType(lookupType);
+        }
     }
 }

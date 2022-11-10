@@ -27,6 +27,7 @@ namespace CCC.Domain
         public const string DISPLAYORDER = "DisplayOrder";
         public const string ISACTIVE = "IsActive";
 
+        public const string SPROC_GETLOOKUPBYTYPE = "sproc_GetLookupByType";
         public const string SPROC_LOOKUPMASTER_UPS = "sproc_LookupMaster_ups";
         public const string SPROC_LOOKUPMASTER_SEL = "sproc_LookupMaster_sel";
         public const string SPROC_LOOKUPMASTER_LSTALL = "sproc_LookupMaster_lstAll";

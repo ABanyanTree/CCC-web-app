@@ -8,5 +8,6 @@ namespace CCC.Domain.DomainInterface
 {
     public interface ILookupMasterRepository : IRepository<LookupMaster>
     {
+        Task<IEnumerable<LookupMaster>> GetLookupByType(string lookupType);
     }
 }
