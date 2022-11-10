@@ -19,7 +19,7 @@ namespace CCC.UI.ViewModels
         public string CareGiver { get; set; }
         public string VetId { get; set; }
         public DateTime? SurgeryDate { get; set; }
-        public DateTime? ReleasedDate { get; set; }
+        public DateTime? ReleaseDate { get; set; }
         public string Complications { get; set; }
         public bool? IsExpired { get; set; }
         public string CreatedBy { get; set; }

@@ -163,7 +163,7 @@
                             <div class="form-group">
                                 <label class="pt20">Release Date<span class="redColor">*</span></label>
                                 <div class="form-group2">
-                                    <input asp-for="ReleasedDate" id="dtReleaseDate" type="text"  class="form-control datepkr" />
+                                    <input asp-for="ReleaseDate" id="dtReleaseDate" type="text"  class="form-control datepkr" />
                                 </div>
                             </div>
                         </div>
@@ -217,9 +217,8 @@
                 processData: false,
                 contentType: false
             }).done(function (result) {
-                debugger;
                 if (result.isSuccess == true) {
-                    showSuccessMsg('Success');
+                    showSuccessMsg('Success', BackToManage);
 
                 } else {
                     showWarningMsg('something went wrong ');

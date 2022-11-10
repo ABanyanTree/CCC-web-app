@@ -1,4 +1,4 @@
-﻿function showSuccessMsg(valContent, valTitle, valIcon, valColor) {
+﻿function showSuccessMsg(valContent, callback, valTitle, valIcon, valColor) {
     valTitle = typeof (valTitle) == 'undefined' ? 'Success' : valTitle;
     valIcon = typeof (valIcon) == 'undefined' ? 'fa fa-check' : valIcon;
     valColor = typeof (valColor) == 'undefined' ? 'green' : valColor;
@@ -7,7 +7,13 @@
         title: valTitle,
         icon: valIcon,
         type: valColor,
-        content: valContent
+        content: valContent,
+        buttons: {
+            closeIcon: {
+                text: '<i class="fa fa-times-circle"></i>',
+                action: callback
+            }
+        }
     });
 }
 
