@@ -190,7 +190,7 @@
     <div class="navbar-fixed-top learnPortHeader">
         <div class="pull-left myCourLogo mainLogoAdmin">
             <a>
-                <img style="width:120px" src='@Url.Content("~/Images" + imgPath + "/main-logo.png")' />
+                @*<img style="width:120px" src='@Url.Content("~/Images" + imgPath + "/main-logo.png")' />*@
             </a>
         </div>
         @if (env == "Development" || env == "Staging")
@@ -324,7 +324,7 @@
                                         <li class="@liClass @selectedClass1" feature="@singleParent.FeatureId">
                                             <a class="@anchClass" href="@href" onclick="setSession('@singleParent.FeatureId', '')">
                                                 <span class="meIcon @singleParent.CssClass">&nbsp;</span>
-                                                <span class="meText">@singleParent.FeatureName</span>
+                                                <span class="meText">@singleParent.DashboardTitle</span>
                                             </a>
                                             @if (childFeatures.Count > 0)
                                             {
@@ -341,7 +341,7 @@
                                                                 selectedClass2 = "";
                                                             }
                                                             <li class="@selectedClass2">
-                                                                <a class="aClickable" onclick="setSession('@singleParent.FeatureId', '@singleChild.FeatureId')" asp-controller="@singleChild.ControllerName" asp-action="@singleChild.ActionName">@singleChild.FeatureName</a>
+                                                                <a class="aClickable" onclick="setSession('@singleParent.FeatureId', '@singleChild.FeatureId')" asp-controller="@singleChild.ControllerName" asp-action="@singleChild.ActionName">@singleChild.DashboardTitle</a>
                                                             </li>
 
                                                         }

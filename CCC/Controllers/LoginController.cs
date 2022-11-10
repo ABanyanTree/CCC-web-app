@@ -166,5 +166,14 @@ namespace CCC.UI.Controllers
             return response;
         }
 
+        [HttpPost]
+        public IActionResult SetActiveMenuSession(string level1, string level2)
+        {
+            HttpContext.Session.SetObject("LEVEL1_MENU", level1);
+            HttpContext.Session.SetObject("LEVEL2_MENU", level2);
+
+            return Json("1");
+        }
+
     }
 }

@@ -19,18 +19,10 @@
 
 <link href="~/lib/bootstrap-multiselect/bootstrap-multiselect.css" rel="stylesheet" />
 <script src="~/lib/bootstrap-multiselect/bootstrap-multiselect.js"></script>
-<script>
-    $(function () {
-        $(".datepkr").datepicker({
-            autoclose: true,
-            format: "dd/mm/yyyy",
-        });
-    });
-</script>
+
 
 <form id="AddEditPetData" asp-action="AddEditPetData" asp-controller="PetService" method="post" enctype="multipart/form-data">
     @Html.HiddenFor(model => model.ServiceId, new { @id = "ServiceId" })
-
     <div class="mainContent">
         <div class="row">
             <div class="col-lg-12 col-lg-12 col-lg-12 col-lg-12">
@@ -72,7 +64,7 @@
                                         <input asp-for="Gender" type="radio" value="Female" id="rdFemale" name="PetGender" />FeMale
 
                                         @*<label class="col-lg-3 col-md-3 col-sm-3 col-xs-12 mt15"> @Html.RadioButtonFor(x => x.Gender, new { @group = '1', @checked = "checked" }) Male</label>
-                                    <label class="col-lg-3 col-md-3 col-sm-3 col-xs-12 mt15"> @Html.RadioButtonFor(x => x.Gender, new { @group = '1' }) Female</label>*@
+                                            <label class="col-lg-3 col-md-3 col-sm-3 col-xs-12 mt15"> @Html.RadioButtonFor(x => x.Gender, new { @group = '1' }) Female</label>*@
 
                                     </div>
                                 </div>
@@ -104,7 +96,7 @@
                             <div class="form-group">
                                 <label class="pt20">Entry Date<span class="redColor">*</span></label>
                                 <div class="form-group2">
-                                    <input asp-for="EntryDate" id="dtEntryDate" type="text" value="@DateTime.Now.ToString("dd/MM/yyyy")" class="form-control datepkr" />
+                                    <input asp-for="EntryDate" id="dtEntryDate" type="text" value="@DateTime.Now.ToString("yyyy-MM-dd")" class="form-control datepkr" />
                                 </div>
                             </div>
                         </div>
@@ -158,19 +150,17 @@
                         </div>
                         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
                             <div class="form-group">
-                                <label class="pt20">Surgey Date<span class="redColor">*</span></label>
+                                <label class="pt20">Surgery Date<span class="redColor">*</span></label>
                                 <div class="form-group2">
-                                    <input asp-for="SurgeryDate" id="dtSurgeryDate" type="text" class="form-control datepkr" />
+                                    <input asp-for="SurgeryDate" id="dtSurgeryDate" type="text"  class="form-control datepkr" />
                                 </div>
                             </div>
                         </div>
                         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
                             <div class="form-group">
-                                <label class="pt20">Release Date</label>
+                                <label class="pt20">Release Date<span class="redColor">*</span></label>
                                 <div class="form-group2">
-                                    <div class="form-group fullscreen">
-                                        <input asp-for="ReleaseDate" id="dtReleaseDate" type="text" class="form-control datepkr" />
-                                    </div>
+                                    <input asp-for="ReleasedDate" id="dtReleaseDate" type="text"  class="form-control datepkr" />
                                 </div>
                             </div>
                         </div>
@@ -185,16 +175,16 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <div class="userBoxFooter">
-                        <div class="pull-right">
-                            <button type="button" class="btn btn-primary btnSearch" id="btnSubmit">Submit</button>
-                            <button type="button" class="btn btn-primary btnSearch" id="btnCancel">Cancel</button>                            
-                        </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="userBoxFooter">
+                    <div class="pull-right">
+                        <button type="button" class="btn btn-primary btnSearch" id="btnSubmit">Submit</button>
+                        <button type="button" class="btn btn-primary btnSearch" id="btnCancel">Cancel</button>
                     </div>
-                    <div class="bottomSpace">&nbsp;</div>
                 </div>
+                <div class="bottomSpace">&nbsp;</div>
             </div>
         </div>
     </div>
@@ -202,7 +192,6 @@
 
 <script>
     $("#btnSubmit").on('click', function (e) {
-        debugger;
         e.preventDefault();
 
         $('#AddEditPetData').find('input:text').each(function () {
@@ -241,4 +230,21 @@
         document.location.href = url;
     }
 
+</script>
+
+<script>
+    $(function () {
+        $("#dtEntryDate").datepicker({
+             autoclose: true,
+            format: "yyyy-MM-dd",
+        });
+        $("#dtSurgeryDate").datepicker({
+            autoclose: true,
+            format: "yyyy-MM-dd",
+        });
+        $("#dtReleaseDate").datepicker({
+            autoclose: true,
+            format: "yyyy-MM-dd",
+        });
+    });
 </script>

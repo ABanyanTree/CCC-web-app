@@ -22,12 +22,19 @@ namespace CCC.UI.ViewModels
         public string Complications { get; set; }
         public bool? IsExpired { get; set; }
 
+        public string CenterName { get; set; }
+        public string VetName { get; set; }
+        public string AreaName { get; set; }
+
         public DateTime? CreatedDate { get; set; }
         public DateTime? ModifiedDate { get; set; }
         public string CreatedBy { get; set; }
         public string ModifiedBy { get; set; }
         public string CreatorName { get; set; }
         public string ModifiorName { get; set; }
+        public string EntryDateDisplay { get; set; }
+        public string SurgeryDateDisplay { get; set; }
+        public string ReleaseDateDisplay { get; set; }
 
         public bool? IsActive { get; set; }
 

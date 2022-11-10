@@ -23,6 +23,14 @@ namespace CCC.Domain
         public string Complications { get; set; }
         public bool? IsExpired { get; set; }
 
+        public string CenterName { get; set; }
+        public string VetName { get; set; }
+        public string AreaName { get; set; }
+
+        public string EntryDateDisplay { get; set; }
+        public string SurgeryDateDisplay { get; set; }
+        public string ReleaseDateDisplay { get; set; }
+
     }
 
     public class PetServiceDetails_Constant : BaseEntity_Constant
@@ -46,8 +54,8 @@ namespace CCC.Domain
         public const string SPROC_PETSERVICE_UPS = "sproc_PetService_ups";
         public const string SPROC_PETSERVICE_SEL = "sproc_PetService_sel";
         public const string SPROC_PETSERVICE_LSTALL = "sproc_PetService_lstAll";
-        public const string SPROC_PETSERVICE_DEL = "sproc_PetService_del";     
-   
+        public const string SPROC_PETSERVICE_DEL = "sproc_PetService_del";
+
 
     }
 }
