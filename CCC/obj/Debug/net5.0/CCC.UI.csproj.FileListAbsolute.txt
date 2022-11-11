@@ -846,3 +846,8 @@ D:\Shahen-WorkFront\Projects\CodeZen\CCC\CCC\bin\Debug\net5.0\FluentValidation.D
 D:\Shahen-WorkFront\Projects\CodeZen\CCC\CCC\obj\Debug\net5.0\Razor\Views\Home\Dashboard.cshtml.g.cs
 D:\Shahen-WorkFront\Projects\CodeZen\CCC\CCC\obj\Debug\net5.0\Razor\Views\PetService\AddEditPetData.cshtml.g.cs
 D:\Shahen-WorkFront\Projects\CodeZen\CCC\CCC\obj\Debug\net5.0\Razor\Views\PetService\ManagePetService.cshtml.g.cs
+D:\Shahen-WorkFront\Projects\CodeZen\CCC\CCC\obj\Debug\net5.0\Razor\Views\CenterMaster\ManageCenter.cshtml.g.cs
+D:\Shahen-WorkFront\Projects\CodeZen\CCC\CCC\obj\Debug\net5.0\Razor\Views\UserMaster\ManageUsers.cshtml.g.cs
+D:\Shahen-WorkFront\Projects\CodeZen\CCC\CCC\obj\Debug\net5.0\Razor\Views\VetMaster\ManageVet.cshtml.g.cs
+D:\Shahen-WorkFront\Projects\CodeZen\CCC\CCC\obj\Debug\net5.0\Razor\Views\CityAreaMaster\ManageCityArea.cshtml.g.cs
+D:\Shahen-WorkFront\Projects\CodeZen\CCC\CCC\obj\Debug\net5.0\Razor\Views\LookupMaster\ManageLookup.cshtml.g.cs
