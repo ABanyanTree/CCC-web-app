@@ -24,7 +24,7 @@ namespace CCC.API.Controllers.Masters
         [ProducesResponseType(typeof(string), statusCode: 200)]
         [ProducesResponseType(typeof(ErrorLogs), statusCode: 401)]
         [ProducesResponseType(typeof(ErrorLogs), statusCode: 400)]
-        [CustomAuthorizeAttribute(FeatureId = FeatureAccess.FEATURE_ManageVet)]
+        //[CustomAuthorizeAttribute(FeatureId = FeatureAccess.FEATURE_ManageVet)]
         public async Task<IActionResult> AddEditVetDetail([FromBody] VetMaster request)
         {
             var areaId = await _iVetMasterService.AddEditVetDetail(request);
@@ -35,7 +35,7 @@ namespace CCC.API.Controllers.Masters
 
         [HttpGet(ApiRoutes.VetMaster.GetVetDetail)]
         [ProducesResponseType(typeof(VetMaster), statusCode: 200)]
-        [CustomAuthorizeAttribute(FeatureId = FeatureAccess.FEATURE_ManageVet)]
+        //[CustomAuthorizeAttribute(FeatureId = FeatureAccess.FEATURE_ManageVet)]
         public async Task<IActionResult> GetVetDetail([FromQuery] string vetId)
         {
             var objResponse = await _iVetMasterService.GetAsync(new VetMaster { VetId = vetId });
@@ -45,7 +45,7 @@ namespace CCC.API.Controllers.Masters
 
         [HttpDelete(ApiRoutes.VetMaster.DeleteVet)]
         [ProducesResponseType(typeof(string), statusCode: 200)]
-        [CustomAuthorizeAttribute(FeatureId = FeatureAccess.FEATURE_ManageVet)]
+        //[CustomAuthorizeAttribute(FeatureId = FeatureAccess.FEATURE_ManageVet)]
         public async Task<IActionResult> DeleteVet([FromQuery] string vetId)
         {
             var objResponse = await _iVetMasterService.DeleteAsync(new VetMaster { VetId = vetId });
@@ -55,7 +55,7 @@ namespace CCC.API.Controllers.Masters
 
         [HttpGet(ApiRoutes.VetMaster.GetAllVetList)]
         [ProducesResponseType(typeof(VetMaster), statusCode: 200)]
-        [CustomAuthorizeAttribute(FeatureId = FeatureAccess.FEATURE_ManageVet)]
+        //[CustomAuthorizeAttribute(FeatureId = FeatureAccess.FEATURE_ManageVet)]
         public async Task<IActionResult> GetAllVetList(VetMaster request)
         {
             var objResponse = await _iVetMasterService.GetAllAsync(request);
@@ -65,7 +65,7 @@ namespace CCC.API.Controllers.Masters
 
         [HttpGet(ApiRoutes.VetMaster.IsVetNameInUse)]
         [ProducesResponseType(typeof(bool), statusCode: 200)]
-        [CustomAuthorizeAttribute(FeatureId = FeatureAccess.FEATURE_ManageVet)]
+        //[CustomAuthorizeAttribute(FeatureId = FeatureAccess.FEATURE_ManageVet)]
         public async Task<IActionResult> IsVetNameInUse([FromQuery] string vetName)
         {
             //if (string.IsNullOrEmpty(CountryName))

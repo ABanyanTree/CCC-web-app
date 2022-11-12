@@ -25,9 +25,10 @@ namespace CCC.Service.Services
 
         public async Task<string> AddEditVetDetail(VetMaster obj)
         {
-            if (!string.IsNullOrEmpty(obj.VetId))
+            if (string.IsNullOrEmpty(obj.VetId))
             {
                 obj.VetId = Utility.GeneratorUniqueId("VET_");
+                obj.IsActive = true;
             }
             int successCount = await _iVetMasterRepository.AddEditVetDetail(obj);
             return successCount > 0 ? obj.VetId : string.Empty;
