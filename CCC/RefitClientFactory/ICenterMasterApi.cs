@@ -11,6 +11,15 @@ namespace CCC.UI.RefitClientFactory
     [Headers("Authorization: Bearer")]
     public interface ICenterMasterApi
     {
+        [Get(path: "/api/centerMaster/getcenter")]
+        Task<ApiResponse<CenterMasterRequest>> GetCenter(string centerId);
+
+        [Post(path: "/api/centerMaster/addeditcenter")]
+        Task<HttpResponseMessage> AddEditCenter(CenterMasterRequest request);
+
+        [Get(path: "/api/centerMaster/getallcenterlist")]
+        Task<ApiResponse<List<GetCentersResponse>>> GetAllCenterList(CenterMasterRequest request);
+
         [Get(path: "/api/centerMaster/getallcenters")]
         Task<ApiResponse<List<GetCentersResponse>>> GetAllCenters();
     }

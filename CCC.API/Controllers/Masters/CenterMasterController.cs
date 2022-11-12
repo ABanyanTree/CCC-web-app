@@ -23,7 +23,7 @@ namespace CCC.API.Controllers.Masters
         [ProducesResponseType(typeof(string), statusCode: 200)]
         [ProducesResponseType(typeof(ErrorLogs), statusCode: 401)]
         [ProducesResponseType(typeof(ErrorLogs), statusCode: 400)]
-        [CustomAuthorizeAttribute(FeatureId = FeatureAccess.FEATURE_ManageCenter)]
+        //[CustomAuthorizeAttribute(FeatureId = FeatureAccess.FEATURE_ManageCenter)]
         public async Task<IActionResult> AddEditCenter([FromBody] CenterMaster request)
         {
             var centerId = await _iCenterMasterService.AddEditCenter(request);
@@ -34,7 +34,7 @@ namespace CCC.API.Controllers.Masters
 
         [HttpGet(ApiRoutes.CenterMaster.GetCenter)]
         [ProducesResponseType(typeof(CenterMaster), statusCode: 200)]
-        [CustomAuthorizeAttribute(FeatureId = FeatureAccess.FEATURE_ManageCenter)]
+        //[CustomAuthorizeAttribute(FeatureId = FeatureAccess.FEATURE_ManageCenter)]
         public async Task<IActionResult> GetCenter([FromQuery] string centerId)
         {
             var objResponse = await _iCenterMasterService.GetAsync(new CenterMaster { CenterId = centerId });
@@ -45,7 +45,7 @@ namespace CCC.API.Controllers.Masters
 
         [HttpDelete(ApiRoutes.CenterMaster.DeleteCenter)]
         [ProducesResponseType(typeof(string), statusCode: 200)]
-        [CustomAuthorizeAttribute(FeatureId = FeatureAccess.FEATURE_ManageCenter)]
+        //[CustomAuthorizeAttribute(FeatureId = FeatureAccess.FEATURE_ManageCenter)]
         public async Task<IActionResult> DeleteCenter([FromQuery] string centerId)
         {
             var objResponse = await _iCenterMasterService.DeleteAsync(new CenterMaster { CenterId = centerId });
@@ -57,7 +57,7 @@ namespace CCC.API.Controllers.Masters
 
         [HttpGet(ApiRoutes.CenterMaster.GetAllCenterList)]
         [ProducesResponseType(typeof(CenterMaster), statusCode: 200)]
-        [CustomAuthorizeAttribute(FeatureId = FeatureAccess.FEATURE_ManageCenter)]
+        //[CustomAuthorizeAttribute(FeatureId = FeatureAccess.FEATURE_ManageCenter)]
         public async Task<IActionResult> GetAllCenterList(CenterMaster request)
         {
             var objResponse = await _iCenterMasterService.GetAllAsync(request);
