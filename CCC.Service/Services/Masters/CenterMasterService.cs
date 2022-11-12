@@ -25,9 +25,10 @@ namespace CCC.Service.Services
 
         public async Task<string> AddEditCenter(CenterMaster obj)
         {
-            if (!string.IsNullOrEmpty(obj.CenterId))
+            if (string.IsNullOrEmpty(obj.CenterId))
             {
                 obj.CenterId = Utility.GeneratorUniqueId("CNT_");
+                obj.IsActive = true;
             }
             int successCount = await _iCenterMasterRepository.AddEditCenter(obj);
             return successCount > 0 ? obj.CenterId : string.Empty;
