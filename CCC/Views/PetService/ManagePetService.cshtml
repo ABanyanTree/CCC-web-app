@@ -127,26 +127,26 @@
                         <th>Surgery Date</th>
                         <th>Van Number</th>
                         <th>Vet Name</th>
-                        <th>Care Giver</th>
                         <th>Pet</th>
                         <th>Certificate No</th>
                         <th>Tag Id</th>
                         <th>Center Name</th>
                         <th>Area Name</th>
+                        <th>Care Giver</th>
                         <th>Release Date</th>
                         <th>Medical Notes/Comments</th>
                         <th>Created By</th>
                         @*@if (objRights != null && objRights.IsEdit)
-        {
-            <th>Edit</th>
-        }
-        @if (objRights != null && objRights.IsDelete)
-        {
-            <th>Delete</th>
-        }
-        <th>Country</th>
-        <th>Region</th>
-        <th>Description</th>*@
+                            {
+                                <th>Edit</th>
+                            }
+                            @if (objRights != null && objRights.IsDelete)
+                            {
+                                <th>Delete</th>
+                            }
+                            <th>Country</th>
+                            <th>Region</th>
+                            <th>Description</th>*@
                     </tr>
                 </thead>
                 <tbody></tbody>
@@ -211,18 +211,18 @@
                                 return "";
                         }
                     },
-                    { "data": "AdmissionDisplay", "sName": "Admission Date" },
+                    { "data": "AdmissionDateDisplay", "sName": "Admission Date" },
                     { "data": "SurgeryDateDisplay", "sName": "Surgery Date" },
                     { "data": "VanNumber", "sName": "Van Number" },
                     { "data": "VetName", "sName": "Vet Name" },
                     { "data": "PetType", "sName": "Pet" },
                     { "data": "CertificateNo", "sName": "Certificate No" },
-                    { "data": "TagId", "sName": "Tag Id" },                   
+                    { "data": "TagId", "sName": "Tag Id" },
                     { "data": "CenterName", "sName": "Center Name" },
                     { "data": "AreaName", "sName": "Area Name" },
-                    { "data": "CareGiver", "sName": "Care Giver" },  
+                    { "data": "CareGiver", "sName": "Care Giver" },
                     { "data": "ReleaseDateDisplay", "sName": "Release Date" },
-                    { "data": "Complications", "sName": "Complications" },
+                    { "data": "MedicalComments", "sName": "Medical Comments" },
                     { "data": "CreatorName", "sName": "Created By" },
 
                      @*@if (objRights != null && objRights.IsEdit)

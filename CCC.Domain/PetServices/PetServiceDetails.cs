@@ -10,7 +10,7 @@ namespace CCC.Domain
     {
         public string ServiceId { get; set; }
         public string PetId { get; set; }
-        public bool Gender { get; set; }
+        public string Gender { get; set; }
         public string CertificateNo { get; set; }
         public string TagId { get; set; }
         public DateTime AdmissionDate { get; set; }
@@ -26,6 +26,7 @@ namespace CCC.Domain
         public string CenterName { get; set; }
         public string VetName { get; set; }
         public string AreaName { get; set; }
+        public string MedicalComments { get; set; }
         public string VanNumber { get; set; }
 
 

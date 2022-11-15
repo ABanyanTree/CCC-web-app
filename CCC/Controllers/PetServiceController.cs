@@ -58,7 +58,7 @@ namespace CCC.UI.Controllers
 
             var petTypes = await LookupMasterAPI.GetLookupData(CommonConstants.LOOKUPTYPE_PETTYPE);
             ViewBag.lstPetType = new SelectList(vetRes.Content, "LookupId", "LookupValue");
-            
+
 
             return View(obj);
 
@@ -224,6 +224,12 @@ namespace CCC.UI.Controllers
             {
                 var updateResponse = await PetServiceAPI.GetPetData(serviceId);
                 model = updateResponse.Content;
+            }
+            else
+            {
+                //default selected as No
+                model.IsARV = model.IsEarNotch = model.IsOnHold = false;
+
             }
             return View(model);
         }

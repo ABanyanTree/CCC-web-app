@@ -10,7 +10,7 @@ namespace CCC.UI.ViewModels
     {
         public string ServiceId { get; set; }
         public string PetId { get; set; }
-        public bool Gender { get; set; }
+        public string Gender { get; set; }
         public string CertificateNo { get; set; }
         public string TagId { get; set; }
         public DateTime AdmissionDate { get; set; }
