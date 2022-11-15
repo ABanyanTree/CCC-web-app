@@ -56,6 +56,9 @@ namespace CCC.lOC
             services.AddSingleton<IVetMasterService, VetMasterService>();
             services.AddSingleton<IVetMasterRepository, VetMasterRepository>();
 
+            services.AddSingleton<IVanMasterRepository, VanMasterRepository>();
+            services.AddSingleton<IVanMasterService, VanMasterService>();
+
             services.AddSingleton<IRefreshTokenService, RefreshTokenService>();
             services.AddSingleton<IRefreshTokenRepository, RefreshTokenRepository>();
 

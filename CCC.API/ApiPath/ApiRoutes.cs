@@ -53,6 +53,18 @@ namespace CCC.API.ApiPath
             public const string IsInUseCount = Base + "/vetmaster/isinusecount";
         }
 
+        public static class VanMaster
+        {
+            public const string AddEditVanDetail = Base + "/vanmaster/addeditvandetail";
+            public const string GetVanDetail = Base + "/vanmaster/getvandetail";
+            public const string GetAllVanDetailList = Base + "/vanmaster/getallvandetaillist";
+            public const string DeleteVan = Base + "/vanmaster/deletevan";
+
+            public const string IsVanNumberInUse = Base + "/vanmaster/isvannumberinuse";
+            public const string GetAllVansDetails = Base + "/vanmaster/getallvansdetails";
+            public const string IsInUseCount = Base + "/vanmaster/isinusecount";
+        }
+
         public static class UserMaster
         {
             public const string AddEditUser = Base + "/usermaster/addedituser";

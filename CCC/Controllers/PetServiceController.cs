@@ -58,6 +58,7 @@ namespace CCC.UI.Controllers
 
             var petTypes = await LookupMasterAPI.GetLookupData(CommonConstants.LOOKUPTYPE_PETTYPE);
             ViewBag.lstPetType = new SelectList(vetRes.Content, "LookupId", "LookupValue");
+            
 
             return View(obj);
 
@@ -188,6 +189,11 @@ namespace CCC.UI.Controllers
                 AuthorizationHeaderValueGetter = () => Task.FromResult(cachedToken)
             });
 
+            var VanMasterAPI = RestService.For<IVanMasterApi>(hostUrl: ApplicationSettings.WebApiUrl, new RefitSettings
+            {
+                AuthorizationHeaderValueGetter = () => Task.FromResult(cachedToken)
+            });
+
             var LookupMasterAPI = RestService.For<ILookupMasterApi>(hostUrl: ApplicationSettings.WebApiUrl, new RefitSettings
             {
                 AuthorizationHeaderValueGetter = () => Task.FromResult(cachedToken)
@@ -202,9 +208,15 @@ namespace CCC.UI.Controllers
 
             var vetRes = await VetMasterAPI.GetAllVetDetails();
             ViewBag.lstVet = new SelectList(vetRes.Content, "VetId", "VetName");
-            
+
+            var vanRes = await VanMasterAPI.GetAllVanDetail();
+            ViewBag.lstVan = new SelectList(vanRes.Content, "VanId", "VanNumber");
+
             var petTypes = await LookupMasterAPI.GetLookupData(CommonConstants.LOOKUPTYPE_PETTYPE);
             ViewBag.lstPetType = new SelectList(petTypes.Content, "LookupId", "LookupValue");
+
+            var MedicalNotes = await LookupMasterAPI.GetLookupData(CommonConstants.LOOKUPTYPE_MEDICALNOTES);
+            ViewBag.lstMedicalNotes = new SelectList(MedicalNotes.Content, "LookupId", "LookupValue");
 
 
             CreatePetService model = new CreatePetService();

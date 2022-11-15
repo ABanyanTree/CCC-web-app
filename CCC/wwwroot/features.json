@@ -46,8 +46,14 @@
     "CssClass": "IMaster"
   },
 
-  "ManagePetService": {
+  "ManageVan": {
     "FeatureId": "FEA00007",
+    "ControllerName": "VanMaster",
+    "ActionName": "ManageVanMaster",
+    "CssClass": ""
+  },
+  "ManagePetService": {
+    "FeatureId": "FEA00008",
     "ControllerName": "PetService",
     "ActionName": "ManagePetService",
     "CssClass": ""

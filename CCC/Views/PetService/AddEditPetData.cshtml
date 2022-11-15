@@ -7,7 +7,9 @@
     SelectList lstCenter = ViewBag.lstCenter;
     SelectList lstCityArea = ViewBag.lstCityArea;
     SelectList lstVet = ViewBag.lstVet;
-    SelectList lstPetType = ViewBag.lstPetType;    
+    SelectList lstPetType = ViewBag.lstPetType;
+    SelectList lstMedicalNotes = ViewBag.lstMedicalNotes;
+    SelectList lstVan = ViewBag.lstVan;
 }
 
 <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
@@ -67,7 +69,7 @@
                                         <input asp-for="Gender" type="radio" value="Female" id="rdFemale" name="PetGender" />FeMale
 
                                         @*<label class="col-lg-3 col-md-3 col-sm-3 col-xs-12 mt15"> @Html.RadioButtonFor(x => x.Gender, new { @group = '1', @checked = "checked" }) Male</label>
-                                            <label class="col-lg-3 col-md-3 col-sm-3 col-xs-12 mt15"> @Html.RadioButtonFor(x => x.Gender, new { @group = '1' }) Female</label>*@
+                                    <label class="col-lg-3 col-md-3 col-sm-3 col-xs-12 mt15"> @Html.RadioButtonFor(x => x.Gender, new { @group = '1' }) Female</label>*@
 
                                     </div>
                                 </div>
@@ -97,9 +99,9 @@
                     <div class="row">
                         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
                             <div class="form-group">
-                                <label class="pt20">Entry Date<span class="redColor">*</span></label>
+                                <label class="pt20">Admission Date<span class="redColor">*</span></label>
                                 <div class="form-group2">
-                                    <input asp-for="EntryDate" id="dtEntryDate" type="text" value="@DateTime.Now.ToString("yyyy-MM-dd")" class="form-control datepkr" />
+                                    <input asp-for="AdmissionDate" id="dtEntryDate" type="text" value="@DateTime.Now.ToString("yyyy-MM-dd")" class="form-control datepkr" />
                                 </div>
                             </div>
                         </div>
@@ -155,7 +157,7 @@
                             <div class="form-group">
                                 <label class="pt20">Surgery Date<span class="redColor">*</span></label>
                                 <div class="form-group2">
-                                    <input asp-for="SurgeryDate" id="dtSurgeryDate" type="text"  class="form-control datepkr" />
+                                    <input asp-for="SurgeryDate" id="dtSurgeryDate" type="text" class="form-control datepkr" />
                                 </div>
                             </div>
                         </div>
@@ -163,18 +165,86 @@
                             <div class="form-group">
                                 <label class="pt20">Release Date<span class="redColor">*</span></label>
                                 <div class="form-group2">
-                                    <input asp-for="ReleaseDate" id="dtReleaseDate" type="text"  class="form-control datepkr" />
+                                    <input asp-for="ReleaseDate" id="dtReleaseDate" type="text" class="form-control datepkr" />
                                 </div>
                             </div>
                         </div>
                         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
                             <div class="form-group">
-                                <label class="pt20">Complications</label>
+                                <label class="pt20">Medical Notes/Comments</label>
                                 <div class="form-group2">
-                                    <input asp-for="Complications" type="text" class="form-control" />
+                                    <div class="form-group fullscreen">
+                                        <select asp-for="MedicalNoteId" asp-items="lstMedicalNotes" class="form-control">
+                                            <option value="">--Select--</option>
+                                        </select>
+                                        @*@Html.TextBoxFor(x => x.PetId, new { @class = "form-control", @maxlength = "50" })*@
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class=" row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="row">
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                            <div class="form-group">
+                                <label class="pt20">Van Number</label>
+                                <div class="form-group2">
+                                    <select asp-for="VanId" asp-items="lstVet" class="form-control">
+                                        <option value="">--Select--</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                            <div class="form-group">
+                                <label class="pt20">Ear Notch</label>
+                                <div class="form-group2">
+                                    <input asp-for="IsEarNotch" id="chkEarNotch" type="checkbox" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                            <div class="form-group">
+                                <label class="pt20">ARV</label>
+                                <div class="form-group2">
+                                    <input asp-for="IsARV" id="chkARV" type="checkbox" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                            <div class="form-group">
+                                <label class="pt20">On Hold</label>
+                                <div class="form-group2">
+                                    <input asp-for="IsOnHold" id="chkOnHold" type="checkbox" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class=" row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="row">
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                            <div class="form-group">
+                                <label class="pt20">Exoire Date<span class="redColor">*</span></label>
+                                <div class="form-group2">
+                                    <input asp-for="ExpiredDate" id="dtExpireDate" type="text" class="form-control datepkr" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                            <div class="form-group">
+                                <label class="pt20">Cause of Death</label>
+                                <div class="form-group2">
+                                    <input asp-for="CauseOfDeath" type="text" class="form-control" />
+                                </div>
+                            </div>
+                        </div>                        
                     </div>
                 </div>
             </div>
@@ -237,7 +307,7 @@
 <script>
     $(function () {
         $("#dtEntryDate").datepicker({
-             autoclose: true,
+            autoclose: true,
             format: "yyyy-MM-dd",
         });
         $("#dtSurgeryDate").datepicker({

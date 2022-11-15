@@ -12,20 +12,29 @@ namespace CCC.UI.ViewModels
         public bool Gender { get; set; }
         public string CertificateNo { get; set; }
         public string TagId { get; set; }
-        public DateTime EntryDate { get; set; }
+        public DateTime AdmissionDate { get; set; }
         public string CenterId { get; set; }
         public string AreaId { get; set; }
         public string CareGiver { get; set; }
         public string VetId { get; set; }
         public DateTime? SurgeryDate { get; set; }
         public DateTime? ReleaseDate { get; set; }
-        public string Complications { get; set; }
-        public bool? IsExpired { get; set; }
+        public string MedicalNoteId { get; set; }
+
+        public string VanId { get; set; }
+        public bool? IsEarNotch { get; set; }
+        public bool? IsARV { get; set; }
+        public bool? IsOnHold { get; set; }
+        public DateTime? ExpiredDate { get; set; }
+        public string CauseOfDeath { get; set; }
 
         public string PetType { get; set; }
         public string CenterName { get; set; }
         public string VetName { get; set; }
         public string AreaName { get; set; }
+        public string MedicalComments { get; set; }
+        public string VanNumber { get; set; }
+
 
         public DateTime? CreatedDate { get; set; }
         public DateTime? ModifiedDate { get; set; }
@@ -33,7 +42,7 @@ namespace CCC.UI.ViewModels
         public string ModifiedBy { get; set; }
         public string CreatorName { get; set; }
         public string ModifiorName { get; set; }
-        public string EntryDateDisplay { get; set; }
+        public string AdmissionDateDisplay { get; set; }
         public string SurgeryDateDisplay { get; set; }
         public string ReleaseDateDisplay { get; set; }
 

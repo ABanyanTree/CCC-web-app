@@ -13,7 +13,8 @@ namespace CCC.Domain
         public const string FEATURE_ManageCityArea = "ManageCityArea";
         public const string FEATURE_ManageLookup = "ManageLookup";
         public const string FEATURE_ManageUsers = "ManageUsers";
-        public const string FEATURE_ManageVet = "ManageVet";        
+        public const string FEATURE_ManageVet = "ManageVet";
+        public const string FEATURE_ManageVan = "ManageVan";
         public const string FEATURE_ManagePetService = "ManagePetService";
     }
 }
