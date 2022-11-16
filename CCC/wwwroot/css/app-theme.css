@@ -806,7 +806,7 @@ ol.treeBreadcrumb li.breadcrumb-item + .breadcrumb-item::before{content: "\f105"
 /**************/
 .formGroupTop{/*padding-top:19px*/ padding-top:10px}
 
-ul.formGroupTopListing{float:right; position:absolute; right:0px; /*z-index:2; background:#ffffff*/}
+ul.formGroupTopListing{float:right; position:absolute; /*right:0px;*/ /*z-index:2; background:#ffffff*/}
 ul.formGroupTopListing li{float:left; padding-left:10px;}
 ul.formGroupTopListing li.firstLastName, ul.formGroupTopListing li.groupName{min-width:250px}
 ul.formGroupTopListing li.firstLastNamePOP, ul.formGroupTopListing li.groupNamePOP{min-width:210px}

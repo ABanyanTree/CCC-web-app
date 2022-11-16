@@ -853,3 +853,4 @@ D:\Shahen-WorkFront\Projects\CodeZen\CCC\CCC\obj\Debug\net5.0\Razor\Views\CityAr
 D:\Shahen-WorkFront\Projects\CodeZen\CCC\CCC\obj\Debug\net5.0\Razor\Views\LookupMaster\ManageLookup.cshtml.g.cs
 D:\Shahen-WorkFront\Projects\CodeZen\CCC\CCC\obj\Debug\net5.0\Razor\Views\CenterMaster\AddEditCenter.cshtml.g.cs
 D:\Shahen-WorkFront\Projects\CodeZen\CCC\CCC\obj\Debug\net5.0\Razor\Views\VetMaster\AddEditVet.cshtml.g.cs
+D:\Shahen-WorkFront\Projects\CodeZen\CCC\CCC\obj\Debug\net5.0\Razor\Views\VanMaster\ManageVan.cshtml.g.cs

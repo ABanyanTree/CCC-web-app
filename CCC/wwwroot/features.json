@@ -49,7 +49,7 @@
   "ManageVan": {
     "FeatureId": "FEA00007",
     "ControllerName": "VanMaster",
-    "ActionName": "ManageVanMaster",
+    "ActionName": "ManageVan",
     "CssClass": ""
   },
   "ManagePetService": {
