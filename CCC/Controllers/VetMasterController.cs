@@ -67,7 +67,7 @@ namespace CCC.UI.Controllers
                     colList.Add(columns);
                     switch (col.Name)
                     {
-                        case "CenterName":
+                        case "VetName":
                             if (!string.IsNullOrEmpty(col.Search.Value))
                             {
                                 searchObj.VetName = col.Search.Value.Trim();
@@ -90,10 +90,10 @@ namespace CCC.UI.Controllers
 
             var lst1 = lst?.ToList();
 
-            //if (lst1 != null && lst1.Count > 0)
-            //{
-            //    TotalCount = lst1[0].TotalCount;
-            //}
+            if (lst1 != null && lst1.Count > 0)
+            {
+                TotalCount = lst1[0].TotalCount;
+            }
             bool set = false;
             if (searchObj.PageIndex > 1 && TotalCount == 0)
                 set = true;
@@ -146,6 +146,84 @@ namespace CCC.UI.Controllers
             else
             {
                 return Json(new { VetId = 0, isSuccess = false, message = "" });
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> IsInUseCount(string vetId)
+        {
+            VetMasterRequest modelobj = new VetMasterRequest();
+
+            var objSessionUSer = HttpContext.Session.GetSessionUser();
+            var cachedToken = HttpContext.Session.GetBearerToken();
+            var vetMasterAPI = RestService.For<IVetMasterApi>(hostUrl: ApplicationSettings.WebApiUrl, new RefitSettings
+            {
+                AuthorizationHeaderValueGetter = () => Task.FromResult(cachedToken)
+            });
+            var apiResponse = await vetMasterAPI.IsInUseCount(vetId);
+            string Count = apiResponse?.Content?.ReadAsStringAsync().Result;
+
+            if (apiResponse != null && apiResponse.IsSuccessStatusCode)
+            {
+                return Json(new { isSuccess = true, Count = Count });
+            }
+            else
+            {
+                return Json(new { isSuccess = false, Count = 0 });
+            }
+
+        }
+
+        [HttpDelete]
+        public async Task<IActionResult> DeleteVet(string vetId)
+        {
+            VetMasterRequest modelobj = new VetMasterRequest();
+
+            var objSessionUSer = HttpContext.Session.GetSessionUser();
+            var cachedToken = HttpContext.Session.GetBearerToken();
+            var vetMasterAPI = RestService.For<IVetMasterApi>(hostUrl: ApplicationSettings.WebApiUrl, new RefitSettings
+            {
+                AuthorizationHeaderValueGetter = () => Task.FromResult(cachedToken)
+            });
+            var apiResponse = await vetMasterAPI.DeleteVet(vetId);
+
+            if (apiResponse != null && apiResponse.IsSuccessStatusCode)
+            {
+                return Json(new { isSuccess = true });
+            }
+            else
+            {
+                return Json(new { isSuccess = false });
+            }
+
+        }
+
+        [HttpGet]
+        public async Task<JsonResult> IsVetNameInUse(string vetName)
+        {
+            if (vetName == null || string.IsNullOrEmpty(vetName.Trim()))
+            {
+                return Json("Please enter vet Name");
+            }
+            else
+            {
+                var objSessionUser = HttpContext.Session.GetSessionUser();
+                var cachedToken = HttpContext.Session.GetBearerToken();
+                var vetMasterAPI = RestService.For<IVetMasterApi>(hostUrl: ApplicationSettings.WebApiUrl, new RefitSettings
+                {
+                    AuthorizationHeaderValueGetter = () => Task.FromResult(cachedToken)
+                });
+                var res = "";
+                var apiResponse = await vetMasterAPI.IsVetNameInUse(vetName.Trim());
+                if (apiResponse != null)
+                {
+                    if (apiResponse.Content.ReadAsStringAsync().Result == "true")
+                    {
+                        res = apiResponse.Content.ReadAsStringAsync().Result;
+                    }
+                }
+
+                return Json(res);
             }
         }
     }

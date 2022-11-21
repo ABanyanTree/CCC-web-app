@@ -12,7 +12,7 @@ namespace CCC.UI.RefitClientFactory
     public interface IVetMasterApi
     {
         [Get(path: "/api/vetmaster/getvetdetail")]
-        Task<ApiResponse<VetMasterRequest>> GetVetDetail(string centerId);
+        Task<ApiResponse<VetMasterRequest>> GetVetDetail(string vetId);
 
         [Post(path: "/api/vetmaster/addeditvetdetail")]
         Task<HttpResponseMessage> AddEditVet(VetMasterRequest request);
@@ -22,5 +22,14 @@ namespace CCC.UI.RefitClientFactory
 
         [Get(path: "/api/vetmaster/getallvetdetails")]
         Task<ApiResponse<List<GetVetResponse>>> GetAllVetDetails();
+
+        [Get(path: "/api/vetmaster/isinusecount")]
+        Task<HttpResponseMessage> IsInUseCount(string vetId);
+
+        [Delete(path: "/api/vetmaster/deletevet")]
+        Task<HttpResponseMessage> DeleteVet(string vetId);
+
+        [Get(path: "/api/vetmaster/isvetnameinuse")]
+        Task<HttpResponseMessage> IsVetNameInUse(string vetName);
     }
 }

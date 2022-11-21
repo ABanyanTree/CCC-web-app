@@ -46,7 +46,8 @@ namespace CCC.Data.Services
 
         public async Task<IEnumerable<VetMaster>> GetAllVetList(VetMaster obj)
         {
-            string[] addParams = new string[] { BaseEntity_Constant.PAGEINDEX, BaseEntity_Constant.PAGESIZE, BaseEntity_Constant.SORTEXP };
+            string[] addParams = new string[] { BaseEntity_Constant.PAGEINDEX, BaseEntity_Constant.PAGESIZE, BaseEntity_Constant.SORTEXP,
+            VetMaster_Constant.VETNAME};
             return await GetAllAsync(obj, addParams, VetMaster_Constant.SPROC_VETMASTER_LSTALL);
         }
 

@@ -271,10 +271,9 @@
                                              dataType: "json",
                                              data: { CenterId: CenterId },
                                              success: function (result) {
-                                                 
+
                                                  if (result.isSuccess == true) {
-                                                showSuccessMsg('Center deleted successfully.');
-                                                location.reload();
+                                                     showSuccessMsg('Center deleted successfully.', BackToManage);
                                                 }
                                                 else {
                                                 showWarningMsg('something went wrong');
@@ -298,5 +297,9 @@
                     }
                 }
             });
+    }
+    function BackToManage() {
+        var url = '@Url.Action("ManageCenter", "CenterMaster")';
+        document.location.href = url;
     }
 </script>

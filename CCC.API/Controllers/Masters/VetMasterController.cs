@@ -76,11 +76,11 @@ namespace CCC.API.Controllers.Masters
             var user = await _iVetMasterService.IsVetNameInUse(vetName);
             if (user == null)
             {
-                return Json(false);
+                return Json(true);
             }
             else
             {
-                return Json(true);
+                return Json(false);
             }
 
         }
@@ -98,7 +98,7 @@ namespace CCC.API.Controllers.Masters
 
         [HttpGet(ApiRoutes.VetMaster.IsInUseCount)]
         [ProducesResponseType(typeof(string), statusCode: 200)]
-        [CustomAuthorizeAttribute(FeatureId = FeatureAccess.FEATURE_ManageVet)]
+       //[CustomAuthorizeAttribute(FeatureId = FeatureAccess.FEATURE_ManageVet)]
         public async Task<IActionResult> IsInUseCount([FromQuery] string vetId)
         {
             var objResponse = await _iVetMasterService.IsInUseCount(vetId);

@@ -48,7 +48,7 @@
                                 </li>
                                 <li class="firstLastName">
                                     <div class="form-group">
-                                        <input asp-for="VetName" type="text" class="form-control" placeholder="Vet Name" />
+                                        <input asp-for="VetName" type="text" id="txtVetName" class="form-control" placeholder="Vet Name" />
                                     </div>
                                 </li>
                                 <li>
@@ -143,9 +143,9 @@
                                 return "";
                         }
                       },
-                    { "data": "VetName", "sName": "Vet Name" },
-                    { "data": "Mobile", "sName": "Mobile No" },
-                    { "data": "Email", "sName": "Email Address" },
+                    { "data": "VetName", "sName": "VetName" },
+                    { "data": "Mobile", "sName": "MobileNo" },
+                    { "data": "Email", "sName": "Email" },
                     { "data": "Address", "sName": "Address" },
                     { "data": "Description", "sName": "Description" },
                     ]
@@ -159,7 +159,7 @@
 
         function fnGetDataForActivities() {
             var searchObj = new Object();
-            searchObj.VetName = $('#VetName').val();
+            searchObj.VetName = $('#txtVetName').val();
             return searchObj;
         }
 
@@ -171,9 +171,7 @@
         }
 
         function clearfilter() {
-            //$('#MCountryName').val('');
-            //$('#MCountryD').val('');
-
+            $('#txtVetName').val('');
             fnFilterActivities();
         }
 
@@ -187,7 +185,7 @@
         });
 
 
-        $("#VetName").keyup(function (e) {
+        $("#txtVetName").keyup(function (e) {
             if (e.which == 13) {
                 fnFilterActivities();
             }
@@ -220,5 +218,57 @@
     //    $("#showBtnID").show();
     //});
 
+</script>
+<script type="text/javascript">
+    function DeleteEvent(vetId) {
+                    $.confirm({
+                title: 'Confirm',
+                content: "Are you sure want to delete this vet?",
+                buttons: {
+                    confirm: function () {
+
+                        $.ajax({
+                            url: "@Url.Content("~/VetMaster/IsInUseCount")",
+                            type: "POST",
+                            dataType: "json",
+                            data: { vetId: vetId },
+                            success: function (result) {
+                                if (result.isSuccess == true && parseInt(result.Count) > 0) {
+                                    showWarningMsg('Vet does not delete, This is associated with the other data.');
+                                }
+                                else if (result.isSuccess == true && parseInt(result.Count) == 0) {
+                                         $.ajax({
+                                             url: "@Url.Content("~/VetMaster/DeleteVet")",
+                                             type: "Delete",
+                                             dataType: "json",
+                                             data: { vetId: vetId },
+                                             success: function (result) {
+                                                 if (result.isSuccess == true) {
+                                                showSuccessMsg('Vet deleted successfully.',BackToManage);
+                                                //location.reload();
+                                                }
+                                                else {
+                                                showWarningMsg('something went wrong');
+                                                }
+                                            }
+                                        });
+                                    }
+                                    else {
+                                    showWarningMsg('something went wrong');
+                                    }
+                            }
+                        });
+                    },
+                    cancel: function () {
+
+                    }
+                }
+            });
+    }
+
+     function BackToManage() {
+        var url = '@Url.Action("ManageVet", "VetMaster")';
+        document.location.href = url;
+    }
 </script>
 
