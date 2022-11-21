@@ -37,7 +37,7 @@ namespace CCC.Data.Services
 
         public async Task<IEnumerable<CityAreaMaster>> GetAllCityAreaList(CityAreaMaster obj)
         {
-            string[] addParams = new string[] { BaseEntity_Constant.PAGEINDEX, BaseEntity_Constant.PAGESIZE, BaseEntity_Constant.SORTEXP };
+            string[] addParams = new string[] { BaseEntity_Constant.PAGEINDEX, BaseEntity_Constant.PAGESIZE, BaseEntity_Constant.SORTEXP, CityAreaMaster_Constant.AREANAME };
             return await GetAllAsync(obj, addParams, CityAreaMaster_Constant.SPROC_CITYAREAMASTER_LSTALL);
         }
 

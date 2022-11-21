@@ -86,7 +86,7 @@
         $("#divdataTables_info").append($(".dataTables_paginate"));
 
         function fnGetDataForActivities() {
-            debugger;
+            
             var searchObj = new Object();
             searchObj.CenterName = $('#txtCenterName').val();
             return searchObj;
@@ -271,7 +271,7 @@
                                              dataType: "json",
                                              data: { CenterId: CenterId },
                                              success: function (result) {
-                                                 debugger;
+                                                 
                                                  if (result.isSuccess == true) {
                                                 showSuccessMsg('Center deleted successfully.');
                                                 location.reload();

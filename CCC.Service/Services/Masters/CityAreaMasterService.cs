@@ -24,9 +24,10 @@ namespace CCC.Service.Services
 
         public async Task<string> AddEditCityArea(CityAreaMaster obj)
         {
-            if (!string.IsNullOrEmpty(obj.AreaId))
+            if (string.IsNullOrEmpty(obj.AreaId))
             {
                 obj.AreaId = Utility.GeneratorUniqueId("ARA_");
+                obj.IsActive = true;
             }
             int successCount = await _iCityAreaMasterRepository.AddEditCityArea(obj);
             return successCount > 0 ? obj.AreaId : string.Empty;

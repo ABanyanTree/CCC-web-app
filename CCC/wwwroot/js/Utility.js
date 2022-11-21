@@ -451,7 +451,7 @@ $(document).ajaxSend(function (event, jqxhr, settings) {
 }).ajaxComplete(function (event, xhr, options) {
 }).ajaxError(function (event, jqxhr, settings, thrownError) {
 
-    debugger;
+    
     if (jqxhr != null && jqxhr != undefined && jqxhr.status != null && jqxhr.status != undefined && jqxhr.status == 500) {
         showWarningMsg('We were unable to process your request. Please try again later.', 'Oops! Sorry...');
     }

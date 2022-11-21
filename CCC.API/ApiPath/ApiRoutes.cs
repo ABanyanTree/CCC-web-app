@@ -34,7 +34,7 @@ namespace CCC.API.ApiPath
             public const string AddEditCityArea = Base + "/cityareamaster/addeditcityarea";
             public const string GetCityArea = Base + "/cityareamaster/getcityarea";
             public const string GetAllCityAreaList = Base + "/cityareamaster/getallcityarealist";
-            public const string DeleteCityArea = Base + "/cityareamaster/deleteCityarea";
+            public const string DeleteCityArea = Base + "/cityareamaster/deletecityarea";
 
             public const string IsCityAreaNameInUse = Base + "/cityareamaster/iscityareanameinuse";
             public const string GetAllCityAreas = Base + "/cityareamaster/getallcityareas";

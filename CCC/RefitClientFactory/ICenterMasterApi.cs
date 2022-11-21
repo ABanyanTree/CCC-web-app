@@ -27,7 +27,7 @@ namespace CCC.UI.RefitClientFactory
         Task<HttpResponseMessage> IsInUseCount(string centerId);
 
         [Delete(path: "/api/centerMaster/deletecenter")]
-        Task<ApiResponse<List<GetCentersResponse>>> DeleteCenter(string centerId);
+        Task<HttpResponseMessage> DeleteCenter(string centerId);
 
         [Get(path: "/api/centerMaster/iscenternameinuse")]
         Task<HttpResponseMessage> IsCenterNameInUse(string CenterName);

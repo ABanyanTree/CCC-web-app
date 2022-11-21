@@ -1,7 +1,282 @@
 ﻿@using CCC.UI.ViewModels
+@model CityAreaMasterRequest
 @{
-    ViewData["Title"] = "Manage City Area";
+    ViewData["Title"] = "Manage CityArea";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Manage City Area</h1>
+<link href="~/css/autocomplete.css" rel="stylesheet" />
+<script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
+<link href="~/lib/bootstrap-datepicker/css/bootstrap-datepicker.min.css" rel="stylesheet" />
+<script src="~/lib/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+<script src="~/js/jquery.btnswitch.js"></script>
+<link href="~/css/jquery.btnswitch.min.css" rel="stylesheet" />
+<link href="~/css/jquery-ui.css" rel="stylesheet" />
+<link href="~/lib/bootstrap-multiselect/bootstrap-multiselect.css" rel="stylesheet" />
+<script src="~/lib/bootstrap-multiselect/bootstrap-multiselect.js"></script>
+<script src="~/js/Datatable1.10.6/fnMultiFilter.js"></script>
+
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#mydatatable").tableHeadFixer({ "head": true, "top": 1 });
+        var langUrl = $("#LangUrl").val();
+        var mytable = $('#mydatatable').dataTable({
+            "ajax": {
+                 "url": "@Url.Content("~/CityAreaMaster/FillTableCityAreaMasterAsync")",
+                "type": "POST",
+                "error": function (x, y, z) {
+                }
+            },
+            "language":
+            {
+                "url": langUrl
+            },
+             "aaSorting": [[1, "asc"]],
+            "pageLength": 50,
+            "serverSide": true,
+            "bStateSave": false,
+           // "pagingType": "listbox",  //pagination type using pulgin
+            "processing": true,
+            "pagingType": "full_numbers",  //pagination type using pulgin
+            "dom": '<"top"i>rt<"bottom"flp><"clear">',
+            "filter": false,
+            "oLanguage": {
+            "oPaginate": {
+            "sFirst": "<i class='fa fa-angle-double-left'></i>",
+            "sPrevious": "«",
+            "sNext": "»",
+            "sLast": "<i class='fa fa-angle-double-right'></i>"
+             }
+            },
+            //"sDom": 'lrtip',
+           "bDeferRender": true,//hide the default search filter textbox by removing "f"
+            "aoColumns":
+                [
+                      {
+                        "data": "AreaId", "sName": "", "class": "", "orderable": false, "mRender": function (data, type, full) {
+                            if (data != null) {
+                                return "<div class='tablehoverbuttons'> <i class='fa fa-ellipsis-h'></i> <div class='buttonshover'><div class='editbtn'><a class='' href='javascript:void(0);' onClick=EditEvent('" + data + "')><span><img title='Edit' src='@Url.Content("~/images/edit.png")' /></span></a></div> </div> </div>";
+                            }
+                            else
+                                return "";
+                        }
+                      },
+                      {
+                          "data": "AreaId", "sName": "", "class": "", "orderable": false, "mRender": function (data, type, full) {
+                            if (data != null) {
+                                return "<div class='tablehoverbuttons'> <i class='fa fa-ellipsis-h'></i> <div class='buttonshover'><div class='editbtn'><a class='' href='javascript:void(0);' onClick=DeleteEvent('" + data + "')><span><img title='Delete' src='@Url.Content("~/images/delete grey.png")' /></span></a></div> </div> </div>";
+                            }
+                            else
+                                return "";
+                        }
+                      },
+                    { "data": "AreaName", "sName": "AreaName" },
+                    { "data": "Description", "sName": "Description" }                    
+                ]
+        });
+        mytable.on('order.dt', function () { $('.dataTables_paginate,.dataTables_info').show(); });
+        mytable.on('length.dt', function (e, settings, len) { $('.dataTables_paginate,.dataTables_info').show(); });
+
+        $("#divDataTable_length").append($(".dataTables_info"));
+        $("#divdataTables_info").append($(".dataTables_length"));
+        $("#divdataTables_info").append($(".dataTables_paginate"));
+
+        function fnGetDataForActivities() {
+            
+            var searchObj = new Object();
+            searchObj.AreaName = $('#txtAreaName').val();
+            return searchObj;
+        }
+
+        function fnFilterActivities() {
+            searchObj = fnGetDataForActivities();
+            var areaName = searchObj.AreaName;
+            $('#mydatatable').dataTable().fnMultiFilter({
+                "AreaName": areaName
+            });
+        }
+
+        function clearfilter() {
+            $('#txtAreaName').val('');
+            fnFilterActivities();
+        }
+
+        $('#btnClear').click(function () {
+            clearfilter();
+        });
+
+
+        $('#btnSearch1').click(function () {
+            fnFilterActivities();
+        });
+
+
+        $("#txtAreaName").keyup(function (e) {
+            if (e.which == 13) {
+                fnFilterActivities();
+            }
+        });
+
+    });
+
+</script>
+
+
+
+<div class="mainContent">
+    <div class="conHeader">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="pull-left">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item active" aria-current="page">Manage City Area</li>
+                    </ol>
+                </div>
+                <div class="filterMenuIcon"></div>
+                <div class="pull-right mobileFilterMenu">
+                    <ul class="headerListing">
+                        @*<li class="active"><button type="button" id="btnNewUrl" class="btn btnDefault AddEditBtn">Add New</button></li>*@
+                        <li class="active"> <a href="javascript:void(0);" onclick="AddEvent()"><span class="text">Add</span> <span class="icon iconUser">&nbsp;</span></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="conInner">
+        <div class="conInner">
+            <div class="mobileFilter">
+                <div class="hideShowfilter">
+                    <div class="filterData mobilecofilters">
+                        <div class="formGroupTop pos mobile4Lis">
+                            <ul class="formGroupTopListing">
+                                <li>
+                                    <div class="form-group" style="margin-top:3px;">
+                                        <label class="pt20">Area Name</label>
+                                    </div>
+                                </li>
+                                <li class="firstLastName">
+                                    <div class="form-group">
+                                        <input asp-for="AreaName" type="text" id="txtAreaName" class="form-control" placeholder="Area Name" />
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="form-group">
+                                        <button type="button" class="btn btn-primary btn-search" id="btnSearch1"><img src='@Url.Content("~/images/search.png")' /> </button>
+                                        <button type="button" class="btn btn-default btn-clear" id="btnClear"><img src='@Url.Content("~/images/refresh.png")' /></button>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br /><br /><br />
+        <div class="chkTBL">
+            <div class="bulkImpLogHT mngEventpage mobileTablenowrap">
+                <table id="mydatatable" class="table">
+                    <thead>
+                        <tr>
+                            <th>Edit</th>
+                            <th>Delete</th>
+                            <th>Area Name</th>
+                            <th>Description</th>                            
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+        <div id="divdataTables_info"></div>
+        <div id="divDataTable_length"></div>
+    </div>
+
+</div>
+
+
+
+
+
+
+<script>
+    function AddEvent() {
+          var url = '@Url.Action("AddEditCityArea", "CityAreaMaster")';
+        document.location.href = url;
+        //AddEditDialog(url, "Add New Center");
+    }
+    function EditEvent(areaId) {
+        var url = '@Url.Action("AddEditCityArea", "CityAreaMaster")?areaId=' + areaId + '';
+      document.location.href = url;
+    }
+
+</script>
+
+<script type="text/javascript">
+    function AddEditDialog(_url, _title) {
+        $.dialog({
+            title: _title,
+            content: 'url:' + _url,
+            columnClass: 'col-md-8 col-md-offset-2',
+            alignMiddle: true,
+            onClose: function () {
+
+            }
+        });
+    }
+
+    function DeleteEvent(AreaId) {
+                    $.confirm({
+                title: 'Confirm',
+                content: "Are you sure want to delete this Area?",
+                buttons: {
+                    confirm: function () {
+
+                        $.ajax({
+                            url: "@Url.Content("~/CityAreaMaster/IsInUseCount")",
+                            type: "POST",
+                            dataType: "json",
+                            data: { areaId: AreaId },
+                            success: function (result) {
+                                if (result.isSuccess == true && parseInt(result.Count) > 0) {
+                                    showWarningMsg('Area does not delete, This area associated with the other data.');
+                                }
+                                else if (result.isSuccess == true && parseInt(result.Count) == 0) {
+                                         $.ajax({
+                                             url: "@Url.Content("~/CityAreaMaster/DeleteCityArea")",
+                                             type: "Delete",
+                                             dataType: "json",
+                                             data: { areaId: AreaId },
+                                             success: function (result) {
+                                                 
+                                                 if (result.isSuccess == true) {
+                                                 showSuccessMsg('Area deleted successfully.', BackToManage);
+                                                //showSuccessMsg('Area deleted successfully.');
+                                                //location.reload();
+                                                }
+                                                else {
+                                                showWarningMsg('something went wrong');
+                                                }
+                                            }
+                                        });
+                                    }
+                                    else {
+                                    showWarningMsg('something went wrong');
+                                    }
+                            }
+                        });
+                    },
+                    cancel: function () {
+
+                    }
+                }
+            });
+    }
+
+      function BackToManage() {
+        var url = '@Url.Action("ManageCityArea", "CityAreaMaster")';
+        document.location.href = url;
+    }
+</script>
