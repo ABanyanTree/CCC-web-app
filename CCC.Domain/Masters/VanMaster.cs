@@ -27,7 +27,7 @@ namespace CCC.Domain
         public const string SPROC_VANMASTER_DEL = "sproc_VanMaster_del";
 
         public const string SPROC_VANMASTER_GETALL = "sproc_VanMaster_GetAll";
-        public const string SPROC_VANMASTER_ISCENTERNAMEINUSE = "sproc_VanMaster_IsCenterNameInUse";
+        public const string SPROC_VANMASTER_ISVANNUMBERINUSE = "sproc_VanMaster_IsVanNumberInUse";
         public const string SPROC_VANMASTER_ISINCOUNTUSE = "sproc_VanMaster_IsInCountUse";
 
 

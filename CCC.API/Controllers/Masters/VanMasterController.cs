@@ -68,7 +68,7 @@ namespace CCC.API.Controllers
 
         [HttpGet(ApiRoutes.VanMaster.IsVanNumberInUse)]
         [ProducesResponseType(typeof(bool), statusCode: 200)]
-        [CustomAuthorizeAttribute(FeatureId = FeatureAccess.FEATURE_ManageCenter)]
+       // [CustomAuthorizeAttribute(FeatureId = FeatureAccess.FEATURE_ManageCenter)]
         public async Task<IActionResult> IsVanNumberInUse([FromQuery] string vanNumber)
         {
             //if (string.IsNullOrEmpty(CountryName))
@@ -79,11 +79,11 @@ namespace CCC.API.Controllers
             var user = await _iVanMasterService.IsVanNumberInUse(vanNumber);
             if (user == null)
             {
-                return Json(false);
+                return Json(true);
             }
             else
             {
-                return Json(true);
+                return Json(false);
             }
 
         }
@@ -104,9 +104,9 @@ namespace CCC.API.Controllers
         [HttpGet(ApiRoutes.VanMaster.IsInUseCount)]
         [ProducesResponseType(typeof(string), statusCode: 200)]
         //[CustomAuthorizeAttribute(FeatureId = FeatureAccess.FEATURE_ManageCenter)]
-        public async Task<IActionResult> IsInUseCount([FromQuery] string centerId)
+        public async Task<IActionResult> IsInUseCount([FromQuery] string vanId)
         {
-            var objResponse = await _iVanMasterService.IsInUseCount(centerId);
+            var objResponse = await _iVanMasterService.IsInUseCount(vanId);
             return Ok(objResponse.TotalCount);
         }
     }
