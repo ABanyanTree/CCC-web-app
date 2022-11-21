@@ -14,84 +14,11 @@
 <link href="~/css/jquery-ui.css" rel="stylesheet" />
 <link href="~/lib/bootstrap-multiselect/bootstrap-multiselect.css" rel="stylesheet" />
 <script src="~/lib/bootstrap-multiselect/bootstrap-multiselect.js"></script>
-
-<div class="mainContent">
-    <div class="conHeader">
-        <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <div class="pull-left">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item active" aria-current="page">Manage Centers</li>
-                    </ol>
-                </div>
-                <div class="filterMenuIcon"></div>
-                <div class="pull-right mobileFilterMenu">
-                    <ul class="headerListing">
-                        @*<li class="active"><button type="button" id="btnNewUrl" class="btn btnDefault AddEditBtn">Add New</button></li>*@
-                        <li class="active"> <a href="javascript:void(0);" onclick="AddEvent()"><span class="text">Add</span> <span class="icon iconUser">&nbsp;</span></a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="conInner">
-        <div class="conInner">
-            <div class="mobileFilter">
-                <div class="hideShowfilter">
-                    <div class="filterData mobilecofilters">
-                        <div class="formGroupTop pos mobile4Lis">
-                            <ul class="formGroupTopListing">
-                                <li>
-                                    <div class="form-group" style="margin-top:3px;">
-                                        <label class="pt20">Center Name</label>
-                                    </div>
-                                </li>
-                                <li class="firstLastName">
-                                    <div class="form-group">
-                                        <input asp-for="CenterName" type="text" class="form-control" placeholder="Center Name" />
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="form-group">
-                                        <button type="button" class="btn btn-primary btn-search" id="btnSearch1"><img src='@Url.Content("~/images/search.png")' /> </button>
-                                        <button type="button" class="btn btn-default btn-clear" id="btnClear"><img src='@Url.Content("~/images/refresh.png")' /></button>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <br /><br /><br />
-        <div class="chkTBL">
-            <div class="bulkImpLogHT mngEventpage mobileTablenowrap">
-                <table id="mydatatable" class="table">
-                    <thead>
-                        <tr>
-                            <th>Edit</th>
-                            <th>Delete</th>
-                            <th>Center Name</th>
-                            <th>Address</th>
-                            <th>Description</th>
-                            @*<th>Is Active</th>*@
-                        </tr>
-                    </thead>
-                    <tbody></tbody>
-                </table>
-            </div>
-        </div>
-        <div id="divdataTables_info"></div>
-        <div id="divDataTable_length"></div>
-    </div>
-   
-</div>
+<script src="~/js/Datatable1.10.6/fnMultiFilter.js"></script>
 
 
 
-
-    <script type="text/javascript">
+<script type="text/javascript">
     $(document).ready(function () {
         $("#mydatatable").tableHeadFixer({ "head": true, "top": 1 });
         var langUrl = $("#LangUrl").val();
@@ -145,11 +72,11 @@
                                 return "";
                         }
                       },
-                    { "data": "CenterName", "sName": "Center Name" },
+                    { "data": "CenterName", "sName": "CenterName" },
                     { "data": "CenterAddress", "sName": "Address" },
                     { "data": "Description", "sName": "Description" },
                     /*{ "data": "IsActive", "sName": "Active" },    */
-                    ]
+                ]
         });
         mytable.on('order.dt', function () { $('.dataTables_paginate,.dataTables_info').show(); });
         mytable.on('length.dt', function (e, settings, len) { $('.dataTables_paginate,.dataTables_info').show(); });
@@ -159,22 +86,22 @@
         $("#divdataTables_info").append($(".dataTables_paginate"));
 
         function fnGetDataForActivities() {
+            debugger;
             var searchObj = new Object();
-            searchObj.CenterName = $('#CenterName').val();
+            searchObj.CenterName = $('#txtCenterName').val();
             return searchObj;
         }
 
         function fnFilterActivities() {
             searchObj = fnGetDataForActivities();
-            $("#mydatatable").dataTable().fnMultiFilter({
-                "CenterName": searchObj.CenterName,
+            var cnterName = searchObj.CenterName;
+            $('#mydatatable').dataTable().fnMultiFilter({
+                "CenterName": cnterName
             });
         }
 
         function clearfilter() {
-            //$('#MCountryName').val('');
-            //$('#MCountryD').val('');
-
+            $('#txtCenterName').val('');
             fnFilterActivities();
         }
 
@@ -188,7 +115,7 @@
         });
 
 
-        $("#CenterName").keyup(function (e) {
+        $("#txtCenterName").keyup(function (e) {
             if (e.which == 13) {
                 fnFilterActivities();
             }
@@ -196,9 +123,89 @@
 
     });
 
-    </script>
+</script>
 
-    <script>
+
+
+<div class="mainContent">
+    <div class="conHeader">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="pull-left">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item active" aria-current="page">Manage Centers</li>
+                    </ol>
+                </div>
+                <div class="filterMenuIcon"></div>
+                <div class="pull-right mobileFilterMenu">
+                    <ul class="headerListing">
+                        @*<li class="active"><button type="button" id="btnNewUrl" class="btn btnDefault AddEditBtn">Add New</button></li>*@
+                        <li class="active"> <a href="javascript:void(0);" onclick="AddEvent()"><span class="text">Add</span> <span class="icon iconUser">&nbsp;</span></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="conInner">
+        <div class="conInner">
+            <div class="mobileFilter">
+                <div class="hideShowfilter">
+                    <div class="filterData mobilecofilters">
+                        <div class="formGroupTop pos mobile4Lis">
+                            <ul class="formGroupTopListing">
+                                <li>
+                                    <div class="form-group" style="margin-top:3px;">
+                                        <label class="pt20">Center Name</label>
+                                    </div>
+                                </li>
+                                <li class="firstLastName">
+                                    <div class="form-group">
+                                        <input asp-for="CenterName" type="text" id="txtCenterName" class="form-control" placeholder="Center Name" />
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="form-group">
+                                        <button type="button" class="btn btn-primary btn-search" id="btnSearch1"><img src='@Url.Content("~/images/search.png")' /> </button>
+                                        <button type="button" class="btn btn-default btn-clear" id="btnClear"><img src='@Url.Content("~/images/refresh.png")' /></button>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br /><br /><br />
+        <div class="chkTBL">
+            <div class="bulkImpLogHT mngEventpage mobileTablenowrap">
+                <table id="mydatatable" class="table">
+                    <thead>
+                        <tr>
+                            <th>Edit</th>
+                            <th>Delete</th>
+                            <th>Center Name</th>
+                            <th>Address</th>
+                            <th>Description</th>
+                            @*<th>Is Active</th>*@
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+        <div id="divdataTables_info"></div>
+        <div id="divDataTable_length"></div>
+    </div>
+
+</div>
+
+
+
+
+
+
+<script>
 
      @*$("#btnNewUrl").click(function () {
         var url = '@Url.Action("AddEditPetData", "PetService");
@@ -226,18 +233,70 @@
     //    $("#showBtnID").show();
     //});
 
-    </script>
+</script>
 
-    <script type="text/javascript">
-        function AddEditDialog(_url, _title) {
-            $.dialog({
-                title: _title,
-                content: 'url:' + _url,
-                columnClass: 'col-md-8 col-md-offset-2',
-                alignMiddle: true,
-                onClose: function () {
+<script type="text/javascript">
+    function AddEditDialog(_url, _title) {
+        $.dialog({
+            title: _title,
+            content: 'url:' + _url,
+            columnClass: 'col-md-8 col-md-offset-2',
+            alignMiddle: true,
+            onClose: function () {
 
+            }
+        });
+    }
+
+    function DeleteEvent(CenterId) {
+                    $.confirm({
+                title: 'Confirm',
+                content: "Are you sure want to delete this Center?",
+                buttons: {
+                    confirm: function () {
+
+                        $.ajax({
+                            url: "@Url.Content("~/CenterMaster/IsInUseCount")",
+                            type: "POST",
+                            dataType: "json",
+                            data: { CenterId: CenterId },
+                            success: function (result) {
+                                if (result.isSuccess == true && parseInt(result.Count) > 0) {
+                                    showWarningMsg('Center does not delete, This Center associated with the other data.');
+                                }
+                                else if (result.isSuccess == true && parseInt(result.Count) == 0) {
+                                         $.ajax({
+                                             url: "@Url.Content("~/CenterMaster/DeleteCenter")",
+                                             type: "Delete",
+                                             dataType: "json",
+                                             data: { CenterId: CenterId },
+                                             success: function (result) {
+                                                 debugger;
+                                                 if (result.isSuccess == true) {
+                                                showSuccessMsg('Center deleted successfully.');
+                                                location.reload();
+                                                }
+                                                else {
+                                                showWarningMsg('something went wrong');
+                                                }
+                                            }
+                                        });
+                                    }
+                                    else {
+                                    showWarningMsg('something went wrong');
+                                    }
+                            }
+                        });
+
+
+
+
+
+                    },
+                    cancel: function () {
+
+                    }
                 }
             });
-        }
-    </script>
+    }
+</script>

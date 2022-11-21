@@ -67,7 +67,7 @@ namespace CCC.API.Controllers.Masters
 
         [HttpGet(ApiRoutes.CenterMaster.IsCenterNameInUse)]
         [ProducesResponseType(typeof(bool), statusCode: 200)]
-        [CustomAuthorizeAttribute(FeatureId = FeatureAccess.FEATURE_ManageCenter)]
+        //[CustomAuthorizeAttribute(FeatureId = FeatureAccess.FEATURE_ManageCenter)]
         public async Task<IActionResult> IsCenterNameInUse([FromQuery] string centerName)
         {
             //if (string.IsNullOrEmpty(CountryName))
@@ -78,11 +78,11 @@ namespace CCC.API.Controllers.Masters
             var user = await _iCenterMasterService.IsCenterNameInUse(centerName);
             if (user == null)
             {
-                return Json(false);
+                return Json(true);
             }
             else
             {
-                return Json(true);
+                return Json(false);
             }
 
         }
@@ -102,7 +102,7 @@ namespace CCC.API.Controllers.Masters
 
         [HttpGet(ApiRoutes.CenterMaster.IsInUseCount)]
         [ProducesResponseType(typeof(string), statusCode: 200)]
-        [CustomAuthorizeAttribute(FeatureId = FeatureAccess.FEATURE_ManageCenter)]
+        //[CustomAuthorizeAttribute(FeatureId = FeatureAccess.FEATURE_ManageCenter)]
         public async Task<IActionResult> IsInUseCount([FromQuery] string centerId)
         {
             var objResponse = await _iCenterMasterService.IsInUseCount(centerId);

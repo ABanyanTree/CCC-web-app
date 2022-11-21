@@ -40,7 +40,7 @@ namespace CCC.Data.Services
 
         public async Task<IEnumerable<CenterMaster>> GetAllCenterList(CenterMaster obj)
         {
-            string[] addParams = new string[] { BaseEntity_Constant.PAGEINDEX, BaseEntity_Constant.PAGESIZE, BaseEntity_Constant.SORTEXP };
+            string[] addParams = new string[] { BaseEntity_Constant.PAGEINDEX, BaseEntity_Constant.PAGESIZE, BaseEntity_Constant.SORTEXP, CenterMaster_Constant.CENTERNAME };
             return await GetAllAsync(obj, addParams, CenterMaster_Constant.SPROC_CENTERMASTER_LSTALL);
         }
 

@@ -71,7 +71,7 @@ namespace CCC.UI.Controllers
                             {
                                 searchObj.CenterName = col.Search.Value.Trim();
                             }
-                            break;                        
+                            break;
                     }
                 }
             }
@@ -89,10 +89,10 @@ namespace CCC.UI.Controllers
 
             var lst1 = lst?.ToList();
 
-            //if (lst1 != null && lst1.Count > 0)
-            //{
-            //    TotalCount = lst1[0].TotalCount;
-            //}
+            if (lst1 != null && lst1.Count > 0)
+            {
+                TotalCount = lst1[0].TotalCount;
+            }
             bool set = false;
             if (searchObj.PageIndex > 1 && TotalCount == 0)
                 set = true;
@@ -145,6 +145,87 @@ namespace CCC.UI.Controllers
             else
             {
                 return Json(new { CenterId = 0, isSuccess = false, message = "" });
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> IsInUseCount(string centerId)
+        {
+            CenterMasterRequest modelobj = new CenterMasterRequest();
+
+            var objSessionUSer = HttpContext.Session.GetSessionUser();
+            var cachedToken = HttpContext.Session.GetBearerToken();
+            var iCenterMasterAPI = RestService.For<ICenterMasterApi>(hostUrl: ApplicationSettings.WebApiUrl, new RefitSettings
+            {
+                AuthorizationHeaderValueGetter = () => Task.FromResult(cachedToken),
+
+            });
+            var apiResponse = await iCenterMasterAPI.IsInUseCount(centerId);
+            string Count = apiResponse?.Content?.ReadAsStringAsync().Result;
+
+            if (apiResponse != null && apiResponse.IsSuccessStatusCode)
+            {
+                return Json(new { isSuccess = true, Count = Count });
+            }
+            else
+            {
+                return Json(new { isSuccess = false, Count = 0 });
+            }
+
+        }
+
+        [HttpDelete]
+        public async Task<IActionResult> DeleteCenter(string centerId)
+        {
+            CenterMasterRequest modelobj = new CenterMasterRequest();
+
+            var objSessionUSer = HttpContext.Session.GetSessionUser();
+            var cachedToken = HttpContext.Session.GetBearerToken();
+            var iCenterMasterAPI = RestService.For<ICenterMasterApi>(hostUrl: ApplicationSettings.WebApiUrl, new RefitSettings
+            {
+                AuthorizationHeaderValueGetter = () => Task.FromResult(cachedToken),
+
+            });
+            var apiResponse = await iCenterMasterAPI.DeleteCenter(centerId);
+
+            if (apiResponse != null && apiResponse.IsSuccessStatusCode)
+            {
+                return Json(new { isSuccess = true });
+            }
+            else
+            {
+                return Json(new { isSuccess = false });
+            }
+
+        }
+
+        [HttpGet]
+        public async Task<JsonResult> IsCenterNameInUse(string centerName)
+        {
+            if (centerName == null || string.IsNullOrEmpty(centerName.Trim()))
+            {
+                return Json("Please enter Country Name");
+            }
+            else
+            {
+                var objSessionUser = HttpContext.Session.GetSessionUser();
+                var cachedToken = HttpContext.Session.GetBearerToken();
+                var iCenterMasterAPI = RestService.For<ICenterMasterApi>(hostUrl: ApplicationSettings.WebApiUrl, new RefitSettings
+                {
+                    AuthorizationHeaderValueGetter = () => Task.FromResult(cachedToken),
+
+                });
+                var res = "";
+                var apiResponse = await iCenterMasterAPI.IsCenterNameInUse(centerName.Trim());
+                if (apiResponse != null)
+                {
+                    if (apiResponse.Content.ReadAsStringAsync().Result == "true")
+                    {
+                        res = apiResponse.Content.ReadAsStringAsync().Result;
+                    }
+                }
+
+                return Json(res);
             }
         }
 

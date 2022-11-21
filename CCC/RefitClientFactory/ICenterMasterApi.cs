@@ -22,5 +22,14 @@ namespace CCC.UI.RefitClientFactory
 
         [Get(path: "/api/centerMaster/getallcenters")]
         Task<ApiResponse<List<GetCentersResponse>>> GetAllCenters();
+
+        [Get(path: "/api/centerMaster/isinusecount")]
+        Task<HttpResponseMessage> IsInUseCount(string centerId);
+
+        [Delete(path: "/api/centerMaster/deletecenter")]
+        Task<ApiResponse<List<GetCentersResponse>>> DeleteCenter(string centerId);
+
+        [Get(path: "/api/centerMaster/iscenternameinuse")]
+        Task<HttpResponseMessage> IsCenterNameInUse(string CenterName);
     }
 }
