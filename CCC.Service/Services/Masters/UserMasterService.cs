@@ -49,7 +49,6 @@ namespace CCC.Service.Services
         {
             return await _iUserMasterRepository.GetAllUserList(obj);
         }
-
         public async Task<IEnumerable<UserMaster>> GetAllUsers()
         {
             return await _iUserMasterRepository.GetAllUsers();

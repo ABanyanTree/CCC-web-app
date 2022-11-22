@@ -6,6 +6,9 @@
 
     SelectList lstCenters = ViewBag.lstCenter;
 
+    string s = Model.CenterIds ?? "";
+    string[] tempcity = s.Split(',');
+
 }
 
 <style type="text/css">
@@ -115,7 +118,28 @@
                                         <label class="pt20">Center</label>
                                         <div class="form-group2">
                                             <div class="form-group fullscreen">
-                                                <select asp-for="CenterIds" id="lstCentr" name="lstCentr" asp-items="@lstCenters" multiple class="form-control"></select>
+                                                <select asp-for="CenterIds" id="lstCentr" name="lstCentr" multiple class="form-control">
+                                                    @foreach (var item in lstCenters)
+                                                    {
+                                                        if (item.Text != null)
+                                                        {
+                                                            int pos = Array.IndexOf(tempcity, item.Value);
+                                                            if (pos > -1)
+                                                            {
+                                                                <option value="@item.Value" selected="selected">
+                                                                    @item.Text
+                                                                </option>
+                                                            }
+                                                            else
+                                                            {
+                                                                <option value="@item.Value">
+                                                                    @item.Text
+                                                                </option>
+                                                            }
+                                                        }
+                                                    }
+
+                                                </select>
                                             </div>
                                         </div>
                                     </div>
@@ -161,6 +185,24 @@
 
 
 <script type="text/javascript">
+
+    //$(function () {
+    //    $('#myCountry').multiselect({
+    //        includeSelectAllOption: true,
+    //        onChange: function (element, checked) {
+    //            var brands = $('#myCountry option:selected');
+    //            var selected1 = [];
+    //            $(brands).each(function (index, brand) {
+    //                selected1.push([$(this).val()]);
+    //            });
+
+    //            if (selected1.length > 0) {
+    //                $('#valCountry').hide();
+    //            }
+    //        }
+    //    });
+    //});
+
 
     $(document).ready(function () {
         if ('@Model.UserId' != '') {
@@ -222,29 +264,9 @@
     });
 
     function BackToManage() {
-        var url = '@Url.Action("ManagePetService", "PetService")';
+        var url = '@Url.Action("ManageUsers", "UserMaster")';
         document.location.href = url;
     }
 
 </script>
 
-<script>
-    $(function () {
-        $("#dtEntryDate").datepicker({
-            autoclose: true,
-            format: "yyyy-MM-dd",
-        });
-        $("#dtSurgeryDate").datepicker({
-            autoclose: true,
-            format: "yyyy-MM-dd",
-        });
-        $("#dtReleaseDate").datepicker({
-            autoclose: true,
-            format: "yyyy-MM-dd",
-        });
-        $("#dtExpireDate").datepicker({
-            autoclose: true,
-            format: "yyyy-MM-dd",
-        });
-    });
-</script>

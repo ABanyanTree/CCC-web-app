@@ -12,6 +12,8 @@ namespace CCC.Domain
         public string CenterName { get; set; }
         public string CenterAddress { get; set; }
         public string Description { get; set; }
+        public string UserId { get; set; }
+        
     }
 
     public class CenterMaster_Constant : BaseEntity_Constant
@@ -20,6 +22,7 @@ namespace CCC.Domain
         public const string CENTERNAME = "CenterName";
         public const string CENTERADDRESS = "CenterAddress";
         public const string DESCRIPTION = "Description";
+        public const string USERID = "UserId";
 
         public const string SPROC_CENTERMASTER_UPS = "sproc_CenterMaster_ups";
         public const string SPROC_CENTERMASTER_SEL = "sproc_CenterMaster_sel";
@@ -28,7 +31,8 @@ namespace CCC.Domain
 
         public const string SPROC_CENTERMASTER_GETALL = "sproc_CenterMaster_GetAll";
         public const string SPROC_CENTERMASTER_ISCENTERNAMEINUSE = "sproc_CenterMaster_IsCenterNameInUse";
-        public const string SPROC_CENTERMASTER_ISINCOUNTUSE = "sproc_CenterMaster_IsInCountUse";       
+        public const string SPROC_CENTERMASTER_ISINCOUNTUSE = "sproc_CenterMaster_IsInCountUse";
+        public const string SPROC_GETCENTERBYUSER_LISTALL = "sproc_GetCenterByUser_ListAll";
 
 
     }

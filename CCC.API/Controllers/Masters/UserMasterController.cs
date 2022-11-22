@@ -20,16 +20,18 @@ namespace CCC.API.Controllers.Masters
     public class UserMasterController : Controller
     {
         private readonly IUserMasterService _iUserMasterService;
+        private readonly ICenterMasterService _iCenterMasterService;
         private readonly JwtSettings _jwtSettings;
         private readonly IRefreshTokenService _iRefreshTokenService;
 
 
 
-        public UserMasterController(IUserMasterService UserMasterService, JwtSettings jwtSettings, IRefreshTokenService RefreshTokenService)
+        public UserMasterController(IUserMasterService UserMasterService, JwtSettings jwtSettings, ICenterMasterService CenterMasterService, IRefreshTokenService RefreshTokenService)
         {
             _iUserMasterService = UserMasterService;
             _jwtSettings = jwtSettings;
             _iRefreshTokenService = RefreshTokenService;
+            _iCenterMasterService = CenterMasterService;
         }
 
         [HttpPost(ApiRoutes.UserMaster.AddEditUser), DisableRequestSizeLimit]
@@ -50,12 +52,20 @@ namespace CCC.API.Controllers.Masters
         public async Task<IActionResult> GetUser([FromQuery] string userId)
         {
             var objResponse = await _iUserMasterService.GetAsync(new UserMaster { UserId = userId });
+            if (!string.IsNullOrEmpty(objResponse.UserId))
+            {
+                var lstCenters = await _iCenterMasterService.GetAllCenterByUser(new CenterMaster { UserId = userId });
+                objResponse.lstCenters = new List<CenterMaster>();
+                objResponse.lstCenters.AddRange(lstCenters);
+            }
+           // string ss = Cryptography.Decrypt(objResponse.Password);
+
             return Ok(objResponse);
         }
 
         [HttpDelete(ApiRoutes.UserMaster.DeleteUser)]
         [ProducesResponseType(typeof(string), statusCode: 200)]
-       // [CustomAuthorizeAttribute(FeatureId = FeatureAccess.FEATURE_ManageUsers)]
+        // [CustomAuthorizeAttribute(FeatureId = FeatureAccess.FEATURE_ManageUsers)]
         public async Task<IActionResult> DeleteUser([FromQuery] string userId)
         {
             var objResponse = await _iUserMasterService.DeleteAsync(new UserMaster { UserId = userId });
@@ -75,7 +85,7 @@ namespace CCC.API.Controllers.Masters
 
         [HttpGet(ApiRoutes.UserMaster.IsUserNameInUse)]
         [ProducesResponseType(typeof(bool), statusCode: 200)]
-       // [CustomAuthorizeAttribute(FeatureId = FeatureAccess.FEATURE_ManageUsers)]
+        // [CustomAuthorizeAttribute(FeatureId = FeatureAccess.FEATURE_ManageUsers)]
         public async Task<IActionResult> IsUserNameInUse([FromQuery] string userName)
         {
             //if (string.IsNullOrEmpty(CountryName))

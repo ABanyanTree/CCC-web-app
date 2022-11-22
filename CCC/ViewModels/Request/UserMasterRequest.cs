@@ -41,6 +41,8 @@ namespace CCC.UI.ViewModels
         public string UserRole { get; set; }
         public string UserType { get; set; }
         public string CenterNames { get; set; }
+
+        public List<CenterMasterRequest> lstCenters { get; set; } = new List<CenterMasterRequest>();
         public List<FeatureMasterResponseVM> UserFeatures { get; set; } = new List<FeatureMasterResponseVM>();
         public List<UserRoleResponseVM> userRoles { get; set; } = new List<UserRoleResponseVM>();
     }
