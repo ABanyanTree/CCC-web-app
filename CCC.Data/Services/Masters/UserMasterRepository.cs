@@ -26,6 +26,8 @@ namespace CCC.Data.Services
                 UserMaster_Constant.MOBILE,
                 UserMaster_Constant.LOGINID,
                 UserMaster_Constant.PASSWORD,
+                UserMaster_Constant.USERROLE,
+                UserMaster_Constant.CENTERIDS,
                 UserMaster_Constant.CREATEDBY,
                 UserMaster_Constant.MODIFIEDBY,
                 UserMaster_Constant.ISACTIVE

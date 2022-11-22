@@ -36,7 +36,7 @@ namespace CCC.API.Controllers.Masters
         [ProducesResponseType(typeof(string), statusCode: 200)]
         [ProducesResponseType(typeof(ErrorLogs), statusCode: 401)]
         [ProducesResponseType(typeof(ErrorLogs), statusCode: 400)]
-        [CustomAuthorizeAttribute(FeatureId = FeatureAccess.FEATURE_ManageUsers)]
+        //[CustomAuthorizeAttribute(FeatureId = FeatureAccess.FEATURE_ManageUsers)]
         public async Task<IActionResult> AddEditUser([FromBody] UserMaster request)
         {
             var userId = await _iUserMasterService.AddEditUser(request);
@@ -46,7 +46,7 @@ namespace CCC.API.Controllers.Masters
 
         [HttpGet(ApiRoutes.UserMaster.GetUser)]
         [ProducesResponseType(typeof(UserMaster), statusCode: 200)]
-        [CustomAuthorizeAttribute(FeatureId = FeatureAccess.FEATURE_ManageUsers)]
+        //[CustomAuthorizeAttribute(FeatureId = FeatureAccess.FEATURE_ManageUsers)]
         public async Task<IActionResult> GetUser([FromQuery] string userId)
         {
             var objResponse = await _iUserMasterService.GetAsync(new UserMaster { UserId = userId });
@@ -55,7 +55,7 @@ namespace CCC.API.Controllers.Masters
 
         [HttpDelete(ApiRoutes.UserMaster.DeleteUser)]
         [ProducesResponseType(typeof(string), statusCode: 200)]
-        [CustomAuthorizeAttribute(FeatureId = FeatureAccess.FEATURE_ManageUsers)]
+       // [CustomAuthorizeAttribute(FeatureId = FeatureAccess.FEATURE_ManageUsers)]
         public async Task<IActionResult> DeleteUser([FromQuery] string userId)
         {
             var objResponse = await _iUserMasterService.DeleteAsync(new UserMaster { UserId = userId });
@@ -65,7 +65,7 @@ namespace CCC.API.Controllers.Masters
 
         [HttpGet(ApiRoutes.UserMaster.GetAllUserList)]
         [ProducesResponseType(typeof(UserMaster), statusCode: 200)]
-        [CustomAuthorizeAttribute(FeatureId = FeatureAccess.FEATURE_ManageUsers)]
+        //[CustomAuthorizeAttribute(FeatureId = FeatureAccess.FEATURE_ManageUsers)]
         public async Task<IActionResult> GetAllUserList(UserMaster request)
         {
             var objResponse = await _iUserMasterService.GetAllAsync(request);
@@ -75,7 +75,7 @@ namespace CCC.API.Controllers.Masters
 
         [HttpGet(ApiRoutes.UserMaster.IsUserNameInUse)]
         [ProducesResponseType(typeof(bool), statusCode: 200)]
-        [CustomAuthorizeAttribute(FeatureId = FeatureAccess.FEATURE_ManageUsers)]
+       // [CustomAuthorizeAttribute(FeatureId = FeatureAccess.FEATURE_ManageUsers)]
         public async Task<IActionResult> IsUserNameInUse([FromQuery] string userName)
         {
             //if (string.IsNullOrEmpty(CountryName))

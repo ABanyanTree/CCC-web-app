@@ -19,5 +19,27 @@ namespace CCC.UI.RefitClientFactory
 
         [Get(path: "/api/usermaster/getsalt")]
         Task<HttpResponseMessage> GetMD5Salt();
+
+
+        [Get(path: "/api/usermaster/getuser")]
+        Task<ApiResponse<UserMasterRequest>> GetUser(string userId);
+
+        [Post(path: "/api/usermaster/addedituser")]
+        Task<HttpResponseMessage> AddEditUser(UserMasterRequest request);
+
+        [Get(path: "/api/usermaster/getalluserlist")]
+        Task<ApiResponse<List<GetAllUserResponse>>> GetAllUserDetailList(UserMasterRequest request);
+
+        [Get(path: "/api/usermaster/getallusers")]
+        Task<ApiResponse<List<GetAllUserResponse>>> GetAllUserDetail();
+
+        [Get(path: "/api/usermaster/isinusecount")]
+        Task<HttpResponseMessage> IsInUseCount(string userId);
+
+        [Delete(path: "/api/usermaster/deleteuser")]
+        Task<HttpResponseMessage> DeleteUser(string userId);
+
+        [Get(path: "/api/usermaster/isusernameinuse")]
+        Task<HttpResponseMessage> IsUserNameInUse(string userName);       
     }
 }

@@ -21,6 +21,8 @@ namespace CCC.Domain
         public bool IsLogin { get; set; }
         public DateTime ExpiryDate { get; set; }
         public string RefreshToken { get; set; }
+        public string CenterIds { get; set; }
+        public string UserRole { get; set; }
         public List<FeatureMaster> UserFeatures { get; set; } = new List<FeatureMaster>();
         public List<UserRoleMasters> userRoles { get; set; } = new List<UserRoleMasters>();
     }
@@ -44,6 +46,8 @@ namespace CCC.Domain
         public const string MOBILE = "Mobile";
         public const string LOGINID = "LoginId";
         public const string PASSWORD = "Password";
+        public const string USERROLE = "UserRole";
+        public const string CENTERIDS = "CenterIds";
 
         public const string SPROC_USERMASTER_UPS = "sproc_UserMaster_ups";
         public const string SPROC_USERMASTER_SEL = "sproc_UserMaster_sel";

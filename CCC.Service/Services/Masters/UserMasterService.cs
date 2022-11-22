@@ -25,10 +25,17 @@ namespace CCC.Service.Services
 
         public async Task<string> AddEditUser(UserMaster obj)
         {
-            if (!string.IsNullOrEmpty(obj.UserId))
+            if (string.IsNullOrEmpty(obj.UserId))
             {
-                obj.UserId = Utility.GeneratorUniqueId("CNT_");
+                obj.UserId = Utility.GeneratorUniqueId("USR_");
+                obj.IsActive = true;
             }
+
+            if (!string.IsNullOrEmpty(obj.Password))
+            {
+                obj.Password = Cryptography.MD5Hash(obj.Password);
+            }
+
             int successCount = await _iUserMasterRepository.AddEditUser(obj);
             return successCount > 0 ? obj.UserId : string.Empty;
         }

@@ -322,7 +322,7 @@ ul.formGroupTopListing li .form-control:-ms-input-placeholder, ul.advFilListing 
 .navbarRight .userCircle::after{content:none}
 .navbarRight .userCircle, .userBox .dropdown-menu .innUserCircle{background:#e41f35;color:#ffffff; font-size:12px; padding-top:4px; text-align:center; width:27px; height:27px; border-radius:100%; -moz-border-radius:100%; -webkit-border-radius:100%; margin-top:0px; margin-right:5px}
 .userBox {padding-top:1px}
-.userBox .dropdown-menu {top:46px; background:#333333; border-radius:0px; -moz-border-radius:0px; -webkit-border-radius:0px; padding:3px 0 0rem 0}
+.userBox .dropdown-menu {top:46px; /*background:#333333;*/ border-radius:0px; -moz-border-radius:0px; -webkit-border-radius:0px; padding:3px 0 0rem 0}
 .userBox .dropdown-menu .innUserCircle{float:left;}
 .userBox .dropdown-menu .flatIcon{float:left; font-size:12px; padding-top:5px; padding-left:4px; width:20%; min-width:34px}
 .userBox .dropdown-menu .text{float:left; font-size:12px; padding-top:6px; padding-left: 7px; width:60%}
