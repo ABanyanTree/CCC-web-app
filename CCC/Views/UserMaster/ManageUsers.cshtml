@@ -1,7 +1,274 @@
 ﻿@using CCC.UI.ViewModels
+@model UserMasterRequest
 @{
-    ViewData["Title"] = "Manage Users";
+    ViewData["Title"] = "Manage User";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Manage Users</h1>
+<link href="~/css/autocomplete.css" rel="stylesheet" />
+<script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
+<link href="~/lib/bootstrap-datepicker/css/bootstrap-datepicker.min.css" rel="stylesheet" />
+<script src="~/lib/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+<script src="~/js/jquery.btnswitch.js"></script>
+<link href="~/css/jquery.btnswitch.min.css" rel="stylesheet" />
+<link href="~/css/jquery-ui.css" rel="stylesheet" />
+<link href="~/lib/bootstrap-multiselect/bootstrap-multiselect.css" rel="stylesheet" />
+<script src="~/lib/bootstrap-multiselect/bootstrap-multiselect.js"></script>
+
+<div class="mainContent">
+    <div class="conHeader">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="pull-left">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item active" aria-current="page">Manage Users</li>
+                    </ol>
+                </div>
+                <div class="filterMenuIcon"></div>
+                <div class="pull-right mobileFilterMenu">
+                    <ul class="headerListing">
+                        @*<li class="active"><button type="button" id="btnNewUrl" class="btn btnDefault AddEditBtn">Add New</button></li>*@
+                        <li class="active"> <a href="javascript:void(0);" onclick="AddEvent()"><span class="text">Add</span> <span class="icon iconUser">&nbsp;</span></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="conInner">
+        <div class="conInner">
+            <div class="mobileFilter">
+                <div class="hideShowfilter">
+                    <div class="filterData mobilecofilters">
+                        <div class="formGroupTop pos mobile4Lis">
+                            <ul class="formGroupTopListing">
+                                <li>
+                                    <div class="form-group" style="margin-top:3px;">
+                                        <label class="pt20">User Name</label>
+                                    </div>
+                                </li>
+                                <li class="firstLastName">
+                                    <div class="form-group">
+                                        <input asp-for="UserName" type="text" id="txtUserName" class="form-control" placeholder="Vet Name" />
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="form-group">
+                                        <button type="button" class="btn btn-primary btn-search" id="btnSearch1"><img src='@Url.Content("~/images/search.png")' /> </button>
+                                        <button type="button" class="btn btn-default btn-clear" id="btnClear"><img src='@Url.Content("~/images/refresh.png")' /></button>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br /><br /><br />
+        <div class="chkTBL">
+            <div class="bulkImpLogHT mngEventpage mobileTablenowrap">
+                <table id="mydatatable" class="table">
+                    <thead>
+                        <tr>
+                            <th>Edit</th>
+                            <th>Delete</th>
+                            <th>User Name</th>
+                            <th>Email Address</th>
+                            <th>Mobile No</th>
+                            <th>User Role</th>
+                            <th>Centers</th>                          
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+        <div id="divdataTables_info"></div>
+        <div id="divDataTable_length"></div>
+    </div>
+</div>
+
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#mydatatable").tableHeadFixer({ "head": true, "top": 1 });
+        var langUrl = $("#LangUrl").val();
+        var mytable = $('#mydatatable').dataTable({
+            "ajax": {
+                 "url": "@Url.Content("~/UserMaster/FillTableUserMasterAsync")",
+                "type": "POST",
+                "error": function (x, y, z) {
+                }
+            },
+            "language":
+            {
+                "url": langUrl
+            },
+             "aaSorting": [[1, "asc"]],
+            "pageLength": 50,
+            "serverSide": true,
+            "bStateSave": false,
+           // "pagingType": "listbox",  //pagination type using pulgin
+            "processing": true,
+            "pagingType": "full_numbers",  //pagination type using pulgin
+            "dom": '<"top"i>rt<"bottom"flp><"clear">',
+            "filter": false,
+            "oLanguage": {
+            "oPaginate": {
+            "sFirst": "<i class='fa fa-angle-double-left'></i>",
+            "sPrevious": "«",
+            "sNext": "»",
+            "sLast": "<i class='fa fa-angle-double-right'></i>"
+             }
+            },
+            //"sDom": 'lrtip',
+           "bDeferRender": true,//hide the default search filter textbox by removing "f"
+            "aoColumns":
+                [
+                      {
+                        "data": "UserId", "sName": "", "class": "", "orderable": false, "mRender": function (data, type, full) {
+                            if (data != null) {
+                                return "<div class='tablehoverbuttons'> <i class='fa fa-ellipsis-h'></i> <div class='buttonshover'><div class='editbtn'><a class='' href='javascript:void(0);' onClick=EditEvent('" + data + "')><span><img title='Edit' src='@Url.Content("~/images/edit.png")' /></span></a></div> </div> </div>";
+                            }
+                            else
+                                return "";
+                        }
+                      },
+                      {
+                          "data": "UserId", "sName": "", "class": "", "orderable": false, "mRender": function (data, type, full) {
+                            if (data != null) {
+                                return "<div class='tablehoverbuttons'> <i class='fa fa-ellipsis-h'></i> <div class='buttonshover'><div class='editbtn'><a class='' href='javascript:void(0);' onClick=DeleteEvent('" + data + "')><span><img title='Delete' src='@Url.Content("~/images/delete grey.png")' /></span></a></div> </div> </div>";
+                            }
+                            else
+                                return "";
+                        }
+                      },
+                    { "data": "UserName", "sName": "UserName" },
+                    { "data": "Email", "sName": "Email" },
+                    { "data": "Mobile", "sName": "Mobile" },                  
+                    { "data": "UserType", "sName": "UserType" },
+                    { "data": "CenterNames", "sName": "CenterNames" },
+                    ]
+        });
+        mytable.on('order.dt', function () { $('.dataTables_paginate,.dataTables_info').show(); });
+        mytable.on('length.dt', function (e, settings, len) { $('.dataTables_paginate,.dataTables_info').show(); });
+
+        $("#divDataTable_length").append($(".dataTables_info"));
+        $("#divdataTables_info").append($(".dataTables_length"));
+        $("#divdataTables_info").append($(".dataTables_paginate"));
+
+        function fnGetDataForActivities() {
+            var searchObj = new Object();
+            searchObj.UserName = $('#txtUserName').val();
+            return searchObj;
+        }
+
+        function fnFilterActivities() {
+            searchObj = fnGetDataForActivities();
+            $("#mydatatable").dataTable().fnMultiFilter({
+                "UserName": searchObj.UserName,
+            });
+        }
+
+        function clearfilter() {
+            $('#txtUserName').val('');
+            fnFilterActivities();
+        }
+
+        $('#btnClear').click(function () {
+            clearfilter();
+        });
+
+
+        $('#btnSearch1').click(function () {
+            fnFilterActivities();
+        });
+
+
+        $("#txtUserName").keyup(function (e) {
+            if (e.which == 13) {
+                fnFilterActivities();
+            }
+        });
+
+    });
+
+</script>
+
+<script>
+
+    function AddEvent() {
+          var url = '@Url.Action("AddEditUser", "UserMaster")';
+        document.location.href = url;
+        //AddEditDialog(url, "Add New Center");
+    }
+    function EditEvent(userId) {
+        var url = '@Url.Action("AddEditUser", "VetMaster")?userId=' + userId + '';
+      document.location.href = url;
+    }
+
+
+    //$("#showBtnID").click(function () {
+    //    $(".hideShowfilter").slideDown();
+    //    $("#showBtnID").hide();
+    //});
+
+    //$("#hideBtnId").click(function () {
+    //    $(".hideShowfilter").slideUp();
+    //    $("#showBtnID").show();
+    //});
+
+</script>
+<script type="text/javascript">
+    function DeleteEvent(vetId) {
+                    $.confirm({
+                title: 'Confirm',
+                content: "Are you sure want to delete this User?",
+                buttons: {
+                    confirm: function () {
+
+                        $.ajax({
+                            url: "@Url.Content("~/UserMaster/IsInUseCount")",
+                            type: "POST",
+                            dataType: "json",
+                            data: { vetId: vetId },
+                            success: function (result) {
+                                if (result.isSuccess == true && parseInt(result.Count) > 0) {
+                                    showWarningMsg('User does not delete, This User associated with the other data.');
+                                }
+                                else if (result.isSuccess == true && parseInt(result.Count) == 0) {
+                                         $.ajax({
+                                             url: "@Url.Content("~/UserMaster/DeleteUser")",
+                                             type: "Delete",
+                                             dataType: "json",
+                                             data: { vetId: vetId },
+                                             success: function (result) {
+                                                 if (result.isSuccess == true) {
+                                                     showSuccessMsg('User deleted successfully.',BackToManage);
+                                                //location.reload();
+                                                }
+                                                else {
+                                                showWarningMsg('something went wrong');
+                                                }
+                                            }
+                                        });
+                                    }
+                                    else {
+                                    showWarningMsg('something went wrong');
+                                    }
+                            }
+                        });
+                    },
+                    cancel: function () {
+
+                    }
+                }
+            });
+    }
+
+     function BackToManage() {
+        var url = '@Url.Action("ManageUser", "UserMaster")';
+        document.location.href = url;
+    }
+</script>
+

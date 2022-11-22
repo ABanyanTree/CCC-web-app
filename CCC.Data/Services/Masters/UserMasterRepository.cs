@@ -44,7 +44,8 @@ namespace CCC.Data.Services
 
         public async Task<IEnumerable<UserMaster>> GetAllUserList(UserMaster obj)
         {
-            string[] addParams = new string[] { BaseEntity_Constant.PAGEINDEX, BaseEntity_Constant.PAGESIZE, BaseEntity_Constant.SORTEXP };
+            string[] addParams = new string[] { BaseEntity_Constant.PAGEINDEX, BaseEntity_Constant.PAGESIZE, BaseEntity_Constant.SORTEXP,
+            UserMaster_Constant.USERNAME};
             return await GetAllAsync(obj, addParams, UserMaster_Constant.SPROC_USERMASTER_LSTALL);
         }
 

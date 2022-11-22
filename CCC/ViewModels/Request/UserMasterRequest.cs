@@ -17,6 +17,7 @@ namespace CCC.UI.ViewModels
         [RegularExpression(@"^[a-zA-Z ']*$", ErrorMessage = "Please enter valid name.")]
         [Required(ErrorMessage = "Please enter name")]
         public string LastName { get; set; }
+        public string UserName { get; set; }
 
         [RegularExpression(@"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$", ErrorMessage = "Please enter valid email address")]
         [Required(ErrorMessage = "Please enter email address")]
@@ -38,6 +39,8 @@ namespace CCC.UI.ViewModels
         public string RefreshToken { get; set; }
         public string CenterIds { get; set; }      
         public string UserRole { get; set; }
+        public string UserType { get; set; }
+        public string CenterNames { get; set; }
         public List<FeatureMasterResponseVM> UserFeatures { get; set; } = new List<FeatureMasterResponseVM>();
         public List<UserRoleResponseVM> userRoles { get; set; } = new List<UserRoleResponseVM>();
     }
