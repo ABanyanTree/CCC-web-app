@@ -10,6 +10,7 @@ namespace CCC.Domain
     {
         public string VetId { get; set; }
         public string VetName { get; set; }
+        public string RegistrationNo { get; set; }
         public string Email { get; set; }
         public string Mobile { get; set; }
         public string Address { get; set; }
@@ -24,6 +25,8 @@ namespace CCC.Domain
         public const string MOBILE = "Mobile";
         public const string ADDRESS = "Address";
         public const string DESCRIPTION = "Description";
+        public const string REGISTRATIONNO = "RegistrationNo";
+
 
         public const string SPROC_VETMASTER_UPS = "sproc_VetMaster_ups";
         public const string SPROC_VETMASTER_SEL = "sproc_VetMaster_sel";

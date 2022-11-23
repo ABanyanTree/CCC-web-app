@@ -17,6 +17,9 @@ namespace CCC.UI.ViewModels
         [Remote("IsVetNameInUse", "VetMaster", ErrorMessage = "vet name is already exists.", HttpMethod = "GET")]
         public string VetName { get; set; }
 
+        [Required(ErrorMessage = "Please enter registration no")]
+        public string RegistrationNo { get; set; }
+
         [RegularExpression(@"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$", ErrorMessage = "Please enter valid email address")]
         [Required(ErrorMessage = "Please enter email address")]
         public string Email { get; set; }

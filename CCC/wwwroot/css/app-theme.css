@@ -387,7 +387,7 @@ ul.formGroupTopListing li .form-control:-ms-input-placeholder, ul.advFilListing 
 .sidebar-wrapper .sidebar-menu .sidebar-dropdown .sidebar-submenu li {font-size: 12px;}
 .sidebar-wrapper .sidebar-menu ul li a span.label, .sidebar-wrapper .sidebar-menu ul li a span.badge {float: right; margin-top: 8px; margin-left: 5px;}
 .sidebar-wrapper .sidebar-menu .sidebar-dropdown .sidebar-submenu li a .badge, .sidebar-wrapper .sidebar-menu .sidebar-dropdown .sidebar-submenu li a .label {float: right; margin-top: 0px;}
-.sidebar-wrapper .sidebar-menu .sidebar-submenu {display: none;}
+.sidebar-wrapper .sidebar-menu .sidebar-submenu {/*display: none;*/}
 .sidebar-wrapper .sidebar-menu .sidebar-submenu ul li{/*padding-bottom:5px*/}
 .sidebar-wrapper .sidebar-menu .sidebar-dropdown.active > a:after {transform: rotate(-90deg); right: 17px;}
 .sidebar-wrapper .sidebar-menu ul li:first-child a{/*border-top:none*/}
@@ -422,7 +422,7 @@ ul.formGroupTopListing li .form-control:-ms-input-placeholder, ul.advFilListing 
 .sidebar-menu  ul > li.activeMenu  > span.holder{background:url(../images/downarrow.png) 0 0 no-repeat;height:11px;width:16px;position: absolute;right:3px;top:19px;}
 .sidebar-wrapper .sidebar-menu ul li.active a .meText{font-family: 'Myriad Pro bold';color:#e41f35;}
 .sidebar-wrapper .sidebar-menu ul li.activeMenu a .meText{font-family: 'Myriad Pro bold';color:#e41f35;}
-.sidebar-wrapper .sidebar-menu ul li.activeMenu  .sidebar-submenu{display:block !important}
+.sidebar-wrapper .sidebar-menu ul li.activeMenu  .sidebar-submenu{/*display:block !important*/}
 .sidebar-wrapper .sidebar-menu .sidebar-dropdown .sidebar-submenu li.activeMenu a{font-family:'Myriad Pro bold';color:#e41f35;}
 /*.accordian-blog #cssmenu > ul > li.open .holder{background:url(../images/downarrow.png) 0 0 no-repeat;right:4px;top:15px;}*/
 

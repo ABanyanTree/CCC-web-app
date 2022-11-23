@@ -20,6 +20,7 @@ namespace CCC.Data.Services
               {
                 VetMaster_Constant.VETID,
                 VetMaster_Constant.VETNAME,
+                VetMaster_Constant.REGISTRATIONNO,
                 VetMaster_Constant.EMAIL,
                 VetMaster_Constant.MOBILE,
                 VetMaster_Constant.ADDRESS,
