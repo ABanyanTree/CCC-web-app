@@ -6,8 +6,8 @@
 
     SelectList lstCenter = ViewBag.lstCenter;
     SelectList lstCityArea = ViewBag.lstCityArea;
-    SelectList lstVet = ViewBag.lstVet;
-    SelectList lstPetType = ViewBag.lstPetType;
+    //SelectList lstVet = ViewBag.lstVet;
+    //SelectList lstPetType = ViewBag.lstPetType;
 
 }
 
@@ -22,138 +22,163 @@
 <link href="~/lib/bootstrap-multiselect/bootstrap-multiselect.css" rel="stylesheet" />
 <script src="~/lib/bootstrap-multiselect/bootstrap-multiselect.js"></script>
 <script>
-    $(function () {
-        $(".datepkr").datepicker({
-            autoclose: true,
-            format: "dd/mm/yyyy",
-        });
-    });
+    //$(function () {
+    //    $(".datepkr").datepicker({
+    //        autoclose: true,
+    //        format: "dd/mm/yyyy",
+    //    });
+    //});
 </script>
 
-
-<div class="conHeader">
-    <div class="row">
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <div class="pull-left">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item active" aria-current="page">Manage Pet Service</li>
-                </ol>
-            </div>
-            <div class="filterMenuIcon"></div>
-            <div class="pull-right mobileFilterMenu">
-                <ul class="headerListing">
-                    @*<li class="active"><button type="button" id="btnNewUrl" class="btn btnDefault AddEditBtn">Add New</button></li>*@
-                    <li class="active"> <a href="javascript:void(0);" onclick="AddEvent()"><span class="text">Add</span> <span class="icon iconUser">&nbsp;</span></a></li>
-                </ul>
+<div class="mainContent">
+    <div class="conHeader">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="pull-left">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item active" aria-current="page">Manage Pet Service</li>
+                    </ol>
+                </div>
+                <div class="filterMenuIcon"></div>
+                <div class="pull-right mobileFilterMenu">
+                    <ul class="headerListing">
+                        <li class="active"> <a href="javascript:void(0);" onclick="AddEvent()"><span class="text">Add</span> <span class="icon iconUser">&nbsp;</span></a></li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
-</div>
-
-<div class="conInner">
-    <div class="row">
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <div class="tblFilter">
-                <!--Add/Edit User-->
-                <div id="filterBodyAddUser" class="float-right">
-                    <div class="filterWrapp">
-                        <div id="sidebarFilterAddUser" class="bulkImport">
+    <div class="conInner">
+        <div class="conInner">
+            <div class="mobileFilter">
+                <div class="hideShowfilter">
+                    <div class="filterData mobilecofilters">
+                        <div class="formGroupTop pos mobile4Lis" id="pnlSearch">
+                            <div class="row">
+                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                    <div class="form-group">
+                                        <label>Center</label>
+                                        <select asp-for="CenterId" asp-items="lstCenter" id="ddlCenter" class="form-control">
+                                            <option value="">--Select--</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                    <div class="form-group">
+                                        <label>Area</label>
+                                        <select asp-for="CenterId" asp-items="lstCityArea" id="ddlArea" class="form-control">
+                                            <option value="">--Select--</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                    <div class="form-group">
+                                        <label>Admission Dates</label>
+                                        <ul class="footageListing dateListing">
+                                            <li>
+                                                <input asp-for="AdmissionDateFrom" id="dtAdmissionDateFrom" type="text" class="form-control datepkr" />
+                                            </li>
+                                            <li class="textTo">
+                                                to &nbsp;
+                                            </li>
+                                            <li>
+                                                <input asp-for="AdmissionDateTo" id="dtAdmissionDateTo" type="text" class="form-control datepkr" />
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                    <div class="form-group">
+                                        <label>Surgery Dates</label>
+                                        <ul class="footageListing dateListing">
+                                            <li>
+                                                <input asp-for="SurgeryDateFrom" id="dtSurgeryDateFrom" type="text" class="form-control datepkr" />
+                                            </li>
+                                            <li class="textTo">
+                                                to &nbsp;
+                                            </li>
+                                            <li>
+                                                <input asp-for="SurgeryDateTo" id="dtSurgeryDateTo" type="text" class="form-control datepkr" />
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                    <div class="form-group">
+                                        <label>Release Dates</label>
+                                        <ul class="footageListing dateListing">
+                                            <li>
+                                                <input asp-for="ReleaseDateFrom" id="dtReleaseDateFrom" type="text" class="form-control datepkr" />
+                                            </li>
+                                            <li class="textTo">
+                                                to &nbsp;
+                                            </li>
+                                            <li>
+                                                <input asp-for="ReleaseDateTo" id="dtReleaseDateTo" type="text" class="form-control datepkr" />
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <div class="userBoxFooter">
+                                        <div class="pull-right">
+                                            <div class="form-group"></div>
+                                            <button type="button" class="btn btn-primary btn-search" id="btnSearch1"><img src='@Url.Content("~/images/search.png")' /> </button>
+                                            <button type="button" class="btn btn-default btn-clear" id="btnClear"><img src='@Url.Content("~/images/refresh.png")' /></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
-    </div>
-    <!--<div class="mobileFilter">-->
-    @*<div class="showFilterBtn" id="showBtnID"><button type="button" class="searchfilterbtn">Show Search Filter<i class="fa fa-chevron-down"></i></button></div>*@
-    <!--<div class="hideShowfilter">
-        <div class="filterData mobilecofilters">
-            <div class="formGroupTop pos mobile4Lis">
-                <ul class="formGroupTopListing">
-                    <li class="firstLastName">
-                        <div class="form-group">
-                            <label class="pt20">Center Name</label>
-                            <select asp-for="CenterId" asp-items="lstCenter" class="form-control">
-                                <option value="">--Select--</option>
-                            </select>
-                        </div>
-                    </li>
-                    <li class="firstLastName">
-                        <div class="form-group">
-                            <label class="pt20">Area Name</label>
-                            <select asp-for="AreaId" asp-items="lstCityArea" class="form-control">
-                                <option value="">--Select--</option>
-                            </select>
-                        </div>
-                    </li>
-                    <li class="firstLastName">
-                        <div class="form-group">
-                            <label class="pt20">Vet Name</label>
-                            <select asp-for="VetId" asp-items="lstCityArea" class="form-control">
-                                <option value="">--Select--</option>
-                            </select>
-                        </div>
-                    </li>
-                    <li class="firstLastName">
-                        <div class="form-group">
-                            <label class="pt20">SurgeryDate</label>
-                            <input asp-for="SurgeryDate" id="dtSurgeryDate" type="text" class="form-control datepkr" />
-                        </div>
-                    </li>
-
-                    <li>
-                        <div class="form-group">
-                            <button type="button" class="btn btn-primary btn-search" id="btnSearch1"><img src='@Url.Content("~/images/search.png")' /> </button>
-                            <button type="button" class="btn btn-default btn-clear" id="btnClear"><img src='@Url.Content("~/images/refresh.png")' /></button>
-                        </div>
-                    </li>
-                </ul>
+        <br /><br /><br />
+        <div class="chkTBL">
+            <div class="bulkImpLogHT mngEventpage mobileTablenowrap">
+                <table id="mydatatable" class="table">
+                    <thead>
+                        <tr>
+                            <th>Edit</th>
+                            <th>Delete</th>
+                            <th>Admission Date</th>
+                            <th>Surgery Date</th>
+                            <th>Van Number</th>
+                            <th>Vet Name</th>
+                            <th>Pet</th>
+                            <th>Certificate No</th>
+                            <th>Tag Id</th>
+                            <th>Center Name</th>
+                            <th>Area Name</th>
+                            <th>Care Giver</th>
+                            <th>Release Date</th>
+                            <th>Medical Notes/Comments</th>
+                            <th>Created By</th>
+                            @*@if (objRights != null && objRights.IsEdit)
+                                {
+                                    <th>Edit</th>
+                                }
+                                @if (objRights != null && objRights.IsDelete)
+                                {
+                                    <th>Delete</th>
+                                }
+                                <th>Country</th>
+                                <th>Region</th>
+                                <th>Description</th>*@
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
             </div>
-        </div>-->
-    @*<div class="hideFilterBtn" id="hideBtnId"><button type="button" class="searchfilterbtn">Hide Search Filter <i class="fa fa-chevron-up"></i></button></div>*@
-    <!--</div>
-    </div>-->
-
-    <div id="divDataTable_length"></div>
-    <div class="chkTBL">
-        <div class="bulkImpLogHT mngEventpage mobileTablenowrap">
-            <table id="mydatatable" class="table">
-                <thead>
-                    <tr>
-                        <th>Edit</th>
-                        <th>Delete</th>
-                        <th>Admission Date</th>
-                        <th>Surgery Date</th>
-                        <th>Van Number</th>
-                        <th>Vet Name</th>
-                        <th>Pet</th>
-                        <th>Certificate No</th>
-                        <th>Tag Id</th>
-                        <th>Center Name</th>
-                        <th>Area Name</th>
-                        <th>Care Giver</th>
-                        <th>Release Date</th>
-                        <th>Medical Notes/Comments</th>
-                        <th>Created By</th>
-                        @*@if (objRights != null && objRights.IsEdit)
-                            {
-                                <th>Edit</th>
-                            }
-                            @if (objRights != null && objRights.IsDelete)
-                            {
-                                <th>Delete</th>
-                            }
-                            <th>Country</th>
-                            <th>Region</th>
-                            <th>Description</th>*@
-                    </tr>
-                </thead>
-                <tbody></tbody>
-            </table>
         </div>
+        <div id="divdataTables_info"></div>
+        <div id="divDataTable_length"></div>
     </div>
-    <div id="divdataTables_info"></div>
 </div>
 
 <script type="text/javascript">
@@ -199,7 +224,6 @@
                       {
                         "data": "ServiceId", "sName": "", "class": "", "orderable": false, "mRender": function (data, type, full) {
                               if (data != null) {
-                                  debugger;
                                   var rlDate = full.ReleaseDate;
                                   var exDate = full.ExpiredDate;
                                   if (rlDate == null || rlDate == '' || rlDate == undefined || exDate== null || exDate == '' || exDate == undefined) {
@@ -237,36 +261,16 @@
                     { "data": "MedicalComments", "sName": "Medical Comments" },
                     { "data": "CreatorName", "sName": "Created By" },
 
-                     @*@if (objRights != null && objRights.IsEdit)
-                         {
-                         <text>
-                     {
-                        "data": "CountryID", "sName": "", "class": "", "orderable": false, "mRender": function (data, type, full) {
-                            if (data != null) {
-                                return "<div class='tablehoverbuttons'> <i class='fa fa-ellipsis-h'></i> <div class='buttonshover'><div class='editbtn'><a class='' href='javascript:void(0);' onClick=EditEvent('" + data + "')><span><img title='Edit' src='@Url.Content("~/images/edit.png")' /></span></a></div> </div> </div>";
-                            }
-                            else
-                                return "";
-                        }
-                    },
-                      </text>
-                         }
-                     @if (objRights != null && objRights.IsDelete)
-                         {
-                         <text>
-                    {
-                        "data": "CountryID", "sName": "", "class": "", "orderable": false, "mRender": function (data, type, full) {
-                            if (data != null) {
-                                return "<div class='tablehoverbuttons'> <i class='fa fa-ellipsis-h'></i> <div class='buttonshover'><div class='editbtn'><a class='' href='javascript:void(0);' onClick=DeleteEvent('" + data + "')><span><img title='Delete' src='@Url.Content("~/images/delete grey.png")' /></span></a></div> </div> </div>";
-                            }
-                            else
-                                return "";
-                        }
-                    },
-                      </text>
-                         }*@
+                    { "data": "CenterId", "sName": "CenterId", "visible": false},
+                    { "data": "AreaId", "sName": "AreaId", "visible": false},
+                    { "data": "AdmissionDateFrom", "sName": "AdmissionDateFrom", "visible": false },
+                    { "data": "AdmissionDateTo", "sName": "AdmissionDateTo", "visible": false },
+                    { "data": "SurgeryDateFrom", "sName": "SurgeryDateFrom", "visible": false },
+                    { "data": "SurgeryDateTo", "sName": "SurgeryDateTo", "visible": false },
+                    { "data": "ReleaseDateFrom", "sName": "ReleaseDateFrom", "visible": false },
+                    { "data": "ReleaseDateTo", "sName": "ReleaseDateTo", "visible": false },
 
-                               ]
+                ]
         });
         mytable.on('order.dt', function () { $('.dataTables_paginate,.dataTables_info').show(); });
         mytable.on('length.dt', function (e, settings, len) { $('.dataTables_paginate,.dataTables_info').show(); });
@@ -276,11 +280,16 @@
         $("#divdataTables_info").append($(".dataTables_paginate"));
 
         function fnGetDataForActivities() {
+            debugger;
             var searchObj = new Object();
-            searchObj.CenterId = $('#CenterId').val();
-            searchObj.AreaId = $('#AreaId').val();
-            searchObj.VetId = $('#VetId').val();
-            searchObj.SurgeryDate = $('#SurgeryDate').val();
+            searchObj.CenterId = $('#ddlCenter').val();
+            searchObj.AreaId = $('#ddlArea').val();
+            searchObj.AdmissionDateFrom = $('#dtAdmissionDateFrom').val();
+            searchObj.AdmissionDateTo = $('#dtAdmissionDateTo').val();
+            searchObj.SurgeryDateFrom = $('#dtSurgeryDateFrom').val();
+            searchObj.SurgeryDateTo = $('#dtSurgeryDateTo').val();
+            searchObj.ReleaseDateFrom = $('#dtReleaseDateFrom').val();
+            searchObj.ReleaseDateTo = $('#dtReleaseDateTo').val();
             return searchObj;
         }
 
@@ -289,15 +298,20 @@
             $("#mydatatable").dataTable().fnMultiFilter({
                 "CenterId": searchObj.CenterId,
                 "AreaId": searchObj.AreaId,
-                "VetId": searchObj.VetId,
-                "SurgeryDate": searchObj.SurgeryDate,
+                "AdmissionDateFrom": searchObj.AdmissionDateFrom ,
+                "AdmissionDateTo": searchObj.AdmissionDateTo,
+                "SurgeryDateFrom": searchObj.SurgeryDateFrom ,
+                "SurgeryDateTo": searchObj.SurgeryDateTo ,
+                "ReleaseDateFrom": searchObj.ReleaseDateFrom,
+                "ReleaseDateTo": searchObj.ReleaseDateTo ,
             });
         }
 
         function clearfilter() {
-            //$('#MCountryName').val('');
-            //$('#MCountryD').val('');
-
+            $('#pnlSearch').find('input:text').val('');
+            $("#pnlSearch select").each(function () {
+                $(this).val('');
+            });
             fnFilterActivities();
         }
 
@@ -322,47 +336,43 @@
 </script>
 
 <script>
-
-     @*$("#btnNewUrl").click(function () {
-        var url = '@Url.Action("AddEditPetData", "PetService");
-        document.location.href = url;
-    });*@
-
     function AddEvent() {
         var url = '@Url.Action("AddEditPetData", "PetService")';
         document.location.href = url;
-        @*$("#sidebarFilterAddUser").html('');
-        $('#sidebarFilterAddUser').addClass('active');
-        $('#sidebarFilterAddUser').show();
-        $('.overlay').show();
-
-        var url = '@Url.Action("AddEditPetData", "PetService")'
-        $("#sidebarFilterAddUser").load(url, function () {
-        });*@
     }
     function EditEvent(serviceId) {
         var url = '@Url.Action("AddEditPetData", "PetService")?serviceId=' + serviceId + '';
         document.location.href = url;
 
-        @*$("#sidebarFilterAddUser").html('');
-        $('#sidebarFilterAddUser').show();
-        $('#sidebarFilterAddUser').addClass('active');
-        $('.overlay').show();
-        $('.collapse.in').toggleClass('in');
-        $('a[aria-expanded=true]').attr('aria-expanded', 'false');
-        var url = '@Url.Action("AddEditPetData", "PetService")?ServiceId=' + ServiceId + '';
-        $("#sidebarFilterAddUser").load(url);*@
     }
 
+</script>
 
-    //$("#showBtnID").click(function () {
-    //    $(".hideShowfilter").slideDown();
-    //    $("#showBtnID").hide();
-    //});
-
-    //$("#hideBtnId").click(function () {
-    //    $(".hideShowfilter").slideUp();
-    //    $("#showBtnID").show();
-    //});
-
+<script>
+    $(function () {
+        $("#dtAdmissionDateFrom").datepicker({
+            autoclose: true,
+            format: "yyyy-MM-dd",
+        });
+        $("#dtAdmissionDateTo").datepicker({
+            autoclose: true,
+            format: "yyyy-MM-dd",
+        });
+        $("#dtSurgeryDateFrom").datepicker({
+            autoclose: true,
+            format: "yyyy-MM-dd",
+        });
+        $("#dtSurgeryDateTo").datepicker({
+            autoclose: true,
+            format: "yyyy-MM-dd",
+        });
+        $("#dtReleaseDateFrom").datepicker({
+            autoclose: true,
+            format: "yyyy-MM-dd",
+        });
+        $("#dtReleaseDateTo").datepicker({
+            autoclose: true,
+            format: "yyyy-MM-dd",
+        });
+    });
 </script>

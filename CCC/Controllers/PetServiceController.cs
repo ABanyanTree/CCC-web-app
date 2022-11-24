@@ -36,15 +36,15 @@ namespace CCC.UI.Controllers
                 AuthorizationHeaderValueGetter = () => Task.FromResult(cachedToken)
             });
 
-            var VetMasterAPI = RestService.For<IVetMasterApi>(hostUrl: ApplicationSettings.WebApiUrl, new RefitSettings
-            {
-                AuthorizationHeaderValueGetter = () => Task.FromResult(cachedToken)
-            });
+            //var VetMasterAPI = RestService.For<IVetMasterApi>(hostUrl: ApplicationSettings.WebApiUrl, new RefitSettings
+            //{
+            //    AuthorizationHeaderValueGetter = () => Task.FromResult(cachedToken)
+            //});
 
-            var LookupMasterAPI = RestService.For<ILookupMasterApi>(hostUrl: ApplicationSettings.WebApiUrl, new RefitSettings
-            {
-                AuthorizationHeaderValueGetter = () => Task.FromResult(cachedToken)
-            });
+            //var LookupMasterAPI = RestService.For<ILookupMasterApi>(hostUrl: ApplicationSettings.WebApiUrl, new RefitSettings
+            //{
+            //    AuthorizationHeaderValueGetter = () => Task.FromResult(cachedToken)
+            //});
 
 
             var centerRes = await CenterMasterAPI.GetAllCenters();
@@ -53,11 +53,11 @@ namespace CCC.UI.Controllers
             var cityAreaRes = await CityAreaMasterAPI.GetAllCityAreas();
             ViewBag.lstCityArea = new SelectList(cityAreaRes.Content, "AreaId", "AreaName");
 
-            var vetRes = await VetMasterAPI.GetAllVetDetails();
-            ViewBag.lstVet = new SelectList(vetRes.Content, "VetId", "VetName");
+            //var vetRes = await VetMasterAPI.GetAllVetDetails();
+            //ViewBag.lstVet = new SelectList(vetRes.Content, "VetId", "VetName");
 
-            var petTypes = await LookupMasterAPI.GetLookupData(CommonConstants.LOOKUPTYPE_PETTYPE);
-            ViewBag.lstPetType = new SelectList(vetRes.Content, "LookupId", "LookupValue");
+            //var petTypes = await LookupMasterAPI.GetLookupData(CommonConstants.LOOKUPTYPE_PETTYPE);
+            //ViewBag.lstPetType = new SelectList(vetRes.Content, "LookupId", "LookupValue");
 
 
             return View(obj);
@@ -124,16 +124,40 @@ namespace CCC.UI.Controllers
                                 searchObj.AreaId = col.Search.Value.Trim();
                             }
                             break;
-                        case "VetId":
+                        case "AdmissionDateFrom":
                             if (!string.IsNullOrEmpty(col.Search.Value))
                             {
-                                searchObj.VetId = col.Search.Value.Trim();
+                                searchObj.AdmissionDateFrom = Convert.ToDateTime(col.Search.Value);
                             }
                             break;
-                        case "SurgeryDate":
+                        case "AdmissionDateTo":
                             if (!string.IsNullOrEmpty(col.Search.Value))
                             {
-                                searchObj.SurgeryDate = Convert.ToDateTime(col.Search.Value.Trim());
+                                searchObj.AdmissionDateTo = Convert.ToDateTime(col.Search.Value);
+                            }
+                            break;
+                        case "SurgeryDateFrom":
+                            if (!string.IsNullOrEmpty(col.Search.Value))
+                            {
+                                searchObj.SurgeryDateFrom = Convert.ToDateTime(col.Search.Value);
+                            }
+                            break;
+                        case "SurgeryDateTo":
+                            if (!string.IsNullOrEmpty(col.Search.Value))
+                            {
+                                searchObj.SurgeryDateTo = Convert.ToDateTime(col.Search.Value);
+                            }
+                            break;
+                        case "ReleaseDateFrom":
+                            if (!string.IsNullOrEmpty(col.Search.Value))
+                            {
+                                searchObj.ReleaseDateFrom = Convert.ToDateTime(col.Search.Value);
+                            }
+                            break;
+                        case "ReleaseDateTo":
+                            if (!string.IsNullOrEmpty(col.Search.Value))
+                            {
+                                searchObj.ReleaseDateTo = Convert.ToDateTime(col.Search.Value.Trim());
                             }
                             break;
                     }

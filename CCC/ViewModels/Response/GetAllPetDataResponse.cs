@@ -52,5 +52,12 @@ namespace CCC.UI.ViewModels
         public int PageSize { get; set; }
         public int TotalCount { get; set; }
         public string SortExp { get; set; }
+
+        public DateTime? AdmissionDateFrom { get; set; }
+        public DateTime? AdmissionDateTo { get; set; }
+        public DateTime? SurgeryDateFrom { get; set; }
+        public DateTime? SurgeryDateTo { get; set; }
+        public DateTime? ReleaseDateFrom { get; set; }
+        public DateTime? ReleaseDateTo { get; set; }
     }
 }

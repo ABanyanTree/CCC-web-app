@@ -330,7 +330,7 @@
                         showWarningMsg('something went wrong ');
                     }
                 });
-            }            
+            }
         }
     });
 
@@ -340,7 +340,9 @@
         }
     });
 
-
+       $("#btnCancel").on('click', function (e) {
+           BackToManage();
+        });
     function BackToManage() {
         var url = '@Url.Action("ManagePetService", "PetService")';
         document.location.href = url;

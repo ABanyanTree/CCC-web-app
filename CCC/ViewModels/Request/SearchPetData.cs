@@ -18,5 +18,12 @@ namespace CCC.UI.ViewModels
         public DateTime? SurgeryDate { get; set; }
         public DateTime? ReleaseDate { get; set; }
         public string VanId { get; set; }
+
+        public DateTime? AdmissionDateFrom { get; set; }
+        public DateTime? AdmissionDateTo { get; set; }
+        public DateTime? SurgeryDateFrom { get; set; }
+        public DateTime? SurgeryDateTo { get; set; }
+        public DateTime? ReleaseDateFrom { get; set; }
+        public DateTime? ReleaseDateTo { get; set; }
     }
 }

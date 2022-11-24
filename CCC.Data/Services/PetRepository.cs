@@ -32,7 +32,7 @@ namespace CCC.Data.Services
                 PetServiceDetails_Constant.VETID,
                 PetServiceDetails_Constant.SURGERYDATE,
                 PetServiceDetails_Constant.RELEASEDATE,
-                PetServiceDetails_Constant.MEDICALNOTEID,                
+                PetServiceDetails_Constant.MEDICALNOTEID,
                 PetServiceDetails_Constant.VANID,
                 PetServiceDetails_Constant.ISARV,
                 PetServiceDetails_Constant.ISEARNOTCH,
@@ -57,7 +57,11 @@ namespace CCC.Data.Services
 
         public async Task<IEnumerable<PetServiceDetails>> GetAllPetData(PetServiceDetails obj)
         {
-            string[] addParams = new string[] { BaseEntity_Constant.PAGEINDEX, BaseEntity_Constant.PAGESIZE, BaseEntity_Constant.SORTEXP };
+            string[] addParams = new string[] { BaseEntity_Constant.PAGEINDEX, BaseEntity_Constant.PAGESIZE, BaseEntity_Constant.SORTEXP,
+            PetServiceDetails_Constant.CENTERID,PetServiceDetails_Constant.AREAID,PetServiceDetails_Constant.ADMISSIONDATEFROM,
+            PetServiceDetails_Constant.ADMISSIONDATETO,PetServiceDetails_Constant.SURGERYDATEFROM,PetServiceDetails_Constant.SURGERYDATETO,
+            PetServiceDetails_Constant.RELEASEDATEFROM,PetServiceDetails_Constant.RELEASEDATETO
+            };
             return await GetAllAsync(obj, addParams, PetServiceDetails_Constant.SPROC_PETSERVICE_LSTALL);
         }
 

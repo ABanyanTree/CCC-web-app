@@ -40,6 +40,14 @@ namespace CCC.Domain
         public bool? IsOnHold { get; set; }
         public DateTime? ExpiredDate { get; set; }
         public string CauseOfDeath { get; set; }
+
+        //for search
+        public DateTime? AdmissionDateFrom { get; set; }
+        public DateTime? AdmissionDateTo { get; set; }
+        public DateTime? SurgeryDateFrom { get; set; }
+        public DateTime? SurgeryDateTo { get; set; }
+        public DateTime? ReleaseDateFrom { get; set; }
+        public DateTime? ReleaseDateTo { get; set; }
     }
 
     public class PetServiceDetails_Constant : BaseEntity_Constant
@@ -64,6 +72,13 @@ namespace CCC.Domain
         public const string ISONHOLD = "IsOnHold";
         public const string EXPIREDDATE = "ExpiredDate";
         public const string CAUSEOFDEATH = "CauseOfDeath";
+
+        public const string ADMISSIONDATEFROM = "AdmissionDateFrom";
+        public const string ADMISSIONDATETO = "AdmissionDateTo";
+        public const string SURGERYDATEFROM = "SurgeryDateFrom";
+        public const string SURGERYDATETO = "SurgeryDateTo";
+        public const string RELEASEDATEFROM = "ReleaseDateFrom";
+        public const string RELEASEDATETO = "ReleaseDateTo";
 
 
 
