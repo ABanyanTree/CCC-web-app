@@ -158,12 +158,12 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-        
+
         $("#mydatatable").tableHeadFixer({ "head": true, "top": 1 });
         var langUrl = $("#LangUrl").val();
         var mytable = $('#mydatatable').dataTable({
             "ajax": {
-                 "url": "@Url.Content("~/PetService/FillTablePetServiceAsync")?Active=1",
+                "url": "@Url.Content("~/PetService/FillTablePetServiceAsync")",
                 "type": "POST",
                 "error": function (x, y, z) {
                 }
@@ -172,36 +172,48 @@
             {
                 "url": langUrl
             },
-             "aaSorting": [[1, "asc"]],
+            "aaSorting": [[1, "asc"]],
             "pageLength": 50,
             "serverSide": true,
             "bStateSave": false,
-           // "pagingType": "listbox",  //pagination type using pulgin
+            // "pagingType": "listbox",  //pagination type using pulgin
             "processing": true,
             "pagingType": "full_numbers",  //pagination type using pulgin
             "dom": '<"top"i>rt<"bottom"flp><"clear">',
             "filter": false,
             "oLanguage": {
-            "oPaginate": {
-            "sFirst": "<i class='fa fa-angle-double-left'></i>",
-            "sPrevious": "«",
-            "sNext": "»",
-            "sLast": "<i class='fa fa-angle-double-right'></i>"
-             }
+                "oPaginate": {
+                    "sFirst": "<i class='fa fa-angle-double-left'></i>",
+                    "sPrevious": "«",
+                    "sNext": "»",
+                    "sLast": "<i class='fa fa-angle-double-right'></i>"
+                }
             },
             //"sDom": 'lrtip',
-           "bDeferRender": true,//hide the default search filter textbox by removing "f"
+            "bDeferRender": true,//hide the default search filter textbox by removing "f"
             "aoColumns":
                 [
+
+                    @{<text>
+
                       {
                         "data": "ServiceId", "sName": "", "class": "", "orderable": false, "mRender": function (data, type, full) {
-                            if (data != null) {
-                                return "<div class='tablehoverbuttons'> <i class='fa fa-ellipsis-h'></i> <div class='buttonshover'><div class='editbtn'><a class='' href='javascript:void(0);' onClick=EditEvent('" + data + "')><span><img title='Edit' src='@Url.Content("~/images/edit.png")' /></span></a></div> </div> </div>";
+                              if (data != null) {
+                                  debugger;
+                                  var rlDate = full.ReleaseDate;
+                                  var exDate = full.ExpiredDate;
+                                  if (rlDate == null || rlDate == '' || rlDate == undefined || exDate== null || exDate == '' || exDate == undefined) {
+                                      return "<div class='tablehoverbuttons'> <i class='fa fa-ellipsis-h'></i> <div class='buttonshover'><div class='editbtn'><a class='' href='javascript:void(0);' onClick=EditEvent('" + data + "')><span><img title='Edit' src='@Url.Content("~/images/edit.png")' /></span></a></div> </div> </div>";
+                                  } else {
+                                      return "";
+                                  }
                             }
                             else
                                 return "";
                         }
-                      },
+                    },
+                    </text>
+                    }
                       {
                           "data": "ServiceId", "sName": "", "class": "", "orderable": false, "mRender": function (data, type, full) {
                             if (data != null) {

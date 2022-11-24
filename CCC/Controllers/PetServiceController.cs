@@ -65,7 +65,7 @@ namespace CCC.UI.Controllers
         }
 
         [HttpPost("/PetService/FillTablePetServiceAsync")]
-        public async Task<IActionResult> FillTablePetServiceAsync([ModelBinder(typeof(DataTablesBinder))] IDataTablesRequest dt, string Active = "1")
+        public async Task<IActionResult> FillTablePetServiceAsync([ModelBinder(typeof(DataTablesBinder))] IDataTablesRequest dt)
         {
             var objSessionUSer = HttpContext.Session.GetSessionUser();
 
@@ -153,10 +153,10 @@ namespace CCC.UI.Controllers
 
             var lst1 = lst?.ToList();
 
-            //if (lst1 != null && lst1.Count > 0)
-            //{
-            //    TotalCount = lst1[0].TotalCount;
-            //}
+            if (lst1 != null && lst1.Count > 0)
+            {
+                TotalCount = lst1[0].TotalCount;
+            }
             bool set = false;
             if (searchObj.PageIndex > 1 && TotalCount == 0)
                 set = true;
