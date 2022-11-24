@@ -57,6 +57,7 @@
                                     <select asp-for="PetId" asp-items="lstPetType" class="form-control">
                                         <option value="">--Select--</option>
                                     </select>
+                                    <span asp-validation-for="PetId" class="redColor"></span>
                                 </div>
                             </div>
                         </div>
@@ -65,7 +66,7 @@
                                 <label class="pt20">Gender</label>
                                 <div class="form-group2">
                                     <div class="form-group fullscreen">
-                                        <input type="radio" asp-for="Gender" value="Male"  checked="checked" />Male
+                                        <input type="radio" asp-for="Gender" value="Male" checked="checked" />Male
                                         <input type="radio" asp-for="Gender" value="Female" />Female
                                     </div>
                                 </div>
@@ -76,6 +77,7 @@
                                 <label class="pt20">Certificate No</label>
                                 <div class="form-group2">
                                     <input asp-for="CertificateNo" type="text" class="form-control" />
+                                    <span asp-validation-for="CertificateNo" class="redColor"></span>
                                 </div>
                             </div>
                         </div>
@@ -84,6 +86,7 @@
                                 <label class="pt20">Tag Id<span class="redColor">*</span></label>
                                 <div class="form-group2">
                                     <input asp-for="TagId" type="text" class="form-control" />
+                                    <span asp-validation-for="TagId" class="redColor"></span>
                                 </div>
                             </div>
                         </div>
@@ -98,6 +101,7 @@
                                 <label class="pt20">Admission Date<span class="redColor">*</span></label>
                                 <div class="form-group2">
                                     <input asp-for="AdmissionDate" id="dtEntryDate" type="text" value="@DateTime.Now.ToString("yyyy-MM-dd")" class="form-control datepkr" />
+                                    <span asp-validation-for="AdmissionDate" class="redColor"></span>
                                 </div>
                             </div>
                         </div>
@@ -109,7 +113,7 @@
                                         <select asp-for="CenterId" asp-items="lstCenter" class="form-control">
                                             <option value="">--Select--</option>
                                         </select>
-                                        @*@Html.TextBoxFor(x => x.PetId, new { @class = "form-control", @maxlength = "50" })*@
+                                        <span asp-validation-for="CenterId" class="redColor"></span>
                                     </div>
                                 </div>
                             </div>
@@ -122,6 +126,7 @@
                                     <select asp-for="AreaId" asp-items="lstCityArea" class="form-control">
                                         <option value="">--Select--</option>
                                     </select>
+                                    <span asp-validation-for="AreaId" class="redColor"></span>
                                 </div>
                             </div>
                         </div>
@@ -151,6 +156,16 @@
                         </div>
                         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
                             <div class="form-group">
+                                <label class="pt20">Van Number</label>
+                                <div class="form-group2">
+                                    <select asp-for="VanId" asp-items="lstVan" class="form-control">
+                                        <option value="">--Select--</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                            <div class="form-group">
                                 <label class="pt20">Surgery Date<span class="redColor">*</span></label>
                                 <div class="form-group2">
                                     <input asp-for="SurgeryDate" id="dtSurgeryDate" type="text" class="form-control datepkr" />
@@ -165,36 +180,12 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                            <div class="form-group">
-                                <label class="pt20">Medical Notes/Comments</label>
-                                <div class="form-group2">
-                                    <div class="form-group fullscreen">
-                                        <select asp-for="MedicalNoteId" asp-items="lstMedicalNotes" class="form-control">
-                                            <option value="">--Select--</option>
-                                        </select>
-                                        @*@Html.TextBoxFor(x => x.PetId, new { @class = "form-control", @maxlength = "50" })*@
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
                     </div>
                 </div>
             </div>
             <div class=" row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="row">
-                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                            <div class="form-group">
-                                <label class="pt20">Van Number</label>
-                                <div class="form-group2">
-                                    <select asp-for="VanId" asp-items="lstVan" class="form-control">
-                                        <option value="">--Select--</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
                         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
                             <div class="form-group">
                                 <label class="pt20">Ear Notch</label>
@@ -208,7 +199,7 @@
                             <div class="form-group">
                                 <label class="pt20">ARV</label>
                                 <div class="form-group2">
-                                    <input type="radio" asp-for="IsARV" value="true" />Yes 
+                                    <input type="radio" asp-for="IsARV" value="true" />Yes
                                     <input type="radio" asp-for="IsARV" value="false" />No
                                 </div>
                             </div>
@@ -217,10 +208,24 @@
                             <div class="form-group">
                                 <label class="pt20">On Hold</label>
                                 <div class="form-group2">
-                                    <input type="radio" asp-for="IsOnHold" value="true" />Yes
-                                    <input type="radio" asp-for="IsOnHold" value="false"/>No
+                                    <input type="radio" asp-for="IsOnHold" value="true" class="rdOnHold" />Yes
+                                    <input type="radio" asp-for="IsOnHold" value="false" class="rdOnHold" />No
                                 </div>
                             </div>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                            <div class="form-group">
+                                <label class="pt20">Medical Notes/Comments</label>
+                                <div class="form-group2">
+                                    <div class="form-group fullscreen">
+                                        <select asp-for="MedicalNoteId" asp-items="lstMedicalNotes" class="form-control">
+                                            <option value="">--Select--</option>
+                                        </select>
+                                        <span id="spMedicalNotes" class="redColor"></span>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -241,9 +246,12 @@
                                 <label class="pt20">Cause of Death</label>
                                 <div class="form-group2">
                                     <input asp-for="CauseOfDeath" type="text" class="form-control" />
+                                    <span id="spCauseOfDeath" class="redColor"></span>
                                 </div>
                             </div>
                         </div>
+
+
                     </div>
                 </div>
             </div>
@@ -279,22 +287,59 @@
                 fdata.append(val.name, val.value);
             });
 
-            $.ajax({
-                type: 'post',
-                url: formAction,
-                data: fdata,
-                processData: false,
-                contentType: false
-            }).done(function (result) {
-                if (result.isSuccess == true) {
-                    showSuccessMsg('Success', BackToManage);
+            var IsSuccess = true;
 
+            var rdOnHoldValue = $('input[class=rdOnHold]:checked').val();
+            if (rdOnHoldValue == 'true') {
+                var medicalNotes = $('#MedicalNoteId').val();
+                if (medicalNotes == '' || medicalNotes == undefined) {
+                    $('#spMedicalNotes').text('Please select Medical Notes');
+                    IsSuccess = false;
                 } else {
-                    showWarningMsg('something went wrong ');
+                    $('#spMedicalNotes').text('');
                 }
-            });
+            } else {
+                $('#spMedicalNotes').text('');
+            }
+
+            var expireDate = $('#dtExpireDate').val();
+            if (expireDate != '' && expireDate != undefined) {
+                var causeOfDeath = $('#CauseOfDeath').val();
+                if (causeOfDeath == '' || causeOfDeath == undefined) {
+                    $('#spCauseOfDeath').text('Please enter death cause.');
+                    IsSuccess = false;
+                } else {
+                    $('#spCauseOfDeath').text('');
+                }
+            } else {
+                $('#spCauseOfDeath').text('');
+            }
+
+            if (IsSuccess) {
+                $.ajax({
+                    type: 'post',
+                    url: formAction,
+                    data: fdata,
+                    processData: false,
+                    contentType: false
+                }).done(function (result) {
+                    if (result.isSuccess == true) {
+                        showSuccessMsg('Success', BackToManage);
+
+                    } else {
+                        showWarningMsg('something went wrong ');
+                    }
+                });
+            }            
         }
     });
+
+    $('input:radio[class=rdOnHold]').change(function () {
+        if ($("input[class='rdOnHold']:checked").val() == 'false') {
+            $('#spMedicalNotes').text('');
+        }
+    });
+
 
     function BackToManage() {
         var url = '@Url.Action("ManagePetService", "PetService")';

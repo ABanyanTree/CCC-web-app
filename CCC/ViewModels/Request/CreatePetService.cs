@@ -9,12 +9,24 @@ namespace CCC.UI.ViewModels
     public class CreatePetService
     {
         public string ServiceId { get; set; }
+
+        [Required(ErrorMessage = "Please select Pet")]
         public string PetId { get; set; }
         public string Gender { get; set; }
+
+        [Required(ErrorMessage = "Please enter certification no")]
         public string CertificateNo { get; set; }
+
+        [Required(ErrorMessage = "Please enter tag id")]
         public string TagId { get; set; }
+
+        [Required(ErrorMessage = "Please enter admission date")]
         public DateTime AdmissionDate { get; set; }
+
+        [Required(ErrorMessage = "Please select center")]
         public string CenterId { get; set; }
+
+        [Required(ErrorMessage = "Please enter area")]
         public string AreaId { get; set; }
         public string CareGiver { get; set; }
         public string VetId { get; set; }
