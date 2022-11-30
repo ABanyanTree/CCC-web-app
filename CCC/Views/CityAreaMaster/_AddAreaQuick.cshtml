@@ -1,0 +1,78 @@
+﻿@using CCC.UI.ViewModels
+@model CityAreaMasterRequest
+
+<form id="AddEditCityArea" asp-action="AddEditCityArea" asp-controller="CityAreaMaster" method="post" enctype="multipart/form-data">
+    <div class="mainContent">
+        <div class="conInner">
+            <div class=" row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                            <div class="form-group">
+                                <label class="pt20">Area Name<span class="redColor">*</span></label>
+                                <div class="form-group2">
+                                    <input asp-for="AreaName" type="text" class="form-control" />
+                                    <span id="spAreaName" class="redColor"></span>
+                                </div>
+                            </div>
+                        </div>                     
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                            <div class="form-group">
+                                <button type="button" class="btn btn-primary btnSearch" id="btnAddArea">Add</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<script>
+    $("#btnAddArea").on('click', function (e) {
+        debugger;
+        e.preventDefault();
+
+        $('#AddEditCityArea').find('input:text').each(function () {
+            $(this).val($.trim($(this).val()));
+        });
+
+        if ($('#AddEditCityArea').valid()) {
+            var formAction = $('#AddEditCityArea').attr("action");
+            var fdata = new FormData();
+            var params = $('#AddEditCityArea').serializeArray();
+            $.each(params, function (i, val) {
+                fdata.append(val.name, val.value);
+            });
+
+            var IsSuccess = true;
+            var areaName = $("#AreaName").val();
+            if (areaName == '' || areaName == undefined) {
+                $('#spAreaName').text('Please enter area name');
+                IsSuccess = false;
+            } else {
+                $('#spAreaName').text('');
+                IsSuccess = true;
+            }
+           
+            if (IsSuccess) {
+                $.ajax({
+                    type: 'post',
+                    url: formAction,
+                    data: fdata,
+                    processData: false,
+                    contentType: false
+                }).done(function (result) {
+                    if (result.isSuccess == true) {
+                        showSuccessMsg('New Area Added Successfully', reload('AreaId',result.AreaId,result.AreaName));
+
+                    } else {
+                        showWarningMsg('something went wrong ');
+                    }
+                });
+
+            }
+         }
+    });
+
+</script>

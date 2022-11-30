@@ -1,0 +1,138 @@
+﻿@using CCC.UI.ViewModels
+@model VetMasterRequest
+
+<form id="AddEditVet" asp-action="AddEditVet" asp-controller="VetMaster" method="post" enctype="multipart/form-data">
+    <div class="mainContent">
+        <div class="conInner">
+            <div class=" row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="row">
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                            <div class="form-group">
+                                <label class="pt20">Vet Name<span class="redColor">*</span></label>
+                                <div class="form-group2">
+                                    <input asp-for="VetName" type="text" class="form-control" />
+                                    <span id="spVetName" class="redColor"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                            <div class="form-group">
+                                <label class="pt20">Registration No<span class="redColor">*</span></label>
+                                <div class="form-group2">
+                                    <input asp-for="RegistrationNo" type="text" class="form-control" />
+                                    <span id="spRegistrationNo" class="redColor"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                            <div class="form-group">
+                                <label class="pt20">Email Address<span class="redColor">*</span></label>
+                                <div class="form-group2">
+                                    <input asp-for="Email" type="text" class="form-control" />
+                                    <span id="spEmail" class="redColor"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                            <div class="form-group">
+                                <label class="pt20">Mobile No<span class="redColor">*</span></label>
+                                <div class="form-group2">
+                                    <input asp-for="Mobile" type="text" class="form-control" />
+                                    <span id="spMobile" class="redColor"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="pull-right">
+                                <div class="form-group">
+                                    <button type="button" class="btn btn-primary btnSearch" id="btnAddVet">Add</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<script>
+    $("#btnAddVet").on('click', function (e) {
+        debugger;
+        e.preventDefault();
+
+        $('#AddEditVet').find('input:text').each(function () {
+            $(this).val($.trim($(this).val()));
+        });
+
+        if ($('#AddEditVet').valid()) {
+            var formAction = $('#AddEditVet').attr("action");
+            var fdata = new FormData();
+            var params = $('#AddEditVet').serializeArray();
+            $.each(params, function (i, val) {
+                fdata.append(val.name, val.value);
+            });
+
+            var IsSuccess = true;
+            var vetName = $("#VetName").val();
+            var RegistrationNo = $("#RegistrationNo").val();
+            var Email = $("#Email").val();
+            var Mobile = $("#Mobile").val();
+            var pattern = /^[_a-z0-9-]+(\.[_a-z0-9-]+)*@@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/;
+
+            if (vetName == '' || vetName == undefined) {
+                $('#spVetName').text('Please enter vet name');
+                IsSuccess = false;
+            } else {
+                $('#spVetName').text('');
+                IsSuccess = true;
+            }
+            if (RegistrationNo == '' || RegistrationNo == undefined) {
+                $('#spRegistrationNo').text('Please enter Registration number');
+                IsSuccess = false;
+            } else {
+                $('#spRegistrationNo').text('');
+                IsSuccess = true;
+            }
+            if (Email == '' || Email == undefined) {
+                $('#spEmail').text('Please enter Email');
+                IsSuccess = false;
+            } else if (!pattern.test(Email)) {
+                $('#spEmail').text('Please enter valid email address');
+                IsSuccess = false;
+            } else {
+                $('#spEmail').text('');
+                IsSuccess = true;
+            }
+            if (Mobile == '' || Mobile == undefined) {
+                $('#spMobile').text('Please enter mobile number');
+                IsSuccess = false;
+            } else {
+                $('#Mobile').text('');
+                IsSuccess = true;
+            }
+
+            if (IsSuccess) {
+                $.ajax({
+                    type: 'post',
+                    url: formAction,
+                    data: fdata,
+                    processData: false,
+                    contentType: false
+                }).done(function (result) {
+                    if (result.isSuccess == true) {
+                        showSuccessMsg('New Vet Added Successfully', reload('VetId', result.VetId, result.VetName));
+
+                    } else {
+                        showWarningMsg('something went wrong ');
+                    }
+                });
+
+            }
+        }
+    });
+
+</script>

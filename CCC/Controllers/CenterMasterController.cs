@@ -140,7 +140,7 @@ namespace CCC.UI.Controllers
             if (apiResponse != null && apiResponse.IsSuccessStatusCode)
             {
                 string msg = IsNewRecord ? "Center added successfully." : "Center updated successfully.";
-                return Json(new { CenterId = centerId, isSuccess = true, message = msg });
+                return Json(new { CenterId = centerId, CenterName = model.CenterName, isSuccess = true, message = msg });
             }
             else
             {
@@ -228,6 +228,24 @@ namespace CCC.UI.Controllers
                 return Json(res);
             }
         }
+
+        public async Task<IActionResult> AddCenterQuick()
+        {
+            var objSessionUser = HttpContext.Session.GetSessionUser();
+            var cachedToken = HttpContext.Session.GetBearerToken();
+
+            CenterMasterRequest modelobj = new CenterMasterRequest();
+
+            var CenterMasterAPI = RestService.For<ICenterMasterApi>(hostUrl: ApplicationSettings.WebApiUrl, new RefitSettings
+            {
+                AuthorizationHeaderValueGetter = () => Task.FromResult(cachedToken)
+            });
+
+            CenterMasterRequest model = new CenterMasterRequest();
+            return PartialView("_AddCenterQuick", model);
+        }
+
+
 
     }
 }

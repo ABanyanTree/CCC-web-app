@@ -858,3 +858,7 @@ D:\Shahen-WorkFront\Projects\CodeZen\CCC\CCC\obj\Debug\net5.0\Razor\Views\CityAr
 D:\Shahen-WorkFront\Projects\CodeZen\CCC\CCC\obj\Debug\net5.0\Razor\Views\VanMaster\AddEditVan.cshtml.g.cs
 D:\Shahen-WorkFront\Projects\CodeZen\CCC\CCC\obj\Debug\net5.0\Razor\Views\UserMaster\AddEditUser.cshtml.g.cs
 D:\Shahen-WorkFront\Projects\CodeZen\CCC\CCC\obj\Debug\net5.0\Razor\Views\PetService\_ChangeCenter.cshtml.g.cs
+D:\Shahen-WorkFront\Projects\CodeZen\CCC\CCC\obj\Debug\net5.0\Razor\Views\CenterMaster\_AddCenterQuick.cshtml.g.cs
+D:\Shahen-WorkFront\Projects\CodeZen\CCC\CCC\obj\Debug\net5.0\Razor\Views\CityAreaMaster\_AddAreaQuick.cshtml.g.cs
+D:\Shahen-WorkFront\Projects\CodeZen\CCC\CCC\obj\Debug\net5.0\Razor\Views\VanMaster\_AddVanQuick.cshtml.g.cs
+D:\Shahen-WorkFront\Projects\CodeZen\CCC\CCC\obj\Debug\net5.0\Razor\Views\VetMaster\_AddVetQuick.cshtml.g.cs

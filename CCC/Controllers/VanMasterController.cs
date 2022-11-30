@@ -134,12 +134,12 @@ namespace CCC.UI.Controllers
             });
             model.CreatedBy = objSessionUSer.UserId;
             var apiResponse = await VanMasterAPI.AddEditVanDetail(model);
-            string vetId = apiResponse?.Content?.ReadAsStringAsync().Result;
+            string vanId = apiResponse?.Content?.ReadAsStringAsync().Result;
 
             if (apiResponse != null && apiResponse.IsSuccessStatusCode)
             {
                 string msg = IsNewRecord ? "Van Details added successfully." : "Van Details updated successfully.";
-                return Json(new { VetId = vetId, isSuccess = true, message = msg });
+                return Json(new { VanId = vanId, VanNumber = model.VanNumber, isSuccess = true, message = msg });
             }
             else
             {
@@ -223,6 +223,12 @@ namespace CCC.UI.Controllers
 
                 return Json(res);
             }
+        }
+
+        public async Task<IActionResult> AddVanQuick()
+        {
+            VanMasterRequest model = new VanMasterRequest();
+            return PartialView("_AddVanQuick", model);
         }
     }
 }

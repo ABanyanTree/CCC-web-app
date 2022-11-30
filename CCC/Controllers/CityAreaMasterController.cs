@@ -142,7 +142,7 @@ namespace CCC.UI.Controllers
             if (apiResponse != null && apiResponse.IsSuccessStatusCode)
             {
                 string msg = IsNewRecord ? "Area added successfully." : "Area updated successfully.";
-                return Json(new { AreaId = areaId, isSuccess = true, message = msg });
+                return Json(new { AreaId = areaId, AreaName = model.AreaName, isSuccess = true, message = msg });
             }
             else
             {
@@ -227,6 +227,12 @@ namespace CCC.UI.Controllers
 
                 return Json(res);
             }
+        }
+
+        public async Task<IActionResult> AddAreaQuick()
+        {
+            CityAreaMasterRequest model = new CityAreaMasterRequest();
+            return PartialView("_AddAreaQuick", model);
         }
 
     }

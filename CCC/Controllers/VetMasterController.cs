@@ -141,7 +141,7 @@ namespace CCC.UI.Controllers
             if (apiResponse != null && apiResponse.IsSuccessStatusCode)
             {
                 string msg = IsNewRecord ? "Vet Details added successfully." : "Vet Details updated successfully.";
-                return Json(new { VetId = vetId, isSuccess = true, message = msg });
+                return Json(new { VetId = vetId, VetName = model.VetName, isSuccess = true, message = msg });
             }
             else
             {
@@ -225,6 +225,12 @@ namespace CCC.UI.Controllers
 
                 return Json(res);
             }
+        }
+
+        public async Task<IActionResult> AddVetQuick()
+        {
+            VetMasterRequest model = new VetMasterRequest();
+            return PartialView("_AddVetQuick", model);
         }
     }
 }

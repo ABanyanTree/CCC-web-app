@@ -100,14 +100,15 @@
                             <div class="form-group">
                                 <label class="pt20">Admission Date<span class="redColor">*</span></label>
                                 <div class="form-group2">
-                                    <input asp-for="AdmissionDate" id="dtEntryDate" type="text" value="@DateTime.Now.ToString("yyyy-MM-dd")" class="form-control datepkr" />
+                                    <input asp-for="AdmissionDate" id="dtEntryDate" type="text" class="form-control datepkr" />
                                     <span asp-validation-for="AdmissionDate" class="redColor"></span>
                                 </div>
                             </div>
                         </div>
                         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
                             <div class="form-group">
-                                <label class="pt20">Center</label>
+                                <span><label class="pt20">Center</label></span>&nbsp;
+                                <span class="redColor"><i id="spAddCenterInst" class="fa fa-plus" aria-hidden="true"></i></span>
                                 <div class="form-group2">
                                     <div class="form-group fullscreen">
                                         <select asp-for="CenterId" asp-items="lstCenter" class="form-control">
@@ -117,11 +118,11 @@
                                     </div>
                                 </div>
                             </div>
-
                         </div>
                         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
                             <div class="form-group">
-                                <label class="pt20">Area</label>
+                                <span><label class="pt20">Area</label></span>&nbsp;
+                                <span class="redColor"><i id="spAddAreaInst" class="fa fa-plus" aria-hidden="true"></i></span>
                                 <div class="form-group2">
                                     <select asp-for="AreaId" asp-items="lstCityArea" class="form-control">
                                         <option value="">--Select--</option>
@@ -146,7 +147,8 @@
                     <div class="row">
                         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
                             <div class="form-group">
-                                <label class="pt20">Vet</label>
+                                <span><label class="pt20">Vet</label></span>&nbsp;
+                                <span class="redColor"><i id="spAddVetInst" class="fa fa-plus" aria-hidden="true"></i></span>
                                 <div class="form-group2">
                                     <select asp-for="VetId" asp-items="lstVet" class="form-control">
                                         <option value="">--Select--</option>
@@ -156,7 +158,8 @@
                         </div>
                         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
                             <div class="form-group">
-                                <label class="pt20">Van Number</label>
+                                <span><label class="pt20">Van Number</label></span>&nbsp;
+                                <span class="redColor"><i id="spAddVanNoInst" class="fa fa-plus" aria-hidden="true"></i></span>
                                 <div class="form-group2">
                                     <select asp-for="VanId" asp-items="lstVan" class="form-control">
                                         <option value="">--Select--</option>
@@ -215,7 +218,8 @@
                         </div>
                         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
                             <div class="form-group">
-                                <label class="pt20">Medical Notes/Comments</label>
+                                <span><label class="pt20">Medical Notes/Comments</label></span>&nbsp;
+                                @*<span class="redColor"><i id="spAddMedicalNotesInst" class="fa fa-plus" aria-hidden="true"></i></span>*@
                                 <div class="form-group2">
                                     <div class="form-group fullscreen">
                                         <select asp-for="MedicalNoteId" asp-items="lstMedicalNotes" class="form-control">
@@ -369,4 +373,52 @@
             format: "yyyy-MM-dd",
         });
     });
+</script>
+
+<script>
+    $("#spAddCenterInst").on('click', function () {
+        var _url = '@Url.Action("AddCenterQuick", "CenterMaster")';
+        Dialogcont(_url, 'Add New Center');
+    });
+    $("#spAddAreaInst").on('click', function () {
+        var _url = '@Url.Action("AddAreaQuick", "CityAreaMaster")';
+        Dialogcont(_url, 'Add New Area');
+     });
+    $("#spAddVetInst").on('click', function () {
+        var _url = '@Url.Action("AddVetQuick", "VetMaster")';
+        Dialogcont(_url, 'Add New Vet');
+    });
+    $("#spAddVanNoInst").on('click', function () {
+        var _url = '@Url.Action("AddVanQuick", "VanMaster")';
+        Dialogcont(_url, 'Add New Van');
+    });
+    $("#spAddMedicalNotesInst").on('click', function () {
+        var _url = '@Url.Action("AddMedicalNotesQuick", "LookupMaster")';
+        Dialogcont(_url, 'Add New Medical Notes/Comments');
+    });
+
+
+    function Dialogcont(_url, headtitle) {
+        $.dialog({
+            title: headtitle,
+            content: 'url:' + _url,
+            columnClass: 'col-md-6 col-md-offset-3',
+            alignMiddle: true,
+            onClose: function () {
+            }
+        });
+    }
+
+    function reload(type, id, name) {       
+        $("<option />", {
+            val: id,
+            text: name,
+            selected: true
+        }).appendTo($('#'+type));
+        ClosePopup();
+    }
+
+    function ClosePopup() {
+        $(".jconfirm-closeIcon").trigger('click');
+    }
 </script>

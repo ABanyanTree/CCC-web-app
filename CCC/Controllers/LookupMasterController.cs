@@ -12,5 +12,13 @@ namespace CCC.UI.Controllers
         {
             return View();
         }
+
+        //public async Task<IActionResult> AddMedicalNotesQuick()
+        //{
+        //    look model = new VanMasterRequest();
+        //    return PartialView("_AddVanQuick", model);
+        //}
+        
+
     }
 }
