@@ -21,14 +21,233 @@
 
 <link href="~/lib/bootstrap-multiselect/bootstrap-multiselect.css" rel="stylesheet" />
 <script src="~/lib/bootstrap-multiselect/bootstrap-multiselect.js"></script>
-<script>
-    //$(function () {
-    //    $(".datepkr").datepicker({
-    //        autoclose: true,
-    //        format: "dd/mm/yyyy",
-    //    });
-    //});
+@*<link href="~/css/dataTables1.10.6/jquery.dataTables.css" rel="stylesheet" />
+    <link href="~/css/dataTables1.10.6/select.dataTables.min.css" rel="stylesheet" />
+    <script src="~/js/Datatable1.10.6/jquery.dataTables.js"></script>
+    <script src="~/js/Datatable1.10.6/pagingPlugins.js"></script>
+    <script src="~/js/Datatable1.10.6/fnMultiFilter.js"></script>*@
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        //$("#mydatatable").tableHeadFixer({ "head": true, "top": 1 });
+        //var langUrl = $("#LangUrl").val();
+        var mytable = $('#mydatatable').dataTable({
+            "ajax": {
+                "url": "@Url.Content("~/PetService/FillTablePetServiceAsync")",
+                "type": "POST",
+                "error": function (x, y, z) {
+                }
+            },
+            "dataSrc": function (json) {
+                if (json.Columns != null && json.Columns.length > 0) {
+                    for (var i = 0; i < json.Columns.length; i++) {
+                        //if (json.Columns[i].ColName == "ShowName")
+                        //    $(".filterShowName").val(json.Columns[i].ColValue);
+                    }
+                }
+                if (json.IsResetPaging) {
+                    mytable.fnPageChange(0);
+                }
+                return json.data;
+            },
+            "aaSorting": [[1, "asc"]],
+            "pageLength": 50,
+            "serverSide": true,
+            "bStateSave": true,
+            "pagingType": "listbox",  //pagination type using pulgin
+            "processing": true,
+            "pagingType": "full_numbers",  //pagination type using pulgin
+            "dom": '<"top"i>rt<"bottom"flp><"clear">',
+            "filter": false,
+            "oLanguage": {
+                "oPaginate": {
+                    "sFirst": "<i class='fa fa-angle-double-left'></i>",
+                    "sPrevious": "«",
+                    "sNext": "»",
+                    "sLast": "<i class='fa fa-angle-double-right'></i>"
+                }
+            },
+            //"sDom": 'lrtip',
+            "bDeferRender": true,//hide the default search filter textbox by removing "f"
+            "aoColumns":
+                [
+
+                   @{<text>
+
+                      {
+                        "data": "ServiceId", "sName": "", "class": "", "orderable": false, "mRender": function (data, type, full) {
+                              return '<div class="chkBoxTD"><input type="checkbox" value="' + data + '" class="chkclass" /></div>';
+                            //  if (data != null) {
+                            //      var rlDate = full.ReleaseDate;
+                            //      var exDate = full.ExpiredDate;
+                            //      if (rlDate == null || rlDate == '' || rlDate == undefined || exDate== null || exDate == '' || exDate == undefined) {
+                            //          return '<div class="chkBoxTD"><input type="checkbox" value="' + data +'" class="chkclass" /></div>';
+                            //      } else {
+                            //          return "";
+                            //      }
+                            //}
+                            //else
+                            //    return "";
+                        }
+                    },
+                    </text>}
+
+                    @{<text>
+
+                      {
+                        "data": "ServiceId", "sName": "", "class": "", "orderable": false, "mRender": function (data, type, full) {
+                              if (data != null) {
+                                  var rlDate = full.ReleaseDate;
+                                  var exDate = full.ExpiredDate;
+                                  if (rlDate == null || rlDate == '' || rlDate == undefined || exDate== null || exDate == '' || exDate == undefined) {
+                                      return "<div class='tablehoverbuttons'> <i class='fa fa-ellipsis-h'></i> <div class='buttonshover'><div class='editbtn'><a class='' href='javascript:void(0);' onClick=EditEvent('" + data + "')><span><img title='Edit' src='@Url.Content("~/images/edit.png")' /></span></a></div> </div> </div>";
+                                  } else {
+                                      return "";
+                                  }
+                            }
+                            else
+                                return "";
+                        }
+                    },
+                    </text>}
+                      {
+                          "data": "ServiceId", "sName": "", "class": "", "orderable": false, "mRender": function (data, type, full) {
+                            if (data != null) {
+                                return "<div class='tablehoverbuttons'> <i class='fa fa-ellipsis-h'></i> <div class='buttonshover'><div class='editbtn'><a class='' href='javascript:void(0);' onClick=DeleteEvent('" + data + "')><span><img title='Delete' src='@Url.Content("~/images/delete grey.png")' /></span></a></div> </div> </div>";
+                            }
+                            else
+                                return "";
+                        }
+                    },
+                    { "data": "AdmissionDateDisplay", "sName": "Admission Date" },
+                    { "data": "SurgeryDateDisplay", "sName": "Surgery Date" },
+                    { "data": "VanNumber", "sName": "Van Number" },
+                    { "data": "VetName", "sName": "Vet Name" },
+                    { "data": "PetType", "sName": "Pet" },
+                    { "data": "CertificateNo", "sName": "Certificate No" },
+                    { "data": "TagId", "sName": "Tag Id" },
+                    { "data": "CenterName", "sName": "Center Name" },
+                    { "data": "AreaName", "sName": "Area Name" },
+                    { "data": "CareGiver", "sName": "Care Giver" },
+                    { "data": "ReleaseDateDisplay", "sName": "Release Date" },
+                    { "data": "MedicalComments", "sName": "Medical Comments" },
+                    { "data": "CreatorName", "sName": "Created By" },
+
+                    { "data": "CenterId", "sName": "CenterId", "visible": false},
+                    { "data": "AreaId", "sName": "AreaId", "visible": false},
+                    { "data": "AdmissionDateFrom", "sName": "AdmissionDateFrom", "visible": false },
+                    { "data": "AdmissionDateTo", "sName": "AdmissionDateTo", "visible": false },
+                    { "data": "SurgeryDateFrom", "sName": "SurgeryDateFrom", "visible": false },
+                    { "data": "SurgeryDateTo", "sName": "SurgeryDateTo", "visible": false },
+                    { "data": "ReleaseDateFrom", "sName": "ReleaseDateFrom", "visible": false },
+                    { "data": "ReleaseDateTo", "sName": "ReleaseDateTo", "visible": false },
+
+                ]
+        });
+        mytable.on('order.dt', function () { $('.dataTables_paginate,.dataTables_info').show(); });
+        mytable.on('length.dt', function (e, settings, len) { $('.dataTables_paginate,.dataTables_info').show(); });
+
+
+        mytable.on("click", "th.select-checkbox", function () {
+            var chkAll = this;
+            var chkAllEl = $(this).find(".chkclass");
+            var chkRows = $("#mydatatable").find(".chkclass");
+            chkRows.each(function () {
+                $(this)[0].checked = chkAllEl[0].checked;
+            });
+        });
+
+        mytable.on('click', 'td .chkclass', function () {
+            var chkAll = $("th.select-checkbox .chkclass");
+            chkAll.attr("checked", "checked");
+            var chkRows = $("#mydatatable").find(".chkclass").prop("checked");
+            var rowCount = $('#mydatatable tbody tr').length;
+            var count = 0;
+            $("#mydatatable tbody tr").each(function () { if ($(this).find('.chkclass').is(':checked')) { count++; } });
+            if (count === rowCount) { chkAll.prop("checked", true); } else { chkAll.prop("checked", false); }
+        });
+
+
+
+        $("#divDataTable_length").append($(".dataTables_info"));
+        $("#divdataTables_info").append($(".dataTables_length"));
+        $("#divdataTables_info").append($(".dataTables_paginate"));
+
+        function fnGetDataForActivities() {
+            var searchObj = new Object();
+            searchObj.CenterId = $('#ddlCenter').val();
+            searchObj.AreaId = $('#ddlArea').val();
+            searchObj.AdmissionDateFrom = $('#dtAdmissionDateFrom').val();
+            searchObj.AdmissionDateTo = $('#dtAdmissionDateTo').val();
+            searchObj.SurgeryDateFrom = $('#dtSurgeryDateFrom').val();
+            searchObj.SurgeryDateTo = $('#dtSurgeryDateTo').val();
+            searchObj.ReleaseDateFrom = $('#dtReleaseDateFrom').val();
+            searchObj.ReleaseDateTo = $('#dtReleaseDateTo').val();
+            return searchObj;
+        }
+
+        function fnFilterActivities() {
+            searchObj = fnGetDataForActivities();
+            $("#mydatatable").dataTable().fnMultiFilter({
+                "CenterId": searchObj.CenterId,
+                "AreaId": searchObj.AreaId,
+                "AdmissionDateFrom": searchObj.AdmissionDateFrom ,
+                "AdmissionDateTo": searchObj.AdmissionDateTo,
+                "SurgeryDateFrom": searchObj.SurgeryDateFrom ,
+                "SurgeryDateTo": searchObj.SurgeryDateTo ,
+                "ReleaseDateFrom": searchObj.ReleaseDateFrom,
+                "ReleaseDateTo": searchObj.ReleaseDateTo ,
+            });
+        }
+
+        function clearfilter() {
+            $('#pnlSearch').find('input:text').val('');
+            $("#pnlSearch select").each(function () {
+                $(this).val('');
+            });
+            fnFilterActivities();
+        }
+
+        $('#btnClear').click(function () {
+            clearfilter();
+        });
+
+
+        $('#btnSearch1').click(function () {
+            fnFilterActivities();
+        });
+
+
+        $("#CenterId,#AreaId,#VetId,#SurgeryDate").keyup(function (e) {
+            if (e.which == 13) {
+                fnFilterActivities();
+            }
+        });
+
+        $("#btnChangeCenter").click(function (e) {
+            debugger;
+        e.preventDefault();
+        var checked = mytable.find('input[type="checkbox"]:checked').length;
+        if (checked <= 0) {
+            showWarningMsg('Select at least one pet');
+            return false;
+        }
+
+        var serviceIds='';
+            mytable.find('input[type="checkbox"]:checked').each(function () {
+                if (this.checked) {
+                    serviceIds = serviceIds + ',' + $(this).attr("value");
+            }
+        });
+
+            var _url = '@Url.Action("ChangeCenter", "PetService")?serviceIds=' + serviceIds;
+        Dialogcont(_url, 'Change Centers');
+       });
+    });
+
 </script>
+
 
 <div class="mainContent">
     <div class="conHeader">
@@ -66,7 +285,7 @@
                                 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
                                     <div class="form-group">
                                         <label>Area</label>
-                                        <select asp-for="CenterId" asp-items="lstCityArea" id="ddlArea" class="form-control">
+                                        <select asp-for="AreaId" asp-items="lstCityArea" id="ddlArea" class="form-control">
                                             <option value="">--Select--</option>
                                         </select>
                                     </div>
@@ -138,12 +357,28 @@
                 </div>
             </div>
         </div>
-        <br /><br /><br />
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="userBoxFooter">
+                    <div class="pull-right">
+                        <div class="form-group"></div>
+                        <button type="button" class="btn btn-primary btn-search" id="btnChangeCenter">Change Center</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="chkTBL">
             <div class="bulkImpLogHT mngEventpage mobileTablenowrap">
                 <table id="mydatatable" class="table">
                     <thead>
                         <tr>
+                            <th class="select-checkbox"><input type='checkbox' name='User' id='chkUser' class='chkclass'></th>
+                            @*<th class="chkBoxWTD">
+                                    <div class="chkBoxTD">
+                                        <input type='checkbox' id='chkHeader' class='selectAll' />
+                                    </div>
+                                </th>*@
                             <th>Edit</th>
                             <th>Delete</th>
                             <th>Admission Date</th>
@@ -179,161 +414,12 @@
         <div id="divdataTables_info"></div>
         <div id="divDataTable_length"></div>
     </div>
+
 </div>
 
-<script type="text/javascript">
-    $(document).ready(function () {
-
-        $("#mydatatable").tableHeadFixer({ "head": true, "top": 1 });
-        var langUrl = $("#LangUrl").val();
-        var mytable = $('#mydatatable').dataTable({
-            "ajax": {
-                "url": "@Url.Content("~/PetService/FillTablePetServiceAsync")",
-                "type": "POST",
-                "error": function (x, y, z) {
-                }
-            },
-            "language":
-            {
-                "url": langUrl
-            },
-            "aaSorting": [[1, "asc"]],
-            "pageLength": 50,
-            "serverSide": true,
-            "bStateSave": false,
-            // "pagingType": "listbox",  //pagination type using pulgin
-            "processing": true,
-            "pagingType": "full_numbers",  //pagination type using pulgin
-            "dom": '<"top"i>rt<"bottom"flp><"clear">',
-            "filter": false,
-            "oLanguage": {
-                "oPaginate": {
-                    "sFirst": "<i class='fa fa-angle-double-left'></i>",
-                    "sPrevious": "«",
-                    "sNext": "»",
-                    "sLast": "<i class='fa fa-angle-double-right'></i>"
-                }
-            },
-            //"sDom": 'lrtip',
-            "bDeferRender": true,//hide the default search filter textbox by removing "f"
-            "aoColumns":
-                [
-
-                    @{<text>
-
-                      {
-                        "data": "ServiceId", "sName": "", "class": "", "orderable": false, "mRender": function (data, type, full) {
-                              if (data != null) {
-                                  var rlDate = full.ReleaseDate;
-                                  var exDate = full.ExpiredDate;
-                                  if (rlDate == null || rlDate == '' || rlDate == undefined || exDate== null || exDate == '' || exDate == undefined) {
-                                      return "<div class='tablehoverbuttons'> <i class='fa fa-ellipsis-h'></i> <div class='buttonshover'><div class='editbtn'><a class='' href='javascript:void(0);' onClick=EditEvent('" + data + "')><span><img title='Edit' src='@Url.Content("~/images/edit.png")' /></span></a></div> </div> </div>";
-                                  } else {
-                                      return "";
-                                  }
-                            }
-                            else
-                                return "";
-                        }
-                    },
-                    </text>
-                    }
-                      {
-                          "data": "ServiceId", "sName": "", "class": "", "orderable": false, "mRender": function (data, type, full) {
-                            if (data != null) {
-                                return "<div class='tablehoverbuttons'> <i class='fa fa-ellipsis-h'></i> <div class='buttonshover'><div class='editbtn'><a class='' href='javascript:void(0);' onClick=DeleteEvent('" + data + "')><span><img title='Delete' src='@Url.Content("~/images/delete grey.png")' /></span></a></div> </div> </div>";
-                            }
-                            else
-                                return "";
-                        }
-                    },
-                    { "data": "AdmissionDateDisplay", "sName": "Admission Date" },
-                    { "data": "SurgeryDateDisplay", "sName": "Surgery Date" },
-                    { "data": "VanNumber", "sName": "Van Number" },
-                    { "data": "VetName", "sName": "Vet Name" },
-                    { "data": "PetType", "sName": "Pet" },
-                    { "data": "CertificateNo", "sName": "Certificate No" },
-                    { "data": "TagId", "sName": "Tag Id" },
-                    { "data": "CenterName", "sName": "Center Name" },
-                    { "data": "AreaName", "sName": "Area Name" },
-                    { "data": "CareGiver", "sName": "Care Giver" },
-                    { "data": "ReleaseDateDisplay", "sName": "Release Date" },
-                    { "data": "MedicalComments", "sName": "Medical Comments" },
-                    { "data": "CreatorName", "sName": "Created By" },
-
-                    { "data": "CenterId", "sName": "CenterId", "visible": false},
-                    { "data": "AreaId", "sName": "AreaId", "visible": false},
-                    { "data": "AdmissionDateFrom", "sName": "AdmissionDateFrom", "visible": false },
-                    { "data": "AdmissionDateTo", "sName": "AdmissionDateTo", "visible": false },
-                    { "data": "SurgeryDateFrom", "sName": "SurgeryDateFrom", "visible": false },
-                    { "data": "SurgeryDateTo", "sName": "SurgeryDateTo", "visible": false },
-                    { "data": "ReleaseDateFrom", "sName": "ReleaseDateFrom", "visible": false },
-                    { "data": "ReleaseDateTo", "sName": "ReleaseDateTo", "visible": false },
-
-                ]
-        });
-        mytable.on('order.dt', function () { $('.dataTables_paginate,.dataTables_info').show(); });
-        mytable.on('length.dt', function (e, settings, len) { $('.dataTables_paginate,.dataTables_info').show(); });
-
-        $("#divDataTable_length").append($(".dataTables_info"));
-        $("#divdataTables_info").append($(".dataTables_length"));
-        $("#divdataTables_info").append($(".dataTables_paginate"));
-
-        function fnGetDataForActivities() {
-            debugger;
-            var searchObj = new Object();
-            searchObj.CenterId = $('#ddlCenter').val();
-            searchObj.AreaId = $('#ddlArea').val();
-            searchObj.AdmissionDateFrom = $('#dtAdmissionDateFrom').val();
-            searchObj.AdmissionDateTo = $('#dtAdmissionDateTo').val();
-            searchObj.SurgeryDateFrom = $('#dtSurgeryDateFrom').val();
-            searchObj.SurgeryDateTo = $('#dtSurgeryDateTo').val();
-            searchObj.ReleaseDateFrom = $('#dtReleaseDateFrom').val();
-            searchObj.ReleaseDateTo = $('#dtReleaseDateTo').val();
-            return searchObj;
-        }
-
-        function fnFilterActivities() {
-            searchObj = fnGetDataForActivities();
-            $("#mydatatable").dataTable().fnMultiFilter({
-                "CenterId": searchObj.CenterId,
-                "AreaId": searchObj.AreaId,
-                "AdmissionDateFrom": searchObj.AdmissionDateFrom ,
-                "AdmissionDateTo": searchObj.AdmissionDateTo,
-                "SurgeryDateFrom": searchObj.SurgeryDateFrom ,
-                "SurgeryDateTo": searchObj.SurgeryDateTo ,
-                "ReleaseDateFrom": searchObj.ReleaseDateFrom,
-                "ReleaseDateTo": searchObj.ReleaseDateTo ,
-            });
-        }
-
-        function clearfilter() {
-            $('#pnlSearch').find('input:text').val('');
-            $("#pnlSearch select").each(function () {
-                $(this).val('');
-            });
-            fnFilterActivities();
-        }
-
-        $('#btnClear').click(function () {
-            clearfilter();
-        });
 
 
-        $('#btnSearch1').click(function () {
-            fnFilterActivities();
-        });
 
-
-        $("#CenterId,#AreaId,#VetId,#SurgeryDate").keyup(function (e) {
-            if (e.which == 13) {
-                fnFilterActivities();
-            }
-        });
-
-    });
-
-</script>
 
 <script>
     function AddEvent() {
@@ -345,7 +431,18 @@
         document.location.href = url;
 
     }
-
+    function Dialogcont(_url, headtitle) {
+        $.dialog({
+            title: headtitle,
+            content: 'url:' + _url,
+            columnClass: 'col-md-6 col-md-offset-3',
+            alignMiddle: true,
+            onClose: function () {
+                // before the modal is hidden.
+                //fnAssignedUsers();
+            }
+        });
+    }
 </script>
 
 <script>

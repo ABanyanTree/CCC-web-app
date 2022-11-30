@@ -70,5 +70,15 @@ namespace CCC.Data.Services
             string[] addParams = new string[] { PetServiceDetails_Constant.SERVICEID };
             return await ExecuteNonQueryAsync(obj, addParams, PetServiceDetails_Constant.SPROC_PETSERVICE_DEL);
         }
+
+        public async Task<int> ChangePetCenters(PetServiceDetails obj)
+        {
+            string[] addParams = new string[]
+              {
+                PetServiceDetails_Constant.SERVICEID,
+                 PetServiceDetails_Constant.CENTERID
+              };
+            return await ExecuteNonQueryAsync(obj, addParams, PetServiceDetails_Constant.SPROC_CHANGECENTERFORPET);
+        }
     }
 }

@@ -87,6 +87,8 @@ namespace CCC.Domain
         public const string SPROC_PETSERVICE_SEL = "sproc_PetService_sel";
         public const string SPROC_PETSERVICE_LSTALL = "sproc_PetService_lstAll";
         public const string SPROC_PETSERVICE_DEL = "sproc_PetService_del";
+        public const string SPROC_CHANGECENTERFORPET = "sproc_ChangeCenterForPet";
+        
 
 
     }

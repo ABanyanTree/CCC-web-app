@@ -47,8 +47,9 @@ namespace CCC.Service.Services
             return await _iPetRepository.DeletePetData(obj);
         }
 
-
-
-
+        public async Task<int> ChangePetCenters(PetServiceDetails obj)
+        {
+            return await _iPetRepository.ChangePetCenters(obj);
+        }
     }
 }

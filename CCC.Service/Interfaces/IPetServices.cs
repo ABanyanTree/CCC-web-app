@@ -10,5 +10,6 @@ namespace CCC.Service.Interfaces
     public interface IPetServices : IServiceBase<PetServiceDetails>
     {
         Task<string> AddEditPetData(PetServiceDetails obj);
+        Task<int> ChangePetCenters(PetServiceDetails request);
     }
 }

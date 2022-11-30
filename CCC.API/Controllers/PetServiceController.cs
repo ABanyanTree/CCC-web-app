@@ -56,5 +56,15 @@ namespace CCC.API.Controllers
             var objResponse = await _iPetService.DeleteAsync(new PetServiceDetails { ServiceId = serviceId });
             return Ok(objResponse);
         }
+
+        [HttpPost(ApiRoutes.PetServicesDetails.ChangePetCenters), DisableRequestSizeLimit]
+        [ProducesResponseType(typeof(string), statusCode: 200)]
+        [ProducesResponseType(typeof(List<ErrorLogs>), statusCode: 401)]
+        [ProducesResponseType(typeof(List<ErrorLogs>), statusCode: 400)]
+        public async Task<IActionResult> ChangePetCenters([FromBody] PetServiceDetails request)
+        {
+            var count = await _iPetService.ChangePetCenters(request);
+            return Ok(count);
+        }
     }
 }

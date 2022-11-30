@@ -286,5 +286,55 @@ namespace CCC.UI.Controllers
                 return Json(new { CountryID = 0, isSuccess = false, message = "" });
             }
         }
+
+
+        public async Task<IActionResult> ChangeCenter(string serviceIds)
+        {
+            var objSessionUser = HttpContext.Session.GetSessionUser();
+            var cachedToken = HttpContext.Session.GetBearerToken();
+
+            CreatePetService model = new CreatePetService();
+            if (!string.IsNullOrEmpty(serviceIds))
+            {
+                List<string> serviceIdArray = serviceIds.Split(',').ToList();
+                serviceIdArray.RemoveAll(x => string.IsNullOrEmpty(x) && x == "undefined");
+                model.ServiceId = string.Join(",", serviceIdArray);
+
+                //model.ServiceId = serviceIds;
+                var CenterMasterAPI = RestService.For<ICenterMasterApi>(hostUrl: ApplicationSettings.WebApiUrl, new RefitSettings
+                {
+                    AuthorizationHeaderValueGetter = () => Task.FromResult(cachedToken)
+                });
+
+                var centerRes = await CenterMasterAPI.GetAllCenters();
+                ViewBag.lstCenter = new SelectList(centerRes.Content, "CenterId", "CenterName");
+            }
+
+            return PartialView("_ChangeCenter", model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ChangeCenter(CreatePetService model)
+        {
+            var objSessionUSer = HttpContext.Session.GetSessionUser();
+            var cachedToken = HttpContext.Session.GetBearerToken();
+
+            var PetServiceAPI = RestService.For<IPetServiceApi>(hostUrl: ApplicationSettings.WebApiUrl, new RefitSettings
+            {
+                AuthorizationHeaderValueGetter = () => Task.FromResult(cachedToken)
+            });
+
+            model.CreatedBy = objSessionUSer.UserId;
+            var apiResponse = await PetServiceAPI.ChangePetCenters(model);
+
+            if (apiResponse != null && apiResponse.IsSuccessStatusCode)
+            {
+                return Json(new { isSuccess = true });
+            }
+            else
+            {
+                return Json(new { isSuccess = false });
+            }
+        }
     }
 }
