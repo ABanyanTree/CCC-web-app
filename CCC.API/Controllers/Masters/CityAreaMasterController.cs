@@ -67,6 +67,17 @@ namespace CCC.API.Controllers.Masters
 
 
 
+        [HttpGet(ApiRoutes.CityAreaMaster.GetAllCityAreas)]
+        [ProducesResponseType(typeof(CityAreaMaster), statusCode: 200)]
+        [ProducesResponseType(typeof(ErrorLogs), statusCode: 400)]
+        public async Task<IActionResult> GetAllCityAreas()
+        {
+            var objResponse = await _iCityAreaMasterService.GetAllCityAreas();
+            return Ok(objResponse);
+        }
+
+
+
         [HttpGet(ApiRoutes.CityAreaMaster.IsCityAreaNameInUse)]
         [ProducesResponseType(typeof(bool), statusCode: 200)]
        // [CustomAuthorizeAttribute(FeatureId = FeatureAccess.FEATURE_ManageCityArea)]
@@ -83,19 +94,6 @@ namespace CCC.API.Controllers.Masters
             }
 
         }
-
-
-
-        [HttpGet(ApiRoutes.CityAreaMaster.GetAllCityAreas)]
-        [ProducesResponseType(typeof(CityAreaMaster), statusCode: 200)]
-        [ProducesResponseType(typeof(ErrorLogs), statusCode: 400)]
-        public async Task<IActionResult> GetAllCityAreas()
-        {
-            var objResponse = await _iCityAreaMasterService.GetAllCityAreas();
-            return Ok(objResponse);
-        }
-
-
 
         [HttpGet(ApiRoutes.CityAreaMaster.IsInUseCount)]
         [ProducesResponseType(typeof(string), statusCode: 200)]

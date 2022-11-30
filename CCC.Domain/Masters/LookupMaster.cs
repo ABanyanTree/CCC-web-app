@@ -15,6 +15,8 @@ namespace CCC.Domain
         public string LookupValue { get; set; }
         public int DisplayOrder { get; set; }
         public bool IsActive { get; set; }
+        public int TotalCount { get; set; }
+
     }
 
     public class LookupMaster_Constant
@@ -32,5 +34,8 @@ namespace CCC.Domain
         public const string SPROC_LOOKUPMASTER_SEL = "sproc_LookupMaster_sel";
         public const string SPROC_LOOKUPMASTER_LSTALL = "sproc_LookupMaster_lstAll";
         public const string SPROC_LOOKUPMASTER_DEL = "sproc_LookupMaster_del";
+
+        public const string SPROC_LOOKUPMASTER_ISLOOKUPVALUEINUSE = "sproc_LookupMaster_IsLookupValueInUse";
+        public const string SPROC_LOOKUPMASTER_ISINCOUNTUSE = "sproc_LookupMaster_IsInCountUse";       
     }
 }

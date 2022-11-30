@@ -1,4 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using CCC.UI.RefitClientFactory;
+using CCC.UI.Utility;
+using CCC.UI.ViewModels;
+using DataTables.Mvc;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Refit;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,8 +16,14 @@ namespace CCC.UI.Controllers
     {
         public async Task<ActionResult> ManageLookup()
         {
-            return View();
+            LookupMasterRequest obj = new LookupMasterRequest();
+            return View(obj);
         }
+
+
+
+
+
 
         //public async Task<IActionResult> AddMedicalNotesQuick()
         //{

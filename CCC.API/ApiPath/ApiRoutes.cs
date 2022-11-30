@@ -82,8 +82,15 @@ namespace CCC.API.ApiPath
         }
         public static class LookupMaster
         {
+            public const string AddEditLookup = Base + "/lookupmaster/AddEditLookup";
+            public const string GetLookup = Base + "/lookupmaster/getlookup";
+            public const string GetAlllookupList = Base + "/lookupmaster/getalllookuplist";
             public const string GetLookupByType = Base + "/lookupmaster/getlookupbytype";
-           
+
+            public const string IsLookupNameInUse = Base + "/lookupmaster/islookupnameinuse";
+            public const string IsInUseCount = Base + "/lookupmaster/isinusecount";
+            public const string DeleteLookup = Base + "/lookupmaster/deletelookup";
+
         }
 
     }

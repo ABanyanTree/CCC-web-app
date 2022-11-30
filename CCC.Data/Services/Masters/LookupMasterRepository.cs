@@ -13,11 +13,49 @@ namespace CCC.Data.Services
         {
         }
 
+        public async Task<int> AddEditLookup(LookupMaster obj)
+        {
+            string[] addParams = new string[]
+             {
+                LookupMaster_Constant.LOOKUPID,
+                LookupMaster_Constant.LOOKUPTYPE,
+                LookupMaster_Constant.LOOKUPVALUE
+            };
+
+            return await ExecuteNonQueryAsync(obj, addParams, LookupMaster_Constant.SPROC_LOOKUPMASTER_UPS);
+        }
+
+        public async Task<int> DeleteLookup(LookupMaster obj)
+        {
+            string[] addParams = new string[] { LookupMaster_Constant.LOOKUPID };
+            return await ExecuteNonQueryAsync(obj, addParams, LookupMaster_Constant.SPROC_LOOKUPMASTER_DEL);
+        }
+
+        public async Task<LookupMaster> GetLookup(LookupMaster obj)
+        {
+            string[] addParams = new string[] { LookupMaster_Constant.LOOKUPID };
+            return await GetAsync(obj, addParams, LookupMaster_Constant.SPROC_LOOKUPMASTER_SEL);
+        }
+
         public async Task<IEnumerable<LookupMaster>> GetLookupByType(string lookupType)
         {
             LookupMaster obj = new LookupMaster() { LookupType = lookupType };
             string[] addParams = new string[] { LookupMaster_Constant.LOOKUPTYPE };
             return await GetAllAsync(obj, addParams, LookupMaster_Constant.SPROC_GETLOOKUPBYTYPE);
+        }
+
+        public async Task<LookupMaster> IsInUseCount(string lookupId)
+        {
+            LookupMaster obj = new LookupMaster() { LookupId = lookupId };
+            string[] addParams = new string[] { LookupMaster_Constant.LOOKUPID };
+            return await GetAsync(obj, addParams, LookupMaster_Constant.SPROC_LOOKUPMASTER_ISINCOUNTUSE);
+        }
+
+        public async Task<LookupMaster> IsLookupNameInUse(string lookupValue)
+        {
+            LookupMaster obj = new LookupMaster() { LookupValue = lookupValue };
+            string[] addParams = new string[] { LookupMaster_Constant.LOOKUPVALUE };
+            return await GetAsync(obj, addParams, LookupMaster_Constant.SPROC_LOOKUPMASTER_ISLOOKUPVALUEINUSE);
         }
     }
 }

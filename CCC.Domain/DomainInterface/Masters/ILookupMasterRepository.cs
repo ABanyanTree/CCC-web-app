@@ -9,5 +9,10 @@ namespace CCC.Domain.DomainInterface
     public interface ILookupMasterRepository : IRepository<LookupMaster>
     {
         Task<IEnumerable<LookupMaster>> GetLookupByType(string lookupType);
+        Task<int> AddEditLookup(LookupMaster obj);
+        Task<int> DeleteLookup(LookupMaster obj);
+        Task<LookupMaster> GetLookup(LookupMaster obj);
+        Task<LookupMaster> IsInUseCount(string lookupId);
+        Task<LookupMaster> IsLookupNameInUse(string lookupValue);
     }
 }

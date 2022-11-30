@@ -19,6 +19,27 @@ namespace CCC.API.Controllers.Masters
             _iLookupMasterService = LookupMasterService;
         }
 
+        [HttpPost(ApiRoutes.LookupMaster.AddEditLookup), DisableRequestSizeLimit]
+        [ProducesResponseType(typeof(string), statusCode: 200)]
+        [ProducesResponseType(typeof(ErrorLogs), statusCode: 401)]
+        [ProducesResponseType(typeof(ErrorLogs), statusCode: 400)]
+        //[CustomAuthorizeAttribute(FeatureId = FeatureAccess.FEATURE_ManageCityArea)]
+        public async Task<IActionResult> AddEditLookup([FromBody] LookupMaster request)
+        {
+            var areaId = await _iLookupMasterService.AddEditLookup(request);
+            return Ok(areaId);
+
+        }
+
+        [HttpGet(ApiRoutes.LookupMaster.GetLookup)]
+        [ProducesResponseType(typeof(LookupMaster), statusCode: 200)]
+        // [CustomAuthorizeAttribute(FeatureId = FeatureAccess.FEATURE_ManageCityArea)]
+        public async Task<IActionResult> GetLookup([FromQuery] string lookupId)
+        {
+            var objResponse = await _iLookupMasterService.GetAsync(new LookupMaster { LookupId = lookupId });
+            return Ok(objResponse);
+        }
+
         [HttpGet(ApiRoutes.LookupMaster.GetLookupByType)]
         [ProducesResponseType(typeof(LookupMaster), statusCode: 200)]
         public async Task<IActionResult> GetLookupByType(string lookupType)
@@ -26,5 +47,42 @@ namespace CCC.API.Controllers.Masters
             var objResponse = await _iLookupMasterService.GetLookupByType(lookupType);
             return Ok(objResponse);
         }
+
+        [HttpGet(ApiRoutes.LookupMaster.IsLookupNameInUse)]
+        [ProducesResponseType(typeof(bool), statusCode: 200)]
+        // [CustomAuthorizeAttribute(FeatureId = FeatureAccess.FEATURE_ManageCityArea)]
+        public async Task<IActionResult> IsLookupNameInUse([FromQuery] string lookupValue)
+        {
+            var user = await _iLookupMasterService.IsLookupNameInUse(lookupValue);
+            if (user == null)
+            {
+                return Json(true);
+            }
+            else
+            {
+                return Json(false);
+            }
+
+        }
+
+        [HttpGet(ApiRoutes.LookupMaster.IsInUseCount)]
+        [ProducesResponseType(typeof(string), statusCode: 200)]
+        // [CustomAuthorizeAttribute(FeatureId = FeatureAccess.FEATURE_ManageCityArea)]
+        public async Task<IActionResult> IsInUseCount([FromQuery] string lookupId)
+        {
+            var objResponse = await _iLookupMasterService.IsInUseCount(lookupId);
+            return Ok(objResponse.TotalCount);
+        }
+
+        [HttpDelete(ApiRoutes.LookupMaster.DeleteLookup)]
+        [ProducesResponseType(typeof(string), statusCode: 200)]
+        // [CustomAuthorizeAttribute(FeatureId = FeatureAccess.FEATURE_ManageCityArea)]
+        public async Task<IActionResult> DeleteCityArea([FromQuery] string lookupId)
+        {
+            var objResponse = await _iLookupMasterService.DeleteAsync(new LookupMaster { LookupId = lookupId });
+            return Ok(objResponse);
+        }
+
+
     }
 }
