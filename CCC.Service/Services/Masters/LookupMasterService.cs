@@ -43,6 +43,11 @@ namespace CCC.Service.Services
             throw new NotImplementedException();
         }
 
+        public async Task<IEnumerable<LookupMaster>> GetAllLookupList(LookupMaster obj)
+        {
+            return await _iLookupMasterRepository.GetAllLookupList(obj);
+        }
+
         public async Task<LookupMaster> GetAsync(LookupMaster obj)
         {
             return await _iLookupMasterRepository.GetLookup(obj);
@@ -51,6 +56,11 @@ namespace CCC.Service.Services
         public async Task<IEnumerable<LookupMaster>> GetLookupByType(string lookupType)
         {
             return await _iLookupMasterRepository.GetLookupByType(lookupType);
+        }
+
+        public async Task<IEnumerable<LookupMaster>> GetLookupTypes()
+        {
+            return await _iLookupMasterRepository.GetLookupTypes();
         }
 
         public async Task<LookupMaster> IsInUseCount(string lookupId)

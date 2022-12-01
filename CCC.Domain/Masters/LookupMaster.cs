@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CCC.Domain
 {
-    public class LookupMaster
+    public class LookupMaster : BaseEntity
     {
         public string LookupId { get; set; }
         public string LookupType { get; set; }
@@ -14,8 +14,8 @@ namespace CCC.Domain
         public string LookupName { get; set; }
         public string LookupValue { get; set; }
         public int DisplayOrder { get; set; }
-        public bool IsActive { get; set; }
-        public int TotalCount { get; set; }
+        //public bool IsActive { get; set; }
+        //public int TotalCount { get; set; }
 
     }
 
@@ -36,6 +36,7 @@ namespace CCC.Domain
         public const string SPROC_LOOKUPMASTER_DEL = "sproc_LookupMaster_del";
 
         public const string SPROC_LOOKUPMASTER_ISLOOKUPVALUEINUSE = "sproc_LookupMaster_IsLookupValueInUse";
-        public const string SPROC_LOOKUPMASTER_ISINCOUNTUSE = "sproc_LookupMaster_IsInCountUse";       
+        public const string SPROC_LOOKUPMASTER_ISINCOUNTUSE = "sproc_LookupMaster_IsInCountUse";
+        public const string SPROC_GETLOOKUPTYPES_LSTALL = "sproc_GetLookupTypes_lstAll";
     }
 }

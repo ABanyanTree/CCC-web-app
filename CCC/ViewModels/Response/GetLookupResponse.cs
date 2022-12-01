@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace CCC.UI.ViewModels
 {
-    public class GetLookupResponse
+    public class GetLookupResponse : BaseResponse
     {
         public string LookupId { get; set; }
         public string LookupType { get; set; }
@@ -13,6 +13,7 @@ namespace CCC.UI.ViewModels
         public string LookupName { get; set; }
         public string LookupValue { get; set; }
         public int DisplayOrder { get; set; }
-        public bool IsActive { get; set; }
+        //public bool IsActive { get; set; }
+        //public int TotalCount { get; set; }
     }
 }

@@ -1,7 +1,189 @@
 ﻿@using CCC.UI.ViewModels
+@model LookupMasterRequest
 @{
     ViewData["Title"] = "Manage Lookup";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
+    SelectList lstLookupTypes = ViewBag.lstLookupTypes;
 }
 
-<h1>Manage Lookup</h1>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#mydatatable").tableHeadFixer({ "head": true, "top": 1 });
+        var langUrl = $("#LangUrl").val();
+        var mytable = $('#mydatatable').dataTable({
+            "ajax": {
+                 "url": "@Url.Content("~/LookupMaster/FillTableLookupMasterAsync")",
+                "type": "POST",
+                "error": function (x, y, z) {
+                }
+            },
+            "language":
+            {
+                "url": langUrl
+            },
+             "aaSorting": [[1, "asc"]],
+            "pageLength": 50,
+            "serverSide": true,
+            "bStateSave": false,
+           // "pagingType": "listbox",  //pagination type using pulgin
+            "processing": true,
+            "pagingType": "full_numbers",  //pagination type using pulgin
+            "dom": '<"top"i>rt<"bottom"flp><"clear">',
+            "filter": false,
+            "oLanguage": {
+            "oPaginate": {
+            "sFirst": "<i class='fa fa-angle-double-left'></i>",
+            "sPrevious": "«",
+            "sNext": "»",
+            "sLast": "<i class='fa fa-angle-double-right'></i>"
+             }
+            },
+            //"sDom": 'lrtip',
+           "bDeferRender": true,//hide the default search filter textbox by removing "f"
+            "aoColumns":
+                [
+                      {
+                        "data": "LookupId", "sName": "", "class": "", "orderable": false, "mRender": function (data, type, full) {
+                            if (data != null) {
+                                return "<div class='tablehoverbuttons'> <i class='fa fa-ellipsis-h'></i> <div class='buttonshover'><div class='editbtn'><a class='' href='javascript:void(0);' onClick=EditEvent('" + data + "')><span><img title='Edit' src='@Url.Content("~/images/edit.png")' /></span></a></div> </div> </div>";
+                            }
+                            else
+                                return "";
+                        }
+                      },
+
+                    { "data": "LookupValue", "sName": "LookupValue" },
+                    { "data": "LookupTypeText", "sName": "LookupTypeText" },
+                    { "data": "LookupType", "sName": "LookupType", "visible": false },
+                ]
+        });
+        mytable.on('order.dt', function () { $('.dataTables_paginate,.dataTables_info').show(); });
+        mytable.on('length.dt', function (e, settings, len) { $('.dataTables_paginate,.dataTables_info').show(); });
+
+        $("#divDataTable_length").append($(".dataTables_info"));
+        $("#divdataTables_info").append($(".dataTables_length"));
+        $("#divdataTables_info").append($(".dataTables_paginate"));
+
+        function fnGetDataForActivities() {
+
+            var searchObj = new Object();
+            searchObj.AreaName = $('#txtAreaName').val();
+            return searchObj;
+        }
+
+        function fnFilterActivities() {
+            searchObj = fnGetDataForActivities();
+            var areaName = searchObj.AreaName;
+            $('#mydatatable').dataTable().fnMultiFilter({
+                "AreaName": areaName
+            });
+        }
+
+        function clearfilter() {
+            $('#txtAreaName').val('');
+            fnFilterActivities();
+        }
+
+        $('#btnClear').click(function () {
+            clearfilter();
+        });
+
+
+        $('#btnSearch1').click(function () {
+            fnFilterActivities();
+        });
+
+
+        $("#txtAreaName").keyup(function (e) {
+            if (e.which == 13) {
+                fnFilterActivities();
+            }
+        });
+
+    });
+
+</script>
+<div class="mainContent">
+    <div class="conHeader">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="pull-left">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item active" aria-current="page">Manage Lookup</li>
+                    </ol>
+                </div>
+                <div class="filterMenuIcon"></div>
+                <div class="pull-right mobileFilterMenu">
+                    <ul class="headerListing">
+                        @*<li class="active"><button type="button" id="btnNewUrl" class="btn btnDefault AddEditBtn">Add New</button></li>*@
+                        <li class="active"> <a href="javascript:void(0);" onclick="AddEvent()"><span class="text">Add</span> <span class="icon iconUser">&nbsp;</span></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="conInner">
+        <div class="conInner">
+            <div class="mobileFilter">
+                <div class="hideShowfilter">
+                    <div class="filterData mobilecofilters">
+                        <div class="formGroupTop pos mobile4Lis">
+                            <ul class="formGroupTopListing">
+                                <li>
+                                    <div class="form-group" style="margin-top:3px;">
+                                        <label class="pt20">Lookup Type</label>
+                                    </div>
+                                </li>
+                                <li class="firstLastName">
+                                    <div class="form-group">
+                                        <select asp-for="LookupType" asp-items="lstLookupTypes" class="form-control">
+                                            @*<option value="">--Select--</option>*@
+                                        </select>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="form-group">
+                                        <button type="button" class="btn btn-primary btn-search" id="btnSearch1"><img src='@Url.Content("~/images/search.png")' /> </button>
+                                        <button type="button" class="btn btn-default btn-clear" id="btnClear"><img src='@Url.Content("~/images/refresh.png")' /></button>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br /><br /><br />
+        <div class="chkTBL">
+            <div class="bulkImpLogHT mngEventpage mobileTablenowrap">
+                <table id="mydatatable" class="table">
+                    <thead>
+                        <tr>
+                            <th>Edit</th>
+                            <th>Lookup Name</th>
+                            <th>Lookup Type</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+        <div id="divdataTables_info"></div>
+        <div id="divDataTable_length"></div>
+    </div>
+</div>
+
+<script>
+    function AddEvent() {
+          var url = '@Url.Action("AddEditLookup", "LookupMaster")';
+        document.location.href = url;
+        //AddEditDialog(url, "Add New Center");
+    }
+    function EditEvent(lookupId) {
+        var url = '@Url.Action("AddEditLookup", "LookupMaster")?lookupId=' + lookupId + '';
+      document.location.href = url;
+    }
+
+</script>

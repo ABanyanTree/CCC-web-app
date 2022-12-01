@@ -226,8 +226,7 @@
         });
 
         $("#btnChangeCenter").click(function (e) {
-            debugger;
-        e.preventDefault();
+         e.preventDefault();
         var checked = mytable.find('input[type="checkbox"]:checked').length;
         if (checked <= 0) {
             showWarningMsg('Select at least one pet');

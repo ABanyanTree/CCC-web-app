@@ -19,7 +19,8 @@ namespace CCC.Data.Services
              {
                 LookupMaster_Constant.LOOKUPID,
                 LookupMaster_Constant.LOOKUPTYPE,
-                LookupMaster_Constant.LOOKUPVALUE
+                LookupMaster_Constant.LOOKUPVALUE,
+                LookupMaster_Constant.ISACTIVE
             };
 
             return await ExecuteNonQueryAsync(obj, addParams, LookupMaster_Constant.SPROC_LOOKUPMASTER_UPS);
@@ -29,6 +30,12 @@ namespace CCC.Data.Services
         {
             string[] addParams = new string[] { LookupMaster_Constant.LOOKUPID };
             return await ExecuteNonQueryAsync(obj, addParams, LookupMaster_Constant.SPROC_LOOKUPMASTER_DEL);
+        }
+
+        public async Task<IEnumerable<LookupMaster>> GetAllLookupList(LookupMaster obj)
+        {
+            string[] addParams = new string[] { BaseEntity_Constant.PAGEINDEX, BaseEntity_Constant.PAGESIZE, BaseEntity_Constant.SORTEXP, LookupMaster_Constant.LOOKUPTYPE };
+            return await GetAllAsync(obj, addParams, LookupMaster_Constant.SPROC_LOOKUPMASTER_LSTALL);
         }
 
         public async Task<LookupMaster> GetLookup(LookupMaster obj)
@@ -42,6 +49,12 @@ namespace CCC.Data.Services
             LookupMaster obj = new LookupMaster() { LookupType = lookupType };
             string[] addParams = new string[] { LookupMaster_Constant.LOOKUPTYPE };
             return await GetAllAsync(obj, addParams, LookupMaster_Constant.SPROC_GETLOOKUPBYTYPE);
+        }
+
+        public async Task<IEnumerable<LookupMaster>> GetLookupTypes()
+        {
+            string[] addParams = new string[] { };
+            return await GetAllAsync(new LookupMaster(), addParams, LookupMaster_Constant.SPROC_GETLOOKUPTYPES_LSTALL);
         }
 
         public async Task<LookupMaster> IsInUseCount(string lookupId)

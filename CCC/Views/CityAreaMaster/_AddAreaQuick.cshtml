@@ -30,9 +30,7 @@
 
 <script>
     $("#btnAddArea").on('click', function (e) {
-        debugger;
-        e.preventDefault();
-
+       e.preventDefault();
         $('#AddEditCityArea').find('input:text').each(function () {
             $(this).val($.trim($(this).val()));
         });

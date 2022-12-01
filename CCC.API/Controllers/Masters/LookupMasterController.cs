@@ -40,6 +40,14 @@ namespace CCC.API.Controllers.Masters
             return Ok(objResponse);
         }
 
+
+        [HttpGet(ApiRoutes.LookupMaster.GetAllLookupList)]
+        [ProducesResponseType(typeof(LookupMaster), statusCode: 200)]
+        public async Task<IActionResult> GetAllLookupList(LookupMaster request)
+        {
+            var objResponse = await _iLookupMasterService.GetAllLookupList(request);
+            return Ok(objResponse);
+        }
         [HttpGet(ApiRoutes.LookupMaster.GetLookupByType)]
         [ProducesResponseType(typeof(LookupMaster), statusCode: 200)]
         public async Task<IActionResult> GetLookupByType(string lookupType)
@@ -83,6 +91,14 @@ namespace CCC.API.Controllers.Masters
             return Ok(objResponse);
         }
 
+
+        [HttpGet(ApiRoutes.LookupMaster.GetLookupTypes)]
+        [ProducesResponseType(typeof(LookupMaster), statusCode: 200)]
+        public async Task<IActionResult> GetLookupTypes()
+        {
+            var objResponse = await _iLookupMasterService.GetLookupTypes();
+            return Ok(objResponse);
+        }
 
     }
 }

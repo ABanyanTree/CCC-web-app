@@ -51,8 +51,7 @@
 </form>
 
 <script>
-    $("#btnChangeCenters").on('click', function (e) {
-        debugger;
+    $("#btnChangeCenters").on('click', function (e) {        
         var centerId = $('#CenterId').val();
         if (centerId == '' || centerId == undefined) {
             showWarningMsg('Please select center');

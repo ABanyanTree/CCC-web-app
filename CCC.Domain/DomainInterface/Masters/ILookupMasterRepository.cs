@@ -14,5 +14,7 @@ namespace CCC.Domain.DomainInterface
         Task<LookupMaster> GetLookup(LookupMaster obj);
         Task<LookupMaster> IsInUseCount(string lookupId);
         Task<LookupMaster> IsLookupNameInUse(string lookupValue);
+        Task<IEnumerable<LookupMaster>> GetLookupTypes();
+        Task<IEnumerable<LookupMaster>> GetAllLookupList(LookupMaster obj);
     }
 }
