@@ -271,7 +271,8 @@ namespace CCC.UI.Controllers
             {
                 AuthorizationHeaderValueGetter = () => Task.FromResult(cachedToken)
             });
-            model.CreatedBy = objSessionUSer.UserId;
+            if (IsNewRecord){ model.CreatedBy = objSessionUSer.UserId; }
+            model.ModifiedBy = objSessionUSer.UserId;
             var apiResponse = await PetServiceAPI.AddEditPetData(model);
             string CountryID = apiResponse?.Content?.ReadAsStringAsync().Result;
 
