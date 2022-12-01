@@ -863,3 +863,4 @@ D:\Shahen-WorkFront\Projects\CodeZen\CCC\CCC\obj\Debug\net5.0\Razor\Views\CityAr
 D:\Shahen-WorkFront\Projects\CodeZen\CCC\CCC\obj\Debug\net5.0\Razor\Views\VanMaster\_AddVanQuick.cshtml.g.cs
 D:\Shahen-WorkFront\Projects\CodeZen\CCC\CCC\obj\Debug\net5.0\Razor\Views\VetMaster\_AddVetQuick.cshtml.g.cs
 D:\Shahen-WorkFront\Projects\CodeZen\CCC\CCC\obj\Debug\net5.0\Razor\Views\LookupMaster\AddEditLookup.cshtml.g.cs
+D:\Shahen-WorkFront\Projects\CodeZen\CCC\CCC\obj\Debug\net5.0\Razor\Views\LookupMaster\_AddMedicalNotesQuick.cshtml.g.cs

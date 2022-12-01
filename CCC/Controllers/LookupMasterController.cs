@@ -167,7 +167,10 @@ namespace CCC.UI.Controllers
         public async Task<IActionResult> AddMedicalNotesQuick()
         {
             LookupMasterRequest model = new LookupMasterRequest();
-            return PartialView("AddMedicalNotesQuick", model);
+            var objSessionUSer = HttpContext.Session.GetSessionUser();
+            var cachedToken = HttpContext.Session.GetBearerToken();
+            model.LookupType = CommonConstants.LOOKUPTYPE_MEDICALNOTES;
+            return PartialView("_AddMedicalNotesQuick", model);
         }
 
 
