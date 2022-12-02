@@ -198,8 +198,8 @@ namespace CCC.UI.Controllers
 
         }
 
-        [HttpGet]
-        public async Task<JsonResult> IsVetNameInUse(string vetName)
+        [HttpPost]
+        public async Task<JsonResult> IsVetNameInUse(string vetName, string vetId = "")
         {
             if (vetName == null || string.IsNullOrEmpty(vetName.Trim()))
             {
@@ -213,17 +213,22 @@ namespace CCC.UI.Controllers
                 {
                     AuthorizationHeaderValueGetter = () => Task.FromResult(cachedToken)
                 });
-                var res = "";
+
+                var IsNameExists = false;
                 var apiResponse = await vetMasterAPI.IsVetNameInUse(vetName.Trim());
                 if (apiResponse != null)
                 {
-                    if (apiResponse.Content.ReadAsStringAsync().Result == "true")
+                    if (string.IsNullOrEmpty(vetId))
                     {
-                        res = apiResponse.Content.ReadAsStringAsync().Result;
+                        IsNameExists = (apiResponse.Content == null) ? false : true;
+                    }
+                    else
+                    {
+                        IsNameExists = apiResponse.Content == null ? false :
+                            (vetId != apiResponse.Content.VetId) ? true : false;
                     }
                 }
-
-                return Json(res);
+                return Json(IsNameExists);
             }
         }
 

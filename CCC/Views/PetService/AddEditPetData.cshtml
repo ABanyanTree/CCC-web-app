@@ -27,32 +27,31 @@
 <form id="AddEditPetData" asp-action="AddEditPetData" asp-controller="PetService" method="post" enctype="multipart/form-data">
     @Html.HiddenFor(model => model.ServiceId, new { @id = "ServiceId" })
     <div class="mainContent">
-        <div class="row">
-            <div class="col-lg-12 col-lg-12 col-lg-12 col-lg-12">
-                <div class="dashMainHeading">
+        <div class="conHeader">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="pull-left">
-                        <h3>
-                            <span class="imgHeading"><img src="@Url.Content("~/images/add-new-show.png")" alt="" title=""></span>
-                            <span class="textHeading">Add New Pet Data</span>
-                        </h3>
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item active" aria-current="page">Add/Edit Pet Data</li>
+                        </ol>
                     </div>
-                    <div class="pull-right mt20">
-                        @*<button type="button" id="btnBack" class="btn btnDefault">Back</button>*@
+                    <div class="filterMenuIcon"></div>
+                    <div class="pull-right mobileFilterMenu">
                         <ul class="headerListing">
-                            @*<li class="active"><button type="button" id="btnNewUrl" class="btn btnDefault AddEditBtn">Add New</button></li>*@
-                            <li class="active"> <a href="javascript:void(0);" onclick="BackToManage()"><span class="text">Back</span> <span class="icon iconUser">&nbsp;</span></a></li>
+                            <li class="active"> <a href="javascript:void(0);" onclick="BackToManage()"><span class="text">Back</span> <span class="icon iconBack">&nbsp;</span></a></li>
                         </ul>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="userBox addeditPage" id="pnlSearch">
+        <br /><br />
+        <div class="conInner">
             <div class=" row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="row">
                         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
                             <div class="form-group">
-                                <label class="pt20">Pet Type</label>
+                                <label class="pt20">Pet Type<span class="redColor">*</span></label>
                                 <div class="form-group2">
                                     <select asp-for="PetId" asp-items="lstPetType" class="form-control">
                                         <option value="">--Select--</option>
@@ -63,7 +62,7 @@
                         </div>
                         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
                             <div class="form-group">
-                                <label class="pt20">Gender</label>
+                                <label class="pt20">Gender<span class="redColor">*</span></label>
                                 <div class="form-group2">
                                     <div class="form-group fullscreen">
                                         <input type="radio" asp-for="Gender" value="Male" checked="checked" />Male
@@ -74,7 +73,7 @@
                         </div>
                         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
                             <div class="form-group">
-                                <label class="pt20">Certificate No</label>
+                                <label class="pt20">Certificate No<span class="redColor">*</span></label>
                                 <div class="form-group2">
                                     <input asp-for="CertificateNo" type="text" class="form-control" />
                                     <span asp-validation-for="CertificateNo" class="redColor"></span>
@@ -107,7 +106,7 @@
                         </div>
                         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
                             <div class="form-group">
-                                <span><label class="pt20">Center</label></span>&nbsp;
+                                <span><label class="pt20">Center<span class="redColor">*</span></label></span>&nbsp;
                                 <span class="redColor"><i id="spAddCenterInst" class="fa fa-plus" aria-hidden="true"></i></span>
                                 <div class="form-group2">
                                     <div class="form-group fullscreen">
@@ -121,7 +120,7 @@
                         </div>
                         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
                             <div class="form-group">
-                                <span><label class="pt20">Area</label></span>&nbsp;
+                                <span><label class="pt20">Area<span class="redColor">*</span></label></span>&nbsp;
                                 <span class="redColor"><i id="spAddAreaInst" class="fa fa-plus" aria-hidden="true"></i></span>
                                 <div class="form-group2">
                                     <select asp-for="AreaId" asp-items="lstCityArea" class="form-control">
@@ -133,7 +132,7 @@
                         </div>
                         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
                             <div class="form-group">
-                                <label class="pt20">Care Giver<span class="redColor">*</span></label>
+                                <label class="pt20">Care Giver</label>
                                 <div class="form-group2">
                                     <input asp-for="CareGiver" type="text" class="form-control" />
                                 </div>
@@ -169,7 +168,7 @@
                         </div>
                         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
                             <div class="form-group">
-                                <label class="pt20">Surgery Date<span class="redColor">*</span></label>
+                                <label class="pt20">Surgery Date</label>
                                 <div class="form-group2">
                                     <input asp-for="SurgeryDate" id="dtSurgeryDate" type="text" class="form-control datepkr" />
                                 </div>
@@ -177,7 +176,7 @@
                         </div>
                         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
                             <div class="form-group">
-                                <label class="pt20">Release Date<span class="redColor">*</span></label>
+                                <label class="pt20">Release Date</label>
                                 <div class="form-group2">
                                     <input asp-for="ReleaseDate" id="dtReleaseDate" type="text" class="form-control datepkr" />
                                 </div>
@@ -259,19 +258,21 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <div class="userBoxFooter">
-                    <div class="pull-right">
-                        <button type="button" class="btn btn-primary btnSearch" id="btnSubmit">Submit</button>
-                        <button type="button" class="btn btn-primary btnSearch" id="btnCancel">Cancel</button>
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="userBoxFooter">
+                        <div class="pull-right">
+                            <button type="button" class="btn btn-primary btnSearch" id="btnSubmit">Submit</button>
+                            <button type="button" class="btn btn-primary btnSearch" id="btnCancel">Cancel</button>
+                        </div>
                     </div>
+                    <div class="bottomSpace">&nbsp;</div>
                 </div>
-                <div class="bottomSpace">&nbsp;</div>
             </div>
         </div>
+
     </div>
+
 </form>
 
 <script>

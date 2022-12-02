@@ -64,25 +64,12 @@ namespace CCC.API.Controllers.Masters
 
 
         [HttpGet(ApiRoutes.VetMaster.IsVetNameInUse)]
-        [ProducesResponseType(typeof(bool), statusCode: 200)]
+        [ProducesResponseType(typeof(VetMaster), statusCode: 200)]
         //[CustomAuthorizeAttribute(FeatureId = FeatureAccess.FEATURE_ManageVet)]
         public async Task<IActionResult> IsVetNameInUse([FromQuery] string vetName)
         {
-            //if (string.IsNullOrEmpty(CountryName))
-            //{
-            //    return ReturnErrorIfUserIDIsEmpty("CountryName");
-            //}
-
-            var user = await _iVetMasterService.IsVetNameInUse(vetName);
-            if (user == null)
-            {
-                return Json(true);
-            }
-            else
-            {
-                return Json(false);
-            }
-
+            var objResponse = await _iVetMasterService.IsVetNameInUse(vetName);
+            return Ok(objResponse);
         }
 
 

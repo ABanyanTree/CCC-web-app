@@ -29,7 +29,7 @@
                     <div class="filterMenuIcon"></div>
                     <div class="pull-right mobileFilterMenu">
                         <ul class="headerListing">
-                            <li class="active"> <a href="javascript:void(0);" onclick="BackToManage()"><span class="text">Back</span> <span class="icon iconUser">&nbsp;</span></a></li>
+                            <li class="active"> <a href="javascript:void(0);" onclick="BackToManage()"><span class="text">Back</span> <span class="icon iconBack">&nbsp;</span></a></li>
                         </ul>
                     </div>
                 </div>
@@ -45,7 +45,7 @@
                                 <label class="pt20">Van Number<span class="redColor">*</span></label>
                                 <div class="form-group2">
                                     <input asp-for="VanNumber" type="text" class="form-control" />
-                                    <span asp-validation-for="VanNumber" class="redColor"></span>
+                                    <span id="spVanNumber" asp-validation-for="VanNumber" class="redColor"></span>
                                 </div>
                             </div>
                         </div>
@@ -101,21 +101,42 @@
                 fdata.append(val.name, val.value);
             });
 
+            var VanNumber = $("#VanNumber").val();
+            var VanId = $("#VanId").val();
+            var chkData = { vanNumber: VanNumber, vanId: VanId}
+        var urlNameChk = '@Url.Action("IsVanNumberInUse", "VanMaster")';
+            var IsSuccess = true;
             $.ajax({
-                type: 'post',
-                url: formAction,
-                data: fdata,
-                processData: false,
-                contentType: false
+                type: 'POST',
+                url: urlNameChk,
+                data: chkData,
+                cache: false,
+                dataType: "Json",
             }).done(function (result) {
-                if (result.isSuccess == true) {
-                    showSuccessMsg('Success', BackToManage);
+                if (result == true) {
+                    $("#spVanNumber").text('Van number is already exists');
+                    IsSuccess=false;
 
                 } else {
-                    showWarningMsg('something went wrong ');
+                    $("#spVanNumber").text('');
+                    IsSuccess = true;
+                    $.ajax({
+                        type: 'post',
+                        url: formAction,
+                        data: fdata,
+                        processData: false,
+                        contentType: false
+                    }).done(function (result) {
+                        if (result.isSuccess == true) {
+                            showSuccessMsg('Success', BackToManage);
+
+                        } else {
+                            showWarningMsg('something went wrong ');
+                        }
+                    });
                 }
             });
-        }
+         }
     });
 
  function BackToManage() {

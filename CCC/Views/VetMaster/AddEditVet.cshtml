@@ -29,7 +29,7 @@
                     <div class="filterMenuIcon"></div>
                     <div class="pull-right mobileFilterMenu">
                         <ul class="headerListing">
-                            <li class="active"> <a href="javascript:void(0);" onclick="BackToManage()"><span class="text">Back</span> <span class="icon iconUser">&nbsp;</span></a></li>
+                            <li class="active"> <a href="javascript:void(0);" onclick="BackToManage()"><span class="text">Back</span> <span class="icon iconBack">&nbsp;</span></a></li>
                         </ul>
                     </div>
                 </div>
@@ -45,7 +45,7 @@
                                 <label class="pt20">Vet Name<span class="redColor">*</span></label>
                                 <div class="form-group2">
                                     <input asp-for="VetName" type="text" class="form-control" />
-                                    <span asp-validation-for="VetName" class="redColor"></span>
+                                    <span id="spVetName" asp-validation-for="VetName" class="redColor"></span>
                                 </div>
                             </div>
                         </div>
@@ -128,22 +128,43 @@
             $.each(params, function (i, val) {
                 fdata.append(val.name, val.value);
             });
-                      
 
+            var VetName = $("#VetName").val();
+            var VetId = $("#VetId").val();
+            var chkData = { vetName: VetName, vetId: VetId}
+        var urlNameChk = '@Url.Action("IsVetNameInUse", "VetMaster")';
+            var IsSuccess = true;
             $.ajax({
-                type: 'post',
-                url: formAction,
-                data: fdata,
-                processData: false,
-                contentType: false
+                type: 'POST',
+                url: urlNameChk,
+                data: chkData,
+                cache: false,
+                dataType: "Json",
             }).done(function (result) {
-                if (result.isSuccess == true) {
-                    showSuccessMsg('Success', BackToManage);
-
+                if (result == true) {
+                    $("#spVetName").text('Vet name is already exists');
+                    IsSuccess=false;
                 } else {
-                    showWarningMsg('something went wrong ');
+                    $("#spVetName").text('');
+                    IsSuccess = true;
+                    $.ajax({
+                        type: 'post',
+                        url: formAction,
+                        data: fdata,
+                        processData: false,
+                        contentType: false
+                    }).done(function (result) {
+                        if (result.isSuccess == true) {
+                            showSuccessMsg('Success', BackToManage);
+
+                        } else {
+                            showWarningMsg('something went wrong ');
+                        }
+                    });
                 }
             });
+
+           
         }
     });
 

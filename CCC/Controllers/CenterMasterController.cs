@@ -199,8 +199,8 @@ namespace CCC.UI.Controllers
 
         }
 
-        [HttpGet]
-        public async Task<JsonResult> IsCenterNameInUse(string centerName)
+        [HttpPost]
+        public async Task<JsonResult> IsCenterNameInUse(string centerName, string centerId = "")
         {
             if (centerName == null || string.IsNullOrEmpty(centerName.Trim()))
             {
@@ -215,17 +215,26 @@ namespace CCC.UI.Controllers
                     AuthorizationHeaderValueGetter = () => Task.FromResult(cachedToken),
 
                 });
-                var res = "";
+                var IsNameExists = false;
                 var apiResponse = await iCenterMasterAPI.IsCenterNameInUse(centerName.Trim());
                 if (apiResponse != null)
                 {
-                    if (apiResponse.Content.ReadAsStringAsync().Result == "true")
+                    if (string.IsNullOrEmpty(centerId))
                     {
-                        res = apiResponse.Content.ReadAsStringAsync().Result;
+                        IsNameExists = (apiResponse.Content == null) ? false : true;
                     }
+                    else
+                    {
+                        IsNameExists = apiResponse.Content == null ? false :
+                            (centerId != apiResponse.Content.CenterId) ? true : false;
+                    }
+                    //if (apiResponse.Content.ReadAsStringAsync().Result == "true")
+                    //{
+                    //    res = apiResponse.Content.ReadAsStringAsync().Result;
+                    //}
                 }
 
-                return Json(res);
+                return Json(IsNameExists);
             }
         }
 

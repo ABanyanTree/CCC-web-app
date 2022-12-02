@@ -10,7 +10,7 @@
         content: valContent,
         buttons: {
             closeIcon: {
-                text: '<i class="fa fa-times-circle"></i>',
+                text: 'Ok',
                 action: callback
             }
         }

@@ -15,7 +15,7 @@
                                     <span id="spAreaName" class="redColor"></span>
                                 </div>
                             </div>
-                        </div>                     
+                        </div>
                         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
                             <div class="form-group">
                                 <button type="button" class="btn btn-primary btnSearch" id="btnAddArea">Add</button>
@@ -52,24 +52,42 @@
                 $('#spAreaName').text('');
                 IsSuccess = true;
             }
-           
+
             if (IsSuccess) {
-                $.ajax({
-                    type: 'post',
-                    url: formAction,
-                    data: fdata,
-                    processData: false,
-                    contentType: false
-                }).done(function (result) {
-                    if (result.isSuccess == true) {
-                        showSuccessMsg('New Area Added Successfully', reload('AreaId',result.AreaId,result.AreaName));
+             var chkData = { areaName: areaName}
+            var urlNameChk = '@Url.Action("IsAreaNameInUse", "AreaMaster")';
+            var IsSuccess = true;
+            $.ajax({
+                type: 'POST',
+                url: urlNameChk,
+                data: chkData,
+                cache: false,
+                dataType: "Json",
+            }).done(function (result) {
+                if (result == true) {
+                    $("#spAreaName").text('Area name is already exists');
+                    IsSuccess=false;
 
-                    } else {
-                        showWarningMsg('something went wrong ');
-                    }
-                });
+                } else {
+                    $("#AreaName").text('');
+                    IsSuccess = true;
+                    $.ajax({
+                        type: 'post',
+                        url: formAction,
+                        data: fdata,
+                        processData: false,
+                        contentType: false
+                    }).done(function (result) {
+                        if (result.isSuccess == true) {
+                            showSuccessMsg('New Area Added Successfully', reload('AreaId', result.AreaId, result.AreaName));
 
-            }
+                        } else {
+                            showWarningMsg('something went wrong ');
+                        }
+                    });
+                }
+            });
+           }
          }
     });
 

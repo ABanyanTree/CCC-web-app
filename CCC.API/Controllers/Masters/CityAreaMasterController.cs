@@ -35,7 +35,7 @@ namespace CCC.API.Controllers.Masters
 
         [HttpGet(ApiRoutes.CityAreaMaster.GetCityArea)]
         [ProducesResponseType(typeof(CityAreaMaster), statusCode: 200)]
-       // [CustomAuthorizeAttribute(FeatureId = FeatureAccess.FEATURE_ManageCityArea)]
+        // [CustomAuthorizeAttribute(FeatureId = FeatureAccess.FEATURE_ManageCityArea)]
         public async Task<IActionResult> GetCityArea([FromQuery] string areaId)
         {
             var objResponse = await _iCityAreaMasterService.GetAsync(new CityAreaMaster { AreaId = areaId });
@@ -46,7 +46,7 @@ namespace CCC.API.Controllers.Masters
 
         [HttpDelete(ApiRoutes.CityAreaMaster.DeleteCityArea)]
         [ProducesResponseType(typeof(string), statusCode: 200)]
-       // [CustomAuthorizeAttribute(FeatureId = FeatureAccess.FEATURE_ManageCityArea)]
+        // [CustomAuthorizeAttribute(FeatureId = FeatureAccess.FEATURE_ManageCityArea)]
         public async Task<IActionResult> DeleteCityArea([FromQuery] string areaId)
         {
             var objResponse = await _iCityAreaMasterService.DeleteAsync(new CityAreaMaster { AreaId = areaId });
@@ -79,25 +79,18 @@ namespace CCC.API.Controllers.Masters
 
 
         [HttpGet(ApiRoutes.CityAreaMaster.IsCityAreaNameInUse)]
-        [ProducesResponseType(typeof(bool), statusCode: 200)]
-       // [CustomAuthorizeAttribute(FeatureId = FeatureAccess.FEATURE_ManageCityArea)]
+        [ProducesResponseType(typeof(CityAreaMaster), statusCode: 200)]
+        // [CustomAuthorizeAttribute(FeatureId = FeatureAccess.FEATURE_ManageCityArea)]
         public async Task<IActionResult> IsCityAreaNameInUse([FromQuery] string areaName)
         {
-            var user = await _iCityAreaMasterService.IsCityAreaNameInUse(areaName);
-            if (user == null)
-            {
-                return Json(true);
-            }
-            else
-            {
-                return Json(false);
-            }
+            var objResponse = await _iCityAreaMasterService.IsCityAreaNameInUse(areaName);
+            return Ok(objResponse);
 
         }
 
         [HttpGet(ApiRoutes.CityAreaMaster.IsInUseCount)]
         [ProducesResponseType(typeof(string), statusCode: 200)]
-       // [CustomAuthorizeAttribute(FeatureId = FeatureAccess.FEATURE_ManageCityArea)]
+        // [CustomAuthorizeAttribute(FeatureId = FeatureAccess.FEATURE_ManageCityArea)]
         public async Task<IActionResult> IsInUseCount([FromQuery] string areaId)
         {
             var objResponse = await _iCityAreaMasterService.IsInUseCount(areaId);

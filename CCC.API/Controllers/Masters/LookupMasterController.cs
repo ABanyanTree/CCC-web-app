@@ -57,19 +57,12 @@ namespace CCC.API.Controllers.Masters
         }
 
         [HttpGet(ApiRoutes.LookupMaster.IsLookupNameInUse)]
-        [ProducesResponseType(typeof(bool), statusCode: 200)]
+        [ProducesResponseType(typeof(LookupMaster), statusCode: 200)]
         // [CustomAuthorizeAttribute(FeatureId = FeatureAccess.FEATURE_ManageCityArea)]
         public async Task<IActionResult> IsLookupNameInUse([FromQuery] string lookupValue)
         {
-            var user = await _iLookupMasterService.IsLookupNameInUse(lookupValue);
-            if (user == null)
-            {
-                return Json(true);
-            }
-            else
-            {
-                return Json(false);
-            }
+            var objResponse = await _iLookupMasterService.IsLookupNameInUse(lookupValue);
+            return Ok(objResponse);
 
         }
 

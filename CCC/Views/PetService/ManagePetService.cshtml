@@ -21,17 +21,11 @@
 
 <link href="~/lib/bootstrap-multiselect/bootstrap-multiselect.css" rel="stylesheet" />
 <script src="~/lib/bootstrap-multiselect/bootstrap-multiselect.js"></script>
-@*<link href="~/css/dataTables1.10.6/jquery.dataTables.css" rel="stylesheet" />
-    <link href="~/css/dataTables1.10.6/select.dataTables.min.css" rel="stylesheet" />
-    <script src="~/js/Datatable1.10.6/jquery.dataTables.js"></script>
-    <script src="~/js/Datatable1.10.6/pagingPlugins.js"></script>
-    <script src="~/js/Datatable1.10.6/fnMultiFilter.js"></script>*@
-
 <script type="text/javascript">
     $(document).ready(function () {
 
-        //$("#mydatatable").tableHeadFixer({ "head": true, "top": 1 });
-        //var langUrl = $("#LangUrl").val();
+        $("#mydatatable").tableHeadFixer({ "head": true, "top": 1 });
+        var langUrl = $("#LangUrl").val();
         var mytable = $('#mydatatable').dataTable({
             "ajax": {
                 "url": "@Url.Content("~/PetService/FillTablePetServiceAsync")",
@@ -221,7 +215,7 @@
          e.preventDefault();
         var checked = mytable.find('input[type="checkbox"]:checked').length;
         if (checked <= 0) {
-            showWarningMsg('Select at least one pet');
+            showWarningMsg('Select at least one pet entry');
             return false;
         }
 

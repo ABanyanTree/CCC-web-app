@@ -196,8 +196,8 @@ namespace CCC.UI.Controllers
 
         }
 
-        [HttpGet]
-        public async Task<JsonResult> IsVanNumberInUse(string vanNumber)
+        [HttpPost]
+        public async Task<JsonResult> IsVanNumberInUse(string vanNumber, string vanId = "")
         {
             if (vanNumber == null || string.IsNullOrEmpty(vanNumber.Trim()))
             {
@@ -211,17 +211,21 @@ namespace CCC.UI.Controllers
                 {
                     AuthorizationHeaderValueGetter = () => Task.FromResult(cachedToken)
                 });
-                var res = "";
+                var IsNameExists = false;
                 var apiResponse = await VanMasterAPI.IsVanNumberInUse(vanNumber);
                 if (apiResponse != null)
                 {
-                    if (apiResponse.Content.ReadAsStringAsync().Result == "true")
+                    if (string.IsNullOrEmpty(vanId))
                     {
-                        res = apiResponse.Content.ReadAsStringAsync().Result;
+                        IsNameExists = (apiResponse.Content == null) ? false : true;
+                    }
+                    else
+                    {
+                        IsNameExists = apiResponse.Content == null ? false :
+                            (vanId != apiResponse.Content.VanId) ? true : false;
                     }
                 }
-
-                return Json(res);
+                return Json(IsNameExists);
             }
         }
 

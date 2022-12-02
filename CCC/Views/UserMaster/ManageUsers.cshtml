@@ -217,20 +217,9 @@
       document.location.href = url;
     }
 
-
-    //$("#showBtnID").click(function () {
-    //    $(".hideShowfilter").slideDown();
-    //    $("#showBtnID").hide();
-    //});
-
-    //$("#hideBtnId").click(function () {
-    //    $(".hideShowfilter").slideUp();
-    //    $("#showBtnID").show();
-    //});
-
 </script>
 <script type="text/javascript">
-    function DeleteEvent(vetId) {
+    function DeleteEvent(userId) {
                     $.confirm({
                 title: 'Confirm',
                 content: "Are you sure want to delete this User?",
@@ -241,7 +230,7 @@
                             url: "@Url.Content("~/UserMaster/IsInUseCount")",
                             type: "POST",
                             dataType: "json",
-                            data: { vetId: vetId },
+                            data: { userId: userId },
                             success: function (result) {
                                 if (result.isSuccess == true && parseInt(result.Count) > 0) {
                                     showWarningMsg('User does not delete, This User associated with the other data.');
@@ -251,7 +240,7 @@
                                              url: "@Url.Content("~/UserMaster/DeleteUser")",
                                              type: "Delete",
                                              dataType: "json",
-                                             data: { vetId: vetId },
+                                             data: { userId: userId },
                                              success: function (result) {
                                                  if (result.isSuccess == true) {
                                                      showSuccessMsg('User deleted successfully.',BackToManage);
@@ -276,8 +265,9 @@
             });
     }
 
+
      function BackToManage() {
-        var url = '@Url.Action("ManageUser", "UserMaster")';
+        var url = '@Url.Action("ManageUsers", "UserMaster")';
         document.location.href = url;
     }
 </script>

@@ -13,7 +13,7 @@ namespace CCC.UI.ViewModels
 
         [RegularExpression(@"^[a-zA-Z]{2}[ -][0-9]{1,2}(?: [a-zA-Z])?(?: [a-zA-Z]*)? [0-9]{4}$", ErrorMessage = "Please enter valid van number.")]
         [Required(ErrorMessage = "Please enter van number")]
-        [Remote("IsVanNumberInUse", "VanMaster", ErrorMessage = "van number is already exists.", HttpMethod = "GET")]
+        //[Remote("IsVanNumberInUse", "VanMaster", ErrorMessage = "van number is already exists.", HttpMethod = "GET")]
         public string VanNumber { get; set; }
 
         [RegularExpression(@"^[a-zA-Z ']*$", ErrorMessage = "Please enter valid driver name.")]

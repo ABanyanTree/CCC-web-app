@@ -84,24 +84,12 @@ namespace CCC.API.Controllers.Masters
 
 
         [HttpGet(ApiRoutes.UserMaster.IsUserNameInUse)]
-        [ProducesResponseType(typeof(bool), statusCode: 200)]
+        [ProducesResponseType(typeof(UserMaster), statusCode: 200)]
         // [CustomAuthorizeAttribute(FeatureId = FeatureAccess.FEATURE_ManageUsers)]
         public async Task<IActionResult> IsUserNameInUse([FromQuery] string userName)
-        {
-            //if (string.IsNullOrEmpty(CountryName))
-            //{
-            //    return ReturnErrorIfUserIDIsEmpty("CountryName");
-            //}
-
-            var user = await _iUserMasterService.IsUserNameInUse(userName);
-            if (user == null)
-            {
-                return Json(false);
-            }
-            else
-            {
-                return Json(true);
-            }
+        {            
+            var objResponse = await _iUserMasterService.IsUserNameInUse(userName);
+            return Ok(objResponse);
 
         }
 

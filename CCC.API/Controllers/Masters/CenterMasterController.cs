@@ -66,7 +66,7 @@ namespace CCC.API.Controllers.Masters
 
 
         [HttpGet(ApiRoutes.CenterMaster.IsCenterNameInUse)]
-        [ProducesResponseType(typeof(bool), statusCode: 200)]
+        [ProducesResponseType(typeof(CenterMaster), statusCode: 200)]
         //[CustomAuthorizeAttribute(FeatureId = FeatureAccess.FEATURE_ManageCenter)]
         public async Task<IActionResult> IsCenterNameInUse([FromQuery] string centerName)
         {
@@ -75,15 +75,16 @@ namespace CCC.API.Controllers.Masters
             //    return ReturnErrorIfUserIDIsEmpty("CountryName");
             //}
 
-            var user = await _iCenterMasterService.IsCenterNameInUse(centerName);
-            if (user == null)
-            {
-                return Json(true);
-            }
-            else
-            {
-                return Json(false);
-            }
+            var objResponse = await _iCenterMasterService.IsCenterNameInUse(centerName);
+            return Ok(objResponse);
+            //if (user == null)
+            //{
+            //    return Json(true);
+            //}
+            //else
+            //{
+            //    return Json(false);
+            //}
 
         }
 

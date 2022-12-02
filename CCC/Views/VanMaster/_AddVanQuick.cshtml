@@ -50,7 +50,7 @@
 
 <script>
     $("#btnAddVan").on('click', function (e) {
-        
+
         e.preventDefault();
 
         $('#AddEditVan').find('input:text').each(function () {
@@ -70,8 +70,8 @@
             var driverName = $("#DriverName").val();
             var contactNo = $("#ContactNo").val();
             var pattern = /[A-Z][A-Z][ ][0-9][0-9][ ][A-Z][A-Z][ ][0-9][0-9][0-9][0-9]$/i;
-            
-            
+
+
             if (vanNo == '' || vanNo == undefined) {
                 $('#spVanNumber').text('Please enter van no');
                 IsSuccess = false;
@@ -98,21 +98,44 @@
             }
 
             if (IsSuccess) {
-                $.ajax({
-                    type: 'post',
-                    url: formAction,
-                    data: fdata,
-                    processData: false,
-                    contentType: false
-                }).done(function (result) {
-                    if (result.isSuccess == true) {
-                        showSuccessMsg('New Van Added Successfully', reload('VanId', result.VanId, result.VanNumber));
+                var chkData = { vanNumber: vanNo}
+            var urlNameChk = '@Url.Action("IsVanNumberInUse", "VanMaster")';
+            var IsSuccess = true;
+            $.ajax({
+                type: 'POST',
+                url: urlNameChk,
+                data: chkData,
+                cache: false,
+                dataType: "Json",
+            }).done(function (result) {
+                if (result == true) {
+                    $("#spVanNumber").text('Van number is already exists');
+                    IsSuccess=false;
 
-                    } else {
-                        showWarningMsg('something went wrong ');
-                    }
-                });
+                } else {
+                    $("#spVanNumber").text('');
+                    IsSuccess = true;
+                    $.ajax({
+                        type: 'post',
+                        url: formAction,
+                        data: fdata,
+                        processData: false,
+                        contentType: false
+                    }).done(function (result) {
+                        if (result.isSuccess == true) {
+                            showSuccessMsg('New Van Added Successfully', reload('VanId', result.VanId, result.VanNumber));
 
+                        } else {
+                            showWarningMsg('something went wrong ');
+                        }
+                    });
+
+                }
+            });
+
+
+
+           
             }
          }
     });

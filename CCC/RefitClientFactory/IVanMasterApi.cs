@@ -30,6 +30,6 @@ namespace CCC.UI.RefitClientFactory
         Task<HttpResponseMessage> DeleteVan(string vanId);
 
         [Get(path: "/api/vanmaster/isvannumberinuse")]
-        Task<HttpResponseMessage> IsVanNumberInUse(string vanNumber);
+        Task<ApiResponse<VanMasterRequest>> IsVanNumberInUse(string vanNumber);
     }
 }

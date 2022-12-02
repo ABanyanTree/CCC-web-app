@@ -30,6 +30,6 @@ namespace CCC.UI.RefitClientFactory
         Task<HttpResponseMessage> DeleteCenter(string centerId);
 
         [Get(path: "/api/centerMaster/iscenternameinuse")]
-        Task<HttpResponseMessage> IsCenterNameInUse(string CenterName);
+        Task<ApiResponse<CenterMasterRequest>> IsCenterNameInUse(string CenterName);
     }
 }

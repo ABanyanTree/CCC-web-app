@@ -30,6 +30,6 @@ namespace CCC.UI.RefitClientFactory
         Task<HttpResponseMessage> DeleteVet(string vetId);
 
         [Get(path: "/api/vetmaster/isvetnameinuse")]
-        Task<HttpResponseMessage> IsVetNameInUse(string vetName);
+        Task<ApiResponse<VetMasterRequest>> IsVetNameInUse(string vetName);
     }
 }

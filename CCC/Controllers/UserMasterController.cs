@@ -148,7 +148,7 @@ namespace CCC.UI.Controllers
             {
                 model.CenterIds = Request.Form["lstCentr"].ToString();
             }
-           
+
             model.CreatedBy = objSessionUSer.UserId;
             var apiResponse = await UserAPI.AddEditUser(model);
             string vetId = apiResponse?.Content?.ReadAsStringAsync().Result;
@@ -161,6 +161,91 @@ namespace CCC.UI.Controllers
             else
             {
                 return Json(new { VetId = 0, isSuccess = false, message = "" });
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> IsInUseCount(string userId)
+        {
+            UserMasterRequest modelobj = new UserMasterRequest();
+            var objSessionUSer = HttpContext.Session.GetSessionUser();
+            var cachedToken = HttpContext.Session.GetBearerToken();
+            var iUserApi = RestService.For<IUserApi>(hostUrl: ApplicationSettings.WebApiUrl, new RefitSettings
+            {
+                AuthorizationHeaderValueGetter = () => Task.FromResult(cachedToken),
+
+            });
+            var apiResponse = await iUserApi.IsInUseCount(userId);
+            string Count = apiResponse?.Content?.ReadAsStringAsync().Result;
+
+            if (apiResponse != null && apiResponse.IsSuccessStatusCode)
+            {
+                return Json(new { isSuccess = true, Count = Count });
+            }
+            else
+            {
+                return Json(new { isSuccess = false, Count = 0 });
+            }
+
+        }
+
+        [HttpDelete]
+        public async Task<IActionResult> DeleteUser(string userId)
+        {
+            UserMasterRequest modelobj = new UserMasterRequest();
+
+            var objSessionUSer = HttpContext.Session.GetSessionUser();
+            var cachedToken = HttpContext.Session.GetBearerToken();
+            var iUserApi = RestService.For<IUserApi>(hostUrl: ApplicationSettings.WebApiUrl, new RefitSettings
+            {
+                AuthorizationHeaderValueGetter = () => Task.FromResult(cachedToken),
+
+            });
+            var apiResponse = await iUserApi.DeleteUser(userId);
+
+            if (apiResponse != null && apiResponse.IsSuccessStatusCode)
+            {
+                return Json(new { isSuccess = true });
+            }
+            else
+            {
+                return Json(new { isSuccess = false });
+            }
+
+        }
+
+        [HttpPost]
+        public async Task<JsonResult> IsUserNameInUse(string userName, string userId = "")
+        {
+            if (userName == null || string.IsNullOrEmpty(userName.Trim()))
+            {
+                return Json("Please enter user Name");
+            }
+            else
+            {
+                var objSessionUser = HttpContext.Session.GetSessionUser();
+                var cachedToken = HttpContext.Session.GetBearerToken();
+                var iUserApi = RestService.For<IUserApi>(hostUrl: ApplicationSettings.WebApiUrl, new RefitSettings
+                {
+                    AuthorizationHeaderValueGetter = () => Task.FromResult(cachedToken),
+
+                });
+                var IsNameExists = false;
+                var apiResponse = await iUserApi.IsUserNameInUse(userName.Trim());
+                if (apiResponse != null)
+                {
+                    if (string.IsNullOrEmpty(userId))
+                    {
+                        IsNameExists = (apiResponse.Content == null) ? false : true;
+                    }
+                    else
+                    {
+                        IsNameExists = apiResponse.Content == null ? false :
+                            (userId != apiResponse.Content.UserId) ? true : false;
+                    }
+                }
+
+                return Json(IsNameExists);
             }
         }
     }

@@ -38,7 +38,7 @@
 </form>
 
 <script>
-    $("#btnAddCenter").on('click', function (e) {       
+    $("#btnAddCenter").on('click', function (e) {
         e.preventDefault();
 
         $('#AddEditCenter').find('input:text').each(function () {
@@ -71,26 +71,43 @@
                 IsSuccess = true;
             }
             if (IsSuccess) {
-                $.ajax({
-                    type: 'post',
-                    url: formAction,
-                    data: fdata,
-                    processData: false,
-                    contentType: false
-                }).done(function (result) {
-                    if (result.isSuccess == true) {
-                        showSuccessMsg('New Center Added Successfully', reload('CenterId',result.CenterId,result.CenterName));
+            var chkData = { centerName: cntName}
+             var urlNameChk = '@Url.Action("IsCenterNameInUse", "CenterMaster")';
+            var IsSuccess = true;
+            $.ajax({
+                type: 'POST',
+                url: urlNameChk,
+                data: chkData,
+                cache: false,
+                dataType: "Json",
+            }).done(function (result) {
+                if (result == true) {
+                    $("#spCenterName").text('Center name is already exists');
+                    IsSuccess=false;
+                } else {
+                    $("#spCenterName").text('');
+                    IsSuccess = true;
+                    $.ajax({
+                        type: 'post',
+                        url: formAction,
+                        data: fdata,
+                        processData: false,
+                        contentType: false
+                    }).done(function (result) {
+                        if (result.isSuccess == true) {
+                            showSuccessMsg('New Center Added Successfully', reload('CenterId', result.CenterId, result.CenterName));
 
-                    } else {
-                        showWarningMsg('something went wrong ');
-                    }
-                });
-
+                        } else {
+                            showWarningMsg('something went wrong ');
+                        }
+                    });
+                }
+            });
             }
          }
     });
 
-    
 
-  
+
+
 </script>

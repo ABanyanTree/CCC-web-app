@@ -67,25 +67,12 @@ namespace CCC.API.Controllers
 
 
         [HttpGet(ApiRoutes.VanMaster.IsVanNumberInUse)]
-        [ProducesResponseType(typeof(bool), statusCode: 200)]
+        [ProducesResponseType(typeof(VanMaster), statusCode: 200)]
        // [CustomAuthorizeAttribute(FeatureId = FeatureAccess.FEATURE_ManageCenter)]
         public async Task<IActionResult> IsVanNumberInUse([FromQuery] string vanNumber)
         {
-            //if (string.IsNullOrEmpty(CountryName))
-            //{
-            //    return ReturnErrorIfUserIDIsEmpty("CountryName");
-            //}
-
-            var user = await _iVanMasterService.IsVanNumberInUse(vanNumber);
-            if (user == null)
-            {
-                return Json(true);
-            }
-            else
-            {
-                return Json(false);
-            }
-
+            var objResponse = await _iVanMasterService.IsVanNumberInUse(vanNumber);
+            return Ok(objResponse);
         }
 
 

@@ -200,8 +200,8 @@ namespace CCC.UI.Controllers
 
         }
 
-        [HttpGet]
-        public async Task<JsonResult> IsAreaNameInUse(string areaName)
+        [HttpPost]
+        public async Task<JsonResult> IsAreaNameInUse(string areaName, string areaId = "")
         {
             if (areaName == null || string.IsNullOrEmpty(areaName.Trim()))
             {
@@ -215,17 +215,22 @@ namespace CCC.UI.Controllers
                 {
                     AuthorizationHeaderValueGetter = () => Task.FromResult(cachedToken)
                 });
-                var res = "";
+                var IsNameExists = false;
                 var apiResponse = await CityAreaApi.IsCityAreaNameInUse(areaName.Trim());
                 if (apiResponse != null)
                 {
-                    if (apiResponse.Content.ReadAsStringAsync().Result == "true")
+                    if (string.IsNullOrEmpty(areaId))
                     {
-                        res = apiResponse.Content.ReadAsStringAsync().Result;
+                        IsNameExists = (apiResponse.Content == null) ? false : true;
+                    }
+                    else
+                    {
+                        IsNameExists = apiResponse.Content == null ? false :
+                            (areaId != apiResponse.Content.AreaId) ? true : false;
                     }
                 }
 
-                return Json(res);
+                return Json(IsNameExists);
             }
         }
 

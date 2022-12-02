@@ -13,7 +13,7 @@ namespace CCC.UI.ViewModels
 
         [RegularExpression(@"^[a-zA-Z ']*$", ErrorMessage = "Please enter valid center name.")]
         [Required(ErrorMessage = "Please enter center name")]
-        [Remote("IsCenterNameInUse", "CenterMaster", ErrorMessage ="Center name is already exists.", HttpMethod = "GET")]
+        //[Remote("IsCenterNameInUse", "CenterMaster", ErrorMessage ="Center name is already exists.", HttpMethod = "GET")]
         public string CenterName { get; set; }
 
         [Required(ErrorMessage = "Please enter center address")]

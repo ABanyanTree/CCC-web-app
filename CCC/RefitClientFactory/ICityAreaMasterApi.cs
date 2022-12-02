@@ -30,7 +30,7 @@ namespace CCC.UI.RefitClientFactory
         Task<HttpResponseMessage> DeleteArea(string areaId);
 
         [Get(path: "/api/cityareamaster/iscityareanameinuse")]
-        Task<HttpResponseMessage> IsCityAreaNameInUse(string areaName);
+        Task<ApiResponse<CityAreaMasterRequest>> IsCityAreaNameInUse(string areaName);
 
        
 

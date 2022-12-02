@@ -30,7 +30,7 @@
                     <div class="filterMenuIcon"></div>
                     <div class="pull-right mobileFilterMenu">
                         <ul class="headerListing">
-                            <li class="active"> <a href="javascript:void(0);" onclick="BackToManage()"><span class="text">Back</span> <span class="icon iconUser">&nbsp;</span></a></li>
+                            <li class="active"> <a href="javascript:void(0);" onclick="BackToManage()"><span class="text">Back</span> <span class="icon iconBack">&nbsp;</span></a></li>
                         </ul>
                     </div>
                 </div>
@@ -46,7 +46,8 @@
                                 <label class="pt20">Center Name<span class="redColor">*</span></label>
                                 <div class="form-group2">
                                     <input asp-for="CenterName" type="text" class="form-control" />
-                                    <span asp-validation-for="CenterName" class="redColor"></span>
+                                    <span id="spCenterName" asp-validation-for="CenterName" class="redColor"></span>
+                                    @*<span id="spCenterName" class="redColor"></span>*@
                                 </div>
                             </div>
                         </div>
@@ -88,11 +89,9 @@
 <script>
     $("#btnSubmit").on('click', function (e) {
         e.preventDefault();
-
         $('#AddEditCenter').find('input:text').each(function () {
             $(this).val($.trim($(this).val()));
         });
-
         if ($('#AddEditCenter').valid()) {
             var formAction = $('#AddEditCenter').attr("action");
             var fdata = new FormData();
@@ -100,20 +99,43 @@
             $.each(params, function (i, val) {
                 fdata.append(val.name, val.value);
             });
+
+
+        var CenterName = $("#CenterName").val();
+        var CenterId = $("#CenterId").val();
+        var chkData = { centerName: CenterName, centerId: CenterId}
+        var urlNameChk = '@Url.Action("IsCenterNameInUse", "CenterMaster")';
+            var IsSuccess = true;
             $.ajax({
-                type: 'post',
-                url: formAction,
-                data: fdata,
-                processData: false,
-                contentType: false
+                type: 'POST',
+                url: urlNameChk,
+                data: chkData,
+                cache: false,
+                dataType: "Json",
             }).done(function (result) {
-                if (result.isSuccess == true) {
-                    showSuccessMsg('Success', BackToManage);
+                if (result == true) {
+                    $("#spCenterName").text('Center name is already exists');
+                    IsSuccess=false;
 
                 } else {
-                    showWarningMsg('something went wrong ');
+                    $("#spCenterName").text('');
+                    IsSuccess = true;
+                    $.ajax({
+                        type: 'post',
+                        url: formAction,
+                        data: fdata,
+                        processData: false,
+                        contentType: false
+                    }).done(function (result) {
+                        if (result.isSuccess == true) {
+                            showSuccessMsg('Success', BackToManage);
+
+                        } else {
+                            showWarningMsg('something went wrong ');
+                        }
+                    });
                 }
-            });
+            });            
         }
     });
 
@@ -123,7 +145,6 @@
     }
 
     $("#btnCancel").on('click', function (e) {
-        var url = '@Url.Action("ManageCenter", "CenterMaster")';
-        document.location.href = url;
+        BackToManage();
     });
 </script>

@@ -33,6 +33,6 @@ namespace CCC.UI.RefitClientFactory
         Task<HttpResponseMessage> DeleteLookup(string lookupId);
 
         [Get(path: "/api/lookupmaster/islookupnameinuse")]
-        Task<HttpResponseMessage> IsCityAreaNameInUse(string LookupValue);
+        Task<ApiResponse<LookupMasterRequest>> IsLookupNameInUse(string LookupValue);
     }
 }

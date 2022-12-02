@@ -61,7 +61,7 @@
 
 <script>
     $("#btnAddVet").on('click', function (e) {
-        
+
         e.preventDefault();
 
         $('#AddEditVet').find('input:text').each(function () {
@@ -116,20 +116,40 @@
             }
 
             if (IsSuccess) {
-                $.ajax({
-                    type: 'post',
-                    url: formAction,
-                    data: fdata,
-                    processData: false,
-                    contentType: false
-                }).done(function (result) {
-                    if (result.isSuccess == true) {
-                        showSuccessMsg('New Vet Added Successfully', reload('VetId', result.VetId, result.VetName));
+                var chkData = { vetName: vetName}
+            var urlNameChk = '@Url.Action("IsVetNameInUse", "VetMaster")';
+            var IsSuccess = true;
+            $.ajax({
+                type: 'POST',
+                url: urlNameChk,
+                data: chkData,
+                cache: false,
+                dataType: "Json",
+            }).done(function (result) {
+                if (result == true) {
+                    $("#spVetName").text('Vet name is already exists');
+                    IsSuccess=false;
+                } else {
+                    $("#spVetName").text('');
+                    IsSuccess = true;
+                    $.ajax({
+                        type: 'post',
+                        url: formAction,
+                        data: fdata,
+                        processData: false,
+                        contentType: false
+                    }).done(function (result) {
+                        if (result.isSuccess == true) {
+                            showSuccessMsg('New Vet Added Successfully', reload('VetId', result.VetId, result.VetName));
 
-                    } else {
-                        showWarningMsg('something went wrong ');
-                    }
-                });
+                        } else {
+                            showWarningMsg('something went wrong ');
+                        }
+                    });
+                }
+            });
+
+               
 
             }
         }
