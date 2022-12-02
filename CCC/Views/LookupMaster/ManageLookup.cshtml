@@ -22,7 +22,7 @@
             {
                 "url": langUrl
             },
-             "aaSorting": [[1, "asc"]],
+            //"aaSorting": [[1, "asc"]],
             "pageLength": 50,
             "serverSide": true,
             "bStateSave": false,
@@ -43,18 +43,18 @@
            "bDeferRender": true,//hide the default search filter textbox by removing "f"
             "aoColumns":
                 [
-                      {
-                        "data": "LookupId", "sName": "", "class": "", "orderable": false, "mRender": function (data, type, full) {
-                            if (data != null) {
-                                return "<div class='tablehoverbuttons'> <i class='fa fa-ellipsis-h'></i> <div class='buttonshover'><div class='editbtn'><a class='' href='javascript:void(0);' onClick=EditEvent('" + data + "')><span><img title='Edit' src='@Url.Content("~/images/edit.png")' /></span></a></div> </div> </div>";
+                    { "data": "LookupValue", "sName": "LookupValue" },
+                    { "data": "LookupTypeText", "sName": "LookupTypeText" },
+                     {
+                        "data": "LookupId", "sName": "", "class": "editTD", "orderable": false, "mRender": function (data, type, full) {
+                             if (data != null) {
+                                 return "<a class='AddEditBtnPop' onClick=EditEvent('" + data + "')><i class='fa fa-edit'></i></a>";
+                                //return "<div class='tablehoverbuttons'> <i class='fa fa-ellipsis-h'></i> <div class='buttonshover'><div class='editbtn'><a class='' href='javascript:void(0);' onClick=EditEvent('" + data + "')><span><img title='Edit' src='@Url.Content("~/images/edit.png")' /></span></a></div> </div> </div>";
                             }
                             else
                                 return "";
                         }
                       },
-
-                    { "data": "LookupValue", "sName": "LookupValue" },
-                    { "data": "LookupTypeText", "sName": "LookupTypeText" },
                     { "data": "LookupType", "sName": "LookupType", "visible": false },
                 ]
         });
@@ -161,9 +161,10 @@
                 <table id="mydatatable" class="table">
                     <thead>
                         <tr>
-                            <th>Edit</th>
                             <th>Lookup Name</th>
                             <th>Lookup Type</th>
+                            <th align="left" class="editTD">Edit</th>
+                            @*<th align="left" class="deleteTD">Delete</th>*@
                         </tr>
                     </thead>
                     <tbody></tbody>

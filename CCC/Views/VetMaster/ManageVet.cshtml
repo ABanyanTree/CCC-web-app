@@ -68,15 +68,15 @@
             <div class="bulkImpLogHT mngEventpage mobileTablenowrap">
                 <table id="mydatatable" class="table">
                     <thead>
-                        <tr>
-                            <th>Edit</th>
-                            <th>Delete</th>
+                        <tr>                           
                             <th>Vet Name</th>
                             <th>Registration No</th>
                             <th>Mobile No</th>
                             <th>Email Address</th>
                             <th>Address</th>
                             <th>Description</th>
+                            <th align="left" class="editTD">Edit</th>
+                            <th align="left" class="deleteTD">Delete</th>
                         </tr>
                     </thead>
                     <tbody></tbody>
@@ -105,7 +105,7 @@
             {
                 "url": langUrl
             },
-             "aaSorting": [[1, "asc"]],
+            //"aaSorting": [[1, "asc"]],
             "pageLength": 50,
             "serverSide": true,
             "bStateSave": false,
@@ -126,30 +126,32 @@
            "bDeferRender": true,//hide the default search filter textbox by removing "f"
             "aoColumns":
                 [
-                      {
-                        "data": "VetId", "sName": "", "class": "", "orderable": false, "mRender": function (data, type, full) {
-                            if (data != null) {
-                                return "<div class='tablehoverbuttons'> <i class='fa fa-ellipsis-h'></i> <div class='buttonshover'><div class='editbtn'><a class='' href='javascript:void(0);' onClick=EditEvent('" + data + "')><span><img title='Edit' src='@Url.Content("~/images/edit.png")' /></span></a></div> </div> </div>";
-                            }
-                            else
-                                return "";
-                        }
-                      },
-                      {
-                          "data": "VetId", "sName": "", "class": "", "orderable": false, "mRender": function (data, type, full) {
-                            if (data != null) {
-                                return "<div class='tablehoverbuttons'> <i class='fa fa-ellipsis-h'></i> <div class='buttonshover'><div class='editbtn'><a class='' href='javascript:void(0);' onClick=DeleteEvent('" + data + "')><span><img title='Delete' src='@Url.Content("~/images/delete grey.png")' /></span></a></div> </div> </div>";
-                            }
-                            else
-                                return "";
-                        }
-                      },
                     { "data": "VetName", "sName": "VetName" },
                     { "data": "RegistrationNo", "sName": "RegistrationNo" },
                     { "data": "Mobile", "sName": "MobileNo" },
                     { "data": "Email", "sName": "Email" },
                     { "data": "Address", "sName": "Address" },
                     { "data": "Description", "sName": "Description" },
+                      {
+                          "data": "VetId", "sName": "", "class": "editTD", "orderable": false, "mRender": function (data, type, full) {
+                             if (data != null) {
+                                 return "<a class='AddEditBtnPop' onClick=EditEvent('" + data + "')><i class='fa fa-edit'></i></a>";
+                                //return "<div class='tablehoverbuttons'> <i class='fa fa-ellipsis-h'></i> <div class='buttonshover'><div class='editbtn'><a class='' href='javascript:void(0);' onClick=EditEvent('" + data + "')><span><img title='Edit' src='@Url.Content("~/images/edit.png")' /></span></a></div> </div> </div>";
+                            }
+                            else
+                                return "";
+                        }
+                      },
+                      {
+                          "data": "VetId", "sName": "", "class": "deleteTD", "orderable": false, "mRender": function (data, type, full) {
+                              if (data != null) {
+                                  return "<a class='del' onClick=DeleteEvent('" + data + "')><i class='fa fa-trash'></i></a>";
+                                //return "<div class='tablehoverbuttons'> <i class='fa fa-ellipsis-h'></i> <div class='buttonshover'><div class='editbtn'><a class='' href='javascript:void(0);' onClick=DeleteEvent('" + data + "')><span><img title='Delete' src='@Url.Content("~/images/delete grey.png")' /></span></a></div> </div> </div>";
+                            }
+                            else
+                                return "";
+                        }
+                      },
                     ]
         });
         mytable.on('order.dt', function () { $('.dataTables_paginate,.dataTables_info').show(); });

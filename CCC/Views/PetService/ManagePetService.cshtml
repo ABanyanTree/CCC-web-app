@@ -54,8 +54,8 @@
             "aaSorting": [[1, "asc"]],
             "pageLength": 50,
             "serverSide": true,
-            "bStateSave": true,
-            "pagingType": "listbox",  //pagination type using pulgin
+            "bStateSave": false,
+            // "pagingType": "listbox",  //pagination type using pulgin
             "processing": true,
             "pagingType": "full_numbers",  //pagination type using pulgin
             "dom": '<"top"i>rt<"bottom"flp><"clear">',
@@ -74,57 +74,19 @@
                 [
 
                    @{<text>
-
                       {
-                        "data": "ServiceId", "sName": "", "class": "", "orderable": false, "mRender": function (data, type, full) {
-                              return '<div class="chkBoxTD"><input type="checkbox" value="' + data + '" class="chkclass" /></div>';
-                            //  if (data != null) {
-                            //      var rlDate = full.ReleaseDate;
-                            //      var exDate = full.ExpiredDate;
-                            //      if (rlDate == null || rlDate == '' || rlDate == undefined || exDate== null || exDate == '' || exDate == undefined) {
-                            //          return '<div class="chkBoxTD"><input type="checkbox" value="' + data +'" class="chkclass" /></div>';
-                            //      } else {
-                            //          return "";
-                            //      }
-                            //}
-                            //else
-                            //    return "";
+                        "data": "ServiceId", "sName": "", "class": "chkBoxWTD", "orderable": false, "mRender": function (data, type, full) {
+                              return '<div class="chkBoxTD"><input type="checkbox" value="' + data + '" class="chkclass" /></div>';                           
                         }
                     },
                     </text>}
 
-                    @{<text>
 
-                      {
-                        "data": "ServiceId", "sName": "", "class": "", "orderable": false, "mRender": function (data, type, full) {
-                              if (data != null) {
-                                  var rlDate = full.ReleaseDate;
-                                  var exDate = full.ExpiredDate;
-                                  if (rlDate == null || rlDate == '' || rlDate == undefined || exDate== null || exDate == '' || exDate == undefined) {
-                                      return "<div class='tablehoverbuttons'> <i class='fa fa-ellipsis-h'></i> <div class='buttonshover'><div class='editbtn'><a class='' href='javascript:void(0);' onClick=EditEvent('" + data + "')><span><img title='Edit' src='@Url.Content("~/images/edit.png")' /></span></a></div> </div> </div>";
-                                  } else {
-                                      return "";
-                                  }
-                            }
-                            else
-                                return "";
-                        }
-                    },
-                    </text>}
-                      {
-                          "data": "ServiceId", "sName": "", "class": "", "orderable": false, "mRender": function (data, type, full) {
-                            if (data != null) {
-                                return "<div class='tablehoverbuttons'> <i class='fa fa-ellipsis-h'></i> <div class='buttonshover'><div class='editbtn'><a class='' href='javascript:void(0);' onClick=DeleteEvent('" + data + "')><span><img title='Delete' src='@Url.Content("~/images/delete grey.png")' /></span></a></div> </div> </div>";
-                            }
-                            else
-                                return "";
-                        }
-                    },
-                    { "data": "AdmissionDateDisplay", "sName": "Admission Date" },
-                    { "data": "SurgeryDateDisplay", "sName": "Surgery Date" },
-                    { "data": "VanNumber", "sName": "Van Number" },
+                    { "data": "AdmissionDateDisplay", "sName": "AdmissionDate" },
+                    { "data": "SurgeryDateDisplay", "sName": "SurgeryDate" },
+                    { "data": "VanNumber", "sName": "VanNumber" },
                     { "data": "VetName", "sName": "Vet Name" },
-                    { "data": "PetType", "sName": "Pet" },
+                    { "data": "PetType", "sName": "PetType" },
                     { "data": "CertificateNo", "sName": "Certificate No" },
                     { "data": "TagId", "sName": "Tag Id" },
                     { "data": "CenterName", "sName": "Center Name" },
@@ -134,6 +96,34 @@
                     { "data": "MedicalComments", "sName": "Medical Comments" },
                     { "data": "CreatorName", "sName": "Created By" },
                     { "data": "ModifiorName", "sName": "ModifiorName" },
+                     @{<text>
+
+                      {
+                        "data": "ServiceId", "sName": "", "class": "editTD", "orderable": false, "mRender": function (data, type, full) {
+                              if (data != null) {
+                                  var rlDate = full.ReleaseDate;
+                                  var exDate = full.ExpiredDate;
+                                  if (rlDate == null || rlDate == '' || rlDate == undefined || exDate== null || exDate == '' || exDate == undefined) {
+                                      return "<a class='AddEditBtnPop' onClick=EditEvent('" + data + "')><i class='fa fa-edit'></i></a>";
+                                      //return "<div class='tablehoverbuttons'> <i class='fa fa-ellipsis-h'></i> <div class='buttonshover'><div class='editbtn'><a class='' href='javascript:void(0);' onClick=EditEvent('" + data + "')><span><img title='Edit' src='@Url.Content("~/images/edit.png")' /></span></a></div> </div> </div>";
+                                  } else {
+                                      return "";
+                                  }
+                            }
+                            else
+                                return "";
+                        }
+                    },
+                    </text>}
+                     @* {
+                          "data": "ServiceId", "sName": "", "class": "", "orderable": false, "mRender": function (data, type, full) {
+                            if (data != null) {
+                                return "<div class='tablehoverbuttons'> <i class='fa fa-ellipsis-h'></i> <div class='buttonshover'><div class='editbtn'><a class='' href='javascript:void(0);' onClick=DeleteEvent('" + data + "')><span><img title='Delete' src='@Url.Content("~/images/delete grey.png")' /></span></a></div> </div> </div>";
+                            }
+                            else
+                                return "";
+                        }
+                    },*@
 
 
                     { "data": "CenterId", "sName": "CenterId", "visible": false},
@@ -374,14 +364,7 @@
                 <table id="mydatatable" class="table">
                     <thead>
                         <tr>
-                            <th class="select-checkbox"><input type='checkbox' name='User' id='chkUser' class='chkclass'></th>
-                            @*<th class="chkBoxWTD">
-                                    <div class="chkBoxTD">
-                                        <input type='checkbox' id='chkHeader' class='selectAll' />
-                                    </div>
-                                </th>*@
-                            <th>Edit</th>
-                            <th>Delete</th>
+                            <th class="select-checkbox chkBoxWTD"><input type='checkbox' name='User' id='chkUser' class='chkclass'></th>
                             <th>Admission Date</th>
                             <th>Surgery Date</th>
                             <th>Van Number</th>
@@ -396,17 +379,8 @@
                             <th>Medical Notes/Comments</th>
                             <th>Created By</th>
                             <th>Modified By</th>
-                            @*@if (objRights != null && objRights.IsEdit)
-                                {
-                                    <th>Edit</th>
-                                }
-                                @if (objRights != null && objRights.IsDelete)
-                                {
-                                    <th>Delete</th>
-                                }
-                                <th>Country</th>
-                                <th>Region</th>
-                                <th>Description</th>*@
+                            <th align="left" class="editTD">Edit</th>
+                            @*<th>Delete</th>*@
                         </tr>
                     </thead>
                     <tbody></tbody>

@@ -14,6 +14,119 @@
 <link href="~/css/jquery-ui.css" rel="stylesheet" />
 <link href="~/lib/bootstrap-multiselect/bootstrap-multiselect.css" rel="stylesheet" />
 <script src="~/lib/bootstrap-multiselect/bootstrap-multiselect.js"></script>
+<script src="~/js/Datatable1.10.6/fnMultiFilter.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#mydatatable").tableHeadFixer({ "head": true, "top": 1 });
+        var langUrl = $("#LangUrl").val();
+
+         var mytable = $('#mydatatable').dataTable({
+            "ajax": {
+                 "url": "@Url.Content("~/UserMaster/FillTableUserMasterAsync")",
+                "type": "POST",
+                "error": function (x, y, z) {
+                }
+            },
+            "language":
+            {
+                "url": langUrl
+            },
+            // "aaSorting": [[2, "asc"]],
+            "pageLength": 50,
+            "serverSide": true,
+            "bStateSave": false,
+           // "pagingType": "listbox",  //pagination type using pulgin
+            "processing": true,
+            "pagingType": "full_numbers",  //pagination type using pulgin
+            "dom": '<"top"i>rt<"bottom"flp><"clear">',
+            "filter": false,
+            "oLanguage": {
+            "oPaginate": {
+            "sFirst": "<i class='fa fa-angle-double-left'></i>",
+            "sPrevious": "«",
+            "sNext": "»",
+            "sLast": "<i class='fa fa-angle-double-right'></i>"
+             }
+            },
+            //"sDom": 'lrtip',
+           "bDeferRender": true,//hide the default search filter textbox by removing "f"
+            "aoColumns":
+                [
+                    { "data": "FirstName", "sName": "FirstName" },
+                    { "data": "LastName", "sName": "LastName" },
+                    { "data": "UserType", "sName": "UserType" },
+                    { "data": "Email", "sName": "Email" },
+                    { "data": "Mobile", "sName": "Mobile" },
+                    { "data": "CenterNames", "sName": "CenterNames" },
+                    {
+                        "data": "UserId", "sName": "", "class": "editTD", "orderable": false, "mRender": function (data, type, full) {
+                              if (data != null) {
+                                   return "<a class='AddEditBtnPop' onClick=EditEvent('" + data + "')><i class='fa fa-edit'></i></a>";
+                                //return "<div class='tablehoverbuttons'> <i class='fa fa-ellipsis-h'></i> <div class='buttonshover'><div class='editbtn'><a class='' href='javascript:void(0);' onClick=EditEvent('" + data + "')><span><img title='Edit' src='@Url.Content("~/images/edit.png")' /></span></a></div> </div> </div>";
+                            }
+                            else
+                                return "";
+                        }
+                      },
+                      {
+                          "data": "UserId", "sName": "", "class": "deleteTD", "orderable": false, "mRender": function (data, type, full) {
+                              if (data != null) {
+                                  return "<a class='del' onClick=DeleteEvent('" + data + "')><i class='fa fa-trash'></i></a>";
+                                //return "<div class='tablehoverbuttons'> <i class='fa fa-ellipsis-h'></i> <div class='buttonshover'><div class='editbtn'><a class='' href='javascript:void(0);' onClick=DeleteEvent('" + data + "')><span><img title='Delete' src='@Url.Content("~/images/delete grey.png")' /></span></a></div> </div> </div>";
+                            }
+                            else
+                                return "";
+                        }
+                    },
+                    { "data": "UserName", "sName": "UserName", visible: false }
+
+                ]
+        });
+        mytable.on('order.dt', function () { $('.dataTables_paginate,.dataTables_info').show(); });
+        mytable.on('length.dt', function (e, settings, len) { $('.dataTables_paginate,.dataTables_info').show(); });
+
+        $("#divDataTable_length").append($(".dataTables_info"));
+        $("#divdataTables_info").append($(".dataTables_length"));
+        $("#divdataTables_info").append($(".dataTables_paginate"));
+
+        function fnGetDataForActivities() {
+            var searchObj = new Object();
+            searchObj.UserName = $('#txtUserName').val();
+            return searchObj;
+        }
+
+        function fnFilterActivities() {
+            searchObj = fnGetDataForActivities();
+            $("#mydatatable").dataTable().fnMultiFilter({
+                "UserName": searchObj.UserName,
+            });
+        }
+
+        function clearfilter() {
+            $('#txtUserName').val('');
+            fnFilterActivities();
+        }
+
+        $('#btnClear').click(function () {
+            clearfilter();
+        });
+
+
+        $('#btnSearch1').click(function () {
+            fnFilterActivities();
+        });
+
+
+        $("#txtUserName").keyup(function (e) {
+            if (e.which == 13) {
+                fnFilterActivities();
+            }
+        });
+
+    });
+
+</script>
 
 <div class="mainContent">
     <div class="conHeader">
@@ -69,13 +182,14 @@
                 <table id="mydatatable" class="table">
                     <thead>
                         <tr>
-                            <th>Edit</th>
-                            <th>Delete</th>
-                            <th>User Name</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>User Role</th>
                             <th>Email Address</th>
                             <th>Mobile No</th>
-                            <th>User Role</th>
-                            <th>Centers</th>                          
+                            <th>Centers</th>
+                            <th align="left" class="editTD">Edit</th>
+                            <th align="left" class="deleteTD">Delete</th>
                         </tr>
                     </thead>
                     <tbody></tbody>
@@ -89,111 +203,7 @@
 
 
 
-<script type="text/javascript">
-    $(document).ready(function () {
-        $("#mydatatable").tableHeadFixer({ "head": true, "top": 1 });
-        var langUrl = $("#LangUrl").val();
-        var mytable = $('#mydatatable').dataTable({
-            "ajax": {
-                 "url": "@Url.Content("~/UserMaster/FillTableUserMasterAsync")",
-                "type": "POST",
-                "error": function (x, y, z) {
-                }
-            },
-            "language":
-            {
-                "url": langUrl
-            },
-             "aaSorting": [[1, "asc"]],
-            "pageLength": 50,
-            "serverSide": true,
-            "bStateSave": false,
-           // "pagingType": "listbox",  //pagination type using pulgin
-            "processing": true,
-            "pagingType": "full_numbers",  //pagination type using pulgin
-            "dom": '<"top"i>rt<"bottom"flp><"clear">',
-            "filter": false,
-            "oLanguage": {
-            "oPaginate": {
-            "sFirst": "<i class='fa fa-angle-double-left'></i>",
-            "sPrevious": "«",
-            "sNext": "»",
-            "sLast": "<i class='fa fa-angle-double-right'></i>"
-             }
-            },
-            //"sDom": 'lrtip',
-           "bDeferRender": true,//hide the default search filter textbox by removing "f"
-            "aoColumns":
-                [
-                      {
-                        "data": "UserId", "sName": "", "class": "", "orderable": false, "mRender": function (data, type, full) {
-                            if (data != null) {
-                                return "<div class='tablehoverbuttons'> <i class='fa fa-ellipsis-h'></i> <div class='buttonshover'><div class='editbtn'><a class='' href='javascript:void(0);' onClick=EditEvent('" + data + "')><span><img title='Edit' src='@Url.Content("~/images/edit.png")' /></span></a></div> </div> </div>";
-                            }
-                            else
-                                return "";
-                        }
-                      },
-                      {
-                          "data": "UserId", "sName": "", "class": "", "orderable": false, "mRender": function (data, type, full) {
-                            if (data != null) {
-                                return "<div class='tablehoverbuttons'> <i class='fa fa-ellipsis-h'></i> <div class='buttonshover'><div class='editbtn'><a class='' href='javascript:void(0);' onClick=DeleteEvent('" + data + "')><span><img title='Delete' src='@Url.Content("~/images/delete grey.png")' /></span></a></div> </div> </div>";
-                            }
-                            else
-                                return "";
-                        }
-                      },
-                    { "data": "UserName", "sName": "UserName" },
-                    { "data": "Email", "sName": "Email" },
-                    { "data": "Mobile", "sName": "Mobile" },                  
-                    { "data": "UserType", "sName": "UserType" },
-                    { "data": "CenterNames", "sName": "CenterNames" },
-                    ]
-        });
-        mytable.on('order.dt', function () { $('.dataTables_paginate,.dataTables_info').show(); });
-        mytable.on('length.dt', function (e, settings, len) { $('.dataTables_paginate,.dataTables_info').show(); });
 
-        $("#divDataTable_length").append($(".dataTables_info"));
-        $("#divdataTables_info").append($(".dataTables_length"));
-        $("#divdataTables_info").append($(".dataTables_paginate"));
-
-        function fnGetDataForActivities() {
-            var searchObj = new Object();
-            searchObj.UserName = $('#txtUserName').val();
-            return searchObj;
-        }
-
-        function fnFilterActivities() {
-            searchObj = fnGetDataForActivities();
-            $("#mydatatable").dataTable().fnMultiFilter({
-                "UserName": searchObj.UserName,
-            });
-        }
-
-        function clearfilter() {
-            $('#txtUserName').val('');
-            fnFilterActivities();
-        }
-
-        $('#btnClear').click(function () {
-            clearfilter();
-        });
-
-
-        $('#btnSearch1').click(function () {
-            fnFilterActivities();
-        });
-
-
-        $("#txtUserName").keyup(function (e) {
-            if (e.which == 13) {
-                fnFilterActivities();
-            }
-        });
-
-    });
-
-</script>
 
 <script>
 

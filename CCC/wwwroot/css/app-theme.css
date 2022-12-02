@@ -53,6 +53,29 @@ p {
     margin-bottom: 0px
 }
 
+.chkBoxWTD {
+    width: 10px !important;
+    max-width: 10px !important
+}
+.deleteTD, .editTD {
+    width: 40px;
+    max-width: 40px;
+}
+
+.popDeleteTD {
+    width: 70px;
+    max-width: 70px;
+}
+
+.deleteTD .fa-trash, .editTD .fa-edit {
+    color: #a2a5aa;
+    font-size: 24px
+}
+
+.deleteTD .fa-trash:hover, .editTD .fa-edit:hover {
+        color: #ed1c24;
+}
+
 .w-90 {
     width: 90%
 }

@@ -68,7 +68,7 @@ namespace CCC.UI.Controllers
                     colList.Add(columns);
                     switch (col.Name)
                     {
-                        case "VetName":
+                        case "UserName":
                             if (!string.IsNullOrEmpty(col.Search.Value))
                             {
                                 searchObj.UserName = col.Search.Value.Trim();
