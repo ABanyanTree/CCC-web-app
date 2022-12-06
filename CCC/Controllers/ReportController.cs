@@ -278,48 +278,6 @@ namespace CCC.UI.Controllers
                     DesignVetCell(workSheet, optCatsCount_f, rowCnt, colCnt + 6, specialVetColor);
                     DesignVetCell(workSheet, "", rowCnt, colCnt + 7, specialVetColor);
 
-                    //workSheet.Cells[rowCnt, colCnt + 2].Value = drName;
-                    //workSheet.Cells[rowCnt, colCnt + 2].Style.Fill.PatternType = ExcelFillStyle.Solid;
-                    //workSheet.Cells[rowCnt, colCnt + 2].Style.Font.Color.SetColor(specialVetColor);
-                    //workSheet.Cells[rowCnt, colCnt + 2].Style.Border.BorderAround(ExcelBorderStyle.Thick, Color.Black);
-                    //workSheet.Cells[rowCnt, colCnt + 2].Style.Font.Bold = true;
-                    //workSheet.Cells[rowCnt, colCnt + 2].Style.Fill.BackgroundColor.SetColor(Color.FromArgb(255, 255, 255));
-
-                    //workSheet.Cells[rowCnt, colCnt + 3].Value = optDogsCount_m;
-                    //workSheet.Cells[rowCnt, colCnt + 3].Style.Border.BorderAround(ExcelBorderStyle.Thick, Color.Black);
-                    //workSheet.Cells[rowCnt, colCnt + 3].Style.Fill.PatternType = ExcelFillStyle.Solid;
-                    //workSheet.Cells[rowCnt, colCnt + 3].Style.Font.Color.SetColor(specialVetColor);
-                    //workSheet.Cells[rowCnt, colCnt + 3].Style.Font.Bold = true;
-                    //workSheet.Cells[rowCnt, colCnt + 3].Style.Fill.BackgroundColor.SetColor(Color.FromArgb(255, 255, 255));
-
-                    //workSheet.Cells[rowCnt, colCnt + 4].Value = optDogsCount_f;
-                    //workSheet.Cells[rowCnt, colCnt + 4].Style.Border.BorderAround(ExcelBorderStyle.Thick, Color.Black);
-                    //workSheet.Cells[rowCnt, colCnt + 4].Style.Fill.PatternType = ExcelFillStyle.Solid;
-                    //workSheet.Cells[rowCnt, colCnt + 4].Style.Font.Color.SetColor(specialVetColor);
-                    //workSheet.Cells[rowCnt, colCnt + 4].Style.Font.Bold = true;
-                    //workSheet.Cells[rowCnt, colCnt + 4].Style.Fill.BackgroundColor.SetColor(Color.FromArgb(255, 255, 255));
-
-                    //workSheet.Cells[rowCnt, colCnt + 5].Value = optCatsCount_m;
-                    //workSheet.Cells[rowCnt, colCnt + 5].Style.Border.BorderAround(ExcelBorderStyle.Thick, Color.Black);
-                    //workSheet.Cells[rowCnt, colCnt + 5].Style.Fill.PatternType = ExcelFillStyle.Solid;
-                    //workSheet.Cells[rowCnt, colCnt + 5].Style.Font.Color.SetColor(specialVetColor);
-                    //workSheet.Cells[rowCnt, colCnt + 5].Style.Font.Bold = true;
-                    //workSheet.Cells[rowCnt, colCnt + 5].Style.Fill.BackgroundColor.SetColor(Color.FromArgb(255, 255, 255));
-
-                    //workSheet.Cells[rowCnt, colCnt + 6].Value = optCatsCount_f;
-                    //workSheet.Cells[rowCnt, colCnt + 6].Style.Border.BorderAround(ExcelBorderStyle.Thick, Color.Black);
-                    //workSheet.Cells[rowCnt, colCnt + 6].Style.Fill.PatternType = ExcelFillStyle.Solid;
-                    //workSheet.Cells[rowCnt, colCnt + 6].Style.Font.Color.SetColor(specialVetColor);
-                    //workSheet.Cells[rowCnt, colCnt + 6].Style.Font.Bold = true;
-                    //workSheet.Cells[rowCnt, colCnt + 6].Style.Fill.BackgroundColor.SetColor(Color.FromArgb(255, 255, 255));
-
-                    //workSheet.Cells[rowCnt, colCnt + 7].Value = "";
-                    //workSheet.Cells[rowCnt, colCnt + 7].Style.Border.BorderAround(ExcelBorderStyle.Thick, Color.Black);
-                    //workSheet.Cells[rowCnt, colCnt + 7].Style.Fill.PatternType = ExcelFillStyle.Solid;
-                    //workSheet.Cells[rowCnt, colCnt + 7].Style.Font.Color.SetColor(specialVetColor);
-                    //workSheet.Cells[rowCnt, colCnt + 7].Style.Font.Bold = true;
-                    //workSheet.Cells[rowCnt, colCnt + 7].Style.Fill.BackgroundColor.SetColor(Color.FromArgb(255, 255, 255));
-
                     workSheet.Cells[rowCnt, colCnt + 8].Value = totalOpt;
                     workSheet.Cells[rowCnt, colCnt + 8].Style.Border.BorderAround(ExcelBorderStyle.Thick, Color.Black);
                     workSheet.Cells[rowCnt, colCnt + 8].Style.Fill.PatternType = ExcelFillStyle.Solid;
@@ -409,65 +367,49 @@ namespace CCC.UI.Controllers
         {
             workSheet.Cells[rowCnt, colCnt, rowCnt + 2 + days, colCnt + 8].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
             workSheet.Cells[rowCnt, colCnt, rowCnt + 2 + days, colCnt + 8].Style.VerticalAlignment = ExcelVerticalAlignment.Center;
+            workSheet.Cells[rowCnt, colCnt, rowCnt + 2 + days, colCnt + 8].Style.Font.Bold = true;
 
             workSheet.Cells[rowCnt, colCnt].Value = "Date";
-            workSheet.Cells[rowCnt, colCnt].Style.Font.Bold = true;
             workSheet.Cells[rowCnt, colCnt, rowCnt + 2, colCnt].Merge = true;
             workSheet.Cells[rowCnt, colCnt + 3, rowCnt, colCnt + 4].Style.Border.BorderAround(ExcelBorderStyle.Thick, Color.Black);
 
             workSheet.Cells[rowCnt, colCnt + 1].Value = "Venue";
             workSheet.Cells[rowCnt, colCnt + 1, rowCnt + 2, colCnt + 1].Merge = true;
-            workSheet.Cells[rowCnt, colCnt + 1, rowCnt + 2, colCnt + 1].Style.Font.Bold = true;
             workSheet.Cells[rowCnt, colCnt + 1, rowCnt + 2, colCnt + 1].Style.Border.BorderAround(ExcelBorderStyle.Thick, Color.Black);
-
 
             workSheet.Cells[rowCnt, colCnt + 2].Value = "Vet";
             workSheet.Cells[rowCnt, colCnt + 2, rowCnt + 2, colCnt + 2].Merge = true;
-            workSheet.Cells[rowCnt, colCnt + 2, rowCnt + 2, colCnt + 2].Style.Font.Bold = true;
             workSheet.Cells[rowCnt, colCnt + 2, rowCnt + 2, colCnt + 2].Style.Border.BorderAround(ExcelBorderStyle.Thick, Color.Black);
 
             workSheet.Cells[rowCnt, colCnt + 3].Value = "Dogs";
             workSheet.Cells[rowCnt, colCnt + 3, rowCnt, colCnt + 4].Merge = true;
-            workSheet.Cells[rowCnt, colCnt + 3, rowCnt, colCnt + 4].Style.Font.Bold = true;
             workSheet.Cells[rowCnt, colCnt + 3, rowCnt, colCnt + 4].Style.Border.BorderAround(ExcelBorderStyle.Thick, Color.Black);
 
             workSheet.Cells[rowCnt + 1, colCnt + 3].Value = "Male";
             workSheet.Cells[rowCnt + 1, colCnt + 3].Style.Font.Bold = true;
-            workSheet.Cells[rowCnt + 1, colCnt + 3, rowCnt + 2, colCnt + 3].Merge = true;
             workSheet.Cells[rowCnt + 1, colCnt + 3, rowCnt + 2, colCnt + 3].Style.Border.BorderAround(ExcelBorderStyle.Thick, Color.Black);
 
-
             workSheet.Cells[rowCnt + 1, colCnt + 4].Value = "Female";
-            workSheet.Cells[rowCnt + 1, colCnt + 4].Style.Font.Bold = true;
             workSheet.Cells[rowCnt + 1, colCnt + 4, rowCnt + 2, colCnt + 4].Merge = true;
             workSheet.Cells[rowCnt + 1, colCnt + 4, rowCnt + 2, colCnt + 4].Style.Border.BorderAround(ExcelBorderStyle.Thick, Color.Black);
 
             workSheet.Cells[rowCnt, colCnt + 5].Value = "Cats";
-            workSheet.Cells[rowCnt, colCnt + 5].Style.Font.Bold = true;
             workSheet.Cells[rowCnt, colCnt + 5, rowCnt, colCnt + 6].Merge = true;
             workSheet.Cells[rowCnt, colCnt + 5, rowCnt, colCnt + 6].Style.Border.BorderAround(ExcelBorderStyle.Thick, Color.Black);
 
-
             workSheet.Cells[rowCnt + 1, colCnt + 5].Value = "Male";
-            workSheet.Cells[rowCnt + 1, colCnt + 5].Style.Font.Bold = true;
             workSheet.Cells[rowCnt + 1, colCnt + 5, rowCnt + 2, colCnt + 5].Merge = true;
             workSheet.Cells[rowCnt + 1, colCnt + 5, rowCnt + 2, colCnt + 5].Style.Border.BorderAround(ExcelBorderStyle.Thick, Color.Black);
 
-
             workSheet.Cells[rowCnt + 1, colCnt + 6].Value = "Female";
-            workSheet.Cells[rowCnt + 1, colCnt + 6].Style.Font.Bold = true;
             workSheet.Cells[rowCnt + 1, colCnt + 6, rowCnt + 2, colCnt + 6].Merge = true;
             workSheet.Cells[rowCnt + 1, colCnt + 6, rowCnt + 2, colCnt + 6].Style.Border.BorderAround(ExcelBorderStyle.Thick, Color.Black);
 
-
             workSheet.Cells[rowCnt, colCnt + 7].Value = "Deaths/Notes";
-            workSheet.Cells[rowCnt, colCnt + 7].Style.Font.Bold = true;
             workSheet.Cells[rowCnt, colCnt + 7, rowCnt + 2, colCnt + 7].Merge = true;
             workSheet.Cells[rowCnt, colCnt + 7, rowCnt + 2, colCnt + 7].Style.Border.BorderAround(ExcelBorderStyle.Thick, Color.Black);
 
-
             workSheet.Cells[rowCnt, colCnt + 8].Value = "Total";
-            workSheet.Cells[rowCnt, colCnt + 8].Style.Font.Bold = true;
             workSheet.Cells[rowCnt, colCnt + 8, rowCnt + 2, colCnt + 8].Merge = true;
             workSheet.Cells[rowCnt, colCnt + 8, rowCnt + 2, colCnt + 8].Style.Border.BorderAround(ExcelBorderStyle.Thick, Color.Black);
         }
@@ -498,5 +440,52 @@ namespace CCC.UI.Controllers
             }
             return suffixDay;
         }
+
+
+
     }
 }
+
+
+
+//workSheet.Cells[rowCnt, colCnt + 2].Value = drName;
+//workSheet.Cells[rowCnt, colCnt + 2].Style.Fill.PatternType = ExcelFillStyle.Solid;
+//workSheet.Cells[rowCnt, colCnt + 2].Style.Font.Color.SetColor(specialVetColor);
+//workSheet.Cells[rowCnt, colCnt + 2].Style.Border.BorderAround(ExcelBorderStyle.Thick, Color.Black);
+//workSheet.Cells[rowCnt, colCnt + 2].Style.Font.Bold = true;
+//workSheet.Cells[rowCnt, colCnt + 2].Style.Fill.BackgroundColor.SetColor(Color.FromArgb(255, 255, 255));
+
+//workSheet.Cells[rowCnt, colCnt + 3].Value = optDogsCount_m;
+//workSheet.Cells[rowCnt, colCnt + 3].Style.Border.BorderAround(ExcelBorderStyle.Thick, Color.Black);
+//workSheet.Cells[rowCnt, colCnt + 3].Style.Fill.PatternType = ExcelFillStyle.Solid;
+//workSheet.Cells[rowCnt, colCnt + 3].Style.Font.Color.SetColor(specialVetColor);
+//workSheet.Cells[rowCnt, colCnt + 3].Style.Font.Bold = true;
+//workSheet.Cells[rowCnt, colCnt + 3].Style.Fill.BackgroundColor.SetColor(Color.FromArgb(255, 255, 255));
+
+//workSheet.Cells[rowCnt, colCnt + 4].Value = optDogsCount_f;
+//workSheet.Cells[rowCnt, colCnt + 4].Style.Border.BorderAround(ExcelBorderStyle.Thick, Color.Black);
+//workSheet.Cells[rowCnt, colCnt + 4].Style.Fill.PatternType = ExcelFillStyle.Solid;
+//workSheet.Cells[rowCnt, colCnt + 4].Style.Font.Color.SetColor(specialVetColor);
+//workSheet.Cells[rowCnt, colCnt + 4].Style.Font.Bold = true;
+//workSheet.Cells[rowCnt, colCnt + 4].Style.Fill.BackgroundColor.SetColor(Color.FromArgb(255, 255, 255));
+
+//workSheet.Cells[rowCnt, colCnt + 5].Value = optCatsCount_m;
+//workSheet.Cells[rowCnt, colCnt + 5].Style.Border.BorderAround(ExcelBorderStyle.Thick, Color.Black);
+//workSheet.Cells[rowCnt, colCnt + 5].Style.Fill.PatternType = ExcelFillStyle.Solid;
+//workSheet.Cells[rowCnt, colCnt + 5].Style.Font.Color.SetColor(specialVetColor);
+//workSheet.Cells[rowCnt, colCnt + 5].Style.Font.Bold = true;
+//workSheet.Cells[rowCnt, colCnt + 5].Style.Fill.BackgroundColor.SetColor(Color.FromArgb(255, 255, 255));
+
+//workSheet.Cells[rowCnt, colCnt + 6].Value = optCatsCount_f;
+//workSheet.Cells[rowCnt, colCnt + 6].Style.Border.BorderAround(ExcelBorderStyle.Thick, Color.Black);
+//workSheet.Cells[rowCnt, colCnt + 6].Style.Fill.PatternType = ExcelFillStyle.Solid;
+//workSheet.Cells[rowCnt, colCnt + 6].Style.Font.Color.SetColor(specialVetColor);
+//workSheet.Cells[rowCnt, colCnt + 6].Style.Font.Bold = true;
+//workSheet.Cells[rowCnt, colCnt + 6].Style.Fill.BackgroundColor.SetColor(Color.FromArgb(255, 255, 255));
+
+//workSheet.Cells[rowCnt, colCnt + 7].Value = "";
+//workSheet.Cells[rowCnt, colCnt + 7].Style.Border.BorderAround(ExcelBorderStyle.Thick, Color.Black);
+//workSheet.Cells[rowCnt, colCnt + 7].Style.Fill.PatternType = ExcelFillStyle.Solid;
+//workSheet.Cells[rowCnt, colCnt + 7].Style.Font.Color.SetColor(specialVetColor);
+//workSheet.Cells[rowCnt, colCnt + 7].Style.Font.Bold = true;
+//workSheet.Cells[rowCnt, colCnt + 7].Style.Fill.BackgroundColor.SetColor(Color.FromArgb(255, 255, 255));
