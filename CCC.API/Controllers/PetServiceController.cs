@@ -66,5 +66,14 @@ namespace CCC.API.Controllers
             var count = await _iPetService.ChangePetCenters(request);
             return Ok(count);
         }
+
+        [HttpGet(ApiRoutes.PetServicesDetails.GetVetReport)]
+        [ProducesResponseType(typeof(List<PetServiceDetails>), statusCode: 200)]
+        public async Task<IActionResult> GetVetReport(PetServiceDetails searchRequest)
+        {
+            var objResponse = await _iPetService.GetVetReport(searchRequest);
+            return Ok(objResponse);
+        }
+        
     }
 }

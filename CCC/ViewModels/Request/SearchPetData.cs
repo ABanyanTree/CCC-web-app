@@ -25,5 +25,8 @@ namespace CCC.UI.ViewModels
         public DateTime? SurgeryDateTo { get; set; }
         public DateTime? ReleaseDateFrom { get; set; }
         public DateTime? ReleaseDateTo { get; set; }
+
+        public string Month { get; set; }
+        public string Year { get; set; }
     }
 }

@@ -149,7 +149,6 @@ D:\Shahen-WorkFront\Projects\CodeZen\CCC\CCC.API\bin\Debug\net5.0\CCC.API.dll
 D:\Shahen-WorkFront\Projects\CodeZen\CCC\CCC.API\bin\Debug\net5.0\ref\CCC.API.dll
 D:\Shahen-WorkFront\Projects\CodeZen\CCC\CCC.API\bin\Debug\net5.0\CCC.API.pdb
 D:\Shahen-WorkFront\Projects\CodeZen\CCC\CCC.API\bin\Debug\net5.0\BeginCollectionItemCore.dll
-D:\Shahen-WorkFront\Projects\CodeZen\CCC\CCC.API\bin\Debug\net5.0\Dapper.dll
 D:\Shahen-WorkFront\Projects\CodeZen\CCC\CCC.API\bin\Debug\net5.0\FluentValidation.dll
 D:\Shahen-WorkFront\Projects\CodeZen\CCC\CCC.API\bin\Debug\net5.0\FluentValidation.AspNetCore.dll
 D:\Shahen-WorkFront\Projects\CodeZen\CCC\CCC.API\bin\Debug\net5.0\FluentValidation.DependencyInjectionExtensions.dll
@@ -164,9 +163,6 @@ D:\Shahen-WorkFront\Projects\CodeZen\CCC\CCC.API\bin\Debug\net5.0\Microsoft.Code
 D:\Shahen-WorkFront\Projects\CodeZen\CCC\CCC.API\bin\Debug\net5.0\Microsoft.CodeAnalysis.CSharp.Workspaces.dll
 D:\Shahen-WorkFront\Projects\CodeZen\CCC\CCC.API\bin\Debug\net5.0\Microsoft.CodeAnalysis.Razor.dll
 D:\Shahen-WorkFront\Projects\CodeZen\CCC\CCC.API\bin\Debug\net5.0\Microsoft.CodeAnalysis.Workspaces.dll
-D:\Shahen-WorkFront\Projects\CodeZen\CCC\CCC.API\bin\Debug\net5.0\Microsoft.Extensions.DependencyInjection.dll
-D:\Shahen-WorkFront\Projects\CodeZen\CCC\CCC.API\bin\Debug\net5.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
-D:\Shahen-WorkFront\Projects\CodeZen\CCC\CCC.API\bin\Debug\net5.0\Microsoft.Extensions.Options.dll
 D:\Shahen-WorkFront\Projects\CodeZen\CCC\CCC.API\bin\Debug\net5.0\Microsoft.Extensions.Primitives.dll
 D:\Shahen-WorkFront\Projects\CodeZen\CCC\CCC.API\bin\Debug\net5.0\Microsoft.IdentityModel.Abstractions.dll
 D:\Shahen-WorkFront\Projects\CodeZen\CCC\CCC.API\bin\Debug\net5.0\Microsoft.IdentityModel.JsonWebTokens.dll
@@ -184,7 +180,6 @@ D:\Shahen-WorkFront\Projects\CodeZen\CCC\CCC.API\bin\Debug\net5.0\Microsoft.Visu
 D:\Shahen-WorkFront\Projects\CodeZen\CCC\CCC.API\bin\Debug\net5.0\Microsoft.VisualStudio.Web.CodeGeneration.Utils.dll
 D:\Shahen-WorkFront\Projects\CodeZen\CCC\CCC.API\bin\Debug\net5.0\Microsoft.VisualStudio.Web.CodeGenerators.Mvc.dll
 D:\Shahen-WorkFront\Projects\CodeZen\CCC\CCC.API\bin\Debug\net5.0\Newtonsoft.Json.dll
-D:\Shahen-WorkFront\Projects\CodeZen\CCC\CCC.API\bin\Debug\net5.0\Slapper.dll
 D:\Shahen-WorkFront\Projects\CodeZen\CCC\CCC.API\bin\Debug\net5.0\Swashbuckle.AspNetCore.Swagger.dll
 D:\Shahen-WorkFront\Projects\CodeZen\CCC\CCC.API\bin\Debug\net5.0\Swashbuckle.AspNetCore.SwaggerGen.dll
 D:\Shahen-WorkFront\Projects\CodeZen\CCC\CCC.API\bin\Debug\net5.0\Swashbuckle.AspNetCore.SwaggerUI.dll
@@ -193,10 +188,8 @@ D:\Shahen-WorkFront\Projects\CodeZen\CCC\CCC.API\bin\Debug\net5.0\System.Composi
 D:\Shahen-WorkFront\Projects\CodeZen\CCC\CCC.API\bin\Debug\net5.0\System.Composition.Hosting.dll
 D:\Shahen-WorkFront\Projects\CodeZen\CCC\CCC.API\bin\Debug\net5.0\System.Composition.Runtime.dll
 D:\Shahen-WorkFront\Projects\CodeZen\CCC\CCC.API\bin\Debug\net5.0\System.Composition.TypedParts.dll
-D:\Shahen-WorkFront\Projects\CodeZen\CCC\CCC.API\bin\Debug\net5.0\System.Data.SqlClient.dll
 D:\Shahen-WorkFront\Projects\CodeZen\CCC\CCC.API\bin\Debug\net5.0\System.IdentityModel.Tokens.Jwt.dll
 D:\Shahen-WorkFront\Projects\CodeZen\CCC\CCC.API\bin\Debug\net5.0\System.IO.Pipelines.dll
-D:\Shahen-WorkFront\Projects\CodeZen\CCC\CCC.API\bin\Debug\net5.0\System.Runtime.CompilerServices.Unsafe.dll
 D:\Shahen-WorkFront\Projects\CodeZen\CCC\CCC.API\bin\Debug\net5.0\cs\Microsoft.CodeAnalysis.resources.dll
 D:\Shahen-WorkFront\Projects\CodeZen\CCC\CCC.API\bin\Debug\net5.0\de\Microsoft.CodeAnalysis.resources.dll
 D:\Shahen-WorkFront\Projects\CodeZen\CCC\CCC.API\bin\Debug\net5.0\es\Microsoft.CodeAnalysis.resources.dll
@@ -251,11 +244,6 @@ D:\Shahen-WorkFront\Projects\CodeZen\CCC\CCC.API\bin\Debug\net5.0\zh-Hans\Micros
 D:\Shahen-WorkFront\Projects\CodeZen\CCC\CCC.API\bin\Debug\net5.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
 D:\Shahen-WorkFront\Projects\CodeZen\CCC\CCC.API\bin\Debug\net5.0\runtimes\win-arm\lib\net5.0\dotnet-aspnet-codegenerator-design.exe
 D:\Shahen-WorkFront\Projects\CodeZen\CCC\CCC.API\bin\Debug\net5.0\runtimes\win-arm64\lib\net5.0\dotnet-aspnet-codegenerator-design.exe
-D:\Shahen-WorkFront\Projects\CodeZen\CCC\CCC.API\bin\Debug\net5.0\runtimes\win-arm64\native\sni.dll
-D:\Shahen-WorkFront\Projects\CodeZen\CCC\CCC.API\bin\Debug\net5.0\runtimes\win-x64\native\sni.dll
-D:\Shahen-WorkFront\Projects\CodeZen\CCC\CCC.API\bin\Debug\net5.0\runtimes\win-x86\native\sni.dll
-D:\Shahen-WorkFront\Projects\CodeZen\CCC\CCC.API\bin\Debug\net5.0\runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll
-D:\Shahen-WorkFront\Projects\CodeZen\CCC\CCC.API\bin\Debug\net5.0\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
 D:\Shahen-WorkFront\Projects\CodeZen\CCC\CCC.API\bin\Debug\net5.0\CCC.Data.dll
 D:\Shahen-WorkFront\Projects\CodeZen\CCC\CCC.API\bin\Debug\net5.0\CCC.Domain.dll
 D:\Shahen-WorkFront\Projects\CodeZen\CCC\CCC.API\bin\Debug\net5.0\CCC.lOC.dll
@@ -280,3 +268,15 @@ D:\Shahen-WorkFront\Projects\CodeZen\CCC\CCC.API\obj\Debug\net5.0\CCC.API.dll
 D:\Shahen-WorkFront\Projects\CodeZen\CCC\CCC.API\obj\Debug\net5.0\ref\CCC.API.dll
 D:\Shahen-WorkFront\Projects\CodeZen\CCC\CCC.API\obj\Debug\net5.0\CCC.API.pdb
 D:\Shahen-WorkFront\Projects\CodeZen\CCC\CCC.API\obj\Debug\net5.0\CCC.API.genruntimeconfig.cache
+D:\Shahen-WorkFront\Projects\CodeZen\CCC\CCC.API\bin\Debug\net5.0\Dapper.dll
+D:\Shahen-WorkFront\Projects\CodeZen\CCC\CCC.API\bin\Debug\net5.0\Microsoft.Extensions.DependencyInjection.dll
+D:\Shahen-WorkFront\Projects\CodeZen\CCC\CCC.API\bin\Debug\net5.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+D:\Shahen-WorkFront\Projects\CodeZen\CCC\CCC.API\bin\Debug\net5.0\Microsoft.Extensions.Options.dll
+D:\Shahen-WorkFront\Projects\CodeZen\CCC\CCC.API\bin\Debug\net5.0\Slapper.dll
+D:\Shahen-WorkFront\Projects\CodeZen\CCC\CCC.API\bin\Debug\net5.0\System.Data.SqlClient.dll
+D:\Shahen-WorkFront\Projects\CodeZen\CCC\CCC.API\bin\Debug\net5.0\System.Runtime.CompilerServices.Unsafe.dll
+D:\Shahen-WorkFront\Projects\CodeZen\CCC\CCC.API\bin\Debug\net5.0\runtimes\win-arm64\native\sni.dll
+D:\Shahen-WorkFront\Projects\CodeZen\CCC\CCC.API\bin\Debug\net5.0\runtimes\win-x64\native\sni.dll
+D:\Shahen-WorkFront\Projects\CodeZen\CCC\CCC.API\bin\Debug\net5.0\runtimes\win-x86\native\sni.dll
+D:\Shahen-WorkFront\Projects\CodeZen\CCC\CCC.API\bin\Debug\net5.0\runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll
+D:\Shahen-WorkFront\Projects\CodeZen\CCC\CCC.API\bin\Debug\net5.0\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll

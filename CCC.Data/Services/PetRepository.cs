@@ -80,5 +80,12 @@ namespace CCC.Data.Services
               };
             return await ExecuteNonQueryAsync(obj, addParams, PetServiceDetails_Constant.SPROC_CHANGECENTERFORPET);
         }
+
+        public async Task<IEnumerable<PetServiceDetails>> GetVetReport(PetServiceDetails obj)
+        {
+            string[] addParams = new string[] {PetServiceDetails_Constant.CENTERID,PetServiceDetails_Constant.SURGERYDATEFROM,
+                PetServiceDetails_Constant.SURGERYDATETO};
+            return await GetAllAsync(obj, addParams, PetServiceDetails_Constant.SPROC_GETVETREPORT);
+        }
     }
 }

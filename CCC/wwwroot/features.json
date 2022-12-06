@@ -57,6 +57,18 @@
     "ControllerName": "PetService",
     "ActionName": "ManagePetService",
     "CssClass": ""
+  },
+  "Reports": {
+    "FeatureId": "FEA00009",
+    "ControllerName": "Report",
+    "ActionName": "ManageVetReport",
+    "CssClass": ""
+  },
+  "ManageVetReport": {
+    "FeatureId": "FEA000010",
+    "ControllerName": "Report",
+    "ActionName": "ManageVetReport",
+    "CssClass": ""
   }
 
 }

@@ -21,6 +21,7 @@
 
 <link href="~/lib/bootstrap-multiselect/bootstrap-multiselect.css" rel="stylesheet" />
 <script src="~/lib/bootstrap-multiselect/bootstrap-multiselect.js"></script>
+
 <script type="text/javascript">
     $(document).ready(function () {
 
@@ -70,7 +71,7 @@
                    @{<text>
                       {
                         "data": "ServiceId", "sName": "", "class": "chkBoxWTD", "orderable": false, "mRender": function (data, type, full) {
-                              return '<div class="chkBoxTD"><input type="checkbox" value="' + data + '" class="chkclass" /></div>';                           
+                              return '<div class="chkBoxTD"><input type="checkbox" value="' + data + '" class="chkclass" /></div>';
                         }
                     },
                     </text>}
@@ -78,7 +79,7 @@
 
                     { "data": "AdmissionDateDisplay", "sName": "AdmissionDate" },
                     { "data": "SurgeryDateDisplay", "sName": "SurgeryDate" },
-                    { "data": "VanNumber", "sName": "VanNumber" },
+                   /* { "data": "VanNumber", "sName": "VanNumber" },*/
                     { "data": "VetName", "sName": "Vet Name" },
                     { "data": "PetType", "sName": "PetType" },
                     { "data": "CertificateNo", "sName": "Certificate No" },
@@ -88,8 +89,8 @@
                     { "data": "CareGiver", "sName": "Care Giver" },
                     { "data": "ReleaseDateDisplay", "sName": "Release Date" },
                     { "data": "MedicalComments", "sName": "Medical Comments" },
-                    { "data": "CreatorName", "sName": "Created By" },
-                    { "data": "ModifiorName", "sName": "ModifiorName" },
+                    //{ "data": "CreatorName", "sName": "Created By" },
+                    //{ "data": "ModifiorName", "sName": "ModifiorName" },
                      @{<text>
 
                       {
@@ -361,7 +362,7 @@
                             <th class="select-checkbox chkBoxWTD"><input type='checkbox' name='User' id='chkUser' class='chkclass'></th>
                             <th>Admission Date</th>
                             <th>Surgery Date</th>
-                            <th>Van Number</th>
+                            @*<th>Van Number</th>*@
                             <th>Vet Name</th>
                             <th>Pet</th>
                             <th>Certificate No</th>
@@ -371,8 +372,8 @@
                             <th>Care Giver</th>
                             <th>Release Date</th>
                             <th>Medical Notes/Comments</th>
-                            <th>Created By</th>
-                            <th>Modified By</th>
+                            @*<th>Created By</th>
+                                <th>Modified By</th>*@
                             <th align="left" class="editTD">Edit</th>
                             @*<th>Delete</th>*@
                         </tr>

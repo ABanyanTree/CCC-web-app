@@ -15,8 +15,19 @@ namespace CCC.UI.Utility
         public const string FEATURE_ManageVet = "ManageVet";
         public const string FEATURE_ManagePetService = "ManagePetService";
 
+        public const string FEATURE_Reports = "Reports";
+        public const string FEATURE_VetReportMonthly = "VetReportMonthly";
+
         public const string LOOKUPTYPE_PETTYPE = "PetType";
         public const string LOOKUPTYPE_MEDICALNOTES = "MedicalNotes";
+
+        public const string LOOKUPTYPE_PETTYPE_DOG = "Dog";
+        public const string LOOKUPTYPE_PETTYPE_Cat = "Cat";
+
+        public const string LOOKUPTYPE_PETGENDER_MALE = "Male";
+        public const string LOOKUPTYPE_PETGENDER_FEMALE = "Female";
+
+
 
 
     }
