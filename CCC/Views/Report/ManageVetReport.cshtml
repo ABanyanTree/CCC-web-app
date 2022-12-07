@@ -217,25 +217,29 @@
 
 <script>
     $("#btnExportExcel").on('click', function () {
+        debugger;
         var searchObj = new Object();
         var CenterId = $('#ddlCenter').val();
         var Month = $('#ddlMonth').val();
         var Year = $('#ddlYear').val();
+        debugger;
 
-
-         @*$.ajax({
-              url: "@Url.Content("~/Reports/ExportVetReport")",
+         $.ajax({
+              url: '@Url.Action("ExportVetReport", "Report")?CenterId=' + CenterId + '&selectedMonth=' + Month + '&selectedYear=' + Year,
               type: "POST",
              processData: false,
              contentType: false,
-             data: { CenterId: CenterId, selectedMonth: Month, selectedYear: Year },
-              success: function (result) {
-
+             data: { },
+             success: function (result) {
+                 debugger;
+                 if (result == false) {
+                     showWarningMsg('No data avaialbe');
+                 }
              }
-         });*@
+         });
 
 
-        var url = '@Url.Action("ExportVetReport", "Report")?CenterId' + CenterId + '&selectedMonth=' + Month + '&selectedYear=' + Year;
-        document.location.href = url;
+        @*var url = '@Url.Action("ExportVetReport", "Report")?CenterId' + CenterId + '&selectedMonth=' + Month + '&selectedYear=' + Year;
+        document.location.href = url;*@
     });
 </script>

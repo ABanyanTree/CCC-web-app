@@ -193,22 +193,33 @@ namespace CCC.UI.Controllers
             return Json(new DataTablesResponse(dt.Draw, lst1, TotalCount, TotalCount, colList, set));
         }
 
-        //[HttpPost]
+        [HttpPost]
         public async Task<IActionResult> ExportVetReport(string CenterId, string selectedMonth, string selectedYear)
         {
             var objSessionUSer = HttpContext.Session.GetSessionUser();
             var cachedToken = HttpContext.Session.GetBearerToken();
+            int days = DateTime.DaysInMonth(Convert.ToInt32(selectedYear), Convert.ToInt32(selectedMonth));
+
+            string firstDate = selectedMonth + "/1/" + selectedYear;
+            DateTime firstDayOfMonth = DateTime.Parse(firstDate);
+
+            string lastDate = selectedMonth + '/' + days.ToString() + '/' + selectedYear;
+            DateTime lastDayOfMonth = DateTime.Parse(lastDate);
 
             SearchPetData searchObj = new SearchPetData();
             searchObj.CenterId = CenterId;
-            //searchObj.SurgeryDateFrom = SurgeryDateFrom;
-            //searchObj.SurgeryDateTo = SurgeryDateTo;
+            searchObj.SurgeryDateFrom = firstDayOfMonth;
+            searchObj.SurgeryDateTo = lastDayOfMonth;
             var PetServiceAPI = RestService.For<IPetServiceApi>(hostUrl: ApplicationSettings.WebApiUrl, new RefitSettings
             {
                 AuthorizationHeaderValueGetter = () => Task.FromResult(cachedToken)
             });
             var apiResponse = await PetServiceAPI.GetVetReport(searchObj);
             var response = apiResponse.Content;
+            if (response.Count == 0)
+            {
+                return Ok(false);
+            }
 
             FileInfo newFile = new FileInfo("D:\\Shahen-WorkFront\\sample1.xlsx");
             ExcelPackage excel = new ExcelPackage();
@@ -216,7 +227,7 @@ namespace CCC.UI.Controllers
 
             int rowCnt = 1;
             int colCnt = 1;
-            int days = DateTime.DaysInMonth(Convert.ToInt32(selectedYear), Convert.ToInt32(selectedMonth));
+
 
             DesignCalenderTableHeader(days, workSheet, rowCnt, colCnt);
 
@@ -234,6 +245,7 @@ namespace CCC.UI.Controllers
             }
             #endregion
 
+            string centerName = response.Select(x => x.CenterName).FirstOrDefault();
             rowCnt = rowCnt + 2;
             int petTotal = 0, m_DogTotal = 0, f_DogTotal = 0, m_CatTotal = 0, f_CatTotal = 0;
 
@@ -244,7 +256,6 @@ namespace CCC.UI.Controllers
                 string date = selectedMonth + '/' + i.ToString() + '/' + selectedYear;
                 DateTime sDate = DateTime.Parse(date);
                 int totalSurgeryCountOnDay = response.Where(x => x.SurgeryDate.Value.Date == sDate.Date).ToList().Count;
-                string centerName = response.Select(x => x.CenterName).FirstOrDefault();
 
                 workSheet.Cells[rowCnt, colCnt].Value = GetDaywithSuffix(sDate.Day);
                 workSheet.Cells[rowCnt, colCnt].Style.Border.BorderAround(ExcelBorderStyle.Thick, Color.Black);
@@ -278,12 +289,7 @@ namespace CCC.UI.Controllers
                     DesignVetCell(workSheet, optCatsCount_f, rowCnt, colCnt + 6, specialVetColor);
                     DesignVetCell(workSheet, "", rowCnt, colCnt + 7, specialVetColor);
 
-                    workSheet.Cells[rowCnt, colCnt + 8].Value = totalOpt;
-                    workSheet.Cells[rowCnt, colCnt + 8].Style.Border.BorderAround(ExcelBorderStyle.Thick, Color.Black);
-                    workSheet.Cells[rowCnt, colCnt + 8].Style.Fill.PatternType = ExcelFillStyle.Solid;
-                    workSheet.Cells[rowCnt, colCnt + 8].Style.Font.Color.SetColor(Color.FromArgb(255, 255, 255));
-                    workSheet.Cells[rowCnt, colCnt + 8].Style.Fill.BackgroundColor.SetColor(specialVetColor);
-                    workSheet.Cells[rowCnt, colCnt + 8].Style.Font.Bold = true;
+                    DesignVetTotalOperation(workSheet, totalOpt, rowCnt, colCnt + 8, specialVetColor, false);
 
                 }
                 else
@@ -300,8 +306,180 @@ namespace CCC.UI.Controllers
             }
 
             DesignCalenderTableTotal(workSheet, rowCnt, colCnt, m_DogTotal, f_DogTotal, m_CatTotal, f_CatTotal, petTotal);
+
+
+            #region -- Vet Total Table --
+
+            if (lstVetNames.Count > 0)
+            {
+                rowCnt = 1;
+                colCnt = 11;
+                int totalvets = lstVetNames.Count + 1;  //add 1 for total row
+                string totalByCenter = "Total (@ " + centerName + ")";
+
+                SetCellAlignment(workSheet, rowCnt, colCnt, rowCnt + totalvets, colCnt + 1);
+
+                workSheet.Cells[rowCnt, colCnt].Value = totalByCenter;
+                workSheet.Cells[rowCnt, colCnt, rowCnt, colCnt + 1].Merge = true;
+                workSheet.Cells[rowCnt, colCnt, rowCnt, colCnt + 1].Style.Border.BorderAround(ExcelBorderStyle.Thick, Color.Black);
+                workSheet.Cells[rowCnt, colCnt, rowCnt, colCnt + 1].Style.Fill.PatternType = ExcelFillStyle.Solid;
+                workSheet.Cells[rowCnt, colCnt].Style.Font.Color.SetColor(Color.FromArgb(255, 255, 255));
+                workSheet.Cells[rowCnt, colCnt, rowCnt, colCnt + 1].Style.Fill.BackgroundColor.SetColor(Color.FromArgb(0, 0, 0));
+
+                int grandTotalByVet = 0;
+                foreach (var item in lstVetNames)
+                {
+                    int vetOperatedCount = response.Where(x => x.VetName.Trim().ToLower() == item.Trim().ToLower()).ToList().Count;
+                    grandTotalByVet = grandTotalByVet + vetOperatedCount;
+                    Color specialVetColor = lstVetColor.Where(x => x.Key.Trim().ToLower() == item.Trim().ToLower()).Select(x => x.Value).FirstOrDefault();
+
+                    DesignVetCell(workSheet, item, rowCnt + 1, colCnt, specialVetColor);
+                    DesignVetTotalOperation(workSheet, vetOperatedCount, rowCnt + 1, colCnt + 1, specialVetColor, false);
+                    rowCnt = rowCnt + 1;
+                }
+                rowCnt = rowCnt + 1;
+                DesignVetTotalOperation(workSheet, totalByCenter, rowCnt, colCnt, new Color(), true);
+                DesignVetTotalOperation(workSheet, grandTotalByVet, rowCnt, colCnt + 1, new Color(), true);
+            }
+
+            #endregion
+
+
+            #region -- Dogs total(Dale/Female) --
+
+            if (lstVetNames.Count > 0)
+            {
+                rowCnt = rowCnt + 2;
+                colCnt = 11;
+
+                SetCellAlignment(workSheet, rowCnt, colCnt, rowCnt + 3, colCnt + 1);
+
+                workSheet.Cells[rowCnt, colCnt].Value = "Dogs";
+                workSheet.Cells[rowCnt, colCnt, rowCnt, colCnt + 1].Merge = true;
+                workSheet.Cells[rowCnt, colCnt, rowCnt, colCnt + 1].Style.Border.BorderAround(ExcelBorderStyle.Thick, Color.Black);
+                workSheet.Cells[rowCnt, colCnt, rowCnt, colCnt + 1].Style.Fill.PatternType = ExcelFillStyle.Solid;
+                workSheet.Cells[rowCnt, colCnt].Style.Font.Color.SetColor(Color.FromArgb(255, 255, 255));
+                workSheet.Cells[rowCnt, colCnt, rowCnt, colCnt + 1].Style.Fill.BackgroundColor.SetColor(Color.FromArgb(0, 128, 255));
+
+                DesignPetGenderData(workSheet, "Male", m_DogTotal, rowCnt, colCnt);
+                DesignPetGenderData(workSheet, "Female", f_DogTotal, rowCnt + 1, colCnt);
+            }
+
+
+            #endregion
+
+
+            #region -- Cat total(Dale/Female) --
+
+            if (lstVetNames.Count > 0)
+            {
+                rowCnt = rowCnt + 4;
+                colCnt = 11;
+
+                SetCellAlignment(workSheet, rowCnt, colCnt, rowCnt + 3, colCnt + 1);
+
+                workSheet.Cells[rowCnt, colCnt].Value = "Cats";
+                workSheet.Cells[rowCnt, colCnt, rowCnt, colCnt + 1].Merge = true;
+                workSheet.Cells[rowCnt, colCnt, rowCnt, colCnt + 1].Style.Border.BorderAround(ExcelBorderStyle.Thick, Color.Black);
+                workSheet.Cells[rowCnt, colCnt, rowCnt, colCnt + 1].Style.Fill.PatternType = ExcelFillStyle.Solid;
+                workSheet.Cells[rowCnt, colCnt].Style.Font.Color.SetColor(Color.FromArgb(255, 255, 255));
+                workSheet.Cells[rowCnt, colCnt, rowCnt, colCnt + 1].Style.Fill.BackgroundColor.SetColor(Color.FromArgb(0, 128, 255));
+
+                DesignPetGenderData(workSheet, "Male", m_CatTotal, rowCnt, colCnt);
+                DesignPetGenderData(workSheet, "Female", f_CatTotal, rowCnt + 1, colCnt);
+            }
+
+            #endregion
+
+
+            #region -- Death & Complication --
+
+            if (lstVetNames.Count > 0)
+            {
+                rowCnt = 1;
+                colCnt = 14;
+                int totalreason = lstVetNames.Count + 3;  //add 3:(subHeader/oter reason dath/total)
+
+                SetCellAlignment(workSheet, rowCnt, colCnt, rowCnt + totalreason, colCnt + 2);
+                workSheet.Cells[rowCnt, colCnt].Value = "Deaths & Complications";
+                workSheet.Cells[rowCnt, colCnt, rowCnt, colCnt + 2].Merge = true;
+                workSheet.Cells[rowCnt, colCnt, rowCnt, colCnt + 2].Style.Border.BorderAround(ExcelBorderStyle.Thick, Color.Black);
+                workSheet.Cells[rowCnt, colCnt, rowCnt, colCnt + 2].Style.Fill.PatternType = ExcelFillStyle.Solid;
+                workSheet.Cells[rowCnt, colCnt].Style.Font.Color.SetColor(Color.FromArgb(255, 255, 255));
+                workSheet.Cells[rowCnt, colCnt, rowCnt, colCnt + 2].Style.Fill.BackgroundColor.SetColor(Color.FromArgb(0, 0, 0));
+
+                rowCnt = rowCnt + 1;
+                workSheet.Cells[rowCnt, colCnt].Value = "Dr. Name";
+                workSheet.Cells[rowCnt, colCnt + 1].Value = "Deaths";
+                workSheet.Cells[rowCnt, colCnt + 2].Value = "Complications";
+                workSheet.Cells[rowCnt, colCnt, rowCnt, colCnt + 2].Style.Border.BorderAround(ExcelBorderStyle.Thick, Color.Black);
+
+                int totalDeathCount = 0;
+                int totalComplicationCount = 0;
+                foreach (var item in lstVetNames)
+                {
+                    int deathCount = response.Where(x => x.VetName.Trim().ToLower() == item.Trim().ToLower() && x.ExpiredDate != null).ToList().Count;
+                    totalDeathCount = totalDeathCount + deathCount;
+                    int complicationCount = response.Where(x => x.VetName.Trim().ToLower() == item.Trim().ToLower() && x.MedicalNoteId != null).ToList().Count;
+                    totalComplicationCount = totalComplicationCount + complicationCount;
+                    Color specialVetColor = lstVetColor.Where(x => x.Key.Trim().ToLower() == item.Trim().ToLower()).Select(x => x.Value).FirstOrDefault();
+
+                    DesignVetCell(workSheet, item, rowCnt + 1, colCnt, specialVetColor);
+                    DesignVetTotalOperation(workSheet, deathCount, rowCnt + 1, colCnt + 1, specialVetColor, false);
+                    DesignVetTotalOperation(workSheet, complicationCount, rowCnt + 1, colCnt + 2, specialVetColor, false);
+                    rowCnt = rowCnt + 1;
+                }
+                rowCnt = rowCnt + 1;
+                workSheet.Cells[rowCnt, colCnt].Value = "*Deaths due to other reasons -2*";
+                workSheet.Cells[rowCnt, colCnt, rowCnt, colCnt + 2].Merge = true;
+                workSheet.Cells[rowCnt, colCnt, rowCnt, colCnt + 2].Style.Border.BorderAround(ExcelBorderStyle.Thick, Color.Black);
+
+                rowCnt = rowCnt + 1;
+                DesignVetTotalOperation(workSheet, "Total", rowCnt, colCnt, new Color(), true);
+                DesignVetTotalOperation(workSheet, totalDeathCount, rowCnt, colCnt + 1, new Color(), true);
+                DesignVetTotalOperation(workSheet, totalComplicationCount, rowCnt, colCnt + 2, new Color(), true);
+            }
+
+            #endregion
+
             var exportbytes = excel.GetAsByteArray();
             return File(exportbytes, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", newFile.Name);
+
+        }
+
+        #region -- All Excel Design Stuff --
+
+        private void SetCellAlignment(ExcelWorksheet workSheet, int rowCntFrom, int colCntFrom, int rowCntTo, int colCntTo)
+        {
+            workSheet.Cells[rowCntFrom, colCntFrom, rowCntTo, colCntTo].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+            workSheet.Cells[rowCntFrom, colCntFrom, rowCntTo, colCntTo].Style.VerticalAlignment = ExcelVerticalAlignment.Center;
+            workSheet.Cells[rowCntFrom, colCntFrom, rowCntTo, colCntTo].Style.Font.Bold = true;
+        }
+        private void DesignPetGenderData(ExcelWorksheet workSheet, string gender, int totalCount, int rowCnt, int colCnt)
+        {
+            workSheet.Cells[rowCnt + 1, colCnt].Value = gender;
+            workSheet.Cells[rowCnt + 1, colCnt].Style.Border.BorderAround(ExcelBorderStyle.Thick, Color.Black);
+            workSheet.Cells[rowCnt + 1, colCnt + 1].Value = totalCount;
+            workSheet.Cells[rowCnt + 1, colCnt + 1].Style.Border.BorderAround(ExcelBorderStyle.Thick, Color.Black);
+        }
+
+        private void DesignVetTotalOperation(ExcelWorksheet workSheet, dynamic vetOperatedCount, int rowCnt, int colCnt, Color specialVetColor, bool IsGrandTotal = false)
+        {
+            workSheet.Cells[rowCnt, colCnt].Value = vetOperatedCount;
+            workSheet.Cells[rowCnt, colCnt].Style.Border.BorderAround(ExcelBorderStyle.Thick, Color.Black);
+            workSheet.Cells[rowCnt, colCnt].Style.Font.Bold = true;
+            if (IsGrandTotal == false)
+            {
+                workSheet.Cells[rowCnt, colCnt].Style.Fill.PatternType = ExcelFillStyle.Solid;
+                workSheet.Cells[rowCnt, colCnt].Style.Font.Color.SetColor(Color.FromArgb(255, 255, 255));
+                workSheet.Cells[rowCnt, colCnt].Style.Fill.BackgroundColor.SetColor(specialVetColor);
+            }
+            else
+            {
+                workSheet.Cells[rowCnt, colCnt].Style.Fill.PatternType = ExcelFillStyle.Solid;
+                workSheet.Cells[rowCnt, colCnt].Style.Font.Color.SetColor(Color.FromArgb(255, 255, 255));
+                workSheet.Cells[rowCnt, colCnt].Style.Fill.BackgroundColor.SetColor(Color.FromArgb(0, 0, 0));
+            }
 
         }
 
@@ -440,6 +618,9 @@ namespace CCC.UI.Controllers
             }
             return suffixDay;
         }
+        #endregion
+
+
 
 
 
