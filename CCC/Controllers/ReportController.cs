@@ -193,7 +193,7 @@ namespace CCC.UI.Controllers
             return Json(new DataTablesResponse(dt.Draw, lst1, TotalCount, TotalCount, colList, set));
         }
 
-        [HttpPost]
+        //[HttpPost]
         public async Task<IActionResult> ExportVetReport(string CenterId, string selectedMonth, string selectedYear)
         {
             var objSessionUSer = HttpContext.Session.GetSessionUser();

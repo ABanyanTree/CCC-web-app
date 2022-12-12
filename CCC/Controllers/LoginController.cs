@@ -96,14 +96,13 @@ namespace CCC.UI.Controllers
             {
                 return Redirect(ReturnUrl);
             }
-            else if (!response.IsAdmin)
+            else if (response.IsAdmin)
             {
                 return RedirectToAction("Dashboard", "Home");
             }
             else
             {
-                var adminHome = response.UserFeatures.Where(x => x.FeatureId == "FEA00007").FirstOrDefault();
-                return RedirectToAction(adminHome.ActionName, adminHome.ControllerName);
+                return RedirectToAction("CenterManagerDashnoard","Home");
             }
 
         }

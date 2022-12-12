@@ -867,3 +867,4 @@ D:\Shahen-WorkFront\Projects\CodeZen\CCC\CCC\obj\Debug\net5.0\Razor\Views\Lookup
 D:\Shahen-WorkFront\Projects\CodeZen\CCC\CCC\obj\Debug\net5.0\Razor\Views\Report\ManageVetReport.cshtml.g.cs
 D:\Shahen-WorkFront\Projects\CodeZen\CCC\CCC\bin\Debug\net5.0\EPPlus.dll
 D:\Shahen-WorkFront\Projects\CodeZen\CCC\CCC\bin\Debug\net5.0\System.Xml.XPath.XmlDocument.dll
+D:\Shahen-WorkFront\Projects\CodeZen\CCC\CCC\obj\Debug\net5.0\Razor\Views\Home\CenterManagerDashnoard.cshtml.g.cs

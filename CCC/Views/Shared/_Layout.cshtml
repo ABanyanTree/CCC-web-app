@@ -48,6 +48,9 @@
 
     var stagingSite = Context.Session.GetString("StagingSiteMessage");
     string stagingSiteText = stagingSite == null ? "" : Newtonsoft.Json.JsonConvert.DeserializeObject<string>(stagingSite);
+
+    string strHomeAction = objSessionUser.IsAdmin == true ? "Dashboard" : "CenterManagerDashnoard";
+    string ss = "";
 }
 <style>
 </style>
@@ -176,6 +179,8 @@
         }
     </environment>
 
+
+
 </head>
 <body>
     <div id="dvLoading" class="loaderImg text-center" style="display:none">
@@ -188,9 +193,10 @@
     <div class="overlay"></div>
     <!-- Header Start -->
     <div class="navbar-fixed-top learnPortHeader">
-        <div class="pull-left myCourLogo mainLogoAdmin">
-            <a>
-                @*<img style="width:120px" src='@Url.Content("~/Images" + imgPath + "/main-logo.png")' />*@
+        <div class="pull-left HomeLogo mainLogoAdmin active">           
+            @*<a id="lnkBtnHomeMaster" href="@strHomeURL" class="mnuitem lftmn">*@
+          <a id="lnkHomeScreen" class="aClickable" onclick="setSession('011', '011')" asp-controller="Home" asp-action="@strHomeAction">
+                <i id="iHomeScreen" class="fa fa-home HomeLogoSize"></i>
             </a>
         </div>
         @if (env == "Development" || env == "Staging")
@@ -292,7 +298,6 @@
                         <div class="sidebar-content">
                             <div class="sidebar-menu">
                                 <ul class="">
-
                                     @foreach (FeatureMasterResponseVM singleParent in lstParentFeatures)
                                     {
                                         string selectedClass1 = "";
@@ -376,8 +381,8 @@
 </html>
 
 <script type="text/javascript">
-	function setSession(level1, level2) {
-		var url = '@Url.Action("SetActiveMenuSession", "Login")?level1=' + level1 + '&level2=' + level2 + '';
+    function setSession(level1, level2) {
+       var url = '@Url.Action("SetActiveMenuSession", "Login")?level1=' + level1 + '&level2=' + level2 + '';
 		$.ajax({
             url: url,
             method: "POST",
@@ -527,6 +532,13 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
+        var currURL = document.URL;
+        let result = currURL.includes("Home");
+        if (result == true) {
+            $("#iHomeScreen").addClass('HomeIconColor');
+        } else {
+            $("#iHomeScreen").removeClass('HomeIconColor');
+        }
         $('[data-toggle="tooltip"]').tooltip();
         //Vikas 04Mar2020 To reset statesave
         //$("#sidebar .aClickable").click(function () {
@@ -637,7 +649,9 @@
         }
     });
 
-
+    //$("#lnkHomeScreen").click(function () {
+    //   //$("")
+    //});
 
     $(document).ready(function () {
         $('#dismisssidebar, .overlayMobile').on('click', function () {

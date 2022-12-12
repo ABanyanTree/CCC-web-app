@@ -224,7 +224,7 @@
         var Year = $('#ddlYear').val();
         debugger;
 
-         $.ajax({
+         @*$.ajax({
               url: '@Url.Action("ExportVetReport", "Report")?CenterId=' + CenterId + '&selectedMonth=' + Month + '&selectedYear=' + Year,
               type: "POST",
              processData: false,
@@ -236,10 +236,10 @@
                      showWarningMsg('No data avaialbe');
                  }
              }
-         });
+         });*@
 
 
-        @*var url = '@Url.Action("ExportVetReport", "Report")?CenterId' + CenterId + '&selectedMonth=' + Month + '&selectedYear=' + Year;
-        document.location.href = url;*@
+        var url = '@Url.Action("ExportVetReport", "Report")?CenterId=' + CenterId + '&selectedMonth=' + Month + '&selectedYear=' + Year;
+        document.location.href = url;
     });
 </script>

@@ -102,6 +102,8 @@ namespace CCC.Data.Services
             {
                 User.userRoles = UserRoleList;
                 User.UserFeatures = FeatureList;
+                var Isadmin = UserRoleList.Where(x => x.RoleId == "1").ToList().Count > 0 ? true : false;
+                User.IsAdmin = Isadmin;
                 return User;
             }
 
