@@ -29,5 +29,18 @@ namespace CCC.UI.RefitClientFactory
         [Get(path: "/api/petservice/getcentermgrdahsboardlist")]
         Task<ApiResponse<List<GetAllPetDataResponse>>> GetCenterMgrDashboardList(SearchPetData request);
 
+        [Post(path: "/api/petservice/addpetdatanotification")]
+        Task<HttpResponseMessage> AddPetDataNotification(PetDataNotificationRequest request);
+
+        [Get(path: "/api/petservice/readpetdatabyuser")]
+        Task<ApiResponse<List<PetDataNotificationResponse>>> ReadPetDataByUser(string userId, bool IsAdmin);
+
+        [Get(path: "/api/petservice/getpetunreaddata")]
+        Task<ApiResponse<PetDataNotificationResponse>> GetPetUnReadData(string userId, bool IsAdmin);
+
+
+
+
+
     }
 }

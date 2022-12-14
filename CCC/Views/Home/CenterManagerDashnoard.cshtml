@@ -154,7 +154,7 @@
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="pull-left">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item active" aria-current="page">Pet Data(on Hold)</li>
+                        <li class="breadcrumb-item active" aria-current="page">Pet Data(Not Released)</li>
                     </ol>
                 </div>
                 <div class="filterMenuIcon"></div>
@@ -213,7 +213,7 @@
                         <tr>
                             <th>Pet</th>
                             <th>Surgery Date</th>
-                            <th>On Hold Days</th>
+                            <th>Total Days<br />(After Surgery)</th>
                             <th>Vet Name</th>
                             <th>Center Name</th>
                             <th>Area Name</th>
@@ -243,8 +243,16 @@
     function EditEvent(serviceId) {
         var url = '@Url.Action("AddEditPetData", "PetService")?serviceId=' + serviceId + '';
         document.location.href = url;
-
     }
+
+     $(document).ready(function () {
+        var count =@Model.TotalCount;
+        if (count > 0) {
+            $("#spPetDataCart").text(count);
+            $("#spPetDataCart").addClass('badge badge-counter');
+        }
+    });
+
 </script>
 
 

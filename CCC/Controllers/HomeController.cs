@@ -30,9 +30,18 @@ namespace CCC.Controllers
             return View();
         }
 
-        public IActionResult Dashboard()
+        public async Task<ActionResult> Dashboard()
         {
-            return View();
+            SearchPetData obj = new SearchPetData();
+            var objSessionUSer = HttpContext.Session.GetSessionUser();
+            var cachedToken = HttpContext.Session.GetBearerToken();
+            var PetServiceAPI = RestService.For<IPetServiceApi>(hostUrl: ApplicationSettings.WebApiUrl, new RefitSettings
+            {
+                AuthorizationHeaderValueGetter = () => Task.FromResult(cachedToken)
+            });
+            var objResponse = await PetServiceAPI.GetPetUnReadData(objSessionUSer.UserId, objSessionUSer.IsAdmin);
+            obj.TotalCount = objResponse.Content != null ? objResponse.Content.TotalCount : 0;
+            return View(obj);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
@@ -57,6 +66,13 @@ namespace CCC.Controllers
             {
                 AuthorizationHeaderValueGetter = () => Task.FromResult(cachedToken)
             });
+
+            var PetServiceAPI = RestService.For<IPetServiceApi>(hostUrl: ApplicationSettings.WebApiUrl, new RefitSettings
+            {
+                AuthorizationHeaderValueGetter = () => Task.FromResult(cachedToken)
+            });
+            var objResponse = await PetServiceAPI.GetPetUnReadData(objSessionUser.UserId, objSessionUser.IsAdmin);
+            obj.TotalCount = objResponse.Content != null ? objResponse.Content.TotalCount : 0;
 
             var centerRes = await CenterMasterAPI.GetAllCenters(objSessionUser.UserCenters);
             ViewBag.lstCenter = new SelectList(centerRes.Content, "CenterId", "CenterName");

@@ -16,5 +16,6 @@ namespace CCC.UI.ViewModels
         public bool? IsActive { get; set; }
         public string CreatedBy { get; set; }
         public string ModifiedBy { get; set; }
+        public int TotalCount { get; set; }
     }
 }

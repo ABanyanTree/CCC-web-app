@@ -62,6 +62,9 @@ namespace CCC.lOC
             services.AddSingleton<IRefreshTokenService, RefreshTokenService>();
             services.AddSingleton<IRefreshTokenRepository, RefreshTokenRepository>();
 
+            services.AddSingleton<IPetDataNotificationService, PetDataNotificationService>();
+            services.AddSingleton<IPetDataNotificationRepository, PetDataNotificationRepository>();
+
 
 
         }

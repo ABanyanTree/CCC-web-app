@@ -12,10 +12,12 @@ namespace CCC.API.Controllers
     public class PetServiceController : Controller
     {
         private readonly IPetServices _iPetService;
+        private readonly IPetDataNotificationService _iPetDataNotificationService;
 
-        public PetServiceController(IPetServices petServices)
+        public PetServiceController(IPetServices petServices, IPetDataNotificationService PetDataNotificationService)
         {
             _iPetService = petServices;
+            _iPetDataNotificationService = PetDataNotificationService;
         }
 
         [HttpPost(ApiRoutes.PetServicesDetails.AddEditPetData), DisableRequestSizeLimit]
@@ -82,5 +84,30 @@ namespace CCC.API.Controllers
             var objResponse = await _iPetService.GetCenterMgrDashboardList(searchRequest);
             return Ok(objResponse);
         }
+
+        [HttpPost(ApiRoutes.PetServicesDetails.AddPetDataNotification), DisableRequestSizeLimit]
+        [ProducesResponseType(typeof(string), statusCode: 200)]
+        public async Task<IActionResult> AddPetDataNotification([FromBody] PetDataNotification request)
+        {
+            var successCount = await _iPetDataNotificationService.AddEditAsync(request);
+            return Ok(successCount);
+        }
+        [HttpGet(ApiRoutes.PetServicesDetails.ReadPetDataByUser), DisableRequestSizeLimit]
+        [ProducesResponseType(typeof(List<PetDataNotification>), statusCode: 200)]
+        public async Task<IActionResult> ReadPetDataByUser(string userId, bool IsAdmin)
+        {
+            var response = await _iPetDataNotificationService.ReadPetDataByUser(userId, IsAdmin);
+            return Ok(response);
+        }
+
+        [HttpGet(ApiRoutes.PetServicesDetails.GetPetUnReadData), DisableRequestSizeLimit]
+        [ProducesResponseType(typeof(PetDataNotification), statusCode: 200)]
+        public async Task<IActionResult> GetPetUnReadData(string userId, bool IsAdmin)
+        {
+            var response = await _iPetDataNotificationService.GetPetUnReadData(userId, IsAdmin);
+            return Ok(response);
+        }
+
+
     }
 }

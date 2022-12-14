@@ -50,7 +50,7 @@
     string stagingSiteText = stagingSite == null ? "" : Newtonsoft.Json.JsonConvert.DeserializeObject<string>(stagingSite);
 
     string strHomeAction = objSessionUser.IsAdmin == true ? "Dashboard" : "CenterManagerDashnoard";
-   
+
 }
 <style>
 </style>
@@ -193,9 +193,9 @@
     <div class="overlay"></div>
     <!-- Header Start -->
     <div class="navbar-fixed-top learnPortHeader">
-        <div class="pull-left HomeLogo mainLogoAdmin active">           
+        <div class="pull-left HomeLogo mainLogoAdmin active">
             @*<a id="lnkBtnHomeMaster" href="@strHomeURL" class="mnuitem lftmn">*@
-          <a id="lnkHomeScreen" class="aClickable" onclick="setSession('011', '011')" asp-controller="Home" asp-action="@strHomeAction">
+            <a id="lnkHomeScreen" class="aClickable" onclick="setSession('011', '011')" asp-controller="Home" asp-action="@strHomeAction">
                 <i id="iHomeScreen" class="fa fa-home HomeLogoSize"></i>
             </a>
         </div>
@@ -229,11 +229,14 @@
                                 </a>*@
                         </li>
                         <!--KIRAN(21JAN2020): Cart Count Management-->
-                        <li class="shopCartIcon posRel">
-                            <a asp-controller="Cart" asp-action="ShoppingCart" title="Shopping Cart">
-                                <img src='@Url.Content("~/Images" + imgPath + "/shopping-cart.png")' />
-                                <span class="badge badge-counter" id="spCartCount">0</span>
-                            </a>
+                        <li id="petBellIcon" class="shopCartIcon posRel">
+                            <img src='@Url.Content("~/Images" + imgPath + "/bell.png")' />
+                            <span id="spPetDataCart"></span>
+                            @*class="badge badge-counter"*@
+                            @*<a asp-controller="PetService" asp-action="ReadPetData" title="On Hold Pet Data">
+                                    <img src='@Url.Content("~/Images" + imgPath + "/bell.png")' />
+                                    <span class="badge badge-counter" id="spPetDataCart"></span>
+                                </a>*@
                         </li>
                         <!-------------------------------------------->
 
@@ -670,6 +673,21 @@
             $('a[aria-expanded=true]').attr('aria-expanded', 'false');
         });
     });
+
+    $("#petBellIcon").on('click', function () {
+        var _url = '@Url.Action("ReadPetData", "PetService")';
+        DialogBell(_url, 'Pet Data (On Hold)');
+    });
+    function DialogBell(_url, headtitle) {
+        $.dialog({
+            title: headtitle,
+            content: 'url:' + _url,
+            columnClass: 'col-md-6',
+            alignMiddle: true,
+            onClose: function () {
+            }
+        });
+    }
 </script>
 
 

@@ -24,7 +24,6 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-
         $("#mydatatable").tableHeadFixer({ "head": true, "top": 1 });
         var langUrl = $("#LangUrl").val();
         var mytable = $('#mydatatable').dataTable({
@@ -229,7 +228,14 @@
 
             var _url = '@Url.Action("ChangeCenter", "PetService")?serviceIds=' + serviceIds;
         Dialogcont(_url, 'Change Centers');
-       });
+        });
+
+
+        var count ='@Model.TotalCount';
+        if (count > 0) {
+            $("#spPetDataCart").text(count);
+            $("#spPetDataCart").addClass('badge badge-counter');
+        }
     });
 
 </script>

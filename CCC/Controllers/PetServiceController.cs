@@ -36,15 +36,10 @@ namespace CCC.UI.Controllers
                 AuthorizationHeaderValueGetter = () => Task.FromResult(cachedToken)
             });
 
-            //var VetMasterAPI = RestService.For<IVetMasterApi>(hostUrl: ApplicationSettings.WebApiUrl, new RefitSettings
-            //{
-            //    AuthorizationHeaderValueGetter = () => Task.FromResult(cachedToken)
-            //});
-
-            //var LookupMasterAPI = RestService.For<ILookupMasterApi>(hostUrl: ApplicationSettings.WebApiUrl, new RefitSettings
-            //{
-            //    AuthorizationHeaderValueGetter = () => Task.FromResult(cachedToken)
-            //});
+            var PetServiceAPI = RestService.For<IPetServiceApi>(hostUrl: ApplicationSettings.WebApiUrl, new RefitSettings
+            {
+                AuthorizationHeaderValueGetter = () => Task.FromResult(cachedToken)
+            });
 
             var centerRes = await CenterMasterAPI.GetAllCenters(objSessionUser.UserCenters);
             ViewBag.lstCenter = new SelectList(centerRes.Content, "CenterId", "CenterName");
@@ -52,12 +47,9 @@ namespace CCC.UI.Controllers
             var cityAreaRes = await CityAreaMasterAPI.GetAllCityAreas();
             ViewBag.lstCityArea = new SelectList(cityAreaRes.Content, "AreaId", "AreaName");
 
-            //var vetRes = await VetMasterAPI.GetAllVetDetails();
-            //ViewBag.lstVet = new SelectList(vetRes.Content, "VetId", "VetName");
 
-            //var petTypes = await LookupMasterAPI.GetLookupData(CommonConstants.LOOKUPTYPE_PETTYPE);
-            //ViewBag.lstPetType = new SelectList(vetRes.Content, "LookupId", "LookupValue");
-
+            var objResponse = await PetServiceAPI.GetPetUnReadData(objSessionUser.UserId, objSessionUser.IsAdmin);
+            obj.TotalCount = objResponse.Content != null ? objResponse.Content.TotalCount : 0;
 
             return View(obj);
 
@@ -275,12 +267,17 @@ namespace CCC.UI.Controllers
             if (IsNewRecord) { model.CreatedBy = objSessionUSer.UserId; }
             model.ModifiedBy = objSessionUSer.UserId;
             var apiResponse = await PetServiceAPI.AddEditPetData(model);
-            string CountryID = apiResponse?.Content?.ReadAsStringAsync().Result;
+            string serviceId = apiResponse?.Content?.ReadAsStringAsync().Result;
+
+            if (model.IsOnHold == true)
+            {
+                var IsNotificationUpdated = await UpdatePetDataForNotification(serviceId, objSessionUSer.UserId, objSessionUSer.IsAdmin);
+            }
 
             if (apiResponse != null && apiResponse.IsSuccessStatusCode)
             {
-                string msg = IsNewRecord ? "Country added successfully." : "Country updated successfully.";
-                return Json(new { CountryID = CountryID, isSuccess = true, message = msg });
+                string msg = IsNewRecord ? "Pet added successfully." : "Pet updated successfully.";
+                return Json(new { serviceId = serviceId, isSuccess = true, message = msg });
             }
             else
             {
@@ -288,6 +285,40 @@ namespace CCC.UI.Controllers
                 return Json(new { CountryID = 0, isSuccess = false, message = "" });
             }
         }
+
+        private async Task<IActionResult> UpdatePetDataForNotification(string serviceId, string userId, bool IsAdmin)
+        {
+            bool IsSuccess = false;
+            var objSessionUSer = HttpContext.Session.GetSessionUser();
+            var cachedToken = HttpContext.Session.GetBearerToken();
+            var PetServiceAPI = RestService.For<IPetServiceApi>(hostUrl: ApplicationSettings.WebApiUrl, new RefitSettings
+            {
+                AuthorizationHeaderValueGetter = () => Task.FromResult(cachedToken)
+            });
+            PetDataNotificationRequest model = new PetDataNotificationRequest();
+            model.ServiceId = serviceId;
+            model.UserId = userId;
+            model.IsAdmin = IsAdmin;
+
+            var apiResponse = await PetServiceAPI.AddPetDataNotification(model);
+            return Ok(IsSuccess);
+
+        }
+
+        public async Task<IActionResult> ReadPetData()
+        {
+            var objSessionUSer = HttpContext.Session.GetSessionUser();
+            var cachedToken = HttpContext.Session.GetBearerToken();
+            var PetServiceAPI = RestService.For<IPetServiceApi>(hostUrl: ApplicationSettings.WebApiUrl, new RefitSettings
+            {
+                AuthorizationHeaderValueGetter = () => Task.FromResult(cachedToken)
+            });
+            string userId = objSessionUSer.UserId;
+            var apiResponse = await PetServiceAPI.ReadPetDataByUser(userId, objSessionUSer.IsAdmin);
+            var data = (List<PetDataNotificationResponse>)apiResponse.Content;
+            return PartialView("_OnHoldPetData", data);
+        }
+
 
 
         public async Task<IActionResult> ChangeCenter(string serviceIds)

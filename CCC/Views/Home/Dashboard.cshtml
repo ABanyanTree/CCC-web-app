@@ -1,8 +1,19 @@
-﻿
+﻿@using CCC.UI.ViewModels
+@model SearchPetData
 @{
     ViewData["Title"] = "Dashboard";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h1>Admin Dashboard</h1>
+<script>
+    $(document).ready(function () {
+        var count =@Model.TotalCount;
+        if (count > 0) {
+            $("#spPetDataCart").text(count);
+            $("#spPetDataCart").addClass('badge badge-counter');
+        }
+    });
+    
+</script>
 
