@@ -23,7 +23,7 @@ namespace CCC.UI.ViewModels
         public string RefreshToken { get; set; }
         public string UserType { get; set; }
         public string CenterNames { get; set; }
-
+        public string UserCenters { get; set; }
         public List<FeatureMasterResponseVM> UserFeatures { get; set; } = new List<FeatureMasterResponseVM>();
         public List<UserRoleResponseVM> userRoles { get; set; } = new List<UserRoleResponseVM>();
 

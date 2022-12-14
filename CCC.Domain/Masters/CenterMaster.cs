@@ -13,7 +13,9 @@ namespace CCC.Domain
         public string CenterAddress { get; set; }
         public string Description { get; set; }
         public string UserId { get; set; }
-        
+        public string UserCenters { get; set; }
+
+
     }
 
     public class CenterMaster_Constant : BaseEntity_Constant
@@ -23,6 +25,8 @@ namespace CCC.Domain
         public const string CENTERADDRESS = "CenterAddress";
         public const string DESCRIPTION = "Description";
         public const string USERID = "UserId";
+        public const string USERCENTERS = "UserCenters";
+
 
         public const string SPROC_CENTERMASTER_UPS = "sproc_CenterMaster_ups";
         public const string SPROC_CENTERMASTER_SEL = "sproc_CenterMaster_sel";

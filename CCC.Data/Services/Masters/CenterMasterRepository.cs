@@ -44,10 +44,10 @@ namespace CCC.Data.Services
             return await GetAllAsync(obj, addParams, CenterMaster_Constant.SPROC_CENTERMASTER_LSTALL);
         }
 
-        public async Task<IEnumerable<CenterMaster>> GetAllCenters()
+        public async Task<IEnumerable<CenterMaster>> GetAllCenters(CenterMaster obj)
         {
-            string[] addParams = new string[] { };
-            return await GetAllAsync(new CenterMaster(), addParams, CenterMaster_Constant.SPROC_CENTERMASTER_GETALL);
+            string[] addParams = new string[] { CenterMaster_Constant.USERCENTERS };
+            return await GetAllAsync(obj, addParams, CenterMaster_Constant.SPROC_CENTERMASTER_GETALL);
 
         }
 
@@ -73,7 +73,7 @@ namespace CCC.Data.Services
 
         public async Task<IEnumerable<CenterMaster>> GetAllCenterByUser(CenterMaster obj)
         {
-            string[] addParams = new string[] { CenterMaster_Constant .USERID};
+            string[] addParams = new string[] { CenterMaster_Constant.USERID };
             return await GetAllAsync(obj, addParams, CenterMaster_Constant.SPROC_GETCENTERBYUSER_LISTALL);
         }
     }

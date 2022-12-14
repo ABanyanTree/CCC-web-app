@@ -46,8 +46,7 @@ namespace CCC.UI.Controllers
             //    AuthorizationHeaderValueGetter = () => Task.FromResult(cachedToken)
             //});
 
-
-            var centerRes = await CenterMasterAPI.GetAllCenters();
+            var centerRes = await CenterMasterAPI.GetAllCenters(objSessionUser.UserCenters);
             ViewBag.lstCenter = new SelectList(centerRes.Content, "CenterId", "CenterName");
 
             var cityAreaRes = await CityAreaMasterAPI.GetAllCityAreas();
@@ -165,7 +164,8 @@ namespace CCC.UI.Controllers
             }
 
             var cachedToken = HttpContext.Session.GetBearerToken();
-
+            searchObj.RequesterUserId = objSessionUSer.UserId;
+            searchObj.UserCenters = objSessionUSer.UserCenters;
             var PetServiceAPI = RestService.For<IPetServiceApi>(hostUrl: ApplicationSettings.WebApiUrl, new RefitSettings
             {
                 AuthorizationHeaderValueGetter = () => Task.FromResult(cachedToken)
@@ -224,7 +224,7 @@ namespace CCC.UI.Controllers
             });
 
 
-            var centerRes = await CenterMasterAPI.GetAllCenters();
+            var centerRes = await CenterMasterAPI.GetAllCenters(objSessionUser.UserCenters);
             ViewBag.lstCenter = new SelectList(centerRes.Content, "CenterId", "CenterName");
 
             var cityAreaRes = await CityAreaMasterAPI.GetAllCityAreas();
@@ -244,6 +244,7 @@ namespace CCC.UI.Controllers
 
 
             CreatePetService model = new CreatePetService();
+            model.IsAdmin = objSessionUser.IsAdmin;
             if (!string.IsNullOrEmpty(serviceId))
             {
                 var updateResponse = await PetServiceAPI.GetPetData(serviceId);
@@ -271,7 +272,7 @@ namespace CCC.UI.Controllers
             {
                 AuthorizationHeaderValueGetter = () => Task.FromResult(cachedToken)
             });
-            if (IsNewRecord){ model.CreatedBy = objSessionUSer.UserId; }
+            if (IsNewRecord) { model.CreatedBy = objSessionUSer.UserId; }
             model.ModifiedBy = objSessionUSer.UserId;
             var apiResponse = await PetServiceAPI.AddEditPetData(model);
             string CountryID = apiResponse?.Content?.ReadAsStringAsync().Result;
@@ -307,7 +308,7 @@ namespace CCC.UI.Controllers
                     AuthorizationHeaderValueGetter = () => Task.FromResult(cachedToken)
                 });
 
-                var centerRes = await CenterMasterAPI.GetAllCenters();
+                var centerRes = await CenterMasterAPI.GetAllCenters(objSessionUser.UserCenters);
                 ViewBag.lstCenter = new SelectList(centerRes.Content, "CenterId", "CenterName");
             }
 

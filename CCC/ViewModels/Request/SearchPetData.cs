@@ -28,5 +28,7 @@ namespace CCC.UI.ViewModels
 
         public string Month { get; set; }
         public string Year { get; set; }
+
+        public string UserCenters { get; set; }
     }
 }

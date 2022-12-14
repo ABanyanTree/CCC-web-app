@@ -117,7 +117,7 @@ namespace CCC.UI.Controllers
                 AuthorizationHeaderValueGetter = () => Task.FromResult(cachedToken)
             });
 
-            var centerRes = await CenterMasterAPI.GetAllCenters();
+            var centerRes = await CenterMasterAPI.GetAllCenters(objSessionUser.UserCenters);
             ViewBag.lstCenter = new SelectList(centerRes.Content, "CenterId", "CenterName");
 
             UserMasterRequest model = new UserMasterRequest();

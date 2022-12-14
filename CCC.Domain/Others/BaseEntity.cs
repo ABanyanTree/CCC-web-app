@@ -37,6 +37,8 @@ namespace CCC.Domain
         public const string CREATEDDATE = "CreatedDate";
         public const string MODIFIEDDATE = "ModifiedDate";
         public const string ISACTIVE = "IsActive";
+        public const string REQUESTERUSERID = "RequesterUserId";
+        
 
     }
 }

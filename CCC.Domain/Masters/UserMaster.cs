@@ -28,6 +28,7 @@ namespace CCC.Domain
 
         public string UserType { get; set; }
         public string CenterNames { get; set; }
+        public string UserCenters { get; set; }        
         public List<CenterMaster> lstCenters { get; set; } = new List<CenterMaster>();
         public List<FeatureMaster> UserFeatures { get; set; } = new List<FeatureMaster>();
         public List<UserRoleMasters> userRoles { get; set; } = new List<UserRoleMasters>();

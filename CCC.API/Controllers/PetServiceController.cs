@@ -74,6 +74,13 @@ namespace CCC.API.Controllers
             var objResponse = await _iPetService.GetVetReport(searchRequest);
             return Ok(objResponse);
         }
-        
+
+        [HttpGet(ApiRoutes.PetServicesDetails.GetCenterMgrDashboardList)]
+        [ProducesResponseType(typeof(List<PetServiceDetails>), statusCode: 200)]
+        public async Task<IActionResult> GetCenterMgrDashboardList(PetServiceDetails searchRequest)
+        {
+            var objResponse = await _iPetService.GetCenterMgrDashboardList(searchRequest);
+            return Ok(objResponse);
+        }
     }
 }

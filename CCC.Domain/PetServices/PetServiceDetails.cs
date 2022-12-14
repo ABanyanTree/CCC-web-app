@@ -48,6 +48,9 @@ namespace CCC.Domain
         public DateTime? SurgeryDateTo { get; set; }
         public DateTime? ReleaseDateFrom { get; set; }
         public DateTime? ReleaseDateTo { get; set; }
+        public string UserCenters { get; set; }
+        public int OnHoldDays { get; set; }
+
     }
 
     public class PetServiceDetails_Constant : BaseEntity_Constant
@@ -79,6 +82,8 @@ namespace CCC.Domain
         public const string SURGERYDATETO = "SurgeryDateTo";
         public const string RELEASEDATEFROM = "ReleaseDateFrom";
         public const string RELEASEDATETO = "ReleaseDateTo";
+        public const string USERCENTERS = "UserCenters";
+
 
 
 
@@ -88,9 +93,11 @@ namespace CCC.Domain
         public const string SPROC_PETSERVICE_LSTALL = "sproc_PetService_lstAll";
         public const string SPROC_PETSERVICE_DEL = "sproc_PetService_del";
         public const string SPROC_CHANGECENTERFORPET = "sproc_ChangeCenterForPet";
-        
+
         public const string SPROC_GETVETREPORT = "sproc_GetVetReport";
-        
+        public const string SPROC_GETCENTERMGRDASHBOARDLIST = "sproc_GetCenterMgrDashboardList";
+
+
 
 
 

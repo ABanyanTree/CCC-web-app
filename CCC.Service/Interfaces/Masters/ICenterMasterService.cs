@@ -9,7 +9,7 @@ namespace CCC.Service.Interfaces
     {
         Task<string> AddEditCenter(CenterMaster obj);
         Task<CenterMaster> IsCenterNameInUse(string centerName);
-        Task<IEnumerable<CenterMaster>> GetAllCenters();
+        Task<IEnumerable<CenterMaster>> GetAllCenters(CenterMaster obj);
         Task<CenterMaster> IsInUseCount(string centerId);
         Task<IEnumerable<CenterMaster>> GetAllCenterByUser(CenterMaster obj);
     }

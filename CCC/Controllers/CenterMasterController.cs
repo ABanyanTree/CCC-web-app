@@ -139,6 +139,16 @@ namespace CCC.UI.Controllers
 
             if (apiResponse != null && apiResponse.IsSuccessStatusCode)
             {
+                //if (objSessionUSer.IsAdmin == false)
+                //{
+                //    List<string> lstCenters = objSessionUSer.UserCenters.Split(',').ToList();
+                //    lstCenters.Add(centerId);
+                //    objSessionUSer.UserCenters = string.Empty;
+                //    string lstUserCenters = string.Join(",", lstCenters);
+                //    HttpContext.Session.SetObject("UserCenters", "");
+                //    HttpContext.Session.SetObject("UserCenters", lstUserCenters);
+                //    //string.Join(",", lstCenters);
+                //}
                 string msg = IsNewRecord ? "Center added successfully." : "Center updated successfully.";
                 return Json(new { CenterId = centerId, CenterName = model.CenterName, isSuccess = true, message = msg });
             }

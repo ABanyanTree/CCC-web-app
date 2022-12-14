@@ -49,9 +49,9 @@ namespace CCC.Service.Services
             return await _iCenterMasterRepository.GetAllCenterByUser(obj);
         }
 
-        public async Task<IEnumerable<CenterMaster>> GetAllCenters()
+        public async Task<IEnumerable<CenterMaster>> GetAllCenters(CenterMaster obj)
         {
-            return await _iCenterMasterRepository.GetAllCenters();
+            return await _iCenterMasterRepository.GetAllCenters(obj);
         }
 
         public async Task<CenterMaster> GetAsync(CenterMaster obj)

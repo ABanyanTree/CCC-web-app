@@ -44,6 +44,7 @@ namespace CCC.UI.ViewModels
 
         public string LoginUniqueId { get; set; }
 
+        public string UserCenters { get; set; }
 
         ////
         public string URoleId { get; set; }

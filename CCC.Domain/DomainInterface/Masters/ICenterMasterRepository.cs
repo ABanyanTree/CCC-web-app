@@ -12,7 +12,7 @@ namespace CCC.Domain.DomainInterface
         Task<CenterMaster> GetCenter(CenterMaster obj);
         Task<IEnumerable<CenterMaster>> GetAllCenterList(CenterMaster obj);
         Task<int> DeleteCenter(CenterMaster obj);
-        Task<IEnumerable<CenterMaster>> GetAllCenters();
+        Task<IEnumerable<CenterMaster>> GetAllCenters(CenterMaster obj);
         Task<CenterMaster> IsCenterNameInUse(string centerName);
         Task<CenterMaster> IsInUseCount(string centerId);
         Task<IEnumerable<CenterMaster>> GetAllCenterByUser(CenterMaster obj);

@@ -60,7 +60,7 @@ namespace CCC.Data.Services
             string[] addParams = new string[] { BaseEntity_Constant.PAGEINDEX, BaseEntity_Constant.PAGESIZE, BaseEntity_Constant.SORTEXP,
             PetServiceDetails_Constant.CENTERID,PetServiceDetails_Constant.AREAID,PetServiceDetails_Constant.ADMISSIONDATEFROM,
             PetServiceDetails_Constant.ADMISSIONDATETO,PetServiceDetails_Constant.SURGERYDATEFROM,PetServiceDetails_Constant.SURGERYDATETO,
-            PetServiceDetails_Constant.RELEASEDATEFROM,PetServiceDetails_Constant.RELEASEDATETO
+            PetServiceDetails_Constant.RELEASEDATEFROM,PetServiceDetails_Constant.RELEASEDATETO,BaseEntity_Constant.REQUESTERUSERID,PetServiceDetails_Constant.USERCENTERS
             };
             return await GetAllAsync(obj, addParams, PetServiceDetails_Constant.SPROC_PETSERVICE_LSTALL);
         }
@@ -86,6 +86,14 @@ namespace CCC.Data.Services
             string[] addParams = new string[] {PetServiceDetails_Constant.CENTERID,PetServiceDetails_Constant.SURGERYDATEFROM,
                 PetServiceDetails_Constant.SURGERYDATETO};
             return await GetAllAsync(obj, addParams, PetServiceDetails_Constant.SPROC_GETVETREPORT);
+        }
+
+        public async Task<IEnumerable<PetServiceDetails>> GetCenterMgrDashboardList(PetServiceDetails obj)
+        {
+            string[] addParams = new string[] {BaseEntity_Constant.PAGEINDEX, BaseEntity_Constant.PAGESIZE, BaseEntity_Constant.SORTEXP,
+            PetServiceDetails_Constant.CENTERID,PetServiceDetails_Constant.AREAID,PetServiceDetails_Constant.USERCENTERS
+           };
+            return await GetAllAsync(obj, addParams, PetServiceDetails_Constant.SPROC_GETCENTERMGRDASHBOARDLIST);
         }
     }
 }

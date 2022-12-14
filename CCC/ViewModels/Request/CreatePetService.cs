@@ -42,5 +42,7 @@ namespace CCC.UI.ViewModels
         public string CreatedBy { get; set; }
         public string ModifiedBy { get; set; }
         public bool? IsActive { get; set; }
+
+        public bool IsAdmin { get; set; }
     }
 }

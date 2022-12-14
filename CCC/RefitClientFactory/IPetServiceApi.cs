@@ -26,6 +26,8 @@ namespace CCC.UI.RefitClientFactory
         [Get(path: "/api/petservice/getvetreport")]
         Task<ApiResponse<List<GetAllPetDataResponse>>> GetVetReport(SearchPetData request);
 
+        [Get(path: "/api/petservice/getcentermgrdahsboardlist")]
+        Task<ApiResponse<List<GetAllPetDataResponse>>> GetCenterMgrDashboardList(SearchPetData request);
 
     }
 }

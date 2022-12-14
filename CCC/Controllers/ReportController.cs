@@ -41,7 +41,7 @@ namespace CCC.UI.Controllers
             ViewBag.lstMonth = GetAllMonths();
             ViewBag.lstYears = GetAllYears();
 
-            var centerRes = await CenterMasterAPI.GetAllCenters();
+            var centerRes = await CenterMasterAPI.GetAllCenters(objSessionUser.UserCenters);
             ViewBag.lstCenter = new SelectList(centerRes.Content, "CenterId", "CenterName");
 
             return View(obj);

@@ -93,9 +93,9 @@ namespace CCC.API.Controllers.Masters
         [HttpGet(ApiRoutes.CenterMaster.GetAllCenters)]
         [ProducesResponseType(typeof(CenterMaster), statusCode: 200)]
         [ProducesResponseType(typeof(ErrorLogs), statusCode: 400)]
-        public async Task<IActionResult> GetAllCenters()
+        public async Task<IActionResult> GetAllCenters(string userCenters = "")
         {
-            var objResponse = await _iCenterMasterService.GetAllCenters();
+            var objResponse = await _iCenterMasterService.GetAllCenters(new CenterMaster() { UserCenters = userCenters });
             return Ok(objResponse);
         }
 

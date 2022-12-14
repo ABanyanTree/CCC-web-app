@@ -59,5 +59,9 @@ namespace CCC.UI.ViewModels
         public DateTime? SurgeryDateTo { get; set; }
         public DateTime? ReleaseDateFrom { get; set; }
         public DateTime? ReleaseDateTo { get; set; }
+
+        public int OnHoldDays { get; set; }
+
+
     }
 }
