@@ -269,10 +269,7 @@ namespace CCC.UI.Controllers
             var apiResponse = await PetServiceAPI.AddEditPetData(model);
             string serviceId = apiResponse?.Content?.ReadAsStringAsync().Result;
 
-            if (model.IsOnHold == true)
-            {
-                var IsNotificationUpdated = await UpdatePetDataForNotification(serviceId, objSessionUSer.UserId, objSessionUSer.IsAdmin);
-            }
+            var IsNotificationUpdated = await UpdatePetDataForNotification(serviceId, objSessionUSer.UserId, objSessionUSer.IsAdmin);
 
             if (apiResponse != null && apiResponse.IsSuccessStatusCode)
             {
@@ -281,7 +278,6 @@ namespace CCC.UI.Controllers
             }
             else
             {
-
                 return Json(new { CountryID = 0, isSuccess = false, message = "" });
             }
         }

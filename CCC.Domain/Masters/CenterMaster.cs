@@ -38,6 +38,8 @@ namespace CCC.Domain
         public const string SPROC_CENTERMASTER_ISINCOUNTUSE = "sproc_CenterMaster_IsInCountUse";
         public const string SPROC_GETCENTERBYUSER_LISTALL = "sproc_GetCenterByUser_ListAll";
 
+        public const string SPROC_GETALLCENTERSWITHNOTDATA_FORCURRENTDATE = "sproc_GetAllCentersWithNotData_ForCurrentDate";
+
 
     }
 }

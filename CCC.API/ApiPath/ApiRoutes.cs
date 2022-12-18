@@ -29,10 +29,10 @@ namespace CCC.API.ApiPath
             public const string GetCenter = Base + "/centerMaster/getcenter";
             public const string GetAllCenterList = Base + "/centerMaster/getallcenterlist";
             public const string DeleteCenter = Base + "/centerMaster/deletecenter";
-            
+
             public const string IsCenterNameInUse = Base + "/centerMaster/iscenternameinuse";
             public const string GetAllCenters = Base + "/centerMaster/getallcenters";
-            public const string IsInUseCount = Base + "/centerMaster/isinusecount";            
+            public const string IsInUseCount = Base + "/centerMaster/isinusecount";
         }
 
         public static class CityAreaMaster
@@ -97,9 +97,11 @@ namespace CCC.API.ApiPath
             public const string DeleteLookup = Base + "/lookupmaster/deletelookup";
             public const string GetLookupTypes = Base + "/lookupmaster/getlookuptypes";
 
-            
-
         }
 
+        public static class Notification
+        {
+            public const string DailyDataCheck = Base + "/notification/dailydatacheck";
+        }
     }
 }

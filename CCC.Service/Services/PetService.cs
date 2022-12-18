@@ -61,5 +61,7 @@ namespace CCC.Service.Services
         {
             return await _iPetRepository.GetCenterMgrDashboardList(obj);
         }
+
+       
     }
 }

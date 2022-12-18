@@ -95,5 +95,7 @@ namespace CCC.Data.Services
            };
             return await GetAllAsync(obj, addParams, PetServiceDetails_Constant.SPROC_GETCENTERMGRDASHBOARDLIST);
         }
+
+       
     }
 }

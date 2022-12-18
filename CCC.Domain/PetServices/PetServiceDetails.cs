@@ -85,9 +85,6 @@ namespace CCC.Domain
         public const string USERCENTERS = "UserCenters";
 
 
-
-
-
         public const string SPROC_PETSERVICE_UPS = "sproc_PetService_ups";
         public const string SPROC_PETSERVICE_SEL = "sproc_PetService_sel";
         public const string SPROC_PETSERVICE_LSTALL = "sproc_PetService_lstAll";
@@ -98,8 +95,7 @@ namespace CCC.Domain
         public const string SPROC_GETCENTERMGRDASHBOARDLIST = "sproc_GetCenterMgrDashboardList";
 
 
-
-
+        
 
     }
 }

@@ -16,5 +16,7 @@ namespace CCC.Domain.DomainInterface
         Task<CenterMaster> IsCenterNameInUse(string centerName);
         Task<CenterMaster> IsInUseCount(string centerId);
         Task<IEnumerable<CenterMaster>> GetAllCenterByUser(CenterMaster obj);
+
+        Task<IEnumerable<CenterMaster>> DailyDataCheck();
     }
 }

@@ -12,5 +12,7 @@ namespace CCC.Service.Interfaces
         Task<IEnumerable<CenterMaster>> GetAllCenters(CenterMaster obj);
         Task<CenterMaster> IsInUseCount(string centerId);
         Task<IEnumerable<CenterMaster>> GetAllCenterByUser(CenterMaster obj);
+
+        Task<IEnumerable<CenterMaster>> DailyDataCheck();
     }
 }

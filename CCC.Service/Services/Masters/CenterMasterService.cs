@@ -68,5 +68,10 @@ namespace CCC.Service.Services
         {
             return await _iCenterMasterRepository.IsInUseCount(centerId);
         }
+
+        public async Task<IEnumerable<CenterMaster>> DailyDataCheck()
+        {
+            return await _iCenterMasterRepository.DailyDataCheck();
+        }
     }
 }

@@ -76,5 +76,11 @@ namespace CCC.Data.Services
             string[] addParams = new string[] { CenterMaster_Constant.USERID };
             return await GetAllAsync(obj, addParams, CenterMaster_Constant.SPROC_GETCENTERBYUSER_LISTALL);
         }
+
+        public async Task<IEnumerable<CenterMaster>> DailyDataCheck()
+        {
+            string[] adprm = { };
+            return await GetAllAsync(new CenterMaster(), adprm, CenterMaster_Constant.SPROC_GETALLCENTERSWITHNOTDATA_FORCURRENTDATE);
+        }
     }
 }
