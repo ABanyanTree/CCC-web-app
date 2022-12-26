@@ -62,6 +62,8 @@ namespace CCC.UI.ViewModels
 
         public int OnHoldDays { get; set; }
 
+        public bool IsAdmin { get; set; }
+
 
     }
 }

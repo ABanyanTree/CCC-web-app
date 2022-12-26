@@ -25,6 +25,7 @@ namespace CCC.UI.Controllers
             var cachedToken = HttpContext.Session.GetBearerToken();
 
             SearchPetData obj = new SearchPetData();
+            obj.IsAdmin = objSessionUser.IsAdmin;
 
             var CenterMasterAPI = RestService.For<ICenterMasterApi>(hostUrl: ApplicationSettings.WebApiUrl, new RefitSettings
             {
@@ -165,6 +166,8 @@ namespace CCC.UI.Controllers
             var apiResponse = await PetServiceAPI.GetAllPetDataList(searchObj);
             var response = apiResponse.Content;
 
+            response = response.Select(x => { x.IsAdmin = objSessionUSer.IsAdmin; return x; }).ToList();
+
             var lst = response;
 
             var lst1 = lst?.ToList();
@@ -180,7 +183,7 @@ namespace CCC.UI.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> AddEditPetData(string serviceId)
+        public async Task<IActionResult> AddEditPetData(string serviceId, string redirectFrom = "")
         {
             var objSessionUser = HttpContext.Session.GetSessionUser();
             var cachedToken = HttpContext.Session.GetBearerToken();
@@ -233,10 +236,11 @@ namespace CCC.UI.Controllers
 
             var MedicalNotes = await LookupMasterAPI.GetLookupData(CommonConstants.LOOKUPTYPE_MEDICALNOTES);
             ViewBag.lstMedicalNotes = new SelectList(MedicalNotes.Content, "LookupId", "LookupValue");
-
+           
 
             CreatePetService model = new CreatePetService();
             model.IsAdmin = objSessionUser.IsAdmin;
+            model.redirectFrom = redirectFrom;
             if (!string.IsNullOrEmpty(serviceId))
             {
                 var updateResponse = await PetServiceAPI.GetPetData(serviceId);
@@ -274,7 +278,7 @@ namespace CCC.UI.Controllers
             if (apiResponse != null && apiResponse.IsSuccessStatusCode)
             {
                 string msg = IsNewRecord ? "Pet added successfully." : "Pet updated successfully.";
-                return Json(new { serviceId = serviceId, isSuccess = true, message = msg });
+                return Json(new { serviceId = serviceId, isSuccess = true, message = msg, redirectFrom = model.redirectFrom });
             }
             else
             {

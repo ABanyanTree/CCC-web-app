@@ -27,6 +27,7 @@
 
 <form id="AddEditPetData" asp-action="AddEditPetData" asp-controller="PetService" method="post" enctype="multipart/form-data">
     @Html.HiddenFor(model => model.ServiceId, new { @id = "ServiceId" })
+    @Html.HiddenFor(model => model.redirectFrom, new { @id = "redirectFrom" })
     <div class="mainContent">
         <div class="conHeader">
             <div class="row">
@@ -288,7 +289,6 @@
         });
 
         if ($('#AddEditPetData').valid()) {
-
             var formAction = $('#AddEditPetData').attr("action");
             var fdata = new FormData();
             var params = $('#AddEditPetData').serializeArray();
@@ -333,7 +333,7 @@
                     contentType: false
                 }).done(function (result) {
                     if (result.isSuccess == true) {
-                        showSuccessMsg('Success', BackToManage);
+                        showSuccessMsg('Success', BackToManage(result.redirectFrom));
 
                     } else {
                         showWarningMsg('something went wrong ');
@@ -349,12 +349,20 @@
         }
     });
 
-       $("#btnCancel").on('click', function (e) {
-           BackToManage();
+    $("#btnCancel").on('click', function (e) {
+        debugger;
+        var rediect = $("#redirectFrom").val();
+        BackToManage(rediect);
         });
-    function BackToManage() {
-        var url = '@Url.Action("ManagePetService", "PetService")';
+    function BackToManage(redirectFrom) {
+        if (redirectFrom == 'dashboard') {
+            var url = '@Url.Action("CenterManagerDashnoard", "Home")';
         document.location.href = url;
+        } else {
+            var url = '@Url.Action("ManagePetService", "PetService")';
+        document.location.href = url;
+        }
+
     }
 
 </script>

@@ -11,8 +11,8 @@
 
 }
 
-@*<link href="~/css/autocomplete.css" rel="stylesheet" />
-<script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
+@* <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>*@
+<link href="~/css/autocomplete.css" rel="stylesheet" />
 <link href="~/lib/bootstrap-datepicker/css/bootstrap-datepicker.min.css" rel="stylesheet" />
 <script src="~/lib/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
 <script src="~/js/jquery.btnswitch.js"></script>
@@ -20,7 +20,7 @@
 <link href="~/css/jquery-ui.css" rel="stylesheet" />
 
 <link href="~/lib/bootstrap-multiselect/bootstrap-multiselect.css" rel="stylesheet" />
-<script src="~/lib/bootstrap-multiselect/bootstrap-multiselect.js"></script>*@
+<script src="~/lib/bootstrap-multiselect/bootstrap-multiselect.js"></script>
 
 <script type="text/javascript">
     $(document).ready(function () {
@@ -75,7 +75,7 @@
                     },
                     </text>}
 
-                   
+
                     { "data": "AdmissionDateDisplay", "sName": "AdmissionDate" },
                     { "data": "SurgeryDateDisplay", "sName": "SurgeryDate" },
                    /* { "data": "VanNumber", "sName": "VanNumber" },*/
@@ -95,15 +95,18 @@
                       {
                         "data": "ServiceId", "sName": "", "class": "editTD", "orderable": false, "mRender": function (data, type, full) {
                               if (data != null) {
-                                  var rlDate = full.ReleaseDate;
-                                  var exDate = full.ExpiredDate;
-                                  if (rlDate == null || rlDate == '' || rlDate == undefined || exDate== null || exDate == '' || exDate == undefined) {
+                                  if (full.IsAdmin == true) {
                                       return "<a class='AddEditBtnPop' onClick=EditEvent('" + data + "')><i class='fa fa-edit'></i></a>";
-                                      //return "<div class='tablehoverbuttons'> <i class='fa fa-ellipsis-h'></i> <div class='buttonshover'><div class='editbtn'><a class='' href='javascript:void(0);' onClick=EditEvent('" + data + "')><span><img title='Edit' src='@Url.Content("~/images/edit.png")' /></span></a></div> </div> </div>";
                                   } else {
-                                      return "";
+                                      var rlDate = full.ReleaseDate;
+                                      var exDate = full.ExpiredDate;
+                                      if ((rlDate != null && rlDate != '' && rlDate != undefined) || (exDate != null && exDate != '' && exDate != undefined)) {
+                                          return "";
+                                      } else {
+                                          return "<a class='AddEditBtnPop' onClick=EditEvent('" + data + "')><i class='fa fa-edit'></i></a>";
+                                      }
                                   }
-                            }
+                           }
                             else
                                 return "";
                         }
@@ -348,17 +351,21 @@
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <div class="userBoxFooter">
-                    <div class="pull-right">
-                        <div class="form-group"></div>
-                        <button type="button" class="btn btn-primary btn-search" id="btnChangeCenter">Change Center</button>
+        @if (Model.IsAdmin == true)
+        {
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="userBoxFooter">
+                        <div class="pull-right">
+                            <div class="form-group"></div>
+                            <button type="button" class="btn btn-primary btn-search" id="btnChangeCenter">Change Center</button>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        }
 
+        <br /><br /><br />
         <div class="chkTBL">
             <div class="bulkImpLogHT mngEventpage mobileTablenowrap">
                 <table id="mydatatable" class="table">
@@ -403,7 +410,7 @@
         document.location.href = url;
     }
     function EditEvent(serviceId) {
-        var url = '@Url.Action("AddEditPetData", "PetService")?serviceId=' + serviceId + '';
+        var url = '@Url.Action("AddEditPetData", "PetService")?serviceId=' + serviceId + '&redirectFrom=petservice';
         document.location.href = url;
 
     }

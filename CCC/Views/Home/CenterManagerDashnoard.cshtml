@@ -72,6 +72,22 @@
                     { "data": "VetName", "sName": "VetName" },
                     { "data": "CenterName", "sName": "CenterName" },
                     { "data": "AreaName", "sName": "AreaName" },
+                     {
+                        "data": "ServiceId", "sName": "", "class": "editTD", "orderable": false, "mRender": function (data, type, full) {
+                              if (data != null) {
+                                  var rlDate = full.ReleaseDate;
+                                  var exDate = full.ExpiredDate;
+                                  if (rlDate == null || rlDate == '' || rlDate == undefined || exDate== null || exDate == '' || exDate == undefined) {
+                                      return "<a class='AddEditBtnPop' onClick=EditEvent('" + data + "')><i class='fa fa-edit'></i></a>";
+                                      //return "<div class='tablehoverbuttons'> <i class='fa fa-ellipsis-h'></i> <div class='buttonshover'><div class='editbtn'><a class='' href='javascript:void(0);' onClick=EditEvent('" + data + "')><span><img title='Edit' src='@Url.Content("~/images/edit.png")' /></span></a></div> </div> </div>";
+                                  } else {
+                                      return "";
+                                  }
+                            }
+                            else
+                                return "";
+                        }
+                    },
                     { "data": "CenterId", "sName": "CenterId", "visible": false },
                     { "data": "AreaId", "sName": "AreaId", "visible": false},
                 ]
@@ -217,8 +233,7 @@
                             <th>Vet Name</th>
                             <th>Center Name</th>
                             <th>Area Name</th>
-                            <th>Medical Notes/Comments</th>
-                            @*<th align="left" class="editTD">Edit</th>*@
+                            <th align="left" class="editTD">Edit</th>
                         </tr>
                     </thead>
                     <tbody></tbody>
@@ -241,7 +256,7 @@
         document.location.href = url;
     }
     function EditEvent(serviceId) {
-        var url = '@Url.Action("AddEditPetData", "PetService")?serviceId=' + serviceId + '';
+        var url = '@Url.Action("AddEditPetData", "PetService")?serviceId=' + serviceId + '&redirectFrom=dashboard';
         document.location.href = url;
     }
 

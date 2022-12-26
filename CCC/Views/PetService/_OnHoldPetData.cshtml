@@ -11,6 +11,7 @@
                         <th>Gender</th>
                         <th>Center Name</th>
                         <th>Surgery Date</th>
+                        <th>Edit</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -23,6 +24,7 @@
                                 <td>@item.Gender</td>
                                 <td>@item.CenterName</td>
                                 <td>@item.SurgeryDateDisplay</td>
+                                <td><a class='AddEditBtnPop' href='@Url.Content("~/PetService/AddEditPetData")?serviceId=@item.ServiceId&redirectFrom=petservice'><i class='fa fa-edit'></i></a></td>
                             </tr>
                         }
                     }

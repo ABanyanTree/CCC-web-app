@@ -31,5 +31,7 @@ namespace CCC.UI.ViewModels
 
         public string UserCenters { get; set; }
 
+        public bool IsAdmin { get; set; }
+
     }
 }
