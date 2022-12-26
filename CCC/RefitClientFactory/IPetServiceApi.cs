@@ -38,6 +38,9 @@ namespace CCC.UI.RefitClientFactory
         [Get(path: "/api/petservice/getpetunreaddata")]
         Task<ApiResponse<PetDataNotificationResponse>> GetPetUnReadData(string userId, bool IsAdmin);
 
+        [Get(path: "/api/petservice/getpetcountdetails")]
+        Task<ApiResponse<List<PetCountDetails>>> GetPetCountDetails();
+
 
 
 

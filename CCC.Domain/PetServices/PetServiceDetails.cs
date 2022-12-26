@@ -94,8 +94,12 @@ namespace CCC.Domain
         public const string SPROC_GETVETREPORT = "sproc_GetVetReport";
         public const string SPROC_GETCENTERMGRDASHBOARDLIST = "sproc_GetCenterMgrDashboardList";
 
+        public const string SPROC_GETADMINDASHBOARDSUMMERYCOUNTDATA = "sproc_GetAdminDashboardSummeryCountData";
 
         
+
+
+
 
     }
 }

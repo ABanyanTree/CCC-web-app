@@ -62,6 +62,9 @@ namespace CCC.Service.Services
             return await _iPetRepository.GetCenterMgrDashboardList(obj);
         }
 
-       
+        public async Task<IEnumerable<PetServiceDetails>> GetPetCountDetails()
+        {
+            return await _iPetRepository.GetPetCountDetails();
+        }
     }
 }

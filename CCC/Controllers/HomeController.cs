@@ -39,7 +39,20 @@ namespace CCC.Controllers
             {
                 AuthorizationHeaderValueGetter = () => Task.FromResult(cachedToken)
             });
+
+            var CenterMasterAPI = RestService.For<ICenterMasterApi>(hostUrl: ApplicationSettings.WebApiUrl, new RefitSettings
+            {
+                AuthorizationHeaderValueGetter = () => Task.FromResult(cachedToken)
+            });
+
+            var centerRes = await CenterMasterAPI.GetAllCenters(objSessionUSer.UserCenters);
+            ViewBag.lstCenter = new SelectList(centerRes.Content, "CenterId", "CenterName");
+
             var objResponse = await PetServiceAPI.GetPetUnReadData(objSessionUSer.UserId, objSessionUSer.IsAdmin);
+
+            var petCount = await PetServiceAPI.GetPetCountDetails();
+            obj.PetCountDetails = new List<PetCountDetails>();
+            obj.PetCountDetails = petCount.Content;
             obj.TotalCount = objResponse.Content != null ? objResponse.Content.TotalCount : 0;
             return View(obj);
         }

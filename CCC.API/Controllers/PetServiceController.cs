@@ -108,6 +108,13 @@ namespace CCC.API.Controllers
             return Ok(response);
         }
 
+        [HttpGet(ApiRoutes.PetServicesDetails.GetPetCountDetails), DisableRequestSizeLimit]
+        [ProducesResponseType(typeof(List<PetServiceDetails>), statusCode: 200)]
+        public async Task<IActionResult> GetPetCountDetails()
+        {
+            var response = await _iPetService.GetPetCountDetails();
+            return Ok(response);
+        }
 
     }
 }

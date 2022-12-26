@@ -96,6 +96,10 @@ namespace CCC.Data.Services
             return await GetAllAsync(obj, addParams, PetServiceDetails_Constant.SPROC_GETCENTERMGRDASHBOARDLIST);
         }
 
-       
+        public async Task<IEnumerable<PetServiceDetails>> GetPetCountDetails()
+        {
+            string[] addParams = new string[] { };
+            return await GetAllAsync(new PetServiceDetails(), addParams, PetServiceDetails_Constant.SPROC_GETADMINDASHBOARDSUMMERYCOUNTDATA);
+        }
     }
 }
