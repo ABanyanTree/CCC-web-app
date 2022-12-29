@@ -15,9 +15,11 @@ namespace CCC.Service.Services
     public class UserMasterService : IUserMasterService
     {
         private IUserMasterRepository _iUserMasterRepository;
-        public UserMasterService(IUserMasterRepository UserMasterRepository) : base()
+        private IEmailSender _iEmailSender;
+        public UserMasterService(IUserMasterRepository UserMasterRepository, IEmailSender EmailSender) : base()
         {
             _iUserMasterRepository = UserMasterRepository;
+            _iEmailSender = EmailSender;
         }
 
         public async Task<int> AddEditAsync(UserMaster obj)
@@ -121,12 +123,13 @@ namespace CCC.Service.Services
                 obj.Password = randomPassword;
                 EmailSenderEntity emailconfig = new EmailSenderEntity();
 
-                EmailSender data = new EmailSender();
-                data.GetForgotPasswordBodyAndSubject(obj, ref strBody, ref strSubject);
+                //EmailSender data = new EmailSender();
+                _iEmailSender.GetForgotPasswordBodyAndSubject(obj, ref strBody, ref strSubject);
+                //data.GetForgotPasswordBodyAndSubject(obj, ref strBody, ref strSubject);
                 emailconfig.EmailTo = obj.Email;
                 emailconfig.Body = strBody;
-                emailconfig.Subject = strSubject;                
-                var emailSentLog = await data.SendInstantEmailFunctionality(emailconfig, obj);
+                emailconfig.Subject = strSubject;
+                var emailSentLog = await _iEmailSender.SendInstantEmailFunctionality(emailconfig, obj);
 
                 //await _emailSentLog.AddEditAsync(emailSentLog);
 
@@ -137,7 +140,7 @@ namespace CCC.Service.Services
 
             return await _iUserMasterRepository.ForgotPassword(obj);
 
-            
+
         }
     }
 }

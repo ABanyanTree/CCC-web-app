@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace CCC.Service.Infra.EmailStuff
 {
-    public class EmailSender
+    public class EmailSender : IEmailSender
     {
         private IHostingEnvironment _hostingEnvironment;
         private IOptions<EmailConfig> _options;
@@ -29,6 +29,139 @@ namespace CCC.Service.Infra.EmailStuff
         //    _options = options;
         //    _optionsfilesystem = optionsfilesystem;
         //}
+
+        public EmailSender(IHostingEnvironment hostingEnvironment, IOptions<EmailConfig> options, IOptions<FileSystemPath> optionsfilesystem)
+        {
+            _hostingEnvironment = hostingEnvironment;
+            WWWROOT = _hostingEnvironment.WebRootPath;
+            _options = options;
+            _optionsfilesystem = optionsfilesystem;
+        }
+
+        public async Task<EmailSentLog> SendInstantEmailFunctionality(EmailSenderEntity emailSenderEntity, object Entity)
+        {
+            MailMessage mailInfo = new MailMessage();
+
+            if (!string.IsNullOrEmpty(emailSenderEntity.EmailTo))
+            {
+                string[] strTO = emailSenderEntity.EmailTo.Split(',');
+                foreach (string str in strTO)
+                {
+                    if (!string.IsNullOrEmpty(str) && str.Contains("@"))
+                    {
+                        mailInfo.To.Add(str);
+                    }
+                }
+            }
+
+            if (!string.IsNullOrEmpty(emailSenderEntity.CC))
+            {
+                string[] strCC = emailSenderEntity.CC.Split(',');
+                foreach (string str in strCC)
+                {
+                    if (!string.IsNullOrEmpty(str) && str.Contains("@"))
+                    {
+                        mailInfo.CC.Add(str);
+                    }
+                }
+            }
+
+            if (!string.IsNullOrEmpty(emailSenderEntity.BCC))
+            {
+                string[] strBCC = emailSenderEntity.BCC.Split(',');
+                foreach (string str in strBCC)
+                {
+                    if (!string.IsNullOrEmpty(str))
+                    {
+                        mailInfo.Bcc.Add(str);
+                    }
+                }
+            }
+
+            mailInfo.From = new MailAddress(_options.Value.From);
+            mailInfo.Body = emailSenderEntity.Body;
+            mailInfo.IsBodyHtml = true;
+            mailInfo.Subject = emailSenderEntity.Subject;
+
+
+            SmtpClient smtp = new SmtpClient();
+            if (_options.Value.IsEmailToFolder)
+            {
+                smtp.DeliveryMethod = SmtpDeliveryMethod.SpecifiedPickupDirectory;
+                smtp.PickupDirectoryLocation = Path.Combine(WWWROOT, _options.Value.SystemEmailDeliveryPath);
+            }
+            else
+            {
+                //smtp.Host = EncryptionManager.Decrypt(_options.Value.SMTP_HOST);
+                smtp.Host = _options.Value.SMTP_HOST;
+                if (!string.IsNullOrEmpty(_options.Value.SENDMAIL_SMTPUSERNAME))
+                {
+                    smtp.Credentials = new System.Net.NetworkCredential(
+                        _options.Value.SENDMAIL_SMTPUSERNAME,
+                    _options.Value.SENDMAIL_SMTPUSERPASSWORD);
+                    //EncryptionManager.Decrypt(_options.Value.SENDMAIL_SMTPUSERNAME),
+                    //EncryptionManager.Decrypt(_options.Value.SENDMAIL_SMTPUSERPASSWORD));
+                }
+
+                if (!string.IsNullOrEmpty(_options.Value.SENDMAIL_PORT))
+                {
+                    smtp.Port = Convert.ToInt32(_options.Value.SENDMAIL_PORT);
+                }
+
+                if (!string.IsNullOrEmpty(_options.Value.SENDMAIL_DEFAULTCREDENTIALS))
+                {
+                    smtp.UseDefaultCredentials = Convert.ToBoolean(_options.Value.SENDMAIL_DEFAULTCREDENTIALS);
+                }
+
+
+            }
+
+
+            if (_options.Value.SendEmail)
+            {
+                await smtp.SendMailAsync(mailInfo);
+
+            }
+
+            EmailSentLog emailSentLog = new EmailSentLog();
+            emailSentLog.EmailTo = emailSenderEntity.EmailTo;
+            emailSentLog.CC = emailSenderEntity.CC;
+            emailSentLog.BCC = emailSenderEntity.BCC;
+            emailSentLog.Subject = emailSenderEntity.Subject;
+            emailSentLog.Body = emailSenderEntity.Body;
+            emailSentLog.IsEmailSent = true;
+            return emailSentLog;
+
+        }
+
+        public void GetForgotPasswordBodyAndSubject(UserMaster obj, ref string body, ref string subject)
+        {
+            subject = "New Password";
+            string user = obj.FirstName + ' ' + obj.LastName;
+            StringBuilder sb = new StringBuilder();
+            sb.Append("Dear " + user + ",");
+            sb.Append("<br/>");
+            sb.Append("Your new password to log into the system is:");
+            sb.Append("<br/>");
+            sb.Append("<b>" + obj.Password + "</b>");
+            sb.Append("<br/>");
+            sb.Append("Login at: app url"); //add app url 
+            sb.Append("<br/>");
+            sb.Append("<br/>");
+            sb.Append("Regards,");
+            sb.Append("<br/>");
+            sb.Append("The CCC Team");
+            body = sb.ToString();
+        }
+
+
+
+
+
+
+
+
+
 
         public async Task<EmailSentLog> SendInstantEmail(EmailSenderEntity emailSenderEntity, object Entity)
         {
@@ -181,101 +314,6 @@ namespace CCC.Service.Infra.EmailStuff
 
 
         }
-        public async Task<EmailSentLog> SendInstantEmailFunctionality(EmailSenderEntity emailSenderEntity, object Entity)
-        {
-            MailMessage mailInfo = new MailMessage();
-
-            if (!string.IsNullOrEmpty(emailSenderEntity.EmailTo))
-            {
-                string[] strTO = emailSenderEntity.EmailTo.Split(',');
-                foreach (string str in strTO)
-                {
-                    if (!string.IsNullOrEmpty(str) && str.Contains("@"))
-                    {
-                        mailInfo.To.Add(str);
-                    }
-                }
-            }
-
-            if (!string.IsNullOrEmpty(emailSenderEntity.CC))
-            {
-                string[] strCC = emailSenderEntity.CC.Split(',');
-                foreach (string str in strCC)
-                {
-                    if (!string.IsNullOrEmpty(str) && str.Contains("@"))
-                    {
-                        mailInfo.CC.Add(str);
-                    }
-                }
-            }
-
-            if (!string.IsNullOrEmpty(emailSenderEntity.BCC))
-            {
-                string[] strBCC = emailSenderEntity.BCC.Split(',');
-                foreach (string str in strBCC)
-                {
-                    if (!string.IsNullOrEmpty(str))
-                    {
-                        mailInfo.Bcc.Add(str);
-                    }
-                }
-            }
-
-            mailInfo.From = new MailAddress(_options.Value.From);
-            mailInfo.Body = emailSenderEntity.Body;
-            mailInfo.IsBodyHtml = true;
-            mailInfo.Subject = emailSenderEntity.Subject;
-
-
-            SmtpClient smtp = new SmtpClient();
-            if (_options.Value.IsEmailToFolder)
-            {
-                smtp.DeliveryMethod = SmtpDeliveryMethod.SpecifiedPickupDirectory;
-                smtp.PickupDirectoryLocation = Path.Combine(WWWROOT, _options.Value.SystemEmailDeliveryPath);
-            }
-            else
-            {
-                //smtp.Host = EncryptionManager.Decrypt(_options.Value.SMTP_HOST);
-                smtp.Host = _options.Value.SMTP_HOST;
-                if (!string.IsNullOrEmpty(_options.Value.SENDMAIL_SMTPUSERNAME))
-                {
-                    smtp.Credentials = new System.Net.NetworkCredential(
-                        _options.Value.SENDMAIL_SMTPUSERNAME,
-                    _options.Value.SENDMAIL_SMTPUSERPASSWORD);
-                    //EncryptionManager.Decrypt(_options.Value.SENDMAIL_SMTPUSERNAME),
-                    //EncryptionManager.Decrypt(_options.Value.SENDMAIL_SMTPUSERPASSWORD));
-                }
-
-                if (!string.IsNullOrEmpty(_options.Value.SENDMAIL_PORT))
-                {
-                    smtp.Port = Convert.ToInt32(_options.Value.SENDMAIL_PORT);
-                }
-
-                if (!string.IsNullOrEmpty(_options.Value.SENDMAIL_DEFAULTCREDENTIALS))
-                {
-                    smtp.UseDefaultCredentials = Convert.ToBoolean(_options.Value.SENDMAIL_DEFAULTCREDENTIALS);
-                }
-
-
-            }
-
-
-            if (_options.Value.SendEmail)
-            {
-                await smtp.SendMailAsync(mailInfo);
-
-            }
-
-            EmailSentLog emailSentLog = new EmailSentLog();
-            emailSentLog.EmailTo = emailSenderEntity.EmailTo;
-            emailSentLog.CC = emailSenderEntity.CC;
-            emailSentLog.BCC = emailSenderEntity.BCC;
-            emailSentLog.Subject = emailSenderEntity.Subject;
-            emailSentLog.Body = emailSenderEntity.Body;
-            emailSentLog.IsEmailSent = true;
-            return emailSentLog;
-
-        }
 
         public object SendDailyNotificationToAdmin(IEnumerable<CenterMaster> objResponse, IEnumerable<UserMaster> admins)
         {
@@ -343,25 +381,6 @@ namespace CCC.Service.Infra.EmailStuff
 
         }
 
-        public void GetForgotPasswordBodyAndSubject(UserMaster obj, ref string body, ref string subject)
-        {
-            subject = "New Password";
-            string user = obj.FirstName + ' ' + obj.LastName;
-            StringBuilder sb = new StringBuilder();
-            sb.Append("Dear " + user + ",");
-            sb.Append("<br/>");
-            sb.Append("Your new password to log into the system is:");
-            sb.Append("<br/>");
-            sb.Append("<b>" + obj.Password + "</b>");
-            sb.Append("<br/>");
-            sb.Append("Login at: app url"); //add app url 
-            sb.Append("<br/>");
-            sb.Append("<br/>");
-            sb.Append("Regards,");
-            sb.Append("<br/>");
-            sb.Append("The CCC Team");
-            body = sb.ToString();
-        }
 
         public async Task<bool> SendPendingEmail(EmailSentLog emailSentLog)
         {
