@@ -10,6 +10,8 @@ namespace CCC.Service.Interfaces
         Task<UserMaster> IsUserNameInUse(string userName);
         Task<IEnumerable<UserMaster>> GetAllUsers();
         Task<UserMaster> IsInUseCount(string userId);
-        UserMaster LoginAndGetFeatures(UserMaster request);      
+        UserMaster LoginAndGetFeatures(UserMaster request);
+        UserMaster GetByEmailAsync(UserMaster obj);
+        Task<int> SetNewPassword(UserMaster obj);
     }
 }

@@ -40,6 +40,9 @@ namespace CCC.UI.RefitClientFactory
         Task<HttpResponseMessage> DeleteUser(string userId);
 
         [Get(path: "/api/usermaster/isusernameinuse")]
-        Task<ApiResponse<UserMasterRequest>> IsUserNameInUse(string userName);       
+        Task<ApiResponse<UserMasterRequest>> IsUserNameInUse(string userName);
+
+        [Post(path: "/api/usermaster/forgotpassword")]
+        Task<ApiResponse<AuthSuccessResponseVM>> ForgotPasswordAsync(UserLoginRequestVM model);
     }
 }

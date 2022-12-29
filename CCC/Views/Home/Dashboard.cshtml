@@ -3,7 +3,6 @@
 @{
     ViewData["Title"] = "Dashboard";
     Layout = "~/Views/Shared/_Layout.cshtml";
-
     SelectList lstCenter = ViewBag.lstCenter;
 }
 
@@ -55,7 +54,7 @@
             <div class="bulkImpLogHT mngEventpage mobileTablenowrap">
                 <table id="mydatatable" class="table">
                     <thead>
-                        <tr class="red">
+                        <tr>
                             <th>Center</th>
                             <th>Total Admission</th>
                             <th>Total Pet Surgery</th>
@@ -81,16 +80,12 @@
                                     <td>@expiredCount</td>
                                 </tr>
                             }
-
                         }
                     </tbody>
                 </table>
             </div>
         </div>
-        <div id="divdataTables_info"></div>
-        <div id="divDataTable_length"></div>
     </div>
-
 </div>
 
 

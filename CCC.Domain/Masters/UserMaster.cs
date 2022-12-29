@@ -69,7 +69,9 @@ namespace CCC.Domain
 
         public const string SPROC_USERBYEMAIL = "sproc_UserByEmail";
         public const string SPROC_LOGINUSERBYEMAILPASSWORD = "sproc_LoginUserByEmailPassword";
-        
+        public const string SPROC_FORGOTPASSWORDUPDATION = "sproc_ForgotPasswordUpdation";
+
+
 
 
     }

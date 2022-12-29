@@ -174,5 +174,36 @@ namespace CCC.UI.Controllers
             return Json("1");
         }
 
+
+        public IActionResult ForgotPassword()
+        {
+            return PartialView("_ForgotPassword");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ForgotPassword(UserLoginRequestVM model)
+        {
+            var userApi = RestService.For<IUserApi>(hostUrl: ApplicationSettings.WebApiUrl);
+            var apiResponse = await userApi.ForgotPasswordAsync(model);
+            string msg = "";
+            if (apiResponse.IsSuccessStatusCode)
+            {
+
+                msg = "success";
+            }
+            else
+            {
+                var lstErrors = JsonConvert.DeserializeObject<ErrorResponseVM>(apiResponse?.Error?.Content);
+
+                foreach (var singleError in lstErrors.Errors)
+                {
+                    if (!string.IsNullOrEmpty(singleError.FieldName))
+                    {
+                        msg += singleError.Message + "<br />";
+                    }
+                }
+            }
+            return Json(msg);
+        }
     }
 }

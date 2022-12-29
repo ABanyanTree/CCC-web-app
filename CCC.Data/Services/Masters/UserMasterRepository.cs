@@ -42,6 +42,12 @@ namespace CCC.Data.Services
             return await ExecuteNonQueryAsync(obj, addParams, UserMaster_Constant.SPROC_USERMASTER_DEL);
         }
 
+        public async Task<int> ForgotPassword(UserMaster obj)
+        {
+            string[] adpram = { UserMaster_Constant.USERID, UserMaster_Constant.EMAIL, UserMaster_Constant.PASSWORD };
+            return await ExecuteNonQueryAsync(obj, adpram, UserMaster_Constant.SPROC_FORGOTPASSWORDUPDATION);
+        }
+
         public async Task<IEnumerable<UserMaster>> GetAllUserList(UserMaster obj)
         {
             string[] addParams = new string[] { BaseEntity_Constant.PAGEINDEX, BaseEntity_Constant.PAGESIZE, BaseEntity_Constant.SORTEXP,

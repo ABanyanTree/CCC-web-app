@@ -86,6 +86,7 @@ namespace CCC.API.ApiPath
             public const string Login = Base + "/usermaster/login";
 
             public const string GetSalt = Base + "/usermaster/getsalt";
+            public const string ForgotPassword = Base + "/usermaster/forgotpassword";
         }
         public static class LookupMaster
         {

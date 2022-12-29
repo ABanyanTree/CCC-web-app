@@ -256,5 +256,18 @@ namespace CCC.API.Controllers.Masters
             return Ok(salt);
         }
 
+        [HttpPost(ApiRoutes.UserMaster.ForgotPassword)]
+        public async Task<IActionResult> ForgotPassword([FromBody] UserMaster request)
+        {
+            var objUser = _iUserMasterService.GetByEmailAsync(request);
+            if (string.IsNullOrEmpty(objUser?.Email))
+            {
+                return Ok(false);
+            }
+            var obj = await _iUserMasterService.SetNewPassword(objUser);
+
+            return Ok();
+        }
+
     }
 }

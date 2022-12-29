@@ -1,6 +1,8 @@
 ﻿using CCC.Domain;
 using CCC.Domain.DomainInterface;
+using CCC.Domain.Email;
 using CCC.Service.Infra;
+using CCC.Service.Infra.EmailStuff;
 using CCC.Service.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -59,6 +61,11 @@ namespace CCC.Service.Services
             return await _iUserMasterRepository.GetUser(obj);
         }
 
+        public UserMaster GetByEmailAsync(UserMaster obj)
+        {
+            return _iUserMasterRepository.GetByEmailAsync(obj).Result;
+        }
+
         public async Task<UserMaster> IsInUseCount(string userId)
         {
             return await _iUserMasterRepository.IsInUseCount(userId);
@@ -100,6 +107,37 @@ namespace CCC.Service.Services
             //}
             //response.LoginUniqueId = returnObj.LoginUniqueId;//Vikas - to track login details
             return response;
+        }
+
+        public async Task<int> SetNewPassword(UserMaster obj)
+        {
+            string randomPassword = Utility.CreateRandomPassword(8);
+            obj = GetByEmailAsync(obj);
+            //SEND EMAIL TO USER
+            if (!string.IsNullOrEmpty(obj.Email))
+            {
+                string strBody = string.Empty;
+                string strSubject = string.Empty;
+                obj.Password = randomPassword;
+                EmailSenderEntity emailconfig = new EmailSenderEntity();
+
+                EmailSender data = new EmailSender();
+                data.GetForgotPasswordBodyAndSubject(obj, ref strBody, ref strSubject);
+                emailconfig.EmailTo = obj.Email;
+                emailconfig.Body = strBody;
+                emailconfig.Subject = strSubject;                
+                var emailSentLog = await data.SendInstantEmailFunctionality(emailconfig, obj);
+
+                //await _emailSentLog.AddEditAsync(emailSentLog);
+
+            }
+            //ENCRYPT NEW PASSWORD AND UPDATE IN DATABASE
+            randomPassword = Cryptography.MD5Hash(randomPassword);
+            obj.Password = randomPassword;
+
+            return await _iUserMasterRepository.ForgotPassword(obj);
+
+            
         }
     }
 }
