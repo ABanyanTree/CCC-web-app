@@ -1,6 +1,7 @@
 ﻿using CCC.Data.Interfaces;
 using CCC.Data.Services;
 using CCC.Domain.DomainInterface;
+using CCC.Service.Infra.EmailStuff;
 using CCC.Service.Interfaces;
 using CCC.Service.Services;
 using Microsoft.Extensions.DependencyInjection;
@@ -64,6 +65,9 @@ namespace CCC.lOC
 
             services.AddSingleton<IPetDataNotificationService, PetDataNotificationService>();
             services.AddSingleton<IPetDataNotificationRepository, PetDataNotificationRepository>();
+
+            services.AddSingleton<IEmailSender, EmailSender>();
+
 
 
 

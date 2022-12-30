@@ -30,8 +30,8 @@ namespace CCC.API.Controllers
         {
             var objResponse = await _iCenterMasterService.DailyDataCheck();
             var admins = await _iUserMasterService.GetAllUsers();
-            EmailSender obj = new EmailSender();
-            var responceObj = obj.SendDailyNotificationToAdmin(objResponse, admins);
+            //EmailSender obj = new EmailSender();
+            //var responceObj = obj.SendDailyNotificationToAdmin(objResponse, admins);
 
             return Ok(objResponse);
         }
