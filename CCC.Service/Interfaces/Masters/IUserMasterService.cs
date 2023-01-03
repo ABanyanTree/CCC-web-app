@@ -13,5 +13,6 @@ namespace CCC.Service.Interfaces
         UserMaster LoginAndGetFeatures(UserMaster request);
         UserMaster GetByEmailAsync(UserMaster obj);
         Task<int> SetNewPassword(UserMaster obj);
+        Task<int> ChangePassword(UserMaster request);
     }
 }

@@ -244,27 +244,9 @@
                             <a title="Account Settings" class="nav-link dropdown-toggle userCircle" href="#" id="navdrop" role="button" data-toggle="dropdown" data-target="#dropdown-menu" data-hover="dropdown"><span>@initials</span> </a>
                             <div class="userProfile dropdown-menu dropdown-menu-lg-right" aria-labelledby="navdrop" id="dropdown-menu">
                                 <span class="dropdown-item"><span class="innUserCircle">@initials</span> <span class="text">@userName</span></span>
-
-                                @*<a asp-controller="User" asp-action="ChangePassword" class="dropdown-item" id="lnkChangePwd"><span class="flatIcon"><img src='@Url.Content("~/Images" + imgPath + "/change-pass.png")' /></span> <span class="text">Change Password</span></a>*@
-
-                                @if (objSessionUser?.userRoles.Count > 0)
-                                {
-                                    foreach (UserRoleResponseVM roleNm in objSessionUser?.userRoles)
-                                    {
-                                        if (URoleId == roleNm.RoleId)
-                                        {
-                                            <a class="dropdown-item" id="lnkRole_@roleNm.RoleId"><span class="flatIcon"><img src='@Url.Content("~/Images" + imgPath + "/learner-portal.png")' /></span> <span class="text"> @@  @roleNm.RoleName</span></a>
-                                        }
-                                        else
-                                        {
-                                            <a asp-controller="Login" asp-action="GetFeaturesByUserRole" asp-route-RoleId="@roleNm.RoleId" class="dropdown-item" id="lnkRole_@roleNm.RoleId"><span class="flatIcon"><img src='@Url.Content("~/Images" + imgPath + "/learner-portal.png")' /></span> <span class="text"> @roleNm.RoleName</span></a>
-
-                                        }
-                                    }
-                                }
-
                                 @*<a asp-controller="@adminHome.ControllerName" asp-action="@adminHome.ActionName" class="dropdown-item" id="lnkLearnerSide"><span class="flatIcon"><img src='@Url.Content("~/Images" + imgPath + "/learner-portal.png")' /></span> <span class="text">Learner Portal</span></a>*@
-                                <a asp-controller="Login" asp-action="Login" class="dropdown-item"><span class="flatIcon"><img src='@Url.Content("~/Images" + imgPath + "/logout.png")' /></span> <span class="text">Logout</span></a>
+                                <a id="chgPassword" class="dropdown-item"><span class="flatIcon"><img src='@Url.Content("~/Images" + imgPath + "/logout.png")' /></span> <span class="text">Change Password</span></a>
+                                <a id="aLogout" asp-controller="Login" asp-action="Login" class="dropdown-item"><span class="flatIcon"><img src='@Url.Content("~/Images" + imgPath + "/logout.png")' /></span> <span class="text">Logout</span></a>
                             </div>
                         </li>
                         <li class="humburgbtn">
@@ -384,6 +366,16 @@
 </html>
 
 <script type="text/javascript">
+    $("#chgPassword").on('click', function () {
+        var url='@Url.Action("ChangePassword", "Login")';
+        $.dialog({
+            title: 'Change Password',
+            content: 'url:' + url, columnClass: 'col-md-4 col-md-offset-4'
+        });
+    });
+
+
+
     function setSession(level1, level2) {
        var url = '@Url.Action("SetActiveMenuSession", "Login")?level1=' + level1 + '&level2=' + level2 + '';
 		$.ajax({

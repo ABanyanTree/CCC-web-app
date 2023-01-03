@@ -102,7 +102,7 @@ namespace CCC.UI.Controllers
             }
             else
             {
-                return RedirectToAction("CenterManagerDashnoard","Home");
+                return RedirectToAction("CenterManagerDashnoard", "Home");
             }
 
         }
@@ -204,6 +204,34 @@ namespace CCC.UI.Controllers
                 }
             }
             return Json(msg);
+        }
+
+        public IActionResult ChangePassword()
+        {
+            var objSessionUSer = HttpContext.Session.GetSessionUser();
+            var userApi = RestService.For<IUserApi>(hostUrl: ApplicationSettings.WebApiUrl);
+            var result = userApi.GetMD5Salt();
+            UserLoginRequestVM model = new UserLoginRequestVM();
+            model.UserId = objSessionUSer.UserId;
+            if (result != null)
+            {
+                model.Salt = result.Result.Content.ReadAsStringAsync().Result;
+            }
+            return PartialView("_ChangePassword", model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ChangePassword(UserLoginRequestVM model)
+        {
+            var userApi = RestService.For<IUserApi>(hostUrl: ApplicationSettings.WebApiUrl);
+            var apiResponse = await userApi.CheckExistingPassword(model);
+            var res = Convert.ToBoolean(apiResponse?.Content?.ReadAsStringAsync().Result);
+            if (res == true)
+            {
+                var apiRes = await userApi.ChangePassword(model);
+                return Json(new { IsSuccess = true, message = "Password changed successfully.Please login again." });
+            }
+            return Json(new { IsSuccess = false, message = "Existing password not correct" });
         }
     }
 }

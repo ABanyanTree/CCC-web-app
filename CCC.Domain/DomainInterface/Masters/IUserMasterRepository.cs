@@ -18,5 +18,6 @@ namespace CCC.Domain.DomainInterface
         Task<UserMaster> GetByEmailAsync(UserMaster obj);
         UserMaster LoginAndGetFeatures(UserMaster obj);
         Task<int> ForgotPassword(UserMaster obj);
+        Task<int> ChangePassword(UserMaster obj);
     }
 }

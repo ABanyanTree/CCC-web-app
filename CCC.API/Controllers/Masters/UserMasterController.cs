@@ -58,7 +58,7 @@ namespace CCC.API.Controllers.Masters
                 objResponse.lstCenters = new List<CenterMaster>();
                 objResponse.lstCenters.AddRange(lstCenters);
             }
-           // string ss = Cryptography.Decrypt(objResponse.Password);
+            // string ss = Cryptography.Decrypt(objResponse.Password);
 
             return Ok(objResponse);
         }
@@ -87,7 +87,7 @@ namespace CCC.API.Controllers.Masters
         [ProducesResponseType(typeof(UserMaster), statusCode: 200)]
         // [CustomAuthorizeAttribute(FeatureId = FeatureAccess.FEATURE_ManageUsers)]
         public async Task<IActionResult> IsUserNameInUse([FromQuery] string userName)
-        {            
+        {
             var objResponse = await _iUserMasterService.IsUserNameInUse(userName);
             return Ok(objResponse);
 
@@ -265,9 +265,26 @@ namespace CCC.API.Controllers.Masters
                 return Ok(false);
             }
             var obj = await _iUserMasterService.SetNewPassword(objUser);
-
             return Ok();
         }
 
+        [HttpPost(ApiRoutes.UserMaster.CheckExistingPassword)]
+        public async Task<IActionResult> CheckExistingPassword([FromBody] UserMaster request)
+        {
+            var objUser = await _iUserMasterService.GetAsync(request);
+            string hashedPassword = Cryptography.MD5Hash(request?.Salt + objUser?.Password);
+            if (hashedPassword != request?.ExistingPassword)
+            {
+                return Ok(false);
+            }
+            return Ok(true);
+        }
+
+        [HttpPost(ApiRoutes.UserMaster.ChangePassword)]
+        public async Task<IActionResult> ChangePassword([FromBody] UserMaster request)
+        {
+            var obj = await _iUserMasterService.ChangePassword(request);
+            return Ok();
+        }
     }
 }

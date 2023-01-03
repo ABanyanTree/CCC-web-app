@@ -74,9 +74,11 @@
                     { "data": "PetType", "sName": "PetType" },
                     { "data": "SurgeryDateDisplay", "sName": "SurgeryDate" },
                     { "data": "MedicalComments", "sName": "Medical Comments" },
-                    { "data": "CenterId", "sName": "CenterId", "visible": false},
-                    { "data": "SurgeryDateFrom", "sName": "SurgeryDateFrom", "visible": false },
-                    { "data": "SurgeryDateTo", "sName": "SurgeryDateTo", "visible": false }
+                    { "data": "CenterId", "sName": "CenterId", "visible": false },
+                    { "data": "Month", "sName": "Month", "visible": false },
+                    { "data": "Year", "sName": "Year", "visible": false }
+                    //{ "data": "SurgeryDateFrom", "sName": "SurgeryDateFrom", "visible": false },
+                    //{ "data": "SurgeryDateTo", "sName": "SurgeryDateTo", "visible": false }
                 ]
         });
         mytable.on('order.dt', function () { $('.dataTables_paginate,.dataTables_info').show(); });
@@ -89,8 +91,8 @@
         function fnGetDataForActivities() {
             var searchObj = new Object();
             searchObj.CenterId = $('#ddlCenter').val();
-            searchObj.SurgeryDateFrom = $('#dtSurgeryDateFrom').val();
-            searchObj.SurgeryDateTo = $('#dtSurgeryDateTo').val();
+            searchObj.Month = $('#ddlMonth').val();
+            searchObj.Year = $('#ddlYear').val();
             return searchObj;
         }
 
@@ -98,8 +100,8 @@
             searchObj = fnGetDataForActivities();
             $("#mydatatable").dataTable().fnMultiFilter({
                 "CenterId": searchObj.CenterId,
-                "SurgeryDateFrom": searchObj.SurgeryDateFrom ,
-                "SurgeryDateTo": searchObj.SurgeryDateTo
+                "Month": searchObj.Month ,
+                "Year": searchObj.Year
             });
         }
 
@@ -155,7 +157,6 @@
                                     <div class="form-group">
                                         <label>Month</label>
                                         <select asp-for="Month" asp-items="lstMonth" id="ddlMonth" class="form-control">
-                                            <option value="">--Select--</option>
                                         </select>
                                         <span id="spMonth" class="redColor"></span>
                                     </div>
@@ -164,16 +165,18 @@
                                     <div class="form-group">
                                         <label>Year</label>
                                         <select asp-for="Year" asp-items="lstYears" id="ddlYear" class="form-control">
-                                            <option value="">--Select--</option>
                                         </select>
                                         <span id="spYear" class="redColor"></span>
                                     </div>
                                 </div>
                                 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                                    <div class="pull-right">
-                                        <div class="form-group"></div>
-                                        <button type="button" class="btn btn-primary btn-search" id="btnSearch1"><img src='@Url.Content("~/images/search.png")' /> </button>
-                                        <button type="button" class="btn btn-default btn-clear" id="btnClear"><img src='@Url.Content("~/images/refresh.png")' /></button>
+                                    <div class="form-group">
+                                        <div class="row"></div><br />
+                                        <div class="row">
+                                            <button type="button" class="btn btn-primary btn-search" id="btnSearch1"><img src='@Url.Content("~/images/search.png")' /> </button>&nbsp;
+                                            <button type="button" class="btn btn-default btn-clear" id="btnClear"><img src='@Url.Content("~/images/refresh.png")' /></button>
+                                        </div>
+
                                     </div>
                                 </div>
                             </div>
@@ -222,7 +225,14 @@
         var CenterId = $('#ddlCenter').val();
         var Month = $('#ddlMonth').val();
         var Year = $('#ddlYear').val();
-        debugger;
+
+        if (CenterId == '' || CenterId == null || CenterId == undefined) {
+            showWarningMsg("Please select center");
+            return;
+        }
+
+        var url = '@Url.Action("ExportVetReport", "Report")?CenterId=' + CenterId + '&selectedMonth=' + Month + '&selectedYear=' + Year;
+        document.location.href = url;
 
          @*$.ajax({
               url: '@Url.Action("ExportVetReport", "Report")?CenterId=' + CenterId + '&selectedMonth=' + Month + '&selectedYear=' + Year,
@@ -239,7 +249,5 @@
          });*@
 
 
-        var url = '@Url.Action("ExportVetReport", "Report")?CenterId=' + CenterId + '&selectedMonth=' + Month + '&selectedYear=' + Year;
-        document.location.href = url;
     });
 </script>

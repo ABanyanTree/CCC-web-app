@@ -61,8 +61,10 @@ namespace CCC.UI.ViewModels
         public DateTime? ReleaseDateTo { get; set; }
 
         public int OnHoldDays { get; set; }
-
         public bool IsAdmin { get; set; }
+
+        public string Month { get; set; }
+        public string Year { get; set; }
 
 
     }

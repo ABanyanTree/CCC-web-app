@@ -28,7 +28,8 @@ namespace CCC.Domain
 
         public string UserType { get; set; }
         public string CenterNames { get; set; }
-        public string UserCenters { get; set; }        
+        public string UserCenters { get; set; }
+        public string ExistingPassword { get; set; }        
         public List<CenterMaster> lstCenters { get; set; } = new List<CenterMaster>();
         public List<FeatureMaster> UserFeatures { get; set; } = new List<FeatureMaster>();
         public List<UserRoleMasters> userRoles { get; set; } = new List<UserRoleMasters>();
@@ -70,6 +71,7 @@ namespace CCC.Domain
         public const string SPROC_USERBYEMAIL = "sproc_UserByEmail";
         public const string SPROC_LOGINUSERBYEMAILPASSWORD = "sproc_LoginUserByEmailPassword";
         public const string SPROC_FORGOTPASSWORDUPDATION = "sproc_ForgotPasswordUpdation";
+        public const string SPROC_CHANGEPASSWORD = "sproc_ChangePassword";
 
 
 

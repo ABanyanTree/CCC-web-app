@@ -50,12 +50,21 @@ namespace CCC.UI.Controllers
 
         private SelectList GetAllYears()
         {
+            int currentYear = DateTime.Now.Year;
             List<SelectListItem> objData = new List<SelectListItem>();
             for (int i = 2015; i <= 2030; i++)
             {
-                objData.Add(new SelectListItem { Text = i.ToString(), Value = i.ToString() });
+                if (i == currentYear)
+                {
+                    objData.Add(new SelectListItem { Text = i.ToString(), Value = i.ToString(), Selected = true });
+                }
+                else
+                {
+                    objData.Add(new SelectListItem { Text = i.ToString(), Value = i.ToString() });
+                }
+
             }
-            return new SelectList(objData, "Value", "Text", null);
+            return new SelectList(objData, "Value", "Text", currentYear);
         }
 
         private SelectList GetAllMonths()
@@ -63,11 +72,21 @@ namespace CCC.UI.Controllers
 
             List<SelectListItem> objData = new List<SelectListItem>();
             DateTimeFormatInfo info = DateTimeFormatInfo.GetInstance(null);
+            int currentMonth = DateTime.Now.Month;
             for (int i = 1; i < 13; i++)
             {
-                objData.Add(new SelectListItem { Text = info.GetMonthName(i), Value = i.ToString() });
+                if (i == currentMonth)
+                {
+                    objData.Add(new SelectListItem { Text = info.GetMonthName(i), Value = i.ToString(), Selected = true });
+                }
+                else
+                {
+                    objData.Add(new SelectListItem { Text = info.GetMonthName(i), Value = i.ToString() });
+                }
+
             }
-            return new SelectList(objData, "Value", "Text", null);
+
+            return new SelectList(objData, "Value", "Text", currentMonth);
         }
 
         [HttpPost("/Report/FillTableVetReportAsync")]
@@ -123,47 +142,16 @@ namespace CCC.UI.Controllers
                                 searchObj.CenterId = col.Search.Value.Trim();
                             }
                             break;
-
-                        case "AreaId":
+                        case "Month":
                             if (!string.IsNullOrEmpty(col.Search.Value))
                             {
-                                searchObj.AreaId = col.Search.Value.Trim();
+                                searchObj.Month = col.Search.Value.Trim();
                             }
                             break;
-                        case "AdmissionDateFrom":
+                        case "Year":
                             if (!string.IsNullOrEmpty(col.Search.Value))
                             {
-                                searchObj.AdmissionDateFrom = Convert.ToDateTime(col.Search.Value);
-                            }
-                            break;
-                        case "AdmissionDateTo":
-                            if (!string.IsNullOrEmpty(col.Search.Value))
-                            {
-                                searchObj.AdmissionDateTo = Convert.ToDateTime(col.Search.Value);
-                            }
-                            break;
-                        case "SurgeryDateFrom":
-                            if (!string.IsNullOrEmpty(col.Search.Value))
-                            {
-                                searchObj.SurgeryDateFrom = Convert.ToDateTime(col.Search.Value);
-                            }
-                            break;
-                        case "SurgeryDateTo":
-                            if (!string.IsNullOrEmpty(col.Search.Value))
-                            {
-                                searchObj.SurgeryDateTo = Convert.ToDateTime(col.Search.Value);
-                            }
-                            break;
-                        case "ReleaseDateFrom":
-                            if (!string.IsNullOrEmpty(col.Search.Value))
-                            {
-                                searchObj.ReleaseDateFrom = Convert.ToDateTime(col.Search.Value);
-                            }
-                            break;
-                        case "ReleaseDateTo":
-                            if (!string.IsNullOrEmpty(col.Search.Value))
-                            {
-                                searchObj.ReleaseDateTo = Convert.ToDateTime(col.Search.Value.Trim());
+                                searchObj.Year = col.Search.Value.Trim();
                             }
                             break;
                     }
@@ -171,6 +159,17 @@ namespace CCC.UI.Controllers
             }
 
             var cachedToken = HttpContext.Session.GetBearerToken();
+
+            if (string.IsNullOrEmpty(searchObj.Month)) { searchObj.Month = DateTime.Now.Month.ToString(); }
+            if (string.IsNullOrEmpty(searchObj.Year)) { searchObj.Year = DateTime.Now.Year.ToString(); }
+
+            int days = DateTime.DaysInMonth(Convert.ToInt32(searchObj.Year), Convert.ToInt32(searchObj.Month));
+            string firstDate = searchObj.Month + "/1/" + searchObj.Year;
+            DateTime firstDayOfMonth = DateTime.Parse(firstDate);
+            string lastDate = searchObj.Month + '/' + days.ToString() + '/' + searchObj.Year;
+            DateTime lastDayOfMonth = DateTime.Parse(lastDate);
+            searchObj.SurgeryDateFrom = firstDayOfMonth;
+            searchObj.SurgeryDateTo = lastDayOfMonth;
 
             var PetServiceAPI = RestService.For<IPetServiceApi>(hostUrl: ApplicationSettings.WebApiUrl, new RefitSettings
             {
@@ -216,10 +215,10 @@ namespace CCC.UI.Controllers
             });
             var apiResponse = await PetServiceAPI.GetVetReport(searchObj);
             var response = apiResponse.Content;
-            if (response.Count == 0)
-            {
-                return Ok(false);
-            }
+            //if (response.Count == 0)
+            //{
+            //    return Ok(false);
+            //}
 
             FileInfo newFile = new FileInfo("D:\\Shahen-WorkFront\\sample1.xlsx");
             ExcelPackage excel = new ExcelPackage();

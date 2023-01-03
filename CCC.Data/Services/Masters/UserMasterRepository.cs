@@ -36,6 +36,12 @@ namespace CCC.Data.Services
             return await ExecuteNonQueryAsync(obj, addParams, UserMaster_Constant.SPROC_USERMASTER_UPS);
         }
 
+        public async Task<int> ChangePassword(UserMaster obj)
+        {
+            string[] adpram = { UserMaster_Constant.USERID, UserMaster_Constant.PASSWORD };
+            return await ExecuteNonQueryAsync(obj, adpram, UserMaster_Constant.SPROC_CHANGEPASSWORD);
+        }
+
         public async Task<int> DeleteUser(UserMaster obj)
         {
             string[] addParams = new string[] { UserMaster_Constant.USERID };

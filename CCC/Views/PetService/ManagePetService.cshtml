@@ -95,6 +95,7 @@
                       {
                         "data": "ServiceId", "sName": "", "class": "editTD", "orderable": false, "mRender": function (data, type, full) {
                               if (data != null) {
+                                  debugger;
                                   if (full.IsAdmin == true) {
                                       return "<a class='AddEditBtnPop' onClick=EditEvent('" + data + "')><i class='fa fa-edit'></i></a>";
                                   } else {

@@ -44,5 +44,12 @@ namespace CCC.UI.RefitClientFactory
 
         [Post(path: "/api/usermaster/forgotpassword")]
         Task<ApiResponse<AuthSuccessResponseVM>> ForgotPasswordAsync(UserLoginRequestVM model);
+
+        [Post(path: "/api/usermaster/checkexistingpassword")]
+        Task<HttpResponseMessage> CheckExistingPassword(UserLoginRequestVM model);
+
+        [Post(path: "/api/usermaster/changepassword")]
+        Task<HttpResponseMessage> ChangePassword(UserLoginRequestVM model);
+
     }
 }

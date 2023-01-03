@@ -139,8 +139,12 @@ namespace CCC.Service.Services
             obj.Password = randomPassword;
 
             return await _iUserMasterRepository.ForgotPassword(obj);
+        }
 
-
+        public async Task<int> ChangePassword(UserMaster obj)
+        {
+            obj.Password = Cryptography.MD5Hash(obj.Password);
+            return await _iUserMasterRepository.ChangePassword(obj);
         }
     }
 }

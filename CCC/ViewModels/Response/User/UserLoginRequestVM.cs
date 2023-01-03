@@ -13,5 +13,8 @@ namespace CCC.UI.ViewModels
         [Required(ErrorMessage = "Please enter Password")]
         public string Password { get; set; }
         public string Salt { get; set; }
+        public string ExistingPassword { get; set; }
+        public string ConfirmPassword { get; set; }
+        public string UserId { get; set; }
     }
 }
