@@ -14,6 +14,7 @@ using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 
@@ -272,21 +273,47 @@ namespace CCC.UI.Controllers
                     int optCatsCount_m = response.Where(x => x.SurgeryDate.Value.Date == sDate.Date && x.PetType == CommonConstants.LOOKUPTYPE_PETTYPE_Cat && x.Gender == CommonConstants.LOOKUPTYPE_PETGENDER_MALE).ToList().Count;
                     int optCatsCount_f = response.Where(x => x.SurgeryDate.Value.Date == sDate.Date && x.PetType == CommonConstants.LOOKUPTYPE_PETTYPE_Cat && x.Gender == CommonConstants.LOOKUPTYPE_PETGENDER_FEMALE).ToList().Count;
 
+                    int mCncDog = 0; int fCncDog = 0; int mCncCat = 0; int fCncCat = 0;
+                    int mDeathDog = 0; int fDeathDog = 0; int mDeathCat = 0; int fDeathCat = 0;
+
+                    mCncDog = response.Where(x => x.SurgeryDate.Value.Date == sDate.Date && x.PetType == CommonConstants.LOOKUPTYPE_PETTYPE_DOG && x.Gender == CommonConstants.LOOKUPTYPE_PETGENDER_MALE && x.IsOnHold == true && x.ExpiredDate == null).ToList().Count;
+                    fCncDog = response.Where(x => x.SurgeryDate.Value.Date == sDate.Date && x.PetType == CommonConstants.LOOKUPTYPE_PETTYPE_DOG && x.Gender == CommonConstants.LOOKUPTYPE_PETGENDER_FEMALE && x.IsOnHold == true && x.ExpiredDate == null).ToList().Count;
+
+                    mCncCat = response.Where(x => x.SurgeryDate.Value.Date == sDate.Date && x.PetType == CommonConstants.LOOKUPTYPE_PETTYPE_Cat && x.Gender == CommonConstants.LOOKUPTYPE_PETGENDER_MALE && x.IsOnHold == true && x.ExpiredDate == null).ToList().Count;
+                    fCncCat = response.Where(x => x.SurgeryDate.Value.Date == sDate.Date && x.PetType == CommonConstants.LOOKUPTYPE_PETTYPE_Cat && x.Gender == CommonConstants.LOOKUPTYPE_PETGENDER_FEMALE && x.IsOnHold == true && x.ExpiredDate == null).ToList().Count;
+
+                    mDeathDog = response.Where(x => x.SurgeryDate.Value.Date == sDate.Date && x.PetType == CommonConstants.LOOKUPTYPE_PETTYPE_DOG && x.Gender == CommonConstants.LOOKUPTYPE_PETGENDER_MALE && x.ExpiredDate != null).ToList().Count;
+                    fDeathDog = response.Where(x => x.SurgeryDate.Value.Date == sDate.Date && x.PetType == CommonConstants.LOOKUPTYPE_PETTYPE_DOG && x.Gender == CommonConstants.LOOKUPTYPE_PETGENDER_FEMALE && x.ExpiredDate != null).ToList().Count;
+
+                    mDeathCat = response.Where(x => x.SurgeryDate.Value.Date == sDate.Date && x.PetType == CommonConstants.LOOKUPTYPE_PETTYPE_Cat && x.Gender == CommonConstants.LOOKUPTYPE_PETGENDER_MALE && x.ExpiredDate != null).ToList().Count;
+                    fDeathCat = response.Where(x => x.SurgeryDate.Value.Date == sDate.Date && x.PetType == CommonConstants.LOOKUPTYPE_PETTYPE_Cat && x.Gender == CommonConstants.LOOKUPTYPE_PETGENDER_FEMALE && x.ExpiredDate != null).ToList().Count;
+
+                    StringBuilder sb = new StringBuilder();
+
+                    if (mCncDog > 0 || mCncCat > 0) { sb.Append((mCncDog + mCncCat) + "m Canc +"); }
+                    if (fCncDog > 0 || fCncCat > 0) { sb.Append((fCncDog + fCncCat) + "f Canc +"); }
+
+                    if (mDeathDog > 0 || mDeathCat > 0) { sb.Append((mDeathDog + mDeathCat) + "m death +"); }
+                    if (fDeathDog > 0 || fDeathCat > 0) { sb.Append((fDeathDog + fDeathCat) + "f death +"); }
+
                     m_DogTotal = m_DogTotal + optDogsCount_m;
                     f_DogTotal = f_DogTotal + optDogsCount_f;
 
                     m_CatTotal = m_CatTotal + optCatsCount_m;
                     f_CatTotal = f_CatTotal + optCatsCount_f;
 
-                    int totalOpt = optDogsCount_m + optDogsCount_f + optCatsCount_m + optCatsCount_f;
+                    int totalOpt = (optDogsCount_m + optDogsCount_f + optCatsCount_m + optCatsCount_f) - (mCncDog + mCncCat + fCncDog + fCncCat + mDeathDog + mDeathCat + fDeathDog + fDeathCat);
                     petTotal = petTotal + totalOpt;
+
+                    string deathNotes = sb.ToString();
+                    deathNotes = (!string.IsNullOrEmpty(deathNotes)) ? deathNotes.Remove(deathNotes.Length - 1, 1) : "";
 
                     DesignVetCell(workSheet, drName, rowCnt, colCnt + 2, specialVetColor);
                     DesignVetCell(workSheet, optDogsCount_m, rowCnt, colCnt + 3, specialVetColor);
                     DesignVetCell(workSheet, optDogsCount_f, rowCnt, colCnt + 4, specialVetColor);
                     DesignVetCell(workSheet, optCatsCount_m, rowCnt, colCnt + 5, specialVetColor);
                     DesignVetCell(workSheet, optCatsCount_f, rowCnt, colCnt + 6, specialVetColor);
-                    DesignVetCell(workSheet, "", rowCnt, colCnt + 7, specialVetColor);
+                    DesignVetCell(workSheet, deathNotes, rowCnt, colCnt + 7, specialVetColor);
 
                     DesignVetTotalOperation(workSheet, totalOpt, rowCnt, colCnt + 8, specialVetColor, false);
 
@@ -329,11 +356,13 @@ namespace CCC.UI.Controllers
                 foreach (var item in lstVetNames)
                 {
                     int vetOperatedCount = response.Where(x => x.VetName.Trim().ToLower() == item.Trim().ToLower()).ToList().Count;
-                    grandTotalByVet = grandTotalByVet + vetOperatedCount;
+                    int exCanCount = response.Where(x => x.VetName.Trim().ToLower() == item.Trim().ToLower() && (x.IsOnHold == true || x.ExpiredDate != null)).ToList().Count;
+                    int opCountFinal = vetOperatedCount - exCanCount;
+                    grandTotalByVet = (grandTotalByVet + opCountFinal);
                     Color specialVetColor = lstVetColor.Where(x => x.Key.Trim().ToLower() == item.Trim().ToLower()).Select(x => x.Value).FirstOrDefault();
 
                     DesignVetCell(workSheet, item, rowCnt + 1, colCnt, specialVetColor);
-                    DesignVetTotalOperation(workSheet, vetOperatedCount, rowCnt + 1, colCnt + 1, specialVetColor, false);
+                    DesignVetTotalOperation(workSheet, opCountFinal, rowCnt + 1, colCnt + 1, specialVetColor, false);
                     rowCnt = rowCnt + 1;
                 }
                 rowCnt = rowCnt + 1;
