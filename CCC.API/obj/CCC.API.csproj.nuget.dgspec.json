@@ -1,20 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Shahen-WorkFront\\Projects\\CodeZen\\CCC\\CCC.API\\CCC.API.csproj": {}
+    "D:\\Shahen-WorkFront\\Applications\\CCC\\CCC.API\\CCC.API.csproj": {}
   },
   "projects": {
-    "D:\\Shahen-WorkFront\\Projects\\CodeZen\\CCC\\CCC.API\\CCC.API.csproj": {
+    "D:\\Shahen-WorkFront\\Applications\\CCC\\CCC.API\\CCC.API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Shahen-WorkFront\\Projects\\CodeZen\\CCC\\CCC.API\\CCC.API.csproj",
+        "projectUniqueName": "D:\\Shahen-WorkFront\\Applications\\CCC\\CCC.API\\CCC.API.csproj",
         "projectName": "CCC.API",
-        "projectPath": "D:\\Shahen-WorkFront\\Projects\\CodeZen\\CCC\\CCC.API\\CCC.API.csproj",
-        "packagesPath": "C:\\Users\\hp\\.nuget\\packages\\",
-        "outputPath": "D:\\Shahen-WorkFront\\Projects\\CodeZen\\CCC\\CCC.API\\obj\\",
+        "projectPath": "D:\\Shahen-WorkFront\\Applications\\CCC\\CCC.API\\CCC.API.csproj",
+        "packagesPath": "C:\\Users\\sayya\\.nuget\\packages\\",
+        "outputPath": "D:\\Shahen-WorkFront\\Applications\\CCC\\CCC.API\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\hp\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\sayya\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -28,14 +32,14 @@
           "net5.0": {
             "targetAlias": "net5.0",
             "projectReferences": {
-              "D:\\Shahen-WorkFront\\Projects\\CodeZen\\CCC\\CCC.Domain\\CCC.Domain.csproj": {
-                "projectPath": "D:\\Shahen-WorkFront\\Projects\\CodeZen\\CCC\\CCC.Domain\\CCC.Domain.csproj"
+              "D:\\Shahen-WorkFront\\Applications\\CCC\\CCC.Domain\\CCC.Domain.csproj": {
+                "projectPath": "D:\\Shahen-WorkFront\\Applications\\CCC\\CCC.Domain\\CCC.Domain.csproj"
               },
-              "D:\\Shahen-WorkFront\\Projects\\CodeZen\\CCC\\CCC.lOC\\CCC.lOC.csproj": {
-                "projectPath": "D:\\Shahen-WorkFront\\Projects\\CodeZen\\CCC\\CCC.lOC\\CCC.lOC.csproj"
+              "D:\\Shahen-WorkFront\\Applications\\CCC\\CCC.lOC\\CCC.lOC.csproj": {
+                "projectPath": "D:\\Shahen-WorkFront\\Applications\\CCC\\CCC.lOC\\CCC.lOC.csproj"
               },
-              "D:\\Shahen-WorkFront\\Projects\\CodeZen\\CCC\\CCC.Service\\CCC.Service.csproj": {
-                "projectPath": "D:\\Shahen-WorkFront\\Projects\\CodeZen\\CCC\\CCC.Service\\CCC.Service.csproj"
+              "D:\\Shahen-WorkFront\\Applications\\CCC\\CCC.Service\\CCC.Service.csproj": {
+                "projectPath": "D:\\Shahen-WorkFront\\Applications\\CCC\\CCC.Service\\CCC.Service.csproj"
               }
             }
           }
@@ -89,24 +93,6 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "downloadDependencies": [
-            {
-              "name": "Microsoft.AspNetCore.App.Ref",
-              "version": "[5.0.0, 5.0.0]"
-            },
-            {
-              "name": "Microsoft.NETCore.App.Host.win-x64",
-              "version": "[5.0.17, 5.0.17]"
-            },
-            {
-              "name": "Microsoft.NETCore.App.Ref",
-              "version": "[5.0.0, 5.0.0]"
-            },
-            {
-              "name": "Microsoft.WindowsDesktop.App.Ref",
-              "version": "[5.0.0, 5.0.0]"
-            }
-          ],
           "frameworkReferences": {
             "Microsoft.AspNetCore.App": {
               "privateAssets": "none"
@@ -115,21 +101,25 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.413\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.416\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "D:\\Shahen-WorkFront\\Projects\\CodeZen\\CCC\\CCC.Data\\CCC.Data.csproj": {
+    "D:\\Shahen-WorkFront\\Applications\\CCC\\CCC.Data\\CCC.Data.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Shahen-WorkFront\\Projects\\CodeZen\\CCC\\CCC.Data\\CCC.Data.csproj",
+        "projectUniqueName": "D:\\Shahen-WorkFront\\Applications\\CCC\\CCC.Data\\CCC.Data.csproj",
         "projectName": "CCC.Data",
-        "projectPath": "D:\\Shahen-WorkFront\\Projects\\CodeZen\\CCC\\CCC.Data\\CCC.Data.csproj",
-        "packagesPath": "C:\\Users\\hp\\.nuget\\packages\\",
-        "outputPath": "D:\\Shahen-WorkFront\\Projects\\CodeZen\\CCC\\CCC.Data\\obj\\",
+        "projectPath": "D:\\Shahen-WorkFront\\Applications\\CCC\\CCC.Data\\CCC.Data.csproj",
+        "packagesPath": "C:\\Users\\sayya\\.nuget\\packages\\",
+        "outputPath": "D:\\Shahen-WorkFront\\Applications\\CCC\\CCC.Data\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\hp\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\sayya\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -143,8 +133,8 @@
           "net5.0": {
             "targetAlias": "net5.0",
             "projectReferences": {
-              "D:\\Shahen-WorkFront\\Projects\\CodeZen\\CCC\\CCC.Domain\\CCC.Domain.csproj": {
-                "projectPath": "D:\\Shahen-WorkFront\\Projects\\CodeZen\\CCC\\CCC.Domain\\CCC.Domain.csproj"
+              "D:\\Shahen-WorkFront\\Applications\\CCC\\CCC.Domain\\CCC.Domain.csproj": {
+                "projectPath": "D:\\Shahen-WorkFront\\Applications\\CCC\\CCC.Domain\\CCC.Domain.csproj"
               }
             }
           }
@@ -190,40 +180,30 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "downloadDependencies": [
-            {
-              "name": "Microsoft.AspNetCore.App.Ref",
-              "version": "[5.0.0, 5.0.0]"
-            },
-            {
-              "name": "Microsoft.NETCore.App.Ref",
-              "version": "[5.0.0, 5.0.0]"
-            },
-            {
-              "name": "Microsoft.WindowsDesktop.App.Ref",
-              "version": "[5.0.0, 5.0.0]"
-            }
-          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.413\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.416\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "D:\\Shahen-WorkFront\\Projects\\CodeZen\\CCC\\CCC.Domain\\CCC.Domain.csproj": {
+    "D:\\Shahen-WorkFront\\Applications\\CCC\\CCC.Domain\\CCC.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Shahen-WorkFront\\Projects\\CodeZen\\CCC\\CCC.Domain\\CCC.Domain.csproj",
+        "projectUniqueName": "D:\\Shahen-WorkFront\\Applications\\CCC\\CCC.Domain\\CCC.Domain.csproj",
         "projectName": "CCC.Domain",
-        "projectPath": "D:\\Shahen-WorkFront\\Projects\\CodeZen\\CCC\\CCC.Domain\\CCC.Domain.csproj",
-        "packagesPath": "C:\\Users\\hp\\.nuget\\packages\\",
-        "outputPath": "D:\\Shahen-WorkFront\\Projects\\CodeZen\\CCC\\CCC.Domain\\obj\\",
+        "projectPath": "D:\\Shahen-WorkFront\\Applications\\CCC\\CCC.Domain\\CCC.Domain.csproj",
+        "packagesPath": "C:\\Users\\sayya\\.nuget\\packages\\",
+        "outputPath": "D:\\Shahen-WorkFront\\Applications\\CCC\\CCC.Domain\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\hp\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\sayya\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -268,40 +248,30 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "downloadDependencies": [
-            {
-              "name": "Microsoft.AspNetCore.App.Ref",
-              "version": "[5.0.0, 5.0.0]"
-            },
-            {
-              "name": "Microsoft.NETCore.App.Ref",
-              "version": "[5.0.0, 5.0.0]"
-            },
-            {
-              "name": "Microsoft.WindowsDesktop.App.Ref",
-              "version": "[5.0.0, 5.0.0]"
-            }
-          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.413\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.416\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "D:\\Shahen-WorkFront\\Projects\\CodeZen\\CCC\\CCC.lOC\\CCC.lOC.csproj": {
+    "D:\\Shahen-WorkFront\\Applications\\CCC\\CCC.lOC\\CCC.lOC.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Shahen-WorkFront\\Projects\\CodeZen\\CCC\\CCC.lOC\\CCC.lOC.csproj",
+        "projectUniqueName": "D:\\Shahen-WorkFront\\Applications\\CCC\\CCC.lOC\\CCC.lOC.csproj",
         "projectName": "CCC.lOC",
-        "projectPath": "D:\\Shahen-WorkFront\\Projects\\CodeZen\\CCC\\CCC.lOC\\CCC.lOC.csproj",
-        "packagesPath": "C:\\Users\\hp\\.nuget\\packages\\",
-        "outputPath": "D:\\Shahen-WorkFront\\Projects\\CodeZen\\CCC\\CCC.lOC\\obj\\",
+        "projectPath": "D:\\Shahen-WorkFront\\Applications\\CCC\\CCC.lOC\\CCC.lOC.csproj",
+        "packagesPath": "C:\\Users\\sayya\\.nuget\\packages\\",
+        "outputPath": "D:\\Shahen-WorkFront\\Applications\\CCC\\CCC.lOC\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\hp\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\sayya\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -315,11 +285,11 @@
           "net5.0": {
             "targetAlias": "net5.0",
             "projectReferences": {
-              "D:\\Shahen-WorkFront\\Projects\\CodeZen\\CCC\\CCC.Data\\CCC.Data.csproj": {
-                "projectPath": "D:\\Shahen-WorkFront\\Projects\\CodeZen\\CCC\\CCC.Data\\CCC.Data.csproj"
+              "D:\\Shahen-WorkFront\\Applications\\CCC\\CCC.Data\\CCC.Data.csproj": {
+                "projectPath": "D:\\Shahen-WorkFront\\Applications\\CCC\\CCC.Data\\CCC.Data.csproj"
               },
-              "D:\\Shahen-WorkFront\\Projects\\CodeZen\\CCC\\CCC.Service\\CCC.Service.csproj": {
-                "projectPath": "D:\\Shahen-WorkFront\\Projects\\CodeZen\\CCC\\CCC.Service\\CCC.Service.csproj"
+              "D:\\Shahen-WorkFront\\Applications\\CCC\\CCC.Service\\CCC.Service.csproj": {
+                "projectPath": "D:\\Shahen-WorkFront\\Applications\\CCC\\CCC.Service\\CCC.Service.csproj"
               }
             }
           }
@@ -343,40 +313,30 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "downloadDependencies": [
-            {
-              "name": "Microsoft.AspNetCore.App.Ref",
-              "version": "[5.0.0, 5.0.0]"
-            },
-            {
-              "name": "Microsoft.NETCore.App.Ref",
-              "version": "[5.0.0, 5.0.0]"
-            },
-            {
-              "name": "Microsoft.WindowsDesktop.App.Ref",
-              "version": "[5.0.0, 5.0.0]"
-            }
-          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.413\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.416\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "D:\\Shahen-WorkFront\\Projects\\CodeZen\\CCC\\CCC.Service\\CCC.Service.csproj": {
+    "D:\\Shahen-WorkFront\\Applications\\CCC\\CCC.Service\\CCC.Service.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Shahen-WorkFront\\Projects\\CodeZen\\CCC\\CCC.Service\\CCC.Service.csproj",
+        "projectUniqueName": "D:\\Shahen-WorkFront\\Applications\\CCC\\CCC.Service\\CCC.Service.csproj",
         "projectName": "CCC.Service",
-        "projectPath": "D:\\Shahen-WorkFront\\Projects\\CodeZen\\CCC\\CCC.Service\\CCC.Service.csproj",
-        "packagesPath": "C:\\Users\\hp\\.nuget\\packages\\",
-        "outputPath": "D:\\Shahen-WorkFront\\Projects\\CodeZen\\CCC\\CCC.Service\\obj\\",
+        "projectPath": "D:\\Shahen-WorkFront\\Applications\\CCC\\CCC.Service\\CCC.Service.csproj",
+        "packagesPath": "C:\\Users\\sayya\\.nuget\\packages\\",
+        "outputPath": "D:\\Shahen-WorkFront\\Applications\\CCC\\CCC.Service\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\hp\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\sayya\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -390,11 +350,11 @@
           "net5.0": {
             "targetAlias": "net5.0",
             "projectReferences": {
-              "D:\\Shahen-WorkFront\\Projects\\CodeZen\\CCC\\CCC.Data\\CCC.Data.csproj": {
-                "projectPath": "D:\\Shahen-WorkFront\\Projects\\CodeZen\\CCC\\CCC.Data\\CCC.Data.csproj"
+              "D:\\Shahen-WorkFront\\Applications\\CCC\\CCC.Data\\CCC.Data.csproj": {
+                "projectPath": "D:\\Shahen-WorkFront\\Applications\\CCC\\CCC.Data\\CCC.Data.csproj"
               },
-              "D:\\Shahen-WorkFront\\Projects\\CodeZen\\CCC\\CCC.Domain\\CCC.Domain.csproj": {
-                "projectPath": "D:\\Shahen-WorkFront\\Projects\\CodeZen\\CCC\\CCC.Domain\\CCC.Domain.csproj"
+              "D:\\Shahen-WorkFront\\Applications\\CCC\\CCC.Domain\\CCC.Domain.csproj": {
+                "projectPath": "D:\\Shahen-WorkFront\\Applications\\CCC\\CCC.Domain\\CCC.Domain.csproj"
               }
             }
           }
@@ -424,26 +384,12 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "downloadDependencies": [
-            {
-              "name": "Microsoft.AspNetCore.App.Ref",
-              "version": "[5.0.0, 5.0.0]"
-            },
-            {
-              "name": "Microsoft.NETCore.App.Ref",
-              "version": "[5.0.0, 5.0.0]"
-            },
-            {
-              "name": "Microsoft.WindowsDesktop.App.Ref",
-              "version": "[5.0.0, 5.0.0]"
-            }
-          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.413\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.416\\RuntimeIdentifierGraph.json"
         }
       }
     }

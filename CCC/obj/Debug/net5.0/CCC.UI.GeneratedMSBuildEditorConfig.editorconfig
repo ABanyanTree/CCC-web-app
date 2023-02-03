@@ -8,4 +8,4 @@ build_property.PublishSingleFile =
 build_property.IncludeAllContentForSelfExtract = 
 build_property._SupportedPlatformList = Android,iOS,Linux,macOS,Windows
 build_property.RootNamespace = CCC.UI
-build_property.ProjectDir = D:\Shahen-WorkFront\Projects\CodeZen\CCC\CCC\
+build_property.ProjectDir = D:\Shahen-WorkFront\Applications\CCC\CCC\
