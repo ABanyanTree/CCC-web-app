@@ -92,6 +92,7 @@ namespace CCC.Service.Infra.EmailStuff
             }
             else
             {
+                smtp.UseDefaultCredentials = false;
                 //smtp.Host = EncryptionManager.Decrypt(_options.Value.SMTP_HOST);
                 smtp.Host = _options.Value.SMTP_HOST;
                 if (!string.IsNullOrEmpty(_options.Value.SENDMAIL_SMTPUSERNAME))
@@ -112,15 +113,20 @@ namespace CCC.Service.Infra.EmailStuff
                 {
                     smtp.UseDefaultCredentials = Convert.ToBoolean(_options.Value.SENDMAIL_DEFAULTCREDENTIALS);
                 }
-
-
             }
 
 
             if (_options.Value.SendEmail)
             {
-                await smtp.SendMailAsync(mailInfo);
-
+                try
+                {
+                    smtp.EnableSsl = true;
+                    await smtp.SendMailAsync(mailInfo);
+                }
+                catch (Exception e)
+                {
+                    string ss = "";
+                }
             }
 
             EmailSentLog emailSentLog = new EmailSentLog();

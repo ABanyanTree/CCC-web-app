@@ -86,6 +86,7 @@ namespace CCC.UI.Controllers
             });
             var apiResponse = await UserAPI.GetAllUserDetailList(searchObj);
             var response = apiResponse.Content;
+            response = response.Where(x => x.UserId != objSessionUSer.UserId).ToList(); //logged in user not displayed
 
             var lst = response;
 

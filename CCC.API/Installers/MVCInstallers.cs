@@ -1,6 +1,7 @@
 ﻿using CCC.API.Filters;
 using CCC.Domain;
 using CCC.lOC;
+using CCC.Service.Infra.EmailStuff;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -18,8 +19,8 @@ namespace CCC.API.Installers
         public void InstallServices(IServiceCollection services, IConfiguration configuration)
         {
             services.Configure<ReadConfig>(configuration.GetSection("data:DBcon"));
+            services.Configure<EmailConfig>(configuration.GetSection("EmailConfig"));
             //services.Configure<FileSystemPath>(configuration.GetSection("FileSystemPath"));
-            //services.Configure<EmailConfig>(configuration.GetSection("EmailConfig"));
             //services.Configure<VersionSettings>(configuration.GetSection("VersionSettings"));
             //services.Configure<RetailConfig>(configuration.GetSection("RetailConfig"));
 

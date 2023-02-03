@@ -78,7 +78,7 @@ namespace CCC.API
             var corsSetting = new CorsSetting();
             Configuration.GetSection(nameof(CorsSetting)).Bind(corsSetting);
 
-
+          
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseRouting();
