@@ -328,6 +328,9 @@ table.dataTable {
 }
 
 .redColor {
+    color: #E41F35 !important
+}
+.sysColor {
     color: #128f8b !important
 }
 
@@ -6843,7 +6846,7 @@ ul.pubStatusLBL {
     color: #ffffff;
     padding: 4px 34px;
     vertical-align: middle;
-    border: 1px solid #c22b2c;
+    border: 1px solid #128f8b;
     border-radius: 3px 3px 3px 3px;
     -moz-border-radius: 3px 3px 3px 3px;
     -webkit-border-radius: 3px 3px 3px 3px;

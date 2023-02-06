@@ -34,11 +34,11 @@
                             <div class="loginContent">
                                 <div class="loginBg">
                                     <div class="loginHeader">
-                                        @*<img src='@Url.Content("~/Images"+imgPath+"/main-logo.png")' class="img-responsive" />*@
-                                        <h2>
-                                            @*Welcome to Cardinal Health <br /> Compliance Management Service*@
-                                            @Html.Raw(LoginPageText)
-                                        </h2>
+                                        <img src='@Url.Content("~/Images/ccc_main_logo1.png")' class="img-responsive" />
+                                        <!--<h2>
+                                            Welcome to CCC Log-->
+                                            @*@Html.Raw(LoginPageText)*@
+                                        <!--</h2>-->
                                     </div>
                                     <div class="loginInnerBg">
                                         <div class="form-group">
@@ -50,7 +50,7 @@
                                             <div class="posRel">
                                                 <label for="" class="lblText">Password</label>
                                                 <input type="password" asp-for="Password" class="form-control" placeholder="Password" tabindex="2" />
-                                                <span asp-validation-for="Password"></span>
+                                                <span asp-validation-for="Password" class="redColor"></span>
                                             </div>
                                         </div>
                                         <div class="fotPass">
@@ -76,14 +76,14 @@
 </body>
 <script type="text/javascript">
     $("#btnLogin").on("click", function (e) {
-        
         e.preventDefault();
         var password = $("#Password").val();
-        var salt = $("#Salt").val();
-        var hash = MD5(password);
-        var hashedPwd = MD5(salt + hash);
-        $("#Password").val(hashedPwd);
-
+        if (password != '' && password != null && password != undefined) {
+            var salt = $("#Salt").val();
+            var hash = MD5(password);
+            var hashedPwd = MD5(salt + hash);
+            $("#Password").val(hashedPwd);
+        }
         $("#frmLogin").submit();
     });
 
@@ -98,6 +98,7 @@
 @if (TempData["alertMsg"] != null)
 {
     <script type="text/javascript">
+        debugger;
         showWarningMsg('@Html.Raw(TempData["alertMsg"])');
     </script>
 }

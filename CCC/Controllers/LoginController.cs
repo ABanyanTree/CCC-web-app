@@ -80,15 +80,18 @@ namespace CCC.UI.Controllers
             }
             else
             {
-                var lstErrors = JsonConvert.DeserializeObject<ErrorResponseVM>(apiResponse?.Error?.Content);
+                var lstErrors = JsonConvert.DeserializeObject<ErrorModelVM>(apiResponse?.Error?.Content);
                 string msg = "";
-                foreach (var singleError in lstErrors.Errors)
-                {
-                    if (!string.IsNullOrEmpty(singleError.FieldName))
-                    {
-                        msg += singleError.FieldName + ": " + singleError.Message + "<br />";
-                    }
-                }
+
+                msg = lstErrors.FieldName + ": " + lstErrors.Message + "<br />";
+
+                //foreach (var singleError in lstErrors)
+                //{
+                //    if (!string.IsNullOrEmpty(singleError.FieldName))
+                //    {
+                //        msg += singleError.FieldName + ": " + singleError.Message + "<br />";
+                //    }
+                //}
                 TempData["alertMsg"] = msg;
                 return View();
             }

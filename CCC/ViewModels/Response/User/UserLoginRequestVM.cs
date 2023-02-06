@@ -8,7 +8,7 @@ namespace CCC.UI.ViewModels
 {
     public class UserLoginRequestVM
     {
-        [Required(ErrorMessage = "Please enter LoginID")]
+        [Required(ErrorMessage = "Please enter LoginId")]
         public string Email { get; set; }
         [Required(ErrorMessage = "Please enter Password")]
         public string Password { get; set; }

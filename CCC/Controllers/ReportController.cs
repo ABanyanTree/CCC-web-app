@@ -233,16 +233,16 @@ namespace CCC.UI.Controllers
 
             #region -- Assign unique color for every Vet --
             List<string> lstVetNames = response.Select(x => x.VetName).Distinct().ToList();
-            Random rnd = new Random();
-            Byte[] b = new Byte[3];
+            //Random rnd = new Random();
+            //Byte[] b = new Byte[3];
 
-            Dictionary<string, Color> lstVetColor = new Dictionary<string, Color>();
-            foreach (var item in lstVetNames)
-            {
-                rnd.NextBytes(b);
-                Color color = Color.FromArgb(255, b[0], b[1], b[2]);
-                lstVetColor.Add(item, color);
-            }
+            //Dictionary<string, Color> lstVetColor = new Dictionary<string, Color>();
+            //foreach (var item in lstVetNames)
+            //{
+            //    rnd.NextBytes(b);
+            //    Color color = Color.FromArgb(255, b[0], b[1], b[2]);
+            //    lstVetColor.Add(item, color);
+            //}
             #endregion
 
             string centerName = response.Select(x => x.CenterName).FirstOrDefault();
@@ -265,7 +265,7 @@ namespace CCC.UI.Controllers
                 if (totalSurgeryCountOnDay > 0)
                 {
                     string drName = response.Where(x => x.SurgeryDate == sDate).Select(x => x.VetName).FirstOrDefault();
-                    Color specialVetColor = lstVetColor.Where(x => x.Key.Trim().ToLower() == drName.Trim().ToLower()).Select(x => x.Value).FirstOrDefault();
+                    Color specialVetColor = Color.FromArgb(18, 143, 139); //lstVetColor.Where(x => x.Key.Trim().ToLower() == drName.Trim().ToLower()).Select(x => x.Value).FirstOrDefault();
 
                     int optDogsCount_m = response.Where(x => x.SurgeryDate.Value.Date == sDate.Date && x.PetType == CommonConstants.LOOKUPTYPE_PETTYPE_DOG && x.Gender == CommonConstants.LOOKUPTYPE_PETGENDER_MALE).ToList().Count;
                     int optDogsCount_f = response.Where(x => x.SurgeryDate.Value.Date == sDate.Date && x.PetType == CommonConstants.LOOKUPTYPE_PETTYPE_DOG && x.Gender == CommonConstants.LOOKUPTYPE_PETGENDER_FEMALE).ToList().Count;
@@ -324,16 +324,15 @@ namespace CCC.UI.Controllers
                     workSheet.Cells[rowCnt, colCnt + 2, rowCnt, colCnt + 8].Value = "No Ops";
                     workSheet.Cells[rowCnt, colCnt + 2, rowCnt, colCnt + 8].Merge = true;
                     workSheet.Cells[rowCnt, colCnt + 2, rowCnt, colCnt + 8].Style.Fill.PatternType = ExcelFillStyle.Solid;
-                    workSheet.Cells[rowCnt, colCnt + 2, rowCnt, colCnt + 8].Style.Font.Color.SetColor(Color.FromArgb(255, 255, 255));
-                    workSheet.Cells[rowCnt, colCnt + 2, rowCnt, colCnt + 8].Style.Fill.BackgroundColor.SetColor(Color.FromArgb(0, 0, 0));
-
+                    workSheet.Cells[rowCnt, colCnt + 2, rowCnt, colCnt + 8].Style.Font.Color.SetColor(Color.FromArgb(0, 0, 0));
+                    workSheet.Cells[rowCnt, colCnt + 2, rowCnt, colCnt + 8].Style.Fill.BackgroundColor.SetColor(Color.FromArgb(246, 253, 252));
                     workSheet.Cells[rowCnt, colCnt, rowCnt, colCnt + 8].Style.Border.BorderAround(ExcelBorderStyle.Thick, Color.Black);
                 }
             }
 
             DesignCalenderTableTotal(workSheet, rowCnt, colCnt, m_DogTotal, f_DogTotal, m_CatTotal, f_CatTotal, petTotal);
 
-
+            Color bgColor = Color.FromArgb(76, 82, 112);
             #region -- Vet Total Table --
 
             if (lstVetNames.Count > 0)
@@ -350,7 +349,7 @@ namespace CCC.UI.Controllers
                 workSheet.Cells[rowCnt, colCnt, rowCnt, colCnt + 1].Style.Border.BorderAround(ExcelBorderStyle.Thick, Color.Black);
                 workSheet.Cells[rowCnt, colCnt, rowCnt, colCnt + 1].Style.Fill.PatternType = ExcelFillStyle.Solid;
                 workSheet.Cells[rowCnt, colCnt].Style.Font.Color.SetColor(Color.FromArgb(255, 255, 255));
-                workSheet.Cells[rowCnt, colCnt, rowCnt, colCnt + 1].Style.Fill.BackgroundColor.SetColor(Color.FromArgb(0, 0, 0));
+                workSheet.Cells[rowCnt, colCnt, rowCnt, colCnt + 1].Style.Fill.BackgroundColor.SetColor(bgColor);
 
                 int grandTotalByVet = 0;
                 foreach (var item in lstVetNames)
@@ -359,7 +358,7 @@ namespace CCC.UI.Controllers
                     int exCanCount = response.Where(x => x.VetName.Trim().ToLower() == item.Trim().ToLower() && (x.IsOnHold == true || x.ExpiredDate != null)).ToList().Count;
                     int opCountFinal = vetOperatedCount - exCanCount;
                     grandTotalByVet = (grandTotalByVet + opCountFinal);
-                    Color specialVetColor = lstVetColor.Where(x => x.Key.Trim().ToLower() == item.Trim().ToLower()).Select(x => x.Value).FirstOrDefault();
+                    Color specialVetColor = Color.FromArgb(18, 143, 139); //lstVetColor.Where(x => x.Key.Trim().ToLower() == item.Trim().ToLower()).Select(x => x.Value).FirstOrDefault();
 
                     DesignVetCell(workSheet, item, rowCnt + 1, colCnt, specialVetColor);
                     DesignVetTotalOperation(workSheet, opCountFinal, rowCnt + 1, colCnt + 1, specialVetColor, false);
@@ -387,7 +386,7 @@ namespace CCC.UI.Controllers
                 workSheet.Cells[rowCnt, colCnt, rowCnt, colCnt + 1].Style.Border.BorderAround(ExcelBorderStyle.Thick, Color.Black);
                 workSheet.Cells[rowCnt, colCnt, rowCnt, colCnt + 1].Style.Fill.PatternType = ExcelFillStyle.Solid;
                 workSheet.Cells[rowCnt, colCnt].Style.Font.Color.SetColor(Color.FromArgb(255, 255, 255));
-                workSheet.Cells[rowCnt, colCnt, rowCnt, colCnt + 1].Style.Fill.BackgroundColor.SetColor(Color.FromArgb(0, 128, 255));
+                workSheet.Cells[rowCnt, colCnt, rowCnt, colCnt + 1].Style.Fill.BackgroundColor.SetColor(bgColor);
 
                 DesignPetGenderData(workSheet, "Male", m_DogTotal, rowCnt, colCnt);
                 DesignPetGenderData(workSheet, "Female", f_DogTotal, rowCnt + 1, colCnt);
@@ -411,7 +410,7 @@ namespace CCC.UI.Controllers
                 workSheet.Cells[rowCnt, colCnt, rowCnt, colCnt + 1].Style.Border.BorderAround(ExcelBorderStyle.Thick, Color.Black);
                 workSheet.Cells[rowCnt, colCnt, rowCnt, colCnt + 1].Style.Fill.PatternType = ExcelFillStyle.Solid;
                 workSheet.Cells[rowCnt, colCnt].Style.Font.Color.SetColor(Color.FromArgb(255, 255, 255));
-                workSheet.Cells[rowCnt, colCnt, rowCnt, colCnt + 1].Style.Fill.BackgroundColor.SetColor(Color.FromArgb(0, 128, 255));
+                workSheet.Cells[rowCnt, colCnt, rowCnt, colCnt + 1].Style.Fill.BackgroundColor.SetColor(bgColor);
 
                 DesignPetGenderData(workSheet, "Male", m_CatTotal, rowCnt, colCnt);
                 DesignPetGenderData(workSheet, "Female", f_CatTotal, rowCnt + 1, colCnt);
@@ -434,7 +433,7 @@ namespace CCC.UI.Controllers
                 workSheet.Cells[rowCnt, colCnt, rowCnt, colCnt + 2].Style.Border.BorderAround(ExcelBorderStyle.Thick, Color.Black);
                 workSheet.Cells[rowCnt, colCnt, rowCnt, colCnt + 2].Style.Fill.PatternType = ExcelFillStyle.Solid;
                 workSheet.Cells[rowCnt, colCnt].Style.Font.Color.SetColor(Color.FromArgb(255, 255, 255));
-                workSheet.Cells[rowCnt, colCnt, rowCnt, colCnt + 2].Style.Fill.BackgroundColor.SetColor(Color.FromArgb(0, 0, 0));
+                workSheet.Cells[rowCnt, colCnt, rowCnt, colCnt + 2].Style.Fill.BackgroundColor.SetColor(bgColor);
 
                 rowCnt = rowCnt + 1;
                 workSheet.Cells[rowCnt, colCnt].Value = "Dr. Name";
@@ -450,7 +449,7 @@ namespace CCC.UI.Controllers
                     totalDeathCount = totalDeathCount + deathCount;
                     int complicationCount = response.Where(x => x.VetName.Trim().ToLower() == item.Trim().ToLower() && x.MedicalNoteId != null).ToList().Count;
                     totalComplicationCount = totalComplicationCount + complicationCount;
-                    Color specialVetColor = lstVetColor.Where(x => x.Key.Trim().ToLower() == item.Trim().ToLower()).Select(x => x.Value).FirstOrDefault();
+                    Color specialVetColor = Color.FromArgb(18, 143, 139); //lstVetColor.Where(x => x.Key.Trim().ToLower() == item.Trim().ToLower()).Select(x => x.Value).FirstOrDefault();
 
                     DesignVetCell(workSheet, item, rowCnt + 1, colCnt, specialVetColor);
                     DesignVetTotalOperation(workSheet, deathCount, rowCnt + 1, colCnt + 1, specialVetColor, false);
@@ -493,6 +492,7 @@ namespace CCC.UI.Controllers
 
         private void DesignVetTotalOperation(ExcelWorksheet workSheet, dynamic vetOperatedCount, int rowCnt, int colCnt, Color specialVetColor, bool IsGrandTotal = false)
         {
+            Color bgColor = Color.FromArgb(76, 82, 112);
             workSheet.Cells[rowCnt, colCnt].Value = vetOperatedCount;
             workSheet.Cells[rowCnt, colCnt].Style.Border.BorderAround(ExcelBorderStyle.Thick, Color.Black);
             workSheet.Cells[rowCnt, colCnt].Style.Font.Bold = true;
@@ -506,7 +506,7 @@ namespace CCC.UI.Controllers
             {
                 workSheet.Cells[rowCnt, colCnt].Style.Fill.PatternType = ExcelFillStyle.Solid;
                 workSheet.Cells[rowCnt, colCnt].Style.Font.Color.SetColor(Color.FromArgb(255, 255, 255));
-                workSheet.Cells[rowCnt, colCnt].Style.Fill.BackgroundColor.SetColor(Color.FromArgb(0, 0, 0));
+                workSheet.Cells[rowCnt, colCnt].Style.Fill.BackgroundColor.SetColor(bgColor);
             }
 
         }
@@ -523,6 +523,7 @@ namespace CCC.UI.Controllers
 
         private void DesignCalenderTableTotal(ExcelWorksheet workSheet, int rowCnt, int colCnt, int m_DogTotal, int f_DogTotal, int m_CatTotal, int f_CatTotal, int petTotal)
         {
+            Color bgColor = Color.FromArgb(76, 82, 112);
             workSheet.Cells[rowCnt + 1, colCnt + 3].Value = m_DogTotal;
             workSheet.Cells[rowCnt + 1, colCnt + 3].Style.Font.Bold = true;
             workSheet.Cells[rowCnt + 1, colCnt + 3].Style.Border.BorderAround(ExcelBorderStyle.Thick, Color.Black);
@@ -530,7 +531,7 @@ namespace CCC.UI.Controllers
             workSheet.Cells[rowCnt + 1, colCnt + 3].Style.VerticalAlignment = ExcelVerticalAlignment.Center;
             workSheet.Cells[rowCnt + 1, colCnt + 3].Style.Fill.PatternType = ExcelFillStyle.Solid;
             workSheet.Cells[rowCnt + 1, colCnt + 3].Style.Font.Color.SetColor(Color.FromArgb(255, 255, 255));
-            workSheet.Cells[rowCnt + 1, colCnt + 3].Style.Fill.BackgroundColor.SetColor(Color.Chocolate);
+            workSheet.Cells[rowCnt + 1, colCnt + 3].Style.Fill.BackgroundColor.SetColor(bgColor);
 
             workSheet.Cells[rowCnt + 1, colCnt + 4].Value = f_DogTotal;
             workSheet.Cells[rowCnt + 1, colCnt + 4].Style.Font.Bold = true;
@@ -539,7 +540,7 @@ namespace CCC.UI.Controllers
             workSheet.Cells[rowCnt + 1, colCnt + 4].Style.VerticalAlignment = ExcelVerticalAlignment.Center;
             workSheet.Cells[rowCnt + 1, colCnt + 4].Style.Fill.PatternType = ExcelFillStyle.Solid;
             workSheet.Cells[rowCnt + 1, colCnt + 4].Style.Font.Color.SetColor(Color.FromArgb(255, 255, 255));
-            workSheet.Cells[rowCnt + 1, colCnt + 4].Style.Fill.BackgroundColor.SetColor(Color.Chocolate);
+            workSheet.Cells[rowCnt + 1, colCnt + 4].Style.Fill.BackgroundColor.SetColor(bgColor);
 
             workSheet.Cells[rowCnt + 1, colCnt + 5].Value = m_CatTotal;
             workSheet.Cells[rowCnt + 1, colCnt + 5].Style.Font.Bold = true;
@@ -548,7 +549,7 @@ namespace CCC.UI.Controllers
             workSheet.Cells[rowCnt + 1, colCnt + 5].Style.VerticalAlignment = ExcelVerticalAlignment.Center;
             workSheet.Cells[rowCnt + 1, colCnt + 5].Style.Fill.PatternType = ExcelFillStyle.Solid;
             workSheet.Cells[rowCnt + 1, colCnt + 5].Style.Font.Color.SetColor(Color.FromArgb(255, 255, 255));
-            workSheet.Cells[rowCnt + 1, colCnt + 5].Style.Fill.BackgroundColor.SetColor(Color.Chocolate);
+            workSheet.Cells[rowCnt + 1, colCnt + 5].Style.Fill.BackgroundColor.SetColor(bgColor);
 
             workSheet.Cells[rowCnt + 1, colCnt + 6].Value = f_CatTotal;
             workSheet.Cells[rowCnt + 1, colCnt + 6].Style.Font.Bold = true;
@@ -557,7 +558,7 @@ namespace CCC.UI.Controllers
             workSheet.Cells[rowCnt + 1, colCnt + 6].Style.VerticalAlignment = ExcelVerticalAlignment.Center;
             workSheet.Cells[rowCnt + 1, colCnt + 6].Style.Fill.PatternType = ExcelFillStyle.Solid;
             workSheet.Cells[rowCnt + 1, colCnt + 6].Style.Font.Color.SetColor(Color.FromArgb(255, 255, 255));
-            workSheet.Cells[rowCnt + 1, colCnt + 6].Style.Fill.BackgroundColor.SetColor(Color.Chocolate);
+            workSheet.Cells[rowCnt + 1, colCnt + 6].Style.Fill.BackgroundColor.SetColor(bgColor);
 
             workSheet.Cells[rowCnt + 1, colCnt + 8].Value = petTotal;
             workSheet.Cells[rowCnt + 1, colCnt + 8].Style.Font.Bold = true;
@@ -566,7 +567,7 @@ namespace CCC.UI.Controllers
             workSheet.Cells[rowCnt + 1, colCnt + 8].Style.VerticalAlignment = ExcelVerticalAlignment.Center;
             workSheet.Cells[rowCnt + 1, colCnt + 8].Style.Fill.PatternType = ExcelFillStyle.Solid;
             workSheet.Cells[rowCnt + 1, colCnt + 8].Style.Font.Color.SetColor(Color.FromArgb(255, 255, 255));
-            workSheet.Cells[rowCnt + 1, colCnt + 8].Style.Fill.BackgroundColor.SetColor(Color.Chocolate);
+            workSheet.Cells[rowCnt + 1, colCnt + 8].Style.Fill.BackgroundColor.SetColor(bgColor);
         }
 
         private void DesignCalenderTableHeader(int days, ExcelWorksheet workSheet, int rowCnt, int colCnt)
@@ -592,7 +593,7 @@ namespace CCC.UI.Controllers
             workSheet.Cells[rowCnt, colCnt + 3, rowCnt, colCnt + 4].Style.Border.BorderAround(ExcelBorderStyle.Thick, Color.Black);
 
             workSheet.Cells[rowCnt + 1, colCnt + 3].Value = "Male";
-            workSheet.Cells[rowCnt + 1, colCnt + 3].Style.Font.Bold = true;
+            workSheet.Cells[rowCnt + 1, colCnt + 3, rowCnt + 2, colCnt + 3].Merge = true;
             workSheet.Cells[rowCnt + 1, colCnt + 3, rowCnt + 2, colCnt + 3].Style.Border.BorderAround(ExcelBorderStyle.Thick, Color.Black);
 
             workSheet.Cells[rowCnt + 1, colCnt + 4].Value = "Female";
