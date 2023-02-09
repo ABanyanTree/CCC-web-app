@@ -101,5 +101,12 @@ namespace CCC.Data.Services
             string[] addParams = new string[] { };
             return await GetAllAsync(new PetServiceDetails(), addParams, PetServiceDetails_Constant.SPROC_GETADMINDASHBOARDSUMMERYCOUNTDATA);
         }
+
+        public async Task<IEnumerable<PetServiceDetails>> GetCenterReportData(PetServiceDetails obj)
+        {
+            string[] addParams = new string[] {PetServiceDetails_Constant.CENTERID,PetServiceDetails_Constant.ADMISSIONDATEFROM,
+                PetServiceDetails_Constant.ADMISSIONDATETO};
+            return await GetAllAsync(obj, addParams, PetServiceDetails_Constant.SPROC_GETCENTERREPORT);
+        }
     }
 }

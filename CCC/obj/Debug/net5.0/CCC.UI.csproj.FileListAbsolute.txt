@@ -1324,3 +1324,4 @@ D:\Shahen-WorkFront\Applications\CCC\CCC\obj\Debug\net5.0\CCC.UI.dll
 D:\Shahen-WorkFront\Applications\CCC\CCC\obj\Debug\net5.0\ref\CCC.UI.dll
 D:\Shahen-WorkFront\Applications\CCC\CCC\obj\Debug\net5.0\CCC.UI.pdb
 D:\Shahen-WorkFront\Applications\CCC\CCC\obj\Debug\net5.0\CCC.UI.genruntimeconfig.cache
+D:\Shahen-WorkFront\Applications\CCC\CCC\obj\Debug\net5.0\Razor\Views\Report\ManageCenterReport.cshtml.g.cs

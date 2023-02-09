@@ -16,5 +16,6 @@ namespace CCC.Domain.DomainInterface
         Task<IEnumerable<PetServiceDetails>> GetVetReport(PetServiceDetails obj);
         Task<IEnumerable<PetServiceDetails>> GetCenterMgrDashboardList(PetServiceDetails obj);
         Task<IEnumerable<PetServiceDetails>> GetPetCountDetails();
+        Task<IEnumerable<PetServiceDetails>> GetCenterReportData(PetServiceDetails obj);
     }
 }

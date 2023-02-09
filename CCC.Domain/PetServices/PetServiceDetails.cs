@@ -96,7 +96,9 @@ namespace CCC.Domain
 
         public const string SPROC_GETADMINDASHBOARDSUMMERYCOUNTDATA = "sproc_GetAdminDashboardSummeryCountData";
 
-        
+        public const string SPROC_GETCENTERREPORT = "sproc_GetCenterReport";
+
+
 
 
 

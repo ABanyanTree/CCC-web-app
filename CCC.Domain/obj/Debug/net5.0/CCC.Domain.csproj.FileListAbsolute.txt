@@ -33,3 +33,4 @@ D:\Shahen-WorkFront\Applications\CCC\CCC.Domain\obj\Debug\net5.0\CCC.Domain.cspr
 D:\Shahen-WorkFront\Applications\CCC\CCC.Domain\obj\Debug\net5.0\CCC.Domain.dll
 D:\Shahen-WorkFront\Applications\CCC\CCC.Domain\obj\Debug\net5.0\ref\CCC.Domain.dll
 D:\Shahen-WorkFront\Applications\CCC\CCC.Domain\obj\Debug\net5.0\CCC.Domain.pdb
+D:\Shahen-WorkFront\Applications\CCC\CCC.Domain\obj\Debug\net5.0\CCC.Domain.csproj.AssemblyReference.cache

@@ -69,6 +69,12 @@
     "ControllerName": "Report",
     "ActionName": "ManageVetReport",
     "CssClass": ""
+  },
+  "ManageCenterReport": {
+    "FeatureId": "FEA000011",
+    "ControllerName": "Report",
+    "ActionName": "ManageCenterReport",
+    "CssClass": ""
   }
 
 }

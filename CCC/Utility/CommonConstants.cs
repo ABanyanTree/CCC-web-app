@@ -17,6 +17,7 @@ namespace CCC.UI.Utility
 
         public const string FEATURE_Reports = "Reports";
         public const string FEATURE_VetReportMonthly = "VetReportMonthly";
+        public const string FEATURE_CenterReport = "CenterReport";
 
         public const string LOOKUPTYPE_PETTYPE = "PetType";
         public const string LOOKUPTYPE_MEDICALNOTES = "MedicalNotes";

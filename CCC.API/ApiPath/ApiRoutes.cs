@@ -22,7 +22,9 @@ namespace CCC.API.ApiPath
             public const string ReadPetDataByUser = Base + "/petservice/readpetdatabyuser";
             public const string GetPetUnReadData = Base + "/petservice/getpetunreaddata";
             public const string GetPetCountDetails = Base + "/petservice/getpetcountdetails";
+            public const string GetCenterReportData = Base + "/petservice/getcenterreportdata";
             
+
         }
 
         public static class CenterMaster

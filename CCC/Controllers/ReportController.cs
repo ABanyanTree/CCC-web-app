@@ -34,11 +34,6 @@ namespace CCC.UI.Controllers
                 AuthorizationHeaderValueGetter = () => Task.FromResult(cachedToken)
             });
 
-            var CityAreaMasterAPI = RestService.For<ICityAreaMasterApi>(hostUrl: ApplicationSettings.WebApiUrl, new RefitSettings
-            {
-                AuthorizationHeaderValueGetter = () => Task.FromResult(cachedToken)
-            });
-
             ViewBag.lstMonth = GetAllMonths();
             ViewBag.lstYears = GetAllYears();
 
@@ -198,6 +193,7 @@ namespace CCC.UI.Controllers
         {
             var objSessionUSer = HttpContext.Session.GetSessionUser();
             var cachedToken = HttpContext.Session.GetBearerToken();
+
             int days = DateTime.DaysInMonth(Convert.ToInt32(selectedYear), Convert.ToInt32(selectedMonth));
 
             string firstDate = selectedMonth + "/1/" + selectedYear;
@@ -474,6 +470,7 @@ namespace CCC.UI.Controllers
 
         }
 
+
         #region -- All Excel Design Stuff --
 
         private void SetCellAlignment(ExcelWorksheet workSheet, int rowCntFrom, int colCntFrom, int rowCntTo, int colCntTo)
@@ -650,9 +647,306 @@ namespace CCC.UI.Controllers
         #endregion
 
 
+        public async Task<ActionResult> ManageCenterReport()
+        {
+            var objSessionUser = HttpContext.Session.GetSessionUser();
+            var cachedToken = HttpContext.Session.GetBearerToken();
+
+            SearchPetData obj = new SearchPetData();
+
+            var CenterMasterAPI = RestService.For<ICenterMasterApi>(hostUrl: ApplicationSettings.WebApiUrl, new RefitSettings
+            {
+                AuthorizationHeaderValueGetter = () => Task.FromResult(cachedToken)
+            });
+
+            ViewBag.lstMonth = GetAllMonths();
+            ViewBag.lstYears = GetAllYears();
+
+            var centerRes = await CenterMasterAPI.GetAllCenters(objSessionUser.UserCenters);
+            ViewBag.lstCenter = new SelectList(centerRes.Content, "CenterId", "CenterName");
+
+            return View(obj);
+        }
+
+        public async Task<IActionResult> ExportCenterReport(string CenterId, string selectedMonth, string selectedYear)
+        {
+            var objSessionUser = HttpContext.Session.GetSessionUser();
+            var cachedToken = HttpContext.Session.GetBearerToken();
+
+            FileInfo newFile = new FileInfo("D:\\Shahen-WorkFront\\sample1.xlsx");
+            ExcelPackage excel = new ExcelPackage();
+            ExcelWorksheet workSheet = excel.Workbook.Worksheets.Add("Center Report");
+
+
+            var CenterMasterAPI = RestService.For<ICenterMasterApi>(hostUrl: ApplicationSettings.WebApiUrl, new RefitSettings
+            {
+                AuthorizationHeaderValueGetter = () => Task.FromResult(cachedToken)
+            });
+            string selectedCenters = string.Empty;
+            if (string.IsNullOrEmpty(CenterId)) { selectedCenters = objSessionUser.UserCenters; }
+            else { selectedCenters = CenterId; }
+
+            int days = DateTime.DaysInMonth(Convert.ToInt32(selectedYear), Convert.ToInt32(selectedMonth));
+
+            string firstDate = selectedMonth + "/1/" + selectedYear;
+            DateTime firstDayOfMonth = DateTime.Parse(firstDate);
+
+            string lastDate = selectedMonth + '/' + days.ToString() + '/' + selectedYear;
+            DateTime lastDayOfMonth = DateTime.Parse(lastDate);
+
+            SearchPetData searchObj = new SearchPetData();
+            searchObj.CenterId = selectedCenters;
+            searchObj.AdmissionDateFrom = firstDayOfMonth;
+            searchObj.AdmissionDateTo = lastDayOfMonth;
+
+            var PetServiceAPI = RestService.For<IPetServiceApi>(hostUrl: ApplicationSettings.WebApiUrl, new RefitSettings
+            {
+                AuthorizationHeaderValueGetter = () => Task.FromResult(cachedToken)
+            });
+
+            var apiResponse = await PetServiceAPI.GetCenterReportData(searchObj);
+            var response = apiResponse.Content;
+
+            var lstCenters = response.Select(x => x.CenterId).Distinct().ToList();
+
+            int rowCnt = 1;
+            int colCnt = 1;
+
+
+            DesignCenterReportTableHeader(workSheet, rowCnt, colCnt);
+
+            rowCnt = 3;
+            foreach (var cen in lstCenters)
+            {
+                rowCnt = rowCnt + 1; colCnt = 1;
+                string centerName = response.Where(x => x.CenterId == cen).Select(x => x.CenterName).FirstOrDefault();
+                var lstCenterManagers = response.Where(x => x.CenterId == cen).Select(s => s.CreatedBy).Distinct().ToList();
+                int totalMgrCount = lstCenterManagers.Count;
+
+
+                workSheet.Cells[rowCnt, colCnt].Value = centerName;
+                if (totalMgrCount > 1)
+                {
+                    workSheet.Cells[rowCnt, colCnt, rowCnt + totalMgrCount, colCnt].Merge = true;
+                }
+
+                int d_complication_Total_Male = 0;
+                int d_complication_Total_FeMale = 0;
+                int d_sterilised_Total_Male = 0;
+                int d_sterilised_Total_FeMale = 0;
+                int d_OnHold_Total_Male = 0;
+                int d_OnHold_Total_FeMale = 0;
+                int d_Died_Total_Male = 0;
+                int d_Died_Total_FeMale = 0;
+
+
+                int c_complication_Total_Male = 0, c_complication_Total_FeMale = 0;
+                int c_OnHold_Total_Male = 0, c_OnHold_Total_FeMale = 0;
+                int c_Died_Total_Male = 0, c_Died_Total_FeMale = 0;
+                int c_sterilised_Total_Male = 0, c_sterilised_Total_FeMale = 0;
+
+                foreach (var mgr in lstCenterManagers)
+                {
+                    string mgrName = response.Where(x => x.CenterId == cen && x.CreatedBy == mgr).Select(x => x.CreatorName).FirstOrDefault();
+                    workSheet.Cells[rowCnt, colCnt + 1].Value = mgrName;
+
+                    var dogData = response.Where(x => x.CenterId == cen && x.CreatedBy == mgr && x.PetType == CommonConstants.LOOKUPTYPE_PETTYPE_DOG).ToList();
+                    var catData = response.Where(x => x.CenterId == cen && x.CreatedBy == mgr && x.PetType == CommonConstants.LOOKUPTYPE_PETTYPE_Cat).ToList();
+                    //dog
+                    int d_complication_Male = dogData.Where(x => x.Gender == CommonConstants.LOOKUPTYPE_PETGENDER_MALE && !string.IsNullOrEmpty(x.MedicalNoteId)).ToList().Count;
+                    int d_complication_FeMale = dogData.Where(x => x.Gender == CommonConstants.LOOKUPTYPE_PETGENDER_FEMALE && !string.IsNullOrEmpty(x.MedicalNoteId)).ToList().Count;
+                    int d_sterilised_Male = dogData.Where(x => x.Gender == CommonConstants.LOOKUPTYPE_PETGENDER_MALE && x.ReleaseDate != null).ToList().Count;
+                    int d_sterilised_FeMale = dogData.Where(x => x.Gender == CommonConstants.LOOKUPTYPE_PETGENDER_FEMALE && x.ReleaseDate != null).ToList().Count;
+                    int d_OnHold_Male = dogData.Where(x => x.Gender == CommonConstants.LOOKUPTYPE_PETGENDER_MALE && x.IsOnHold == true).ToList().Count;
+                    int d_OnHold_FeMale = dogData.Where(x => x.Gender == CommonConstants.LOOKUPTYPE_PETGENDER_FEMALE && x.IsOnHold == true).ToList().Count;
+                    int d_Died_Male = dogData.Where(x => x.Gender == CommonConstants.LOOKUPTYPE_PETGENDER_MALE && x.ExpiredDate != null).ToList().Count;
+                    int d_Died_FeMale = dogData.Where(x => x.Gender == CommonConstants.LOOKUPTYPE_PETGENDER_FEMALE && x.ExpiredDate != null).ToList().Count;
+
+                    //cats
+                    int c_complication_Male = catData.Where(x => x.Gender == CommonConstants.LOOKUPTYPE_PETGENDER_MALE && !string.IsNullOrEmpty(x.MedicalNoteId)).ToList().Count;
+                    int c_complication_FeMale = catData.Where(x => x.Gender == CommonConstants.LOOKUPTYPE_PETGENDER_FEMALE && !string.IsNullOrEmpty(x.MedicalNoteId)).ToList().Count;
+                    int c_sterilised_Male = catData.Where(x => x.Gender == CommonConstants.LOOKUPTYPE_PETGENDER_MALE && x.ReleaseDate != null).ToList().Count;
+                    int c_sterilised_FeMale = catData.Where(x => x.Gender == CommonConstants.LOOKUPTYPE_PETGENDER_FEMALE && x.ReleaseDate != null).ToList().Count;
+                    int c_OnHold_Male = catData.Where(x => x.Gender == CommonConstants.LOOKUPTYPE_PETGENDER_MALE && x.IsOnHold == true).ToList().Count;
+                    int c_OnHold_FeMale = catData.Where(x => x.Gender == CommonConstants.LOOKUPTYPE_PETGENDER_FEMALE && x.IsOnHold == true).ToList().Count;
+                    int c_Died_Male = catData.Where(x => x.Gender == CommonConstants.LOOKUPTYPE_PETGENDER_MALE && x.ExpiredDate != null).ToList().Count;
+                    int c_Died_FeMale = catData.Where(x => x.Gender == CommonConstants.LOOKUPTYPE_PETGENDER_FEMALE && x.ExpiredDate != null).ToList().Count;
+
+
+                    int centerManagerTotal = d_complication_Male + d_complication_FeMale + d_sterilised_Male + d_sterilised_FeMale + d_OnHold_Male +
+                        d_OnHold_FeMale + d_Died_Male + d_Died_FeMale + c_complication_Male + c_complication_FeMale + c_sterilised_Male +
+                        c_sterilised_FeMale + c_OnHold_Male + c_OnHold_FeMale + c_Died_Male + c_Died_FeMale;
 
 
 
+                    workSheet.Cells[rowCnt, colCnt + 2].Value = d_complication_Male;
+                    workSheet.Cells[rowCnt, colCnt + 3].Value = d_complication_FeMale;
+
+                    workSheet.Cells[rowCnt, colCnt + 4].Value = d_sterilised_Male;
+                    workSheet.Cells[rowCnt, colCnt + 5].Value = d_sterilised_FeMale;
+
+                    workSheet.Cells[rowCnt, colCnt + 6].Value = d_Died_Male;
+                    workSheet.Cells[rowCnt, colCnt + 7].Value = d_Died_FeMale;
+
+                    workSheet.Cells[rowCnt, colCnt + 8].Value = d_OnHold_Male;
+                    workSheet.Cells[rowCnt, colCnt + 9].Value = d_OnHold_FeMale;
+
+                    workSheet.Cells[rowCnt, colCnt + 10].Value = c_complication_Male;
+                    workSheet.Cells[rowCnt, colCnt + 11].Value = c_complication_FeMale;
+
+                    workSheet.Cells[rowCnt, colCnt + 12].Value = c_sterilised_Male;
+                    workSheet.Cells[rowCnt, colCnt + 13].Value = c_sterilised_FeMale;
+
+                    workSheet.Cells[rowCnt, colCnt + 14].Value = c_Died_Male;
+                    workSheet.Cells[rowCnt, colCnt + 15].Value = c_Died_FeMale;
+
+                    workSheet.Cells[rowCnt, colCnt + 16].Value = c_OnHold_Male;
+                    workSheet.Cells[rowCnt, colCnt + 17].Value = c_OnHold_FeMale;
+
+                    workSheet.Cells[rowCnt, colCnt + 18].Value = centerManagerTotal;
+
+                    d_complication_Total_Male = d_complication_Total_Male + d_complication_Male;
+                    d_complication_Total_FeMale = d_complication_Total_FeMale + d_complication_FeMale;
+                    d_sterilised_Total_Male = d_sterilised_Total_Male + d_sterilised_Male;
+                    d_sterilised_Total_FeMale = d_sterilised_Total_FeMale + d_sterilised_FeMale;
+                    d_OnHold_Total_Male = d_OnHold_Total_Male + d_OnHold_Male;
+                    d_OnHold_Total_FeMale = d_OnHold_Total_FeMale + d_OnHold_FeMale;
+                    d_Died_Total_Male = d_Died_Total_Male + d_Died_Male;
+                    d_Died_Total_FeMale = d_Died_Total_FeMale + d_Died_FeMale;
+
+
+                    c_complication_Total_Male = c_complication_Total_Male + c_complication_Male;
+                    c_complication_Total_FeMale = c_complication_Total_FeMale + c_complication_FeMale;
+                    c_sterilised_Total_Male = c_sterilised_Total_Male + c_sterilised_Male;
+                    c_sterilised_Total_FeMale = c_sterilised_Total_FeMale + c_sterilised_FeMale;
+                    c_OnHold_Total_Male = c_OnHold_Total_Male + c_OnHold_Male;
+                    c_OnHold_Total_FeMale = c_OnHold_Total_FeMale + c_OnHold_FeMale;
+                    c_Died_Total_Male = c_Died_Total_Male + c_Died_Male;
+                    c_Died_Total_FeMale = c_Died_Total_FeMale + c_Died_FeMale;
+
+                    var FirstTableRange = workSheet.Cells[rowCnt, colCnt, rowCnt, colCnt + 18];
+                    workSheet.Cells[rowCnt, colCnt, rowCnt, colCnt + 18].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                    workSheet.Cells[rowCnt, colCnt, rowCnt, colCnt + 18].Style.VerticalAlignment = ExcelVerticalAlignment.Center;
+                    FirstTableRange.Style.Border.Top.Style = ExcelBorderStyle.Thin;
+                    FirstTableRange.Style.Border.Left.Style = ExcelBorderStyle.Thin;
+                    FirstTableRange.Style.Border.Right.Style = ExcelBorderStyle.Thin;
+                    FirstTableRange.Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
+                    
+                    rowCnt = rowCnt + 1;
+                }
+
+            }
+
+            var exportbytes = excel.GetAsByteArray();
+            return File(exportbytes, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", newFile.Name);
+
+            // return null;
+        }
+
+        private void DesignCenterReportTableHeader(ExcelWorksheet workSheet, int rowCnt, int colCnt)
+        {
+            Color voiletBGColor = Color.FromArgb(76, 82, 112);
+            Color greenBGColor = Color.FromArgb(18, 143, 139);
+            Color blueBGColor = Color.FromArgb(83, 142, 213);
+
+            workSheet.Cells[rowCnt, colCnt, rowCnt + 2, colCnt + 18].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+            workSheet.Cells[rowCnt, colCnt, rowCnt + 2, colCnt + 18].Style.VerticalAlignment = ExcelVerticalAlignment.Center;
+            workSheet.Cells[rowCnt, colCnt, rowCnt + 2, colCnt + 18].Style.Font.Bold = true;
+            workSheet.Cells[rowCnt, colCnt, rowCnt + 2, colCnt + 18].Style.Fill.PatternType = ExcelFillStyle.Solid;
+            workSheet.Cells[rowCnt, colCnt, rowCnt + 2, colCnt + 18].Style.Font.Color.SetColor(Color.FromArgb(255, 255, 255));
+
+
+            var FirstTableRange = workSheet.Cells[rowCnt, colCnt, rowCnt + 2, colCnt + 18];
+            FirstTableRange.Style.Border.Top.Style = ExcelBorderStyle.Thin;
+            FirstTableRange.Style.Border.Left.Style = ExcelBorderStyle.Thin;
+            FirstTableRange.Style.Border.Right.Style = ExcelBorderStyle.Thin;
+            FirstTableRange.Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
+
+            workSheet.Cells[rowCnt, colCnt].Value = "Center Name";
+            workSheet.Cells[rowCnt, colCnt, rowCnt + 2, colCnt].Merge = true;
+
+            workSheet.Cells[rowCnt, colCnt + 1].Value = "Center Manager";
+            workSheet.Cells[rowCnt, colCnt + 1, rowCnt + 2, colCnt + 1].Merge = true;
+
+            workSheet.Cells[rowCnt, colCnt, rowCnt + 2, colCnt + 1].Style.Fill.BackgroundColor.SetColor(greenBGColor);
+
+            workSheet.Cells[rowCnt, colCnt + 2].Value = "Dogs";
+            workSheet.Cells[rowCnt, colCnt + 2, rowCnt, colCnt + 9].Merge = true;
+            workSheet.Cells[rowCnt, colCnt + 2, rowCnt, colCnt + 9].Style.Fill.BackgroundColor.SetColor(greenBGColor);
+
+            workSheet.Cells[rowCnt + 1, colCnt + 2].Value = "Complications";
+            workSheet.Cells[rowCnt + 1, colCnt + 2, rowCnt + 1, colCnt + 3].Merge = true;
+            workSheet.Cells[rowCnt + 1, colCnt + 2, rowCnt + 1, colCnt + 3].Style.Fill.BackgroundColor.SetColor(voiletBGColor);
+
+            workSheet.Cells[rowCnt + 2, colCnt + 2].Value = "Male";
+            workSheet.Cells[rowCnt + 2, colCnt + 3].Value = "Female";
+            workSheet.Cells[rowCnt + 2, colCnt + 2, rowCnt + 2, colCnt + 3].Style.Fill.BackgroundColor.SetColor(blueBGColor);
+
+            workSheet.Cells[rowCnt + 1, colCnt + 4].Value = "Sterilised";
+            workSheet.Cells[rowCnt + 1, colCnt + 4, rowCnt + 1, colCnt + 5].Merge = true;
+            workSheet.Cells[rowCnt + 1, colCnt + 4, rowCnt + 1, colCnt + 5].Style.Fill.BackgroundColor.SetColor(voiletBGColor);
+
+            workSheet.Cells[rowCnt + 2, colCnt + 4].Value = "Male";
+            workSheet.Cells[rowCnt + 2, colCnt + 5].Value = "Female";
+            workSheet.Cells[rowCnt + 2, colCnt + 4, rowCnt + 2, colCnt + 5].Style.Fill.BackgroundColor.SetColor(blueBGColor);
+
+            workSheet.Cells[rowCnt + 1, colCnt + 6].Value = "Expired";
+            workSheet.Cells[rowCnt + 1, colCnt + 6, rowCnt + 1, colCnt + 7].Merge = true;
+            workSheet.Cells[rowCnt + 1, colCnt + 6, rowCnt + 1, colCnt + 7].Style.Fill.BackgroundColor.SetColor(voiletBGColor);
+
+            workSheet.Cells[rowCnt + 2, colCnt + 6].Value = "Male";
+            workSheet.Cells[rowCnt + 2, colCnt + 7].Value = "Female";
+            workSheet.Cells[rowCnt + 2, colCnt + 6, rowCnt + 2, colCnt + 7].Style.Fill.BackgroundColor.SetColor(blueBGColor);
+
+            workSheet.Cells[rowCnt + 1, colCnt + 8].Value = "OnHold";
+            workSheet.Cells[rowCnt + 1, colCnt + 8, rowCnt + 1, colCnt + 9].Merge = true;
+            workSheet.Cells[rowCnt + 1, colCnt + 8, rowCnt + 1, colCnt + 9].Style.Fill.BackgroundColor.SetColor(voiletBGColor);
+
+            workSheet.Cells[rowCnt + 2, colCnt + 8].Value = "Male";
+            workSheet.Cells[rowCnt + 2, colCnt + 9].Value = "Female";
+            workSheet.Cells[rowCnt + 2, colCnt + 8, rowCnt + 2, colCnt + 9].Style.Fill.BackgroundColor.SetColor(blueBGColor);
+
+
+            workSheet.Cells[rowCnt, colCnt + 10].Value = "Cats";
+            workSheet.Cells[rowCnt, colCnt + 10, rowCnt, colCnt + 17].Merge = true;
+            workSheet.Cells[rowCnt, colCnt + 10, rowCnt, colCnt + 17].Style.Fill.BackgroundColor.SetColor(greenBGColor);
+
+            workSheet.Cells[rowCnt + 1, colCnt + 10].Value = "Complications";
+            workSheet.Cells[rowCnt + 1, colCnt + 10, rowCnt + 1, colCnt + 11].Merge = true;
+            workSheet.Cells[rowCnt + 1, colCnt + 10, rowCnt + 1, colCnt + 11].Style.Fill.BackgroundColor.SetColor(voiletBGColor);
+
+            workSheet.Cells[rowCnt + 2, colCnt + 10].Value = "Male";
+            workSheet.Cells[rowCnt + 2, colCnt + 11].Value = "Female";
+            workSheet.Cells[rowCnt + 2, colCnt + 10, rowCnt + 2, colCnt + 11].Style.Fill.BackgroundColor.SetColor(blueBGColor);
+
+            workSheet.Cells[rowCnt + 1, colCnt + 12].Value = "Sterilised";
+            workSheet.Cells[rowCnt + 1, colCnt + 12, rowCnt + 1, colCnt + 13].Merge = true;
+            workSheet.Cells[rowCnt + 1, colCnt + 12, rowCnt + 1, colCnt + 13].Style.Fill.BackgroundColor.SetColor(voiletBGColor);
+
+            workSheet.Cells[rowCnt + 2, colCnt + 12].Value = "Male";
+            workSheet.Cells[rowCnt + 2, colCnt + 13].Value = "Female";
+            workSheet.Cells[rowCnt + 2, colCnt + 12, rowCnt + 2, colCnt + 13].Style.Fill.BackgroundColor.SetColor(blueBGColor);
+
+            workSheet.Cells[rowCnt + 1, colCnt + 14].Value = "Expired";
+            workSheet.Cells[rowCnt + 1, colCnt + 14, rowCnt + 1, colCnt + 15].Merge = true;
+            workSheet.Cells[rowCnt + 1, colCnt + 14, rowCnt + 1, colCnt + 15].Style.Fill.BackgroundColor.SetColor(voiletBGColor);
+
+            workSheet.Cells[rowCnt + 2, colCnt + 14].Value = "Male";
+            workSheet.Cells[rowCnt + 2, colCnt + 15].Value = "Female";
+            workSheet.Cells[rowCnt + 2, colCnt + 14, rowCnt + 2, colCnt + 15].Style.Fill.BackgroundColor.SetColor(blueBGColor);
+
+            workSheet.Cells[rowCnt + 1, colCnt + 16].Value = "OnHold";
+            workSheet.Cells[rowCnt + 1, colCnt + 16, rowCnt + 1, colCnt + 17].Merge = true;
+            workSheet.Cells[rowCnt + 1, colCnt + 16, rowCnt + 1, colCnt + 17].Style.Fill.BackgroundColor.SetColor(voiletBGColor);
+
+            workSheet.Cells[rowCnt + 2, colCnt + 16].Value = "Male";
+            workSheet.Cells[rowCnt + 2, colCnt + 17].Value = "Female";
+            workSheet.Cells[rowCnt + 2, colCnt + 16, rowCnt + 2, colCnt + 17].Style.Fill.BackgroundColor.SetColor(blueBGColor);
+
+            workSheet.Cells[rowCnt, colCnt + 18].Value = "Total";
+            workSheet.Cells[rowCnt, colCnt + 18, rowCnt + 2, colCnt + 18].Merge = true;
+            workSheet.Cells[rowCnt, colCnt + 18, rowCnt + 2, colCnt + 18].Style.Fill.BackgroundColor.SetColor(greenBGColor);
+        }
     }
 }
 

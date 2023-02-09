@@ -1,15 +1,12 @@
 ﻿@using CCC.UI.ViewModels
 @model SearchPetData
 @{
-    ViewData["Title"] = "ManageVetReport";
+    ViewData["Title"] = "ManageCenterReport";
     Layout = "~/Views/Shared/_Layout.cshtml";
 
     SelectList lstCenter = ViewBag.lstCenter;
     SelectList lstMonth = ViewBag.lstMonth;
     SelectList lstYears = ViewBag.lstYears;
-    //SelectList lstVet = ViewBag.lstVet;
-    //SelectList lstPetType = ViewBag.lstPetType;
-
 }
 
 <link href="~/css/autocomplete.css" rel="stylesheet" />
@@ -23,115 +20,13 @@
 <link href="~/lib/bootstrap-multiselect/bootstrap-multiselect.css" rel="stylesheet" />
 <script src="~/lib/bootstrap-multiselect/bootstrap-multiselect.js"></script>
 
-<script type="text/javascript">
-    $(document).ready(function () {
-
-        $("#mydatatable").tableHeadFixer({ "head": true, "top": 1 });
-        var langUrl = $("#LangUrl").val();
-        var mytable = $('#mydatatable').dataTable({
-            "ajax": {
-                "url": "@Url.Content("~/Report/FillTableVetReportAsync")",
-                "type": "POST",
-                "error": function (x, y, z) {
-                }
-            },
-            "dataSrc": function (json) {
-                if (json.Columns != null && json.Columns.length > 0) {
-                    for (var i = 0; i < json.Columns.length; i++) {
-                        //if (json.Columns[i].ColName == "ShowName")
-                        //    $(".filterShowName").val(json.Columns[i].ColValue);
-                    }
-                }
-                if (json.IsResetPaging) {
-                    mytable.fnPageChange(0);
-                }
-                return json.data;
-            },
-            "aaSorting": [[1, "asc"]],
-            "pageLength": 50,
-            "serverSide": true,
-            "bStateSave": false,
-            // "pagingType": "listbox",  //pagination type using pulgin
-            "processing": true,
-            "pagingType": "full_numbers",  //pagination type using pulgin
-            "dom": '<"top"i>rt<"bottom"flp><"clear">',
-            "filter": false,
-            "oLanguage": {
-                "oPaginate": {
-                    "sFirst": "<i class='fa fa-angle-double-left'></i>",
-                    "sPrevious": "«",
-                    "sNext": "»",
-                    "sLast": "<i class='fa fa-angle-double-right'></i>"
-                }
-            },
-            //"sDom": 'lrtip',
-            "bDeferRender": true,//hide the default search filter textbox by removing "f"
-            "aoColumns":
-                [
-                    { "data": "CenterName", "sName": "Center Name" },
-                    { "data": "AreaName", "sName": "Area Name" },
-                    { "data": "VetName", "sName": "Vet Name" },
-                    { "data": "PetType", "sName": "PetType" },
-                    { "data": "SurgeryDateDisplay", "sName": "SurgeryDate" },
-                    { "data": "MedicalComments", "sName": "Medical Comments" },
-                    { "data": "CenterId", "sName": "CenterId", "visible": false },
-                    { "data": "Month", "sName": "Month", "visible": false },
-                    { "data": "Year", "sName": "Year", "visible": false }
-                    //{ "data": "SurgeryDateFrom", "sName": "SurgeryDateFrom", "visible": false },
-                    //{ "data": "SurgeryDateTo", "sName": "SurgeryDateTo", "visible": false }
-                ]
-        });
-        mytable.on('order.dt', function () { $('.dataTables_paginate,.dataTables_info').show(); });
-        mytable.on('length.dt', function (e, settings, len) { $('.dataTables_paginate,.dataTables_info').show(); });
-
-        $("#divDataTable_length").append($(".dataTables_info"));
-        $("#divdataTables_info").append($(".dataTables_length"));
-        $("#divdataTables_info").append($(".dataTables_paginate"));
-
-        function fnGetDataForActivities() {
-            var searchObj = new Object();
-            searchObj.CenterId = $('#ddlCenter').val();
-            searchObj.Month = $('#ddlMonth').val();
-            searchObj.Year = $('#ddlYear').val();
-            return searchObj;
-        }
-
-        function fnFilterActivities() {
-            searchObj = fnGetDataForActivities();
-            $("#mydatatable").dataTable().fnMultiFilter({
-                "CenterId": searchObj.CenterId,
-                "Month": searchObj.Month ,
-                "Year": searchObj.Year
-            });
-        }
-
-        function clearfilter() {
-            $('#pnlSearch').find('input:text').val('');
-            $("#pnlSearch select").each(function () {
-                $(this).val('');
-            });
-            fnFilterActivities();
-        }
-
-        $('#btnClear').click(function () {
-            clearfilter();
-        });
-
-
-        $('#btnSearch1').click(function () {
-            fnFilterActivities();
-        });
-    });
-
-</script>
-
 <div class="mainContent">
     <div class="conHeader">
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="pull-left">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item active" aria-current="page">Vet Report</li>
+                        <li class="breadcrumb-item active" aria-current="page">Center Report</li>
                     </ol>
                 </div>
             </div>
@@ -148,7 +43,7 @@
                                     <div class="form-group">
                                         <label>Center</label>
                                         <select asp-for="CenterId" asp-items="lstCenter" id="ddlCenter" class="form-control">
-                                            <option value="">--Select--</option>
+                                            <option value="">--All--</option>
                                         </select>
                                         <span id="spCenterId" class="redColor"></span>
                                     </div>
@@ -222,31 +117,17 @@
     $("#btnExportExcel").on('click', function () {
         var searchObj = new Object();
         var CenterId = $('#ddlCenter').val();
+        var CenterId = $('#ddlCenter').val();
         var Month = $('#ddlMonth').val();
         var Year = $('#ddlYear').val();
 
-        if (CenterId == '' || CenterId == null || CenterId == undefined) {
-            showWarningMsg("Please select center");
-            return;
-        }
+        //if (CenterId == '' || CenterId == null || CenterId == undefined) {
+        //    CenterId = 'All';
+        //    return;
+        //}
 
-        var url = '@Url.Action("ExportVetReport", "Report")?CenterId=' + CenterId + '&selectedMonth=' + Month + '&selectedYear=' + Year;
+        var url = '@Url.Action("ExportCenterReport", "Report")?CenterId=' + CenterId + '&selectedMonth=' + Month + '&selectedYear=' + Year;
         document.location.href = url;
-
-         @*$.ajax({
-              url: '@Url.Action("ExportVetReport", "Report")?CenterId=' + CenterId + '&selectedMonth=' + Month + '&selectedYear=' + Year,
-              type: "POST",
-             processData: false,
-             contentType: false,
-             data: { },
-             success: function (result) {
-                 debugger;
-                 if (result == false) {
-                     showWarningMsg('No data avaialbe');
-                 }
-             }
-         });*@
-
 
     });
 </script>
