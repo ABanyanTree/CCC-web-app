@@ -727,7 +727,7 @@ namespace CCC.UI.Controllers
                 workSheet.Cells[rowCnt, colCnt].Value = centerName;
                 if (totalMgrCount > 1)
                 {
-                    workSheet.Cells[rowCnt, colCnt, rowCnt + totalMgrCount, colCnt].Merge = true;
+                    workSheet.Cells[rowCnt, colCnt, rowCnt + (totalMgrCount - 1), colCnt].Merge = true;
                 }
 
                 int d_complication_Total_Male = 0;
@@ -745,8 +745,14 @@ namespace CCC.UI.Controllers
                 int c_Died_Total_Male = 0, c_Died_Total_FeMale = 0;
                 int c_sterilised_Total_Male = 0, c_sterilised_Total_FeMale = 0;
 
+                int mgrcount = 0;
                 foreach (var mgr in lstCenterManagers)
                 {
+                    mgrcount = mgrcount + 1;
+                    if (mgrcount != 1)//first record
+                    {
+                        rowCnt = rowCnt + 1;
+                    }
                     string mgrName = response.Where(x => x.CenterId == cen && x.CreatedBy == mgr).Select(x => x.CreatorName).FirstOrDefault();
                     workSheet.Cells[rowCnt, colCnt + 1].Value = mgrName;
 
@@ -831,8 +837,6 @@ namespace CCC.UI.Controllers
                     FirstTableRange.Style.Border.Left.Style = ExcelBorderStyle.Thin;
                     FirstTableRange.Style.Border.Right.Style = ExcelBorderStyle.Thin;
                     FirstTableRange.Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
-                    
-                    rowCnt = rowCnt + 1;
                 }
 
             }
