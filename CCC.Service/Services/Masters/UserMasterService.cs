@@ -129,7 +129,7 @@ namespace CCC.Service.Services
                 emailconfig.EmailTo = obj.Email;
                 emailconfig.Body = strBody;
                 emailconfig.Subject = strSubject;
-                var emailSentLog = await _iEmailSender.SendInstantEmailFunctionality(emailconfig, obj);
+                var IsEmailSent = await _iEmailSender.SendInstantEmailFunctionality(emailconfig);
 
                 //await _emailSentLog.AddEditAsync(emailSentLog);
 
@@ -145,6 +145,11 @@ namespace CCC.Service.Services
         {
             obj.Password = Cryptography.MD5Hash(obj.Password);
             return await _iUserMasterRepository.ChangePassword(obj);
+        }
+
+        public async Task<IEnumerable<UserMaster>> GetUsersByCenter(UserMaster obj)
+        {
+            return await _iUserMasterRepository.GetUsersByCenter(obj);
         }
     }
 }

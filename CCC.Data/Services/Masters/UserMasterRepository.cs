@@ -121,5 +121,11 @@ namespace CCC.Data.Services
 
             return null;
         }
+
+        public async Task<IEnumerable<UserMaster>> GetUsersByCenter(UserMaster obj)
+        {
+            string[] addParams = new string[] { UserMaster_Constant.CENTERIDS };
+            return await GetAllAsync(obj, addParams, UserMaster_Constant.SPROC_GETUSERBYCENTERS_LISTALL);
+        }
     }
 }

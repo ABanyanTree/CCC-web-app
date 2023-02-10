@@ -38,9 +38,10 @@ namespace CCC.Service.Infra.EmailStuff
             _optionsfilesystem = optionsfilesystem;
         }
 
-        public async Task<EmailSentLog> SendInstantEmailFunctionality(EmailSenderEntity emailSenderEntity, object Entity)
+        public async Task<bool> SendInstantEmailFunctionality(EmailSenderEntity emailSenderEntity)
         {
             MailMessage mailInfo = new MailMessage();
+            bool IsEmailSend = false;
 
             if (!string.IsNullOrEmpty(emailSenderEntity.EmailTo))
             {
@@ -122,6 +123,7 @@ namespace CCC.Service.Infra.EmailStuff
                 {
                     smtp.EnableSsl = true;
                     await smtp.SendMailAsync(mailInfo);
+                    IsEmailSend = true;
                 }
                 catch (Exception e)
                 {
@@ -129,14 +131,16 @@ namespace CCC.Service.Infra.EmailStuff
                 }
             }
 
-            EmailSentLog emailSentLog = new EmailSentLog();
-            emailSentLog.EmailTo = emailSenderEntity.EmailTo;
-            emailSentLog.CC = emailSenderEntity.CC;
-            emailSentLog.BCC = emailSenderEntity.BCC;
-            emailSentLog.Subject = emailSenderEntity.Subject;
-            emailSentLog.Body = emailSenderEntity.Body;
-            emailSentLog.IsEmailSent = true;
-            return emailSentLog;
+            //EmailSentLog emailSentLog = new EmailSentLog();
+            //emailSentLog.EmailTo = emailSenderEntity.EmailTo;
+            //emailSentLog.CC = emailSenderEntity.CC;
+            //emailSentLog.BCC = emailSenderEntity.BCC;
+            //emailSentLog.Subject = emailSenderEntity.Subject;
+            //emailSentLog.Body = emailSenderEntity.Body;
+            //emailSentLog.IsEmailSent = IsEmailSend;
+            //return emailSentLog;
+
+            return IsEmailSend;
 
         }
 
@@ -161,7 +165,34 @@ namespace CCC.Service.Infra.EmailStuff
         }
 
 
+        public void GetReportNotificationBodySubject(string reportType, string reportFileName, ref string strBody, ref string strSubject)
+        {
+            string[] fileName = reportFileName.Split('_');
+            StringBuilder sb = new StringBuilder();
+            if (reportType == CommonConst.FEATURE_VetReport)
+            {
+                string centerName = fileName[0];
+                string MonthName = fileName[1];
+                string Year = fileName[2];
+                strSubject = "New" + reportType + "For " + MonthName + " " + Year;
+                sb.Append("Dear Sir,");
+                sb.Append("<br/>");
+                sb.Append("Please find attached new Vet Report for month " + MonthName + " " + Year);
+                sb.Append("<br/>");
+                sb.Append("Login at: app url"); //add app url 
+                sb.Append("<br/>");
+                sb.Append("<br/>");
+                sb.Append("Regards,");
+                sb.Append("<br/>");
+                sb.Append("The CCC Team");
+            }
+            else
+            {
+                //Admin center report
+            }
 
+            strBody = sb.ToString();
+        }
 
 
 
@@ -576,6 +607,8 @@ namespace CCC.Service.Infra.EmailStuff
                 return strRetValue;
             }
         }
+
+
 
         //public string GetPrintCertficateContent(Assignments Entity)
         //{

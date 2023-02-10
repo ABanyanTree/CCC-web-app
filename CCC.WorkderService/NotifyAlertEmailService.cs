@@ -103,10 +103,10 @@ namespace CCC.WorkderService
         {
             try
             {
-                //var apiKey = _options.Value.apiKey;
-                //var apiCalls = RestService.For<IAPICalls>(hostUrl: _options.Value.APIURL);
-                //var apiResponse = await apiCalls.SendPendingEmails(apiKey);
-                //var response = apiResponse.Content;
+                var apiKey = _options.Value.apiKey;
+                var apiCalls = RestService.For<IAPICalls>(hostUrl: _options.Value.APIURL);
+                var apiResponse = await apiCalls.VetReportNotification(apiKey);
+                var response = apiResponse.Content;
 
                 //this.WriteLog("Pending Email Executed");
                 //this.WriteLog(apiResponse.Content.ReadAsStringAsync().Result);

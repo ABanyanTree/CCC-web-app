@@ -110,6 +110,8 @@ namespace CCC.API.ApiPath
         public static class Notification
         {
             public const string DailyDataCheck = Base + "/notification/dailydatacheck";
+            public const string VetReportNotification = Base + "/notification/vetreportnotification";
+            public const string CenterReportNotification = Base + "/notification/centerreportnotification";
         }
     }
 }

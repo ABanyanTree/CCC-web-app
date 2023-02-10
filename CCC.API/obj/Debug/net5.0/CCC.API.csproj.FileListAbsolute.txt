@@ -421,3 +421,5 @@ D:\Shahen-WorkFront\Applications\CCC\CCC.API\obj\Debug\net5.0\CCC.API.dll
 D:\Shahen-WorkFront\Applications\CCC\CCC.API\obj\Debug\net5.0\ref\CCC.API.dll
 D:\Shahen-WorkFront\Applications\CCC\CCC.API\obj\Debug\net5.0\CCC.API.pdb
 D:\Shahen-WorkFront\Applications\CCC\CCC.API\obj\Debug\net5.0\CCC.API.genruntimeconfig.cache
+D:\Shahen-WorkFront\Applications\CCC\CCC.API\bin\Debug\net5.0\EPPlus.dll
+D:\Shahen-WorkFront\Applications\CCC\CCC.API\bin\Debug\net5.0\System.Xml.XPath.XmlDocument.dll

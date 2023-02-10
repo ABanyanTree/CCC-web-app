@@ -14,5 +14,6 @@ namespace CCC.Service.Interfaces
         UserMaster GetByEmailAsync(UserMaster obj);
         Task<int> SetNewPassword(UserMaster obj);
         Task<int> ChangePassword(UserMaster request);
+        Task<IEnumerable<UserMaster>> GetUsersByCenter(UserMaster obj);
     }
 }

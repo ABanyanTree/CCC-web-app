@@ -12,6 +12,6 @@ namespace CCC.Service.Interfaces
     {
         Task<IEnumerable<PetDataNotification>> ReadPetDataByUser(string userId, bool IsAdmin);
         Task<PetDataNotification> GetPetUnReadData(string userId,bool IsAdmin);
-       
+        Task<bool> SendMonthlyNotification(string reportFileName, string reportType, string toEmails);
     }
 }
