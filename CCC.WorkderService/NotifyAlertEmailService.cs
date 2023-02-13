@@ -108,7 +108,7 @@ namespace CCC.WorkderService
                 var apiResponse = await apiCalls.VetReportNotification(apiKey);
                 var response = apiResponse.Content;
 
-                this.WriteLog("Pending Email Executed");
+                this.WriteLog("Vet Report Executed");
                 this.WriteLog(apiResponse.Content.ReadAsStringAsync().Result);
 
 
@@ -116,8 +116,8 @@ namespace CCC.WorkderService
                 var apiResponseBulk = await apiCallsBulk.CenterReportNotification(apiKey);
                 var responseBulk = apiResponseBulk.Content;
 
-                //this.WriteLog("Bulk Import Executed");
-                //this.WriteLog(apiResponseBulk.Content.ReadAsStringAsync().Result);
+                this.WriteLog("Center Report Executed");
+                this.WriteLog(apiResponseBulk.Content.ReadAsStringAsync().Result);
 
                 //var apiCallsBR = RestService.For < IAPICalls > hostUrl: _options.Value.APIURL);
                 //var apiResponseBR = await apiCallsBR.RunBRRUles(apiKey);
