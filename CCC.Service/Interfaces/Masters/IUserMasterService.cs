@@ -15,5 +15,6 @@ namespace CCC.Service.Interfaces
         Task<int> SetNewPassword(UserMaster obj);
         Task<int> ChangePassword(UserMaster request);
         Task<IEnumerable<UserMaster>> GetUsersByCenter(UserMaster obj);
+        Task<IEnumerable<UserMaster>> GetUserDetails(UserMaster obj);
     }
 }

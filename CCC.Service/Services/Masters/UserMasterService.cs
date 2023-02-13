@@ -151,5 +151,10 @@ namespace CCC.Service.Services
         {
             return await _iUserMasterRepository.GetUsersByCenter(obj);
         }
+
+        public async Task<IEnumerable<UserMaster>> GetUserDetails(UserMaster obj)
+        {
+            return await _iUserMasterRepository.GetUserDetails(obj);
+        }
     }
 }

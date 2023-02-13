@@ -20,5 +20,6 @@ namespace CCC.Domain.DomainInterface
         Task<int> ForgotPassword(UserMaster obj);
         Task<int> ChangePassword(UserMaster obj);
         Task<IEnumerable<UserMaster>> GetUsersByCenter(UserMaster obj);
+        Task<IEnumerable<UserMaster>> GetUserDetails(UserMaster obj);
     }
 }

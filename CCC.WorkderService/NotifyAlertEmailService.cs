@@ -108,13 +108,13 @@ namespace CCC.WorkderService
                 var apiResponse = await apiCalls.VetReportNotification(apiKey);
                 var response = apiResponse.Content;
 
-                //this.WriteLog("Pending Email Executed");
-                //this.WriteLog(apiResponse.Content.ReadAsStringAsync().Result);
+                this.WriteLog("Pending Email Executed");
+                this.WriteLog(apiResponse.Content.ReadAsStringAsync().Result);
 
 
-                //var apiCallsBulk = RestService.For<IAPICalls>(hostUrl: _options.Value.APIURL);
-                //var apiResponseBulk = await apiCallsBulk.DoPendingBulkImport(apiKey);
-                //var responseBulk = apiResponseBulk.Content;
+                var apiCallsBulk = RestService.For<IAPICalls>(hostUrl: _options.Value.APIURL);
+                var apiResponseBulk = await apiCallsBulk.CenterReportNotification(apiKey);
+                var responseBulk = apiResponseBulk.Content;
 
                 //this.WriteLog("Bulk Import Executed");
                 //this.WriteLog(apiResponseBulk.Content.ReadAsStringAsync().Result);

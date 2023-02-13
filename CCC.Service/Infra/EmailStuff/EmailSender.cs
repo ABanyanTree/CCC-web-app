@@ -189,6 +189,19 @@ namespace CCC.Service.Infra.EmailStuff
             else
             {
                 //Admin center report
+                string MonthName = fileName[0];
+                string Year = fileName[1];
+                strSubject = "New" + reportType + "For " + MonthName + " " + Year;
+                sb.Append("Dear Sir,");
+                sb.Append("<br/>");
+                sb.Append("Please find attached new Center Report for month " + MonthName + " " + Year);
+                sb.Append("<br/>");
+                sb.Append("Login at: app url"); //add app url 
+                sb.Append("<br/>");
+                sb.Append("<br/>");
+                sb.Append("Regards,");
+                sb.Append("<br/>");
+                sb.Append("The CCC Team");
             }
 
             strBody = sb.ToString();

@@ -73,7 +73,10 @@ namespace CCC.Domain
         public const string SPROC_FORGOTPASSWORDUPDATION = "sproc_ForgotPasswordUpdation";
         public const string SPROC_CHANGEPASSWORD = "sproc_ChangePassword";
         public const string SPROC_GETUSERBYCENTERS_LISTALL = "sproc_GetUserByCenters_ListAll";
+
+        public const string SPROC_USERMASTER_GETALLUSERDETAILS = "SPROC_UserMaster_GetAllUserDetails";
         
+
 
 
 
