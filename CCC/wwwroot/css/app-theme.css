@@ -6712,7 +6712,7 @@ ul.pubStatusLBL {
 
 
 .LoginBg {
-    background: url(../images/login-bg2.jpg) 0 0 no-repeat;
+    /*background: url(../images/login-bg2.jpg) 0 0 no-repeat;*/
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
