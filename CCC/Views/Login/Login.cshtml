@@ -26,13 +26,20 @@
 
 
         <!--Login Updated Page--->
-        <div class="retailHeight">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                        <div class="loginMainWrapper">
+        <div class="retailHeight login-screen-main">
+                <div class="login-side-view primary-bg">
+                    <div class="login-side-line">
+                    <img src='@Url.Content("~/Images/side-line.svg")' class="" />
+                    </div>
+                <img src='@Url.Content("~/Images/login-illustration.svg")' class="" />
+                </div>
+            <div class="container loginPage">
+                <div class="row">      
+                    
+                    <div class="col-md-5 offset-md-7 rightPanel">
+                        <div class="loginMainWrapper login-wrapper">
                             <div class="loginContent">
-                                <div class="loginBg">
+                                <div class="loginBg sidebar-logo single-sidebar-block">
                                     <div class="loginHeader">
                                         <img src='@Url.Content("~/Images/ccc_main_logo1.png")' class="img-responsive" />
                                         <!--<h2>
@@ -40,7 +47,9 @@
                                             @*@Html.Raw(LoginPageText)*@
                                         <!--</h2>-->
                                     </div>
-                                    <div class="loginInnerBg">
+                                    <div class="loginInnerBg login-form">
+                                        <h2 class="heading mb-2">Log in to your account</h2>
+                                        <p class="subhead">Enter your details below</p>
                                         <div class="form-group">
                                             <label for="" class="lblText">Username</label>
                                             <input type="text" asp-for="Email" class="form-control" placeholder="Username / Email Address" tabindex="1" />
@@ -53,12 +62,13 @@
                                                 <span asp-validation-for="Password" class="redColor"></span>
                                             </div>
                                         </div>
-                                        <div class="fotPass">
-                                            <a href="javascript:void(0)" onclick="ShowContent('@Url.Action("ForgotPassword", "Login")')" data-toggle="modal" data-target="#myModal">Forgot password</a>
-                                        </div>
+                                        
                                     </div>
                                     <div class="loginFooter">
                                         <button type="submit" id="btnLogin" class="btn btnLogin">Login</button>
+                                    </div>
+                                    <div class="fotPass">
+                                        <a href="javascript:void(0)" onclick="ShowContent('@Url.Action("ForgotPassword", "Login")')" data-toggle="modal" data-target="#myModal">Forgot password</a>
                                     </div>
                                 </div>
 

@@ -65,6 +65,7 @@
     <environment include="Development">
         @if (string.IsNullOrEmpty(sessionVersion))
         {
+            <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter">
             <link rel="stylesheet" asp-href-include="~/lib/bootstrap/dist/css/bootstrap.css,~/lib/bootstrap/dist/css/bootstrap-grid.css,~/lib/bootstrap/dist/css/bootstrap-reboot.css" />
             <link href="~/css/app-theme.css" rel="stylesheet" />
             <script src="~/lib/jquery/dist/jquery.js"></script>
@@ -194,79 +195,20 @@
     <!-- Header Start -->
     <div class="navbar-fixed-top learnPortHeader">
         <div class="pull-left HomeLogo mainLogoAdmin active">
-            @*<a id="lnkBtnHomeMaster" href="@strHomeURL" class="mnuitem lftmn">*@
-            <a id="lnkHomeScreen" class="aClickable" onclick="setSession('011', '011')" asp-controller="Home" asp-action="@strHomeAction">
-                <i id="iHomeScreen" class="fa fa-home HomeLogoSize"></i>
-            </a>
-        </div>
-        @if (env == "Development" || env == "Staging")
-        {
-    <div class="sloagnText">
-        <img src='@Url.Content("~/Images/ccc_main_logo1.png")' style="width:150px"/>
-        @*@stagingSiteText*@
-    </div>
-
-        }
-        <div class="navbarRight">
-            <nav class="navbar navbar-expand-lg">
-                <button class="navbar-toggler" type="button" data-target="#navigation" style="display:none">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse">
-                    <ul class="navbar-nav topListing">
-                        <li class="nav-item shopCartIcon posRel announcementdrp">
-                            @*<a asp-controller="Announcements" asp-action="GetAllAnnouncementsMarquee" asp-route-currentDate="@currDate" title="Announcements">
-                                    <img src='@Url.Content("~/Images" + imgPath + "/AnnouncementTop.png")' />
-                                </a>*@
-                        </li>
-
-
-
-
-
-                        <li class="shopCartIcon posRel">
-                            @*<a asp-controller="@adminFAQ.ControllerName" asp-action="@adminFAQ.ActionName" title="Help">
-                                    <img src='@Url.Content("~/Images" + imgPath + "/Help_icon.png")' />
-                                </a>*@
-                        </li>
-                        <!--KIRAN(21JAN2020): Cart Count Management-->
-                        <li id="petBellIcon" class="shopCartIcon posRel">
-                            <img src='@Url.Content("~/Images" + imgPath + "/bell.png")' />
-                            <span id="spPetDataCart"></span>
-                            @*class="badge badge-counter"*@
-                            @*<a asp-controller="PetService" asp-action="ReadPetData" title="On Hold Pet Data">
-                                    <img src='@Url.Content("~/Images" + imgPath + "/bell.png")' />
-                                    <span class="badge badge-counter" id="spPetDataCart"></span>
-                                </a>*@
-                        </li>
-                        <!-------------------------------------------->
-
-                        <li class="nav-item dropdown userBox">
-                            <a title="Account Settings" class="nav-link dropdown-toggle userCircle" href="#" id="navdrop" role="button" data-toggle="dropdown" data-target="#dropdown-menu" data-hover="dropdown"><span>@initials</span> </a>
-                            <div class="userProfile dropdown-menu dropdown-menu-lg-right" aria-labelledby="navdrop" id="dropdown-menu">
-                                <span class="dropdown-item"><span class="innUserCircle">@initials</span> <span class="text">@userName</span></span>
-                                @*<a asp-controller="@adminHome.ControllerName" asp-action="@adminHome.ActionName" class="dropdown-item" id="lnkLearnerSide"><span class="flatIcon"><img src='@Url.Content("~/Images" + imgPath + "/learner-portal.png")' /></span> <span class="text">Learner Portal</span></a>*@
-                                <a id="chgPassword" class="dropdown-item"><span class="flatIcon"><img src='@Url.Content("~/Images" + imgPath + "/logout.png")' /></span> <span class="text">Change Password</span></a>
-                                <a id="aLogout" asp-controller="Login" asp-action="Login" class="dropdown-item"><span class="flatIcon"><img src='@Url.Content("~/Images" + imgPath + "/logout.png")' /></span> <span class="text">Logout</span></a>
-                            </div>
-                        </li>
-                        <li class="humburgbtn">
-                            <button type="button" id="sidebarhide" class="humburgbtn">
-                                <span class="bar"></span>
-                                <span class="bar1 bar"></span>
-                                <span class="bar2 bar"></span>
-                            </button>
-                        </li>
-
-                        <li class="mainLogo">
-                            @*<img src='@Url.Content("~/Images/main-logo.png")' style="width:100px"/>*@
-                        </li>
-
-                    </ul>
+            @if (env == "Development" || env == "Staging")
+            {
+                <div class="sloagnText">
+                    <img src='@Url.Content("~/Images/ccc_main_logo1.png")' style="width:150px" />
+                    @*@stagingSiteText*@
                 </div>
-            </nav>
-        </div>
+
+            }
+            @*<a id="lnkBtnHomeMaster" href="@strHomeURL" class="mnuitem lftmn">*@
+            
+        </div>      
+        
     </div>
+   
 
     <!-- Header END -->
 
@@ -284,6 +226,15 @@
                         <div class="sidebar-content">
                             <div class="sidebar-menu">
                                 <ul class="">
+                                    <li>
+                                        <div class="sidebar-link">
+                                            <a id="lnkHomeScreen" class="aClickable active" onclick="setSession('011', '011')" asp-controller="Home" asp-action="@strHomeAction">
+
+                                                @*<i id="iHomeScreen" class=""></i>*@
+                                                Summary
+                                            </a>
+                                        </div>
+                                    </li>
                                     @foreach (FeatureMasterResponseVM singleParent in lstParentFeatures)
                                     {
                                         string selectedClass1 = "";
@@ -311,8 +262,8 @@
                                             selectedClass1 = "";
                                         }
 
-                                        <li class="@liClass @selectedClass1" feature="@singleParent.FeatureId">
-                                            <a class="@anchClass" href="@href" onclick="setSession('@singleParent.FeatureId', '')">
+                                        <li class="@liClass @selectedClass1 sidebar-link-group" feature="@singleParent.FeatureId">
+                                            <a class="@anchClass sidebar-link-head" href="@href" onclick="setSession('@singleParent.FeatureId', '')">
                                                 <span class="meIcon @singleParent.CssClass">&nbsp;</span>
                                                 <span class="meText">@singleParent.DashboardTitle</span>
                                             </a>
@@ -351,8 +302,72 @@
                 </div>
             </div>
             <!-- left-menu END -->
+            <div class="text-center pt-2 sidebar-img">
+                <img src='@Url.Content("~/Images/sidebar-illustration.svg")' alt="" style="" />
+            </div>
         </div>
         <div id="page-content-wrapper">
+            <div class="navbarRight">
+
+
+                <nav class="navbar navbar-expand-lg">
+                    <button class="navbar-toggler" type="button" data-target="#navigation" style="display:none">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="navbar-collapse">
+                        <ul class="navbar-nav topListing">
+                            <li class="nav-item shopCartIcon posRel announcementdrp">
+                                @*<a asp-controller="Announcements" asp-action="GetAllAnnouncementsMarquee" asp-route-currentDate="@currDate" title="Announcements">
+                                <img src='@Url.Content("~/Images" + imgPath + "/AnnouncementTop.png")' />
+                                </a>*@
+                            </li>
+
+
+
+
+
+                            <li class="shopCartIcon posRel">
+                                @*<a asp-controller="@adminFAQ.ControllerName" asp-action="@adminFAQ.ActionName" title="Help">
+                                <img src='@Url.Content("~/Images" + imgPath + "/Help_icon.png")' />
+                                </a>*@
+                            </li>
+                            <!--KIRAN(21JAN2020): Cart Count Management-->
+                            <li id="petBellIcon" class="shopCartIcon posRel">
+                                <img src='@Url.Content("~/Images" + imgPath + "/bell.png")' />
+                                <span id="spPetDataCart"></span>
+                                @*class="badge badge-counter"*@
+                                @*<a asp-controller="PetService" asp-action="ReadPetData" title="On Hold Pet Data">
+                                <img src='@Url.Content("~/Images" + imgPath + "/bell.png")' />
+                                <span class="badge badge-counter" id="spPetDataCart"></span>
+                                </a>*@
+                            </li>
+                            <!-------------------------------------------->
+
+                            <li class="nav-item dropdown userBox">
+                                <a title="Account Settings" class="nav-link dropdown-toggle userCircle" href="#" id="navdrop" role="button" data-toggle="dropdown" data-target="#dropdown-menu" data-hover="dropdown"><span>@initials</span> </a>
+                                <div class="userProfile dropdown-menu dropdown-menu-lg-right" aria-labelledby="navdrop" id="dropdown-menu">
+                                    <span class="dropdown-item"><span class="innUserCircle">@initials</span> <span class="text">@userName</span></span>
+                                    @*<a asp-controller="@adminHome.ControllerName" asp-action="@adminHome.ActionName" class="dropdown-item" id="lnkLearnerSide"><span class="flatIcon"><img src='@Url.Content("~/Images" + imgPath + "/learner-portal.png")' /></span> <span class="text">Learner Portal</span></a>*@
+                                    <a id="chgPassword" class="dropdown-item"><span class="flatIcon"><img src='@Url.Content("~/Images" + imgPath + "/logout.png")' /></span> <span class="text">Change Password</span></a>
+                                    <a id="aLogout" asp-controller="Login" asp-action="Login" class="dropdown-item"><span class="flatIcon"><img src='@Url.Content("~/Images" + imgPath + "/logout.png")' /></span> <span class="text">Logout</span></a>
+                                </div>
+                            </li>
+                            <li class="humburgbtn">
+                                <button type="button" id="sidebarhide" class="humburgbtn">
+                                    <span class="bar"></span>
+                                    <span class="bar1 bar"></span>
+                                    <span class="bar2 bar"></span>
+                                </button>
+                            </li>
+
+                            <li class="mainLogo">
+                                @*<img src='@Url.Content("~/Images/main-logo.png")' style="width:100px"/>*@
+                            </li>
+
+                        </ul>
+                    </div>
+                </nav>
+            </div>
             <div class="mainContent">
                 @RenderBody()
             </div>

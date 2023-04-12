@@ -136,16 +136,12 @@
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="pull-left">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item active" aria-current="page">Manage Centers</li>
+                        <li class="breadcrumb-item active" aria-current="page">Manage Center</li>
+                        <li><p>You can manage all centre related tasks here</p></li>
                     </ol>
                 </div>
                 <div class="filterMenuIcon"></div>
-                <div class="pull-right mobileFilterMenu">
-                    <ul class="headerListing">
-                        @*<li class="active"><button type="button" id="btnNewUrl" class="btn btnDefault AddEditBtn">Add New</button></li>*@
-                        <li class="active"> <a href="javascript:void(0);" onclick="AddEvent()"><span class="text">Add</span> <span class="icon iconUser">&nbsp;</span></a></li>
-                    </ul>
-                </div>
+               
             </div>
         </div>
     </div>
@@ -157,14 +153,21 @@
                     <div class="filterData mobilecofilters">
                         <div class="formGroupTop pos mobile4Lis">
                             <ul class="formGroupTopListing">
-                                <li>
+                                @*<li>
                                     <div class="form-group" style="margin-top:3px;">
                                         <label class="pt20">Center Name</label>
                                     </div>
-                                </li>
+                                </li>*@
                                 <li class="firstLastName">
-                                    <div class="form-group">
-                                        <input asp-for="CenterName" type="text" id="txtCenterName" class="form-control" placeholder="Center Name" />
+                                    <div class="filter-box search-box">
+                                        <span class="input-group-text">
+                                            <svg width="17" height="16" fill="none" viewBox="0 0 17 16">
+                                                <path stroke="#354056" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2" d="M7.915 14a6.333 6.333 0 1 0 0-12.667 6.333 6.333 0 0 0 0 12.667Zm7 .667-1.333-1.334"></path>
+                                            </svg>
+                                        </span>
+                                        <div class="form-group">                                            
+                                            <input asp-for="CenterName" type="text" id="txtCenterName" class="form-control" placeholder="Search centre name" />
+                                        </div>
                                     </div>
                                 </li>
                                 <li>
@@ -177,6 +180,20 @@
                         </div>
                     </div>
                 </div>
+            </div>
+
+            <div class="pull-right mobileFilterMenu">
+                <ul class="headerListing">
+                    @*<li class="active"><button type="button" id="btnNewUrl" class="btn btnDefault AddEditBtn">Add New</button></li>*@
+                    <li class="active">
+                        <a class="addcenterbutton" href="javascript:void(0);" onclick="AddEvent()">
+                            <span class="text">
+                                + Add new center
+                            </span>
+                            @*<span class="icon iconUser">&nbsp;</span>*@
+                        </a>
+                    </li>
+                </ul>
             </div>
         </div>
         <br /><br /><br />
@@ -197,7 +214,7 @@
             </div>
         </div>
         <div id="divdataTables_info"></div>
-        <div id="divDataTable_length"></div>
+        @*<div id="divDataTable_length"></div>*@
     </div>
 
 </div>

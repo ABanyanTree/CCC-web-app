@@ -1,52 +1,258 @@
 ﻿/******************** Globally CSS Change Theme ********************/
 body {
-    font-size: 12px !important;
-    color: #424242;
-    background: #eceff1; /*font-family: 'Conv_Roboto-Regular';*/
-    font-family: 'Myriad Pro Regular';
+    font-family: "Inter",sans-serif;
+    font-size: 14px;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    background-color: #eeeff0;
+    color: #222525;
+    line-height: 1.4;
+    letter-spacing: -0.01em;
 }
 
-
-
+/* cyrillic */
 @font-face {
-    font-family: 'Myriad Pro bold';
-    src: url('../fonts/MyriadPro-Bold.eot');
-    src: url('../fonts/MyriadPro-Bold.eot?#iefix') format('embedded-opentype'), url('../fonts/MyriadPro-Bold.woff2') format('woff2'), url('../fonts/MyriadPro-Bold.woff') format('woff'), url('../fonts/MyriadPro-Bold.ttf') format('truetype'), url('../fonts/MyriadPro-Bold.svg#MyriadPro-Bold') format('svg');
-    font-weight: bold;
+    font-family: 'Inter';
     font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url(https://fonts.gstatic.com/s/inter/v12/UcC73FwrK3iLTeHuS_fvQtMwCp50KnMa0ZL7SUc.woff2) format('woff2');
+    unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
 }
-
-
+/* greek-ext */
 @font-face {
-    font-family: 'Myriad Pro light';
-    src: url('../fonts/MyriadPro-Light.eot');
-    src: url('../fonts/MyriadPro-Light.eot?#iefix') format('embedded-opentype'), url('../fonts/MyriadPro-Light.woff2') format('woff2'), url('../fonts/MyriadPro-Light.woff') format('woff'), url('../fonts/MyriadPro-Light.ttf') format('truetype'), url('../fonts/MyriadPro-Light.svg#MyriadPro-Light') format('svg');
-    font-weight: 300;
+    font-family: 'Inter';
     font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url(https://fonts.gstatic.com/s/inter/v12/UcC73FwrK3iLTeHuS_fvQtMwCp50KnMa2ZL7SUc.woff2) format('woff2');
+    unicode-range: U+1F00-1FFF;
 }
-
+/* greek */
 @font-face {
-    font-family: 'Myriad Pro Regular';
-    src: url('../fonts/MyriadPro-Regular.eot');
-    src: url('../fonts/MyriadPro-Regular.eot?#iefix') format('embedded-opentype'), url('../fonts/MyriadPro-Regular.woff2') format('woff2'), url('../fonts/MyriadPro-Regular.woff') format('woff'), url('../fonts/MyriadPro-Regular.ttf') format('truetype'), url('../fonts/MyriadPro-Regular.svg#MyriadPro-Regular') format('svg');
-    font-weight: normal;
+    font-family: 'Inter';
     font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url(https://fonts.gstatic.com/s/inter/v12/UcC73FwrK3iLTeHuS_fvQtMwCp50KnMa1pL7SUc.woff2) format('woff2');
+    unicode-range: U+0370-03FF;
 }
-
+/* vietnamese */
 @font-face {
-    font-family: 'Myriad Pro Semibold';
-    src: url('../fonts/MyriadPro-Semibold.eot');
-    src: url('../fonts/MyriadPro-Semibold.eot?#iefix') format('embedded-opentype'), url('../fonts/MyriadPro-Semibold.woff2') format('woff2'), url('../fonts/MyriadPro-Semibold.woff') format('woff'), url('../fonts/MyriadPro-Semibold.ttf') format('truetype'), url('../fonts/MyriadPro-Semibold.svg#MyriadPro-Semibold') format('svg');
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url(https://fonts.gstatic.com/s/inter/v12/UcC73FwrK3iLTeHuS_fvQtMwCp50KnMa2pL7SUc.woff2) format('woff2');
+    unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url(https://fonts.gstatic.com/s/inter/v12/UcC73FwrK3iLTeHuS_fvQtMwCp50KnMa25L7SUc.woff2) format('woff2');
+    unicode-range: U+0100-02AF, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url(https://fonts.gstatic.com/s/inter/v12/UcC73FwrK3iLTeHuS_fvQtMwCp50KnMa1ZL7.woff2) format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic-ext */
+@font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    font-display: swap;
+    src: url(https://fonts.gstatic.com/s/inter/v12/UcC73FwrK3iLTeHuS_fvQtMwCp50KnMa2JL7SUc.woff2) format('woff2');
+    unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    font-display: swap;
+    src: url(https://fonts.gstatic.com/s/inter/v12/UcC73FwrK3iLTeHuS_fvQtMwCp50KnMa0ZL7SUc.woff2) format('woff2');
+    unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* greek-ext */
+@font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    font-display: swap;
+    src: url(https://fonts.gstatic.com/s/inter/v12/UcC73FwrK3iLTeHuS_fvQtMwCp50KnMa2ZL7SUc.woff2) format('woff2');
+    unicode-range: U+1F00-1FFF;
+}
+/* greek */
+@font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    font-display: swap;
+    src: url(https://fonts.gstatic.com/s/inter/v12/UcC73FwrK3iLTeHuS_fvQtMwCp50KnMa1pL7SUc.woff2) format('woff2');
+    unicode-range: U+0370-03FF;
+}
+/* vietnamese */
+@font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    font-display: swap;
+    src: url(https://fonts.gstatic.com/s/inter/v12/UcC73FwrK3iLTeHuS_fvQtMwCp50KnMa2pL7SUc.woff2) format('woff2');
+    unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    font-display: swap;
+    src: url(https://fonts.gstatic.com/s/inter/v12/UcC73FwrK3iLTeHuS_fvQtMwCp50KnMa25L7SUc.woff2) format('woff2');
+    unicode-range: U+0100-02AF, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    font-display: swap;
+    src: url(https://fonts.gstatic.com/s/inter/v12/UcC73FwrK3iLTeHuS_fvQtMwCp50KnMa1ZL7.woff2) format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic-ext */
+@font-face {
+    font-family: 'Inter';
+    font-style: normal;
     font-weight: 600;
-    font-style: normal;
+    font-display: swap;
+    src: url(https://fonts.gstatic.com/s/inter/v12/UcC73FwrK3iLTeHuS_fvQtMwCp50KnMa2JL7SUc.woff2) format('woff2');
+    unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
 }
-
+/* cyrillic */
 @font-face {
-    font-family: 'Myriad Pro Cond';
-    src: url('../fonts/MyriadPro-Cond.eot');
-    src: url('../fonts/MyriadPro-Cond.eot?#iefix') format('embedded-opentype'), url('../fonts/MyriadPro-Cond.woff2') format('woff2'), url('../fonts/MyriadPro-Cond.woff') format('woff'), url('../fonts/MyriadPro-Cond.ttf') format('truetype'), url('../fonts/MyriadPro-Cond.svg#MyriadPro-Cond') format('svg');
-    font-weight: normal;
+    font-family: 'Inter';
     font-style: normal;
+    font-weight: 600;
+    font-display: swap;
+    src: url(https://fonts.gstatic.com/s/inter/v12/UcC73FwrK3iLTeHuS_fvQtMwCp50KnMa0ZL7SUc.woff2) format('woff2');
+    unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* greek-ext */
+@font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 600;
+    font-display: swap;
+    src: url(https://fonts.gstatic.com/s/inter/v12/UcC73FwrK3iLTeHuS_fvQtMwCp50KnMa2ZL7SUc.woff2) format('woff2');
+    unicode-range: U+1F00-1FFF;
+}
+/* greek */
+@font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 600;
+    font-display: swap;
+    src: url(https://fonts.gstatic.com/s/inter/v12/UcC73FwrK3iLTeHuS_fvQtMwCp50KnMa1pL7SUc.woff2) format('woff2');
+    unicode-range: U+0370-03FF;
+}
+/* vietnamese */
+@font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 600;
+    font-display: swap;
+    src: url(https://fonts.gstatic.com/s/inter/v12/UcC73FwrK3iLTeHuS_fvQtMwCp50KnMa2pL7SUc.woff2) format('woff2');
+    unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 600;
+    font-display: swap;
+    src: url(https://fonts.gstatic.com/s/inter/v12/UcC73FwrK3iLTeHuS_fvQtMwCp50KnMa25L7SUc.woff2) format('woff2');
+    unicode-range: U+0100-02AF, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 600;
+    font-display: swap;
+    src: url(https://fonts.gstatic.com/s/inter/v12/UcC73FwrK3iLTeHuS_fvQtMwCp50KnMa1ZL7.woff2) format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic-ext */
+@font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+    src: url(https://fonts.gstatic.com/s/inter/v12/UcC73FwrK3iLTeHuS_fvQtMwCp50KnMa2JL7SUc.woff2) format('woff2');
+    unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+    src: url(https://fonts.gstatic.com/s/inter/v12/UcC73FwrK3iLTeHuS_fvQtMwCp50KnMa0ZL7SUc.woff2) format('woff2');
+    unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* greek-ext */
+@font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+    src: url(https://fonts.gstatic.com/s/inter/v12/UcC73FwrK3iLTeHuS_fvQtMwCp50KnMa2ZL7SUc.woff2) format('woff2');
+    unicode-range: U+1F00-1FFF;
+}
+/* greek */
+@font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+    src: url(https://fonts.gstatic.com/s/inter/v12/UcC73FwrK3iLTeHuS_fvQtMwCp50KnMa1pL7SUc.woff2) format('woff2');
+    unicode-range: U+0370-03FF;
+}
+/* vietnamese */
+@font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+    src: url(https://fonts.gstatic.com/s/inter/v12/UcC73FwrK3iLTeHuS_fvQtMwCp50KnMa2pL7SUc.woff2) format('woff2');
+    unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+    src: url(https://fonts.gstatic.com/s/inter/v12/UcC73FwrK3iLTeHuS_fvQtMwCp50KnMa25L7SUc.woff2) format('woff2');
+    unicode-range: U+0100-02AF, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+    src: url(https://fonts.gstatic.com/s/inter/v12/UcC73FwrK3iLTeHuS_fvQtMwCp50KnMa1ZL7.woff2) format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
 p {
@@ -61,8 +267,9 @@ p {
     padding-top: 1%;
     padding-left: 0.5%;
 }
+
 .HomeLogoSize {
-   font-size:28px !important;
+    font-size: 28px !important;
 }
 
 
@@ -70,6 +277,7 @@ p {
     width: 10px !important;
     max-width: 10px !important
 }
+
 .deleteTD, .editTD {
     width: 40px;
     max-width: 40px;
@@ -85,9 +293,9 @@ p {
     font-size: 24px
 }
 
-.deleteTD .fa-trash:hover, .editTD .fa-edit:hover {
+    .deleteTD .fa-trash:hover, .editTD .fa-edit:hover {
         color: #128f8b;
-}
+    }
 
 .w-90 {
     width: 90%
@@ -213,8 +421,9 @@ a {
 }
 
     .form-group label {
-        font-family: 'Myriad Pro Semibold';
-        color: #000000;
+        font-family: "Inter",sans-serif;
+        color: #222525;
+        font-weight: 500;
         margin-bottom: 5px
     }
 
@@ -268,7 +477,7 @@ table.dataTable {
     padding-left: 0px !important
 }
 
-::-webkit-scrollbar-thumb {
+/*::-webkit-scrollbar-thumb {
     -webkit-border-radius: 10px;
     border-radius: 10px;
     background: #455a64;
@@ -279,13 +488,13 @@ table.dataTable {
     width: 12px;
 }
 
-.colorBlackBold { /*font-weight:bold !important;*/
-    font-family: 'Myriad Pro Semibold';
+*/ .colorBlackBold { /*font-weight:bold !important;*/
+    font-family: "Inter",sans-serif;
     color: #333333 !important
 }
 
 .colorGreenBold {
-    font-family: 'Myriad Pro Semibold';
+    font-family: "Inter",sans-serif;
     color: #17bb34 !important
 }
 
@@ -311,9 +520,21 @@ table.dataTable {
 }
 
 .form-control {
-    height: 24px;
-    padding: 0px 5px;
-    border-color: #DBDBDB
+    /* height: 24px; */
+    /* padding: 0px 5px; */
+    /* border-color: #DBDBDB; */
+    border: 1px solid #eaeaea;
+    background-color: #fff;
+    border-radius: 8px;
+    box-sizing: border-box;
+    height: 47px;
+    padding: 12px;
+    font-size: 14px;
+    transition: .3s ease-out;
+    box-shadow: 0px 1px 2px rgba(16,24,40,.05);
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
 }
 
 .starValid {
@@ -330,6 +551,7 @@ table.dataTable {
 .redColor {
     color: #E41F35 !important
 }
+
 .sysColor {
     color: #128f8b !important
 }
@@ -432,8 +654,8 @@ table.dataTable {
 
 /* placeholder */
 .form-control {
-    font-size: 12px;
-    color: #a1a1a1
+    /* font-size: 12px; */
+    /* color: #a1a1a1; */
 }
 
     .form-control::-webkit-input-placeholder {
@@ -466,10 +688,10 @@ table.dataTable {
         outline: none
     }
 
-table.dataTable thead .sorting, table.dataTable thead .sorting_asc, table.dataTable thead .sorting_desc, table.dataTable thead .sorting_asc_disabled, table.dataTable thead .sorting_desc_disabled {
+/*table.dataTable thead .sorting, table.dataTable thead .sorting_asc, table.dataTable thead .sorting_desc, table.dataTable thead .sorting_asc_disabled, table.dataTable thead .sorting_desc_disabled {
     background-position: center left !important;
-    padding-left: 18px !important; /*font-weight:normal !important*/
-}
+    padding-left: 18px !important;*/ /*font-weight:normal !important*/
+/*}*/
 
 .ladingdiv .mainLoader {
     height: 0;
@@ -708,13 +930,31 @@ table.dataTable thead .sorting, table.dataTable thead .sorting_asc, table.dataTa
 
 
 .btn-search, .btn-clear {
-    background: #128f8b;
+    border: 1px solid #44786c;
+    background-color: #44786c;
     color: #fff;
-    border-color: #128f8b;
-    padding: 0px 6px;
+    border-radius: 8px;
+    font-weight: 400;
     font-size: 14px;
+    line-height: 24px;
+    padding: 15px 24px;
+    align-items: center;
+    justify-content: center;
+    display: inline-flex;
+    gap: 0px;
+    margin-left: 16px;
+    transition: .3s ease;
+    transform: translateY(0);
 }
-/*.btn-search:hover, .btn-clear:hover{background:#c22b2c; color:#c22b2c; border-color:#c22b2c;}*/
+
+    .btn-search:hover, .btn-clear:hover {
+        background: #44786c;
+        color: #fff;
+        border-color: #44786c;
+        opacity: .9;
+        color: #fff;
+        transform: translateY(-5px);
+    }
 
 .clsOIGCheck {
     background: #e2e2e2;
@@ -750,13 +990,13 @@ table.dataTable thead .sorting, table.dataTable thead .sorting_asc, table.dataTa
 .activeText {
     float: left;
     padding-top: 4px;
-    font-family: 'Myriad Pro Semibold';
+    font-family: "Inter",sans-serif;
 }
 
 .inactiveText {
     float: left;
     padding-top: 4px;
-    font-family: 'Myriad Pro Semibold';
+    font-family: "Inter",sans-serif;
 }
 
 /***************/
@@ -843,41 +1083,84 @@ table.dataTable thead .sorting, table.dataTable thead .sorting_asc, table.dataTa
         -webkit-border-radius: 50%;
     }
 
-.table {
-    margin-bottom: 0px
+.table, table.dataTable {
+    margin-bottom: 0px;
+    border-radius: 10px 10px 0 0;
+    caption-side: bottom;
+    border-collapse: collapse;
+    --bs-table-color: #212529;
+    --bs-table-bg: transparent;
+    --bs-table-border-color: #dee2e6;
+    --bs-table-accent-bg: transparent;
+    --bs-table-striped-color: #212529;
+    --bs-table-striped-bg: #212529;
+    --bs-table-active-color: #212529;
+    --bs-table-active-bg: rgba(0, 0, 0, 0.1);
+    --bs-table-hover-color: #212529;
+    --bs-table-hover-bg: rgba(0, 0, 0, 0.075);
+    width: 100%;
+    margin-bottom: 1rem;
+    color: #212529;
+    vertical-align: top;
+    border-color: #dee2e6;
 }
 
     .table thead {
+        border-color: inherit;
+        border-style: solid;
+        border-width: 0;
+        vertical-align: bottom;
     }
 
-        .table thead tr th { /*font-family: 'Conv_Roboto-Medium';*/
-            color: #000000;
-            font-weight: bold;
-            border-bottom: 2px solid #e1e1e1;
-            padding: 10px 5px 7px 5px;
-            border-top: none;
-            font-family: 'Myriad Pro Semibold';
+        .table thead tr th:first-child, table.dataTable thead th:first-child {
+            border-top-left-radius: 12px;
+            background-image: none;
+        }
+
+        table.dataTable thead .sorting_asc, .table thead .sorting_asc, table.dataTable thead .sorting_desc, .table thead .sorting_desc, table.dataTable thead .sorting, .table thead .sorting {
+            background-image: none !important;
+        }
+
+        .table thead tr th:last-child, table.dataTable thead th:last-child {
+            border-top-right-radius: 12px;
+        }
+
+        .table thead tr th, table.dataTable thead th, table.dataTable thead td {
+            padding: 20px 25px !important;
+            font-size: 14px;
+            vertical-align: middle;
+            background-color: #fafafa;
+            border: none;
+            font-weight: 600;
+            /*border-top-left-radius: 12px;*/
         }
 
     .table tbody {
     }
 
-        .table tbody tr td {
-            padding: 25px 5px;
-            color: #333333;
+        .table tbody tr td, table.dataTable tbody th, table.dataTable tbody td {
+            padding: 20px 25px !important;
+            background-color: #fff;
+            border: 0px;
+            border-bottom: 1px solid #eeeff0;
+            /* color: #333333; */
+            padding: 20px 25px;
+            font-size: 14px;
+            vertical-align: middle;
         }
 
-        .table thead tr th, .table tbody tr td {
+        .table tbody tr td {
             font-weight: normal !important;
         }
 
             .table tbody tr td .fa {
                 font-size: 18px
             }
-/*.chkTBL .table thead tr th:first-child, .chkTBL .table tbody tr td:first-child{width:40px}*/
-table.dataTable tbody tr:hover td {
-    background: #e6f7ff;
-}
+
+    /*.chkTBL .table thead tr th:first-child, .chkTBL .table tbody tr td:first-child{width:40px}*/
+    table.dataTable tbody tr:hover td {
+        background: #e6f7ff;
+    }
 
 .bgTRGrey td {
     background: #ececec
@@ -995,8 +1278,8 @@ ul.ui-autocomplete {
 }
 
 table.dataTable thead th, table.dataTable thead td {
-    padding: 10px !important;
-    border-bottom: none !important
+    /* padding: 10px !important; */
+    border-bottom: none !important;
 }
 
 .loaderImg {
@@ -1084,16 +1367,17 @@ table.dataTable.no-footer {
         color: #333333;
         opacity: 0.4;
         font-size: 12px;
-        font-family: 'Myriad Pro Semibold';
+        font-family: "Inter",sans-serif;
         padding-top: 13px;
         padding-left: 10px
     }
 /*.navbarLeft a .fa{font-size: 24px; color: #128f8b; padding-top: 10px;}*/
-.navbarRight { /*background:#fff;border-bottom:1px solid #e2e2e2;*/
-    padding: 5px 4px 0px 20px;
+.navbarRight {
+    padding: 15px 4px 0px 20px;
     position: absolute;
     right: 0px;
     top: 0px;
+    max-width: 1140px;
     z-index: 2
 }
 
@@ -1206,7 +1490,7 @@ ul.formGroupTopListing li .form-control:-ms-input-placeholder, ul.advFilListing 
             padding-top: 6px;
             padding-left: 7px;
             width: 60%;
-            color:white;            
+            color: white;
         }
 
         .userBox .dropdown-menu a {
@@ -1214,9 +1498,10 @@ ul.formGroupTopListing li .form-control:-ms-input-placeholder, ul.advFilListing 
             color: #ffffff;
             float: left
         }
-          .userBox .dropdown-menu a {
-                background: #666666
-            }
+
+        .userBox .dropdown-menu a {
+            background: #666666
+        }
 
             .userBox .dropdown-menu a:hover {
                 background: #128f8b
@@ -1255,7 +1540,7 @@ ul.formGroupTopListing li .form-control:-ms-input-placeholder, ul.advFilListing 
 }
 
 .sidebarwrappLayout {
-    top: 60px
+    top: 71px
 }
 
 @keyframes swing {
@@ -1327,6 +1612,7 @@ ul.formGroupTopListing li .form-control:-ms-input-placeholder, ul.advFilListing 
 }
 
 .sidebar-dropdown { /*border-bottom:2px solid #fff*/
+    margin-bottom: 0px !important;
 }
 
     .sidebar-dropdown.active { /*border-bottom:2px solid #128f8b*/
@@ -1340,9 +1626,9 @@ ul.formGroupTopListing li .form-control:-ms-input-placeholder, ul.advFilListing 
     width: 100%;
 }
 
-.sidebar-menu ul > li > a:hover {
+/*.sidebar-menu ul > li > a:hover {
     background: #f2f2f2
-}
+}*/
 
 .sidebar-submenu {
     left: 0; /*background:#f2f2f2;*/
@@ -1361,7 +1647,7 @@ ul.formGroupTopListing li .form-control:-ms-input-placeholder, ul.advFilListing 
 }
 /*.sidebar-menu li.activeMenu a{background:#f2f2f2}*/
 .sidebar-wrapper .sidebar-menu ul li ul li a {
-    padding-left: 62px
+    /*padding-left: 62px*/
 }
 
 .sidebar-wrapper a {
@@ -1442,6 +1728,9 @@ ul.formGroupTopListing li .form-control:-ms-input-placeholder, ul.advFilListing 
     padding: 10px 20px;
 }
 
+.sidebar-wrapper .sidebar-menu ul li { /* margin-bottom:15px; */
+}
+
 .sidebar-wrapper .sidebar-menu .header-menu span {
     font-weight: bold;
     font-size: 14px;
@@ -1454,17 +1743,49 @@ ul.formGroupTopListing li .form-control:-ms-input-placeholder, ul.advFilListing 
     width: 100%;
     text-decoration: none;
     position: relative;
-    padding: 6px 10px 6px 10px;
-    padding-left: 22px;
-    font-size: 12px; /*border-bottom:4px solid #fff;*/
-    border-top: 1px solid #e9e9e9;
-    color: #333333; /*font-family: 'Myriad Pro Semibold';*/ /*font-family: 'Conv_Roboto-Regular';*/
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 24px;
+    letter-spacing: -0.006em;
+    padding-left: 12px;
+    position: relative;
+    text-decoration: none;
+    margin-bottom: 15px;
+    color: #222525;
+    font-family: "Inter",sans-serif;
 }
 
-.sidebar-wrapper .sidebar-menu ul li:first-child a { /*border-top:none;*/
-    padding-top: 10px;
-    border-top: 1px solid #e9e9e9
+.sidebar-wrapper .sidebar-menu ul li.sidebar-dropdown a { /* margin-bottom:15px; */
 }
+
+/*.sidebar-wrapper .sidebar-menu ul li a:hover, .sidebar-wrapper .sidebar-menu ul li a:active {
+    color: #44786c;
+    font-weight: 600;
+}*/
+
+.sidebar-wrapper .sidebar-menu ul li a:before {
+    position: absolute;
+    top: 9px;
+    left: 0;
+    width: 6px;
+    height: 6px;
+    background-color: #44786c;
+    content: "";
+    border-radius: 50%;
+    opacity: 0;
+    transition: .3s ease-out;
+    transform: translateX(-8px);
+}
+
+.sidebar-wrapper .sidebar-menu ul li a:hover:before, .sidebar-wrapper .sidebar-menu ul li a:active:before {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/*.sidebar-wrapper .sidebar-menu ul li:first-child a {*/ /*border-top:none;*/
+/*padding-top: 10px;*/
+/*border-top: 1px solid #e9e9e9*/
+/*}*/
 
 .sidebar-wrapper .sidebar-menu ul li a.active {
     border-bottom: 4px solid #128f8b
@@ -1482,6 +1803,70 @@ ul.formGroupTopListing li .form-control:-ms-input-placeholder, ul.advFilListing 
     display: inline-block;
     animation: swing ease-in-out 0.5s 1 alternate;
 }
+
+.sidebar-wrapper .sidebar-menu .sidebar-link .active {
+    color: #44786c;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 24px;
+    letter-spacing: -0.006em;
+    padding-left: 12px;
+    margin-bottom: 24px;
+    position: relative;
+    border-bottom: 0px;
+}
+
+    .sidebar-wrapper .sidebar-menu .sidebar-link .active:before {
+        position: absolute;
+        top: 9px;
+        left: 0;
+        width: 6px;
+        height: 6px;
+        background-color: #44786c;
+        content: "";
+        border-radius: 50%;
+        transition: .3s ease-out;
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+.sidebar-wrapper .sidebar-menu ul li.sidebar-dropdown.sidebar-link-group .sidebar-link-head {
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 22px;
+    letter-spacing: -0.006em;
+    text-transform: uppercase;
+    color: #9c9e9e;
+    margin-bottom: 15px;
+    padding-left: 12px;
+}
+    .sidebar-wrapper .sidebar-menu ul li.sidebar-dropdown.sidebar-link-group .sidebar-link-head:before{
+        top:27px;
+    }
+
+    .sidebar-wrapper .sidebar-menu ul li.sidebar-dropdown.sidebar-link-group .sidebar-link-head:hover:before {
+        top: 27px;
+    }
+        /*.sidebar-wrapper .sidebar-menu ul li.sidebar-dropdown.sidebar-link-group .sidebar-link-head:first-child{
+            border-top:0px;
+        }*/
+
+.sidebar-wrapper .sidebar-menu ul li.sidebar-link-group .aClickable.sidebar-link-head:before,.sidebar-wrapper .sidebar-menu ul li.sidebar-link-group .aClickable.sidebar-link-head:hover:before {
+    top: 28px;
+}
+
+.sidebar-wrapper .sidebar-menu ul li.sidebar-link-group .sidebar-link-head {
+    padding-top: 15px !important;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    width: 242px;
+    padding-left: 43px !important;
+    margin-left: -32px;
+}
+
+    .sidebar-wrapper .sidebar-menu ul li.sidebar-link-group .sidebar-link-head:before {
+        margin-left: 32px;
+    }
 
 .sidebar-wrapper .sidebar-menu .sidebar-dropdown > a:after { /*font-family: FontAwesome; content: "\f107"; font-style: normal;*/
     display: inline-block;
@@ -1524,11 +1909,12 @@ ul.formGroupTopListing li .form-control:-ms-input-placeholder, ul.advFilListing 
     right: 17px;
 }
 
-.sidebar-wrapper .sidebar-menu ul li:first-child a { /*border-top:none*/
+.sidebar-wrapper .sidebar-menu ul li.sidebar-dropdown a:first-child { /*border-top:none*/
+    margin-bottom: 15px;
 }
 
 .sidebar-wrapper .sidebar-menu ul li:last-child {
-    border-bottom: 1.5px solid #e9e9e9
+    /*border-bottom: 1.5px solid #e9e9e9*/
 }
 
 .sidebar-wrapper .sidebar-menu ul li.activeMenu:last-child { /*border-bottom:2px solid #128f8b*/
@@ -1540,12 +1926,18 @@ ul.formGroupTopListing li .form-control:-ms-input-placeholder, ul.advFilListing 
     }
 
 .sidebar-wrapper .sidebar-menu ul li a .meIcon {
-    width: 41px;
+    /*width: 41px;
     height: 28px;
     float: left;
-    background-repeat: no-repeat, repeat;
+    background-repeat: no-repeat, repeat;*/
 }
-
+.sidebar-wrapper .sidebar-menu ul li.sidebar-dropdown.sidebar-link-group .sidebar-link-head:first-child {
+    border-top: none;
+    margin-bottom: 15px;
+    border-bottom: 0px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
 .sidebar-wrapper .sidebar-menu ul li a .meText {
     padding-top: 5px;
     float: left;
@@ -1658,16 +2050,19 @@ ul.formGroupTopListing li .form-control:-ms-input-placeholder, ul.advFilListing 
 }
 
 .sidebar-wrapper .sidebar-menu ul li {
-    position: relative
+    position: relative;
+    /* padding-left: 32px; */
+    /* padding-right: 24px; */
 }
 
 .sidebar-menu ul > li.sidebar-dropdown > span.holder {
     background: url(../images/defaultarrow.png) 0 0 no-repeat;
-    height: 11px;
-    width: 16px;
+    height: 12px;
+    width: 22px;
     position: absolute;
     right: 0px;
-    top: 19px;
+    top: 11px;
+    display: none;
 }
 
 .sidebar-menu ul > li.activeMenu > span.holder {
@@ -1677,15 +2072,16 @@ ul.formGroupTopListing li .form-control:-ms-input-placeholder, ul.advFilListing 
     position: absolute;
     right: 3px;
     top: 19px;
+    display: none;
 }
 
 .sidebar-wrapper .sidebar-menu ul li.active a .meText {
-    font-family: 'Myriad Pro bold';
+    font-family: "Inter",sans-serif;
     color: #128f8b;
 }
 
 .sidebar-wrapper .sidebar-menu ul li.activeMenu a .meText {
-    font-family: 'Myriad Pro bold';
+    font-family: "Inter",sans-serif;
     color: #128f8b;
 }
 
@@ -1693,8 +2089,9 @@ ul.formGroupTopListing li .form-control:-ms-input-placeholder, ul.advFilListing 
 }
 
 .sidebar-wrapper .sidebar-menu .sidebar-dropdown .sidebar-submenu li.activeMenu a {
-    font-family: 'Myriad Pro bold';
+    font-family: "Inter",sans-serif;
     color: #128f8b;
+    font-weight: bold;
 }
 /*.accordian-blog #cssmenu > ul > li.open .holder{background:url(../images/downarrow.png) 0 0 no-repeat;right:4px;top:15px;}*/
 
@@ -1704,39 +2101,59 @@ ul.formGroupTopListing li .form-control:-ms-input-placeholder, ul.advFilListing 
 /******************** Content CSS ********************/
 
 .mainContent {
-    background: #ffffff;
-    float: left;
-    width: 100%;
-    padding: 7px 20px;
-    min-height: 578px
+    /* background: #ffffff; */
+    /* float: left; */
+    /* width: 100%; */
+    /* padding: 7px 20px; */
+    /* min-height: 578px; */
 }
 
 .conHeader {
-    border-bottom: 2px solid #128f8b;
+    /* border-bottom: 2px solid #128f8b; */
 }
 
 
 ol.breadcrumb {
     background: none;
     padding: 0px;
-    margin-bottom: 8px
+    margin-bottom: 44px;
 }
 
     ol.breadcrumb li {
         color: #969696;
-        font-size: 18px
-    }
-
-    ol.breadcrumb .breadcrumb-item.active { /*font-family: 'Century Gothic';*/
-        font-family: 'Myriad Pro bold';
         font-size: 18px;
-        color: #000000;
-        padding-left: 12px;
+        width: 100%;
     }
 
-    ol.breadcrumb li a {
-        color: #333333
-    }
+.breadcrumb-item.active {
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 32px;
+    color: #222525;
+    margin-bottom: 0.25rem !important;
+}
+
+ol.breadcrumb li p {
+    margin: 0 0 15px;
+    line-height: 1.6;
+    font-size: 16px;
+    color: #222525;
+    font-family: "Inter",sans-serif;
+    letter-spacing: -0.01em;
+}
+
+ol .breadcrumb .breadcrumb-item.active {
+    font-family: "Inter",sans-serif;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 32px;
+    color: #222525;
+    /*padding-left: 12px;*/
+}
+
+ol.breadcrumb li a {
+    color: #333333
+}
 
 ul.subTitle {
     background: none;
@@ -1752,7 +2169,7 @@ ul.subTitle {
     }
 
     ul.subTitle .breadcrumb-item.active { /*font-family: 'Century Gothic';*/
-        font-family: 'Myriad Pro bold';
+        font-family: "Inter",sans-serif;
         font-size: 15px;
         color: #000000;
         margin-left: 12px;
@@ -1777,12 +2194,12 @@ ul.headerListing {
             float: left
         }
 
-            ul.headerListing li a span.text {
+            /*ul.headerListing li a span.text {
                 float: left;
                 padding-top: 8px;
-                font-family: 'Myriad Pro Semibold'; /*font-family: 'Conv_Roboto-Medium';*/
-                font-size: 12px
-            }
+                font-family: "Inter",sans-serif;*/ /*font-family: 'Conv_Roboto-Medium';*/
+            /*font-size: 12px
+            }*/
 
             ul.headerListing li a span.icon {
                 float: left;
@@ -1908,23 +2325,23 @@ ul.headerCriteriaListing li a span.icon {
 }
 
     #wrapper.toggled {
-        padding-right: 200px;
+        padding-right: 260px;
     }
 
 #sidebar-wrapper {
     z-index: 1;
     position: absolute;
     margin-bottom: 50px;
-    left: 200px;
+    left: 260px;
     width: 0;
     height: 100%;
-    margin-left: -200px; /*-webkit-transition:all 0.5s ease;-moz-transition:all 0.5s ease;-o-transition:all 0.5s ease;transition:all 0.5s ease;*/
+    margin-left: -260px; /*-webkit-transition:all 0.5s ease;-moz-transition:all 0.5s ease;-o-transition:all 0.5s ease;transition:all 0.5s ease;*/
     background: #fff;
     border-right: 1px solid #d7dee3; /*overflow:hidden;min-height:918px*/
 }
 
 #wrapper.toggled #sidebar-wrapper {
-    width: 200px;
+    width: 260px;
 }
 
 #page-content-wrapper {
@@ -1935,7 +2352,7 @@ ul.headerCriteriaListing li a span.icon {
 
 #wrapper.toggled #page-content-wrapper {
     position: absolute;
-    margin-right: -200px;
+    margin-right: -260px;
 }
 
 
@@ -1985,7 +2402,7 @@ ul.pagination {
         padding-top: 15px;
         float: left;
         font-size: 18px;
-        font-family: 'Myriad Pro Semibold'; /*font-family: 'Conv_Roboto-Bold';*/
+        font-family: "Inter",sans-serif; /*font-family: 'Conv_Roboto-Bold';*/
     }
 
 .overlay {
@@ -2035,7 +2452,7 @@ ul.pagination {
     width: 100%;
     border-bottom: 1px solid #c8c8c8;
     padding-bottom: 3px;
-    font-family: 'Myriad Pro Semibold';
+    font-family: "Inter",sans-serif;
     color: #989898;
     font-size: 14px
 }
@@ -2045,7 +2462,7 @@ ul.pagination {
         padding-top: 15px;
         float: left;
         font-size: 14px !important;
-        font-family: 'Myriad Pro Semibold';
+        font-family: "Inter",sans-serif;
         color: #989898;
         padding-top: 12px !important
     }
@@ -2108,7 +2525,7 @@ ul.pagination {
         float: left;
         font-size: 18px;
         color: #000000;
-        font-family: 'Myriad Pro Semibold'; /*font-family: 'Conv_Roboto-Bold';*/
+        font-family: "Inter",sans-serif; /*font-family: 'Conv_Roboto-Bold';*/
     }
 
 .enrollcode .filterWrapp .filterInText {
@@ -2117,7 +2534,7 @@ ul.pagination {
     float: left;
     font-size: 18px;
     color: #000000;
-    font-family: 'Myriad Pro Semibold'; /*font-family: 'Conv_Roboto-Bold';*/
+    font-family: "Inter",sans-serif; /*font-family: 'Conv_Roboto-Bold';*/
 }
 
 .enrollcode .filterWrapp .filterHeader {
@@ -2192,7 +2609,7 @@ ul.pagination {
         float: left;
         font-size: 18px;
         color: #000000;
-        font-family: 'Myriad Pro Semibold'; /*font-family: 'Conv_Roboto-Bold';*/
+        font-family: "Inter",sans-serif; /*font-family: 'Conv_Roboto-Bold';*/
     }
 
     .sidebarpoup .filterWrapp .filterInText {
@@ -2201,7 +2618,7 @@ ul.pagination {
         float: left;
         font-size: 18px;
         color: #000000;
-        font-family: 'Myriad Pro Semibold'; /*font-family: 'Conv_Roboto-Bold';*/
+        font-family: "Inter",sans-serif; /*font-family: 'Conv_Roboto-Bold';*/
     }
 
 
@@ -2303,7 +2720,7 @@ ul.pagination {
             color: #3a4042;
             float: left;
             padding-right: 10px;
-            font-family: 'Myriad Pro Semibold';
+            font-family: "Inter",sans-serif;
         }
 
         .filterBody .clearFilter .cleIcon {
@@ -2470,7 +2887,7 @@ ul.addEditListing {
         font-size: 15px;
         color: #000000 !important;
         padding: 5px 5px !important;
-        font-family: 'Myriad Pro Semibold'; /*font-family: 'Conv_Roboto-Bold';*/
+        font-family: "Inter",sans-serif; /*font-family: 'Conv_Roboto-Bold';*/
     }
 
 .sysId {
@@ -2513,6 +2930,142 @@ ul.addEditListing.nav-tabs .nav-item {
         right: 3px
     }
 /*Login page Start*/
+.login-screen-main {
+    background-color: #fff;
+    min-height: 100vh;
+    position: relative;
+    overflow: hidden
+}
+
+    .login-screen-main .login-side-view {
+        position: absolute;
+        width: 50%;
+        top: 0;
+        bottom: 0;
+        display: flex;
+        justify-content: flex-end;
+        flex-direction: column;
+        isolation: isolate
+    }
+
+        .login-screen-main .login-side-view .login-side-line {
+            position: absolute;
+            top: 15%;
+            width: 100%;
+            left: 0;
+            right: 0;
+            z-index: -1;
+        }
+
+        .login-screen-main .login-side-view.primary-bg {
+            background-color: #44786c;
+        }
+
+        .login-screen-main .login-side-view .login-side-line img {
+            width: calc(100% + 40px);
+            max-width: inherit;
+            transform: translateX(-20px)
+        }
+
+.loginInnerBg.login-form .heading {
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 130%;
+    color: #222525;
+    margin-bottom: 30px;
+    margin-bottom: 0.5rem !important;
+    letter-spacing: normal;
+}
+
+.login-screen-main .login-wrapper .form-group .lblText {
+    display: none;
+}
+
+.fotPass {
+    float: right;
+}
+
+    .fotPass a {
+        text-decoration: underline;
+    }
+
+.login-screen-main .login-wrapper .form-group, .loginFooter {
+    margin-bottom: 1.5rem !important
+}
+
+@media(max-width: 767px) {
+    .loginInnerBg.login-form .heading {
+        font-size: 20px
+    }
+
+    .login-screen-main .login-side-view {
+        min-height: 0;
+        bottom: 0;
+        width: 100%;
+        background-color: rgba(0,0,0,0);
+        top: auto;
+        opacity: .4
+    }
+
+        .login-screen-main .login-side-view .login-side-line {
+            display: none
+        }
+}
+
+.login-screen-main .login-wrapper {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative
+}
+
+    .login-screen-main .login-wrapper .sidebar-logo {
+        /* position: absolute; */
+        /* top: 10%; */
+        /* left: 0; */
+    }
+
+    .login-screen-main .login-wrapper .subhead {
+        margin: 0 0 15px;
+        font-size: 14px;
+        line-height: 1.6;
+        margin-bottom: 40px;
+        color: rgba(34,37,37,.6);
+    }
+
+    .login-screen-main .login-wrapper .login-form .form-control {
+        padding: 16px;
+        border: 1px solid #eaeaea;
+        background-color: #fff;
+        border-radius: 8px;
+        font-size: 14px;
+        transition: .3s ease-out;
+        box-shadow: 0px 1px 2px rgba(16,24,40,.05);
+        display: block;
+        width: 100%;
+        font-weight: 400;
+        line-height: 1.5;
+        color: #212529;
+        background-clip: padding-box;
+        appearance: none;
+    }
+
+        .login-screen-main .login-wrapper .login-form .form-control::placeholder {
+            font-size: 14px;
+            color: #212529;
+        }
+
+        .login-screen-main .login-wrapper .login-form .form-control:focus {
+            box-shadow: none;
+            border-color: #44786c;
+            color: #212529;
+            background-color: #fff;
+            outline: 0;
+        }
+
+
+
 .loginBox {
     max-width: 100%;
     width: 100%;
@@ -2545,7 +3098,7 @@ ul.addEditListing.nav-tabs .nav-item {
             }
 
                 .loginBox .loginBoxCon .colLogRight p strong { /*font-family: 'Conv_Roboto-Regular';*/
-                    font-family: 'Myriad Pro Semibold';
+                    font-family: "Inter",sans-serif;
                 }
 
         .loginBox .loginBoxCon .colLogLeft .colLogLeftInner {
@@ -2638,6 +3191,97 @@ ul.addEditListing.nav-tabs .nav-item {
 
 /*Login page End*/
 
+.bg-bggrey {
+    background-color: #eeeff0
+}
+
+.single-data-card.primary-bg {
+    background-color: #44786c
+}
+
+.primary-text {
+    color: #44786c
+}
+
+.black-bg {
+    background-color: #222525
+}
+
+    .black-bg * {
+        color: #fff
+    }
+
+.db-data-cards {
+    margin: 0 -12px;
+    flex-wrap: wrap
+}
+
+.single-data-card.rounded-12 {
+    border-radius: 12px
+}
+
+.single-data-card.rounded-8 {
+    border-radius: 8px
+}
+
+.db-data-cards {
+    margin: 0 -12px;
+    flex-wrap: wrap
+}
+
+.d-flex.gap-2 img {
+    margin-right: 0.5rem !important;
+}
+
+.db-data-cards .card-col {
+    padding: 0 12px
+}
+
+    .db-data-cards .card-col:nth-child(1), .db-data-cards .card-col:nth-child(2) {
+        width: 30%
+    }
+
+    .db-data-cards .card-col:nth-child(3), .db-data-cards .card-col:nth-child(4) {
+        width: 20%
+    }
+
+
+.single-data-card {
+    padding: 30px;
+    position: relative;
+    isolation: isolate
+}
+
+    .single-data-card .card-illustration {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        pointer-events: none;
+        z-index: -1
+    }
+
+    .single-data-card h3 {
+        font-weight: 600;
+        font-size: 18px;
+        line-height: 22px
+    }
+
+    .single-data-card .card-data-number {
+        margin-top: 30px;
+        font-weight: 600;
+        font-size: 32px;
+        line-height: 40px
+    }
+
+        .single-data-card .card-data-number.primary-text {
+            color: #44786c;
+        }
+
+        .single-data-card .card-data-number.text-red {
+            color: #eb5757;
+        }
+
+
 .oigStatus {
     background: #fff6f6;
     color: #a4504e;
@@ -2656,7 +3300,7 @@ ul.addEditListing.nav-tabs .nav-item {
         .oigStatus h5 .text {
             color: #973937;
             font-size: 14px;
-            font-family: 'Myriad Pro Semibold'; /*font-family: 'Conv_Roboto-Regular';*/
+            font-family: "Inter",sans-serif; /*font-family: 'Conv_Roboto-Regular';*/
         }
 
         .oigStatus h5 .faExIcon .fa {
@@ -2701,7 +3345,7 @@ ul.addEditListing.nav-tabs .nav-item {
         .successBox .successBoxText h4 {
             font-size: 16px;
             margin-bottom: 2px;
-            font-family: 'Myriad Pro Semibold'; /*font-family: 'Conv_Roboto-Regular';*/
+            font-family: "Inter",sans-serif; /*font-family: 'Conv_Roboto-Regular';*/
             color: #1E561F;
             margin-top: 0px
         }
@@ -2748,7 +3392,7 @@ ul.addEditListing.nav-tabs .nav-item {
         .warningBox .warningBoxText h4 {
             font-size: 16px;
             margin-bottom: 2px;
-            font-family: 'Myriad Pro Semibold'; /*font-family: 'Conv_Roboto-Regular';*/
+            font-family: "Inter",sans-serif; /*font-family: 'Conv_Roboto-Regular';*/
             color: #856404
         }
 
@@ -3446,28 +4090,107 @@ ol.treeBreadcrumb {
         }
 
 /**************/
-.formGroupTop { /*padding-top:19px*/
-    padding-top: 10px
+.formGroupTop {
+    /*padding-top:19px*/
+    /* padding-top: 10px; */
 }
 
 ul.formGroupTopListing {
-    float: right;
-    position: absolute; /*right:0px;*/ /*z-index:2; background:#ffffff*/
+    float: left;
+    position: absolute;
+    /* right:0px; */
+    /*z-index:2; background:#ffffff*/
 }
 
     ul.formGroupTopListing li {
         float: left;
-        padding-left: 10px;
+        /* padding-left: 10px; */
     }
 
         ul.formGroupTopListing li.firstLastName, ul.formGroupTopListing li.groupName {
-            min-width: 250px
+            min-width: 680px;
         }
 
         ul.formGroupTopListing li.firstLastNamePOP, ul.formGroupTopListing li.groupNamePOP {
-            min-width: 210px
+            min-width: 70%
         }
 
+.filter-box {
+    display: flex;
+    align-items: center;
+    flex: 1;
+    width: 100%;
+}
+
+    .filter-box .input-group-text {
+        display: -ms-flexbox;
+        display: inline-flex;
+        -ms-flex-align: center;
+        align-items: center;
+        padding: 0.375rem 0.75rem;
+        height: 45px;
+        margin-bottom: 10px;
+        vertical-align: top;
+        /* font-size: 1rem; */
+        font-weight: 400;
+        line-height: 1.5;
+        color: #495057;
+        text-align: center;
+        white-space: nowrap;
+        box-shadow: 0px 1px 2px rgba(16,24,40,.05);
+        background-color: #fff;
+        border: 0px solid #ced4da;
+        border-bottom-left-radius: 8px;
+        border-top-left-radius: 8px;
+    }
+
+    .filter-box .form-group {
+        margin-bottom: 10px;
+        position: relative;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: stretch;
+        width: 100%;
+    }
+
+    .filter-box .form-control {
+        border: 1px solid #eaeaea;
+        background-color: #fff;
+        border-radius: 8px;
+        box-sizing: border-box;
+        height: 47px;
+        padding: 12px;
+        font-size: 14px;
+        transition: .3s ease-out;
+        box-shadow: 0px 1px 2px rgba(16,24,40,.05);
+        font-weight: 400;
+        line-height: 1.5;
+        color: #212529;
+        /*border-top-left-radius: 0px;*/
+        /*border-left-width: 0px;*/
+        /*margin-left: -7px;*/
+        /*border-bottom-left-radius: 0px;*/
+    }
+
+        .filter-box .form-control::placeholder {
+            font-size: 14px;
+        }
+
+    .filter-box.search-box .form-control {
+        border-top-left-radius: 0px;
+        border-left-width: 0px;
+        margin-left: -2px;
+        border-bottom-left-radius: 0px;
+    }
+
+    .filter-box .form-control:focus {
+        box-shadow: none;
+        border-color: transparent;
+    }
+
+.chkTBL {
+    margin-top: 1.5rem !important;
+}
 
 .dateTime {
     font-size: 11px
@@ -3511,7 +4234,7 @@ ul.formGroupTopListing {
 .filedataname {
     color: #000;
     font-size: 12px;
-    font-family: 'Myriad Pro Semibold'; /*font-family:'Conv_Roboto-Bold';*/
+    font-family: "Inter",sans-serif; /*font-family:'Conv_Roboto-Bold';*/
     margin-bottom: 8px;
 }
 
@@ -3584,6 +4307,63 @@ ul.formGroupTopListing {
 }
 
 /*.ui-widget.ui-widget-content{display:block !important}*/
+.pull-right .active .addcenterbutton, .pull-left .active .addcenterbutton.managepetservicesPage {
+    border: 1px solid #44786c;
+    background-color: #44786c;
+    color: #fff;
+    border-radius: 8px;
+    font-weight: 400;
+    font-size: 14px;
+    min-width: 200px;
+    /* line-height: 24px; */
+    padding: 12px 24px;
+    align-items: center;
+    justify-content: center;
+    display: inline-flex;
+    gap: 10px;
+    transition: .3s ease;
+    transform: translateY(0);
+    box-sizing: border-box;
+}
+
+    #btnChangeCenter{padding:10px 24px;}
+    .pull-right.mobileFilterMenu .addcenterbutton:hover, .pull-right.mobileFilterMenu .addcenterbutton:focus,
+    .pull-left .active .addcenterbutton.managepetservicesPage:hover, .pull-left .active .addcenterbutton.managepetservicesPage:focus {
+        opacity: .9;
+        color: #fff;
+        transform: translateY(-5px);
+        text-decoration: none;
+    }
+
+    .pull-left .active .addcenterbutton.managepetservicesPage span:hover, .pull-left .active .addcenterbutton.managepetservicesPage spam:focus {
+        text-decoration: none;
+    }
+
+.pull-left .addcenterbutton.managepetservicesPage {
+    left: 60%;
+    position: relative;
+    top: 0px;
+}
+
+.centerReportPage .col-lg-3 {
+    max-width: 22%;
+    margin-top: 4px;
+}
+
+.centerReportPage .btn.btn-primary.btn-search, .centerReportPage .btn.btn-default.btn-clear {
+    line-height: 24px;
+    height: 45px;
+    margin-top: 10px;
+}
+
+#btnExportExcel {
+    min-width: 185px;
+    margin-top: 0px;
+}
+
+    #btnExportExcel svg {
+        margin-right: 8px;
+    }
 
 .manageGroupPage {
     border-bottom: 1px solid #d4d4d4;
@@ -3619,7 +4399,7 @@ ul.formGroupTopListing {
     }
 
         .mngGroupBox .mngGroupBoxHeader h4 { /*font-family: 'Conv_Roboto-Regular';*/
-            font-family: 'Myriad Pro Semibold';
+            font-family: "Inter",sans-serif;
             font-size: 16px;
             float: left;
             width: 100%; /*margin-bottom:15px; margin-top:11px*/
@@ -3672,7 +4452,7 @@ ul.manageTab {
             border-bottom: 2px solid #128f8b;
             text-decoration: none;
             font-size: 16px;
-            font-family: 'Myriad Pro Semibold'; /*font-family: 'Conv_Roboto-Regular';*/
+            font-family: "Inter",sans-serif; /*font-family: 'Conv_Roboto-Regular';*/
         }
 /*.AssignedUser{max-height:300px; overflow:auto; float: left; width: 100%;}*/
 #peopleLI .mngGroupBox .mngGroupBoxBody {
@@ -3751,11 +4531,11 @@ ul.mngGroupConListing {
                 width: 100%;
                 background: #fff;
                 z-index: 1;
-                font-family: 'Myriad Pro bold';
+                font-family: "Inter",sans-serif;
             }
 
             ul.mngGroupConListing li a .groupName {
-                font-family: 'Myriad Pro bold';
+                font-family: "Inter",sans-serif;
             }
             /*ul.mngGroupConListing li a.active .groupName{}*/
             ul.mngGroupConListing li a .ulText {
@@ -3767,7 +4547,7 @@ ul.mngGroupConListing {
             }
 
         ul.mngGroupConListing li .groupName {
-            font-family: 'Myriad Pro bold';
+            font-family: "Inter",sans-serif;
         }
 
         ul.mngGroupConListing li .ulText {
@@ -3832,7 +4612,7 @@ ul.mngGroupConListing {
 }
 
     .adminCount .text {
-        font-family: 'Myriad Pro Semibold';
+        font-family: "Inter",sans-serif;
         padding-top: 10px;
         width: 100%;
         float: left
@@ -3870,7 +4650,7 @@ ul.peoPickListng { /*width:400px; padding:50px*/
 
             ul.peoPickListng li .ltText h6 {
                 margin-bottom: 0px;
-                font-family: 'Myriad Pro bold';
+                font-family: "Inter",sans-serif;
                 font-size: 12px
             }
 
@@ -4117,7 +4897,7 @@ ul.conRepoListing li.newsletter .conReposBoxHead, ul.conRepoListing li.mediaBox 
     .logHeading h3 {
         color: #000000;
         font-size: 16px;
-        font-family: 'Myriad Pro Semibold';
+        font-family: "Inter",sans-serif;
     }
 
 ul.logListing {
@@ -4140,17 +4920,17 @@ ul.logListing {
             ul.logListing li.logCal .calText {
                 color: #999999;
                 float: left;
-                font-family: 'Myriad Pro Semibold';
+                font-family: "Inter",sans-serif;
             }
 
         ul.logListing li.logBoldText {
             color: #000000;
-            font-family: 'Myriad Pro Semibold';
+            font-family: "Inter",sans-serif;
         }
 
         ul.logListing li.logErrorText {
             color: #f47e26;
-            font-family: 'Myriad Pro Semibold';
+            font-family: "Inter",sans-serif;
         }
 
         ul.logListing li.logNormalText {
@@ -4235,7 +5015,7 @@ ul.keywordsListing {
 
         ul.keywordsListing li .text {
             padding-right: 10px;
-            font-family: 'Myriad Pro light'
+            font-family: "Inter",sans-serif
         }
 
         ul.keywordsListing li .iocnTimes {
@@ -4346,7 +5126,7 @@ ul.acpeProLTListingThree {
         margin-top: 10px;
         border-bottom: 1px solid #ddd;
         padding-bottom: 5px;
-        font-family: 'Myriad Pro Semibold';
+        font-family: "Inter",sans-serif;
     }
 
 .acpeProducts {
@@ -4367,7 +5147,7 @@ ul.acpeProLTListingThree {
             color: #333333;
             margin-bottom: 5px;
             font-size: 12px;
-            font-family: 'Myriad Pro Semibold';
+            font-family: "Inter",sans-serif;
         }
 
     .acpeProducts .acpeProductsRT {
@@ -4391,7 +5171,7 @@ ul.acpeProLTListingThree {
             .acpeProducts .acpeProductsRT .acpeProRTBox h6 {
                 font-size: 12px;
                 color: #333333;
-                font-family: 'Myriad Pro Semibold';
+                font-family: "Inter",sans-serif;
             }
 
 .brdNone {
@@ -4555,6 +5335,22 @@ ul.searchKeyListing {
     margin-bottom: 0;
 }
 
+#divdataTables_info {
+    margin-top: 3rem !important;
+}
+
+#mydatatable_wrapper .dataTables_info {
+    display: none !important;
+}
+
+.paginate_button.first.disabled, .paginate_button.next.disabled {
+    display: none;
+}
+
+#divdataTables_info .dataTables_length label {
+    display: none;
+}
+
 .dataTables_length {
     float: left;
     width: 50%;
@@ -4562,22 +5358,34 @@ ul.searchKeyListing {
 }
 
 .dataTables_paginate {
-    float: right;
-    padding-top: 5px;
-    padding-bottom: 5px
+    /* float: right; */
+    /* padding-top: 5px; */
+    /* padding-bottom: 5px; */
 }
 
 .paginate_button {
     background: #ffffff !important;
-    color: #333333 !important;
-    min-height: 19px;
+    /* color: #333333 !important; */
+    /*    min-height: 19px;
     min-width: 19px;
-    padding: 0px 4px; /*width:21px; height:21px;*/
+    padding: 0px 4px;*/
+    /*width:21px; height:21px;*/
     text-align: center;
     padding-top: 0px;
-    margin-left: 2px;
+    /* margin-left: 2px; */
     float: left;
-    font-size: 13px
+    font-size: 13px;
+    border: none;
+    background-color: rgba(0,0,0,0) !important;
+    font-weight: 500;
+    color: rgba(34,37,37,.4) !important;
+    border-radius: 4px;
+    position: relative;
+    display: block;
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    text-decoration: none;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 }
 
     .paginate_button:hover {
@@ -4586,17 +5394,33 @@ ul.searchKeyListing {
     }
 
     .paginate_button.current {
-        background: #128f8b !important;
-        color: #ffffff !important; /*font-weight:bold*/
+        /* background: #128f8b !important; */
+        /* color: #ffffff !important; */
+        /*font-weight:bold*/
+        background-color: #222525 !important;
+        color: #fff !important;
     }
 
     .paginate_button.disabled {
-        opacity: 0.3;
+        /* opacity: 0.3; */
         cursor: not-allowed;
+        border: none;
+        background-color: rgba(0,0,0,0);
+        font-weight: 500;
+        color: rgba(34,37,37,.4);
+        border-radius: 4px;
     }
 
 .bgTRGrey td {
     background: #ececec
+}
+
+.paginate_button .fa {
+    color: #222525;
+    font-size: 16px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: .3s ease;
 }
 
 .dataTables_wrapper .dataTables_info {
@@ -4665,7 +5489,7 @@ ul.searchKeyListing {
         }
 
         .thumbnailWrapper .timeAndPrice .countText {
-            font-family: 'Myriad Pro Semibold';
+            font-family: "Inter",sans-serif;
             font-size: 16px;
             color: #000000;
             text-align: right;
@@ -4684,14 +5508,14 @@ ul.searchKeyListing {
 }
 
 .thumbnailWrapper .caption h3 {
-    font-family: 'Myriad Pro Semibold';
+    font-family: "Inter",sans-serif;
     font-size: 12px;
     color: #000000;
     margin-bottom: 2px;
 }
 
 .thumbnailWrapper .caption h6 {
-    font-family: 'Myriad Pro Semibold';
+    font-family: "Inter",sans-serif;
     font-size: 12px;
     color: #0A70B9;
     margin-bottom: 2px;
@@ -4714,7 +5538,7 @@ ul.searchKeyListing {
 }
 
 .categories h2 {
-    font-family: 'Myriad Pro bold';
+    font-family: "Inter",sans-serif;
     font-size: 15px;
     margin-bottom: 10px
 }
@@ -4773,7 +5597,7 @@ ul.cateListing {
     .inputFormControl .sortText {
         padding-top: 4px;
         padding-right: 10px;
-        font-family: 'Myriad Pro Semibold';
+        font-family: "Inter",sans-serif;
     }
 
 .inputGroupCustom .input-group-sm .form-control {
@@ -4872,7 +5696,7 @@ ul.cateListing {
         ;
         padding-right: 7px;
         font-size: 16px;
-        font-family: 'Myriad Pro Semibold';
+        font-family: "Inter",sans-serif;
         margin-bottom: 10px
     }
 
@@ -4927,7 +5751,7 @@ ul.cateListing {
     }
 
         .cateDetailsWrapp .cateDetailsBoxHeader h2 {
-            font-family: 'Myriad Pro Semibold';
+            font-family: "Inter",sans-serif;
             font-size: 16px;
             float: left;
             color: #000000;
@@ -4958,7 +5782,7 @@ ul.cateListing {
         .cateBoxIMG .cateBoxIMGRT h3 {
             font-size: 15px;
             color: #0A70B9;
-            font-family: 'Myriad Pro Semibold';
+            font-family: "Inter",sans-serif;
         }
 
         .cateBoxIMG .cateBoxIMGRT ul.comListing {
@@ -4977,7 +5801,7 @@ ul.cateListing {
             }
 
                 .cateBoxIMG .cateBoxIMGRT ul.comListing li.priceTag .text {
-                    font-family: 'Myriad Pro bold';
+                    font-family: "Inter",sans-serif;
                 }
 
                 .cateBoxIMG .cateBoxIMGRT ul.comListing li .icon {
@@ -5026,7 +5850,7 @@ ul.keywordBoxListing li {
     .keywordBox h2 {
         font-size: 15px;
         color: #333333;
-        font-family: 'Myriad Pro Semibold';
+        font-family: "Inter",sans-serif;
         margin-bottom: 5px
     }
 
@@ -5057,14 +5881,14 @@ ul.keywordBoxListing li {
 }
 
     .formControl label {
-        font-family: 'Myriad Pro Semibold';
+        font-family: "Inter",sans-serif;
     }
 
     .formControl p {
     }
 
 .impNotice label {
-    font-family: 'Myriad Pro Semibold';
+    font-family: "Inter",sans-serif;
     color: #0A70B9;
 }
 
@@ -5086,7 +5910,7 @@ ul.keywordBoxListing li {
 
     .popOverContent h2 {
         font-size: 15px;
-        font-family: 'Myriad Pro Semibold';
+        font-family: "Inter",sans-serif;
         font-size: 12px
     }
 
@@ -5191,7 +6015,7 @@ ul.keywordBoxListing li {
         padding: 10px;
         float: left;
         color: #000000;
-        font-family: 'Myriad Pro Semibold'
+        font-family: "Inter",sans-serif
     }
 
     .quesWrapp .quesNormalText {
@@ -5262,7 +6086,7 @@ table.dataTable .quesWrapp {
     padding: 10px;
     float: left;
     color: #000000;
-    font-family: 'Myriad Pro Semibold'
+    font-family: "Inter",sans-serif
 }
 
 .quesWrapp .quesNormalText {
@@ -5395,13 +6219,13 @@ ul.addAnsListing {
     }
 
 ul.topListing {
-    padding-top: 10px
+    padding-top: 10px;
 }
 
     ul.topListing li {
         float: left;
-        padding-right: 10px;
-        padding-left: 20px;
+        /*   padding-right: 10px;
+        padding-left: 20px;*/
         padding-top: 4px; /*padding-bottom:7px*/
     }
 
@@ -5431,10 +6255,10 @@ ul.topListing {
 .learnPortHeader {
     background: #ffffff;
     float: left;
-    width: 100%;
-    -webkit-box-shadow: -1px 4px 5px 0px rgba(222,222,222,1);
+    width: 260px;
+    /*  -webkit-box-shadow: -1px 4px 5px 0px rgba(222,222,222,1);
     -moz-box-shadow: -1px 4px 5px 0px rgba(222,222,222,1);
-    box-shadow: -1px 4px 5px 0px rgba(222,222,222,1);
+    box-shadow: -1px 4px 5px 0px rgba(222,222,222,1);*/
 }
 
 .learnerContent {
@@ -5503,7 +6327,7 @@ ul.topListing {
                 float: left;
                 padding-top: 3px;
                 font-size: 12px;
-                font-family: 'Myriad Pro Semibold';
+                font-family: "Inter",sans-serif;
                 color: #1A1A1A
             }
 
@@ -5606,7 +6430,7 @@ ul.lernRTListing {
         .learnerLeftContent .learnerAccordion h3 {
             color: #000000;
             font-size: 18px;
-            font-family: 'Myriad Pro Semibold';
+            font-family: "Inter",sans-serif;
             margin-bottom: 8px;
             border-bottom: 2px solid #128f8b;
             padding-bottom: 10px;
@@ -5685,13 +6509,13 @@ table.dataTable tbody tr:last-child .mediaBox {
     .learnerLeftContent .media .media-body h5 {
         font-size: 16px;
         color: #000000;
-        font-family: 'Myriad Pro Semibold';
+        font-family: "Inter",sans-serif;
     }
 
     .learnerLeftContent .media .media-body h6 {
         font-size: 12px;
         color: #0a70b9;
-        font-family: 'Myriad Pro bold';
+        font-family: "Inter",sans-serif;
         margin-bottom: 15px
     }
 
@@ -5718,7 +6542,7 @@ table.dataTable tbody tr:last-child .mediaBox {
         font-size: 15px;
         padding-top: 10px;
         padding-bottom: 10px;
-        font-family: 'Myriad Pro Semibold';
+        font-family: "Inter",sans-serif;
         color: #000000;
         border-bottom: 1px solid #d0d0d0
     }
@@ -5805,7 +6629,7 @@ ul.quickLinkListing {
 
 ul.launchListing {
     color: #333333;
-    font-family: 'Myriad Pro Semibold';
+    font-family: "Inter",sans-serif;
     width: 100%;
     float: left
 }
@@ -5823,7 +6647,7 @@ ul.launchListing {
 
 ul.launchListing2 {
     color: #333333;
-    font-family: 'Myriad Pro Semibold';
+    font-family: "Inter",sans-serif;
     width: 100%;
     float: left;
     position: relative
@@ -5852,7 +6676,7 @@ ul.launchListing2 {
 
 ul.launchListing3 {
     color: #333333;
-    font-family: 'Myriad Pro Semibold';
+    font-family: "Inter",sans-serif;
     width: 100%;
     float: left
 }
@@ -5950,7 +6774,7 @@ ul.launchListing3 {
     .abtCDPTabs h3 {
         color: #000000;
         font-size: 20px;
-        font-family: 'Myriad Pro Semibold';
+        font-family: "Inter",sans-serif;
         float: left;
         width: 100%
     }
@@ -5958,7 +6782,7 @@ ul.launchListing3 {
     .abtCDPTabs h5 {
         color: #000000;
         font-size: 15px;
-        font-family: 'Myriad Pro Semibold';
+        font-family: "Inter",sans-serif;
         float: left;
         width: 100%; /*margin-top:25px*/
         margin-bottom: 15px
@@ -6088,10 +6912,23 @@ ul.comListing {
         width: 24px
     }
 
+ul.topListing li#petBellIcon {
+    background-color: #fff;
+}
+
 .learnPortHeader ul.topListing li.bellIcon, ul.topListing li.shopCartIcon {
     padding-left: 0px;
     padding-right: 0px;
-    margin-right: 14px
+    margin-right: 1rem;
+    border: none;
+    border-radius: 4px;
+    width: 32px;
+    height: 32px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    position: relative;
 }
 
 .learnPortHeader ul.topListing li.bellIcon {
@@ -6454,7 +7291,7 @@ ul.peoPickerListing {
         color: #000;
         float: left;
         padding-top: 7px;
-        font-family: 'Myriad Pro Semibold';
+        font-family: "Inter",sans-serif;
     }
 
 ul.aeBusListing {
@@ -6722,7 +7559,7 @@ ul.pubStatusLBL {
 .loginMainWrapper {
     display: table;
     margin: 0 auto;
-    margin-top: 80px
+    /* margin-top: 80px; */
 }
 
     .loginMainWrapper .loginUserWrapp {
@@ -6766,38 +7603,38 @@ ul.pubStatusLBL {
     }
 
 .loginBg {
-    background: #ffffff;
-    border-radius: 5px;
+    /* background: #ffffff; */
+    /* border-radius: 5px; */
     -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
-    width: 300px;
-    margin: 22px auto 0px;
-    -webkit-box-shadow: 0px 0px 5px 0px rgba(136,136,136,0.75);
+    /* -webkit-border-radius: 5px; */
+    /* width: 300px; */
+    /* margin: 22px auto 0px; */
+    /* -webkit-box-shadow: 0px 0px 5px 0px rgba(136,136,136,0.75); */
     -moz-box-shadow: 0px 0px 5px 0px rgba(136,136,136,0.75);
-    box-shadow: 0px 0px 5px 0px rgba(136,136,136,0.75);
+    /* box-shadow: 0px 0px 5px 0px rgba(136,136,136,0.75); */
 }
 
     .loginBg .loginHeader {
-        padding: 20px 25px 5px 25px;
-        text-align: center
+        /* padding: 20px 25px 5px 25px; */
+        /* text-align: center; */
     }
 
         .loginBg .loginHeader img {
             max-width: 200px;
             margin: 0px auto;
-            margin-right: 25px;
+            margin-bottom: 25px;
         }
 
         .loginBg .loginHeader h2 {
             font-size: 16px;
             padding-top: 15px;
             color: #333333;
-            font-family: 'Myriad Pro Semibold';
+            font-family: "Inter",sans-serif;
         }
 
     .loginBg .loginInnerBg {
-        background: #ffffff;
-        padding: 0px 40px 2px
+        /* background: #ffffff; */
+        /* padding: 0px 40px 2px; */
     }
 
         .loginBg .loginInnerBg .fotPass {
@@ -6808,13 +7645,19 @@ ul.pubStatusLBL {
         }
 
             .loginBg .loginInnerBg .fotPass a {
-                color: #0A70B9;
-                text-decoration: underline
+                text-decoration: underline;
+                color: #44786c;
+                transition: all .2s;
+                font-weight: 500;
             }
 
+                .loginBg .loginInnerBg .fotPass a:hover, .loginBg .loginInnerBg .fotPass a:active, .loginBg .loginInnerBg .fotPass a:focus {
+                    color: #222525;
+                }
+
     .loginBg .loginFooter {
-        text-align: center;
-        padding: 15px 25px 20px 25px
+        /* text-align: center; */
+        /* padding: 15px 25px 20px 25px; */
     }
 
         .loginBg .loginFooter p {
@@ -6842,22 +7685,39 @@ ul.pubStatusLBL {
 
 .btnLogin {
     /*background: #c22b2c;*/
-    background: #128f8b;
-    color: #ffffff;
-    padding: 4px 34px;
-    vertical-align: middle;
-    border: 1px solid #128f8b;
-    border-radius: 3px 3px 3px 3px;
+    /* background: #128f8b; */
+    color: #ffffff !important;
+    /* padding: 4px 34px; */
+    /* vertical-align: middle; */
+    /* border: 1px solid #128f8b; */
+    /* border-radius: 3px 3px 3px 3px; */
     -moz-border-radius: 3px 3px 3px 3px;
-    -webkit-border-radius: 3px 3px 3px 3px;
-    display: inline-block;
-    min-width: 75px;
+    /* -webkit-border-radius: 3px 3px 3px 3px; */
+    /* display: inline-block; */
+    /* min-width: 75px; */
     text-align: center;
+    font-family: "Inter",sans-serif;
+    border: 1px solid #44786c;
+    background-color: #44786c;
+    color: #fff;
+    border-radius: 8px;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 24px;
+    padding: 12px 24px;
+    align-items: center;
+    justify-content: center;
+    display: inline-flex;
+    gap: 10px;
+    transition: .3s ease;
+    transform: translateY(0);
+    font-weight: 700 !important;
+    width: 100%;
 }
 
     .btnLogin:hover, .btnLogin:focus {
-        color: #ffffff;
-        background: #128f8b
+        opacity: .9;
+        transform: translateY(-5px);
     }
 
 .mb3 {
@@ -6875,7 +7735,7 @@ ul.pubStatusLBL {
 }
 
 .addEditCrit h4 {
-    font-family: 'Myriad Pro bold';
+    font-family: "Inter",sans-serif;
     font-size: 16px;
     margin-bottom: 0px;
     margin-top: 15px
@@ -6938,14 +7798,14 @@ ul.pubStatusLBL {
 .mainDashboard .welcomeText {
     font-size: 14px;
     color: #707070;
-    font-family: 'Myriad Pro Semibold';
+    font-family: "Inter",sans-serif;
     display: none
 }
 
 .mainDashboard .dashRegisterBox h4 {
     font-size: 15px;
     color: #000000;
-    font-family: 'Myriad Pro Semibold';
+    font-family: "Inter",sans-serif;
 }
 
 .mainDashboard .dashRegisterBox {
@@ -7106,7 +7966,7 @@ ul.dasRegListingfour {
     .dashOigGsaBox h4 {
         font-size: 15px;
         color: #000000;
-        font-family: 'Myriad Pro Semibold';
+        font-family: "Inter",sans-serif;
     }
 
 ul.dasOigGsaRegListing {
@@ -7180,7 +8040,7 @@ ul.dasRegListingfour li.dash-pharmacy-technician .bottomText .no {
 .calendarDashboard .calendarWrapper .headingText h3 {
     font-size: 15px;
     color: #000000;
-    font-family: 'Myriad Pro Semibold';
+    font-family: "Inter",sans-serif;
     padding: 10px 10px 10px;
     background: #fff;
     margin-bottom: 0
@@ -7410,7 +8270,7 @@ ul.reportList {
         padding-left: 10px;
         font-size: 12px;
         color: #000;
-        font-family: 'Myriad Pro Semibold';
+        font-family: "Inter",sans-serif;
         margin-bottom: 5px;
     }
 
@@ -7422,7 +8282,7 @@ ul.reportList {
     .dropDownHeading h2 {
         font-size: 15px;
         color: #000;
-        font-family: 'Myriad Pro Semibold';
+        font-family: "Inter",sans-serif;
         padding-top: 10px
     }
 
@@ -7443,13 +8303,13 @@ ul.reportList {
 }
 
     .courseEnro .mediaLTBox .media-body h5 {
-        font-family: 'Myriad Pro Semibold';
+        font-family: "Inter",sans-serif;
         font-size: 15px;
         color: #000000
     }
 
     .courseEnro .mediaLTBox .media-body h6 {
-        font-family: 'Myriad Pro Semibold';
+        font-family: "Inter",sans-serif;
         font-size: 12px;
         color: #0A70B9;
         margin-bottom: 10px;
@@ -7460,7 +8320,7 @@ ul.reportList {
     }
 
 .ordCodeWrap {
-    font-family: 'Myriad Pro Semibold';
+    font-family: "Inter",sans-serif;
     font-size: 12px;
     margin-bottom: 2px
 }
@@ -7506,7 +8366,7 @@ ul.enrollListing {
 
         ul.enrollListing li .text {
             text-align: right;
-            font-family: 'Myriad Pro Semibold';
+            font-family: "Inter",sans-serif;
             float: right;
         }
 
@@ -7738,7 +8598,8 @@ table.dataTable thead th {
 }
 
 #divDataTable_length, #divDataTable_length2 {
-    margin-bottom: 5px
+    margin-bottom: 5px;
+    display: none;
 }
 
 
@@ -7773,7 +8634,7 @@ table.dataTable thead th {
     .shopingcartpage .qtyWrapper .qtyText {
         color: #333333;
         font-size: 15px;
-        font-family: 'Myriad Pro Semibold';
+        font-family: "Inter",sans-serif;
         float: left;
         margin-right: 5px
     }
@@ -7792,7 +8653,7 @@ table.dataTable thead th {
     color: #128f8b;
     font-size: 12px;
     text-decoration: underline;
-    font-family: 'Myriad Pro Semibold';
+    font-family: "Inter",sans-serif;
     text-transform: capitalize;
     box-shadow: none !important;
     outline: none !important
@@ -7844,7 +8705,7 @@ table.dataTable thead th {
             color: #333333;
             float: right;
             font-size: 15px;
-            font-family: 'Myriad Pro bold';
+            font-family: "Inter",sans-serif;
         }
 
 .shopingcartpage .distext {
@@ -7900,7 +8761,7 @@ table.dataTable thead th {
 .shopingcartpage .totalPayble {
     border-top: 1px solid #128f8b;
     border-bottom: 1px solid #128f8b;
-    font-family: 'Myriad Pro bold';
+    font-family: "Inter",sans-serif;
     font-size: 17px;
 }
 
@@ -7982,7 +8843,7 @@ table.dataTable thead th {
 
 .shopingcartpage .couponcodetext {
     font-size: 14px;
-    font-family: 'Myriad Pro Semibold'; /*padding-bottom:3px;padding-top:18px;*/
+    font-family: "Inter",sans-serif; /*padding-bottom:3px;padding-top:18px;*/
 }
 
 .shopingcartpage .validText {
@@ -7991,7 +8852,7 @@ table.dataTable thead th {
 
 .shopingcartpage .discountvalue {
     font-size: 18px;
-    font-family: 'Myriad Pro Semibold';
+    font-family: "Inter",sans-serif;
     padding-bottom: 0px; /*padding-top:13px;*/
 }
 
@@ -8064,7 +8925,7 @@ table.dataTable thead th {
     color: #128f8b;
     text-align: right;
     margin: 5px 0;
-    font-family: 'Myriad Pro bold';
+    font-family: "Inter",sans-serif;
 }
 
 .downloadPdf {
@@ -8073,7 +8934,7 @@ table.dataTable thead th {
     margin: 5px 0;
     display: block;
     margin-top: 7px;
-    font-family: 'Myriad Pro bold';
+    font-family: "Inter",sans-serif;
 }
 
     .downloadPdf .fa {
@@ -8093,7 +8954,7 @@ table.dataTable thead th {
     text-align: center;
     color: #66BE60;
     font-size: 19px;
-    font-family: 'Myriad Pro bold';
+    font-family: "Inter",sans-serif;
     margin: 10px 0
 }
 
@@ -8101,7 +8962,7 @@ table.dataTable thead th {
     border-top: 2px solid #128f8b;
     border-bottom: 2px solid #128f8b;
     padding: 6px 10px;
-    font-family: 'Myriad Pro Semibold';
+    font-family: "Inter",sans-serif;
     margin-top: 10px;
     margin-bottom: 15px
 }
@@ -8135,13 +8996,13 @@ table.dataTable thead th {
     }
 
     .shopconfirmpage .orderTable .boldText {
-        font-family: 'Myriad Pro bold';
+        font-family: "Inter",sans-serif;
         color: #333333;
         padding-bottom: 5px
     }
 
     .shopconfirmpage .orderTable .totalrow td {
-        font-family: 'Myriad Pro bold';
+        font-family: "Inter",sans-serif;
         color: #333333;
         font-size: 15px
     }
@@ -8154,7 +9015,7 @@ table.dataTable thead th {
 
     .shopconfirmpage .qtyWrapp .qtyText {
         margin-right: 15px;
-        font-family: 'Myriad Pro bold';
+        font-family: "Inter",sans-serif;
         color: #333333;
         font-size: 15px
     }
@@ -8187,7 +9048,7 @@ table.dataTable thead th {
 
     .qtygroupone .qtyList .Price {
         display: inline-block;
-        font-family: 'Myriad Pro bold';
+        font-family: "Inter",sans-serif;
         color: #333333;
         font-size: 12px;
         float: right
@@ -8237,7 +9098,7 @@ table.dataTable thead th {
 .printpoup .printTable .table tbody tr:last-child td {
     border-top: 1px solid #E2E2E2;
     background: #F9F9F9;
-    font-family: 'Myriad Pro bold';
+    font-family: "Inter",sans-serif;
 }
 
 .printpoup .orderdetails {
@@ -8245,7 +9106,7 @@ table.dataTable thead th {
 }
 
     .printpoup .orderdetails label {
-        font-family: 'Myriad Pro bold';
+        font-family: "Inter",sans-serif;
     }
 
 .printpoup .modal-footer {
@@ -8279,7 +9140,7 @@ table.dataTable thead th {
     text-align: center;
     color: #c22b2c;
     font-size: 19px;
-    font-family: 'Myriad Pro bold';
+    font-family: "Inter",sans-serif;
     margin: 10px 0
 }
 
@@ -8337,9 +9198,9 @@ table.dataTable thead th {
         position: absolute;
         left: 3%;
         top: 18%;
-        font-family: 'Myriad Pro bold';
+        font-family: "Inter",sans-serif;
         font-size: 34px;
-        font-family: 'Myriad Pro bold';
+        font-family: "Inter",sans-serif;
         font-size: 34px
     }
 
@@ -8355,7 +9216,7 @@ table.dataTable thead th {
 
 .landingpage .headingText h3 {
     color: #000000;
-    font-family: 'Myriad Pro bold';
+    font-family: "Inter",sans-serif;
     font-size: 18px;
     margin: 0px 0px 10px
 }
@@ -8383,13 +9244,13 @@ table.dataTable thead th {
 
 .landingpage .courseName {
     color: #000;
-    font-family: 'Myriad Pro bold';
+    font-family: "Inter",sans-serif;
     font-size: 13px
 }
 
 .landingpage .readmore a {
     color: #128f8b;
-    font-family: 'Myriad Pro bold';
+    font-family: "Inter",sans-serif;
 }
 
 .eventContainer .rightarrow {
@@ -8468,7 +9329,7 @@ table.dataTable thead th {
     padding: 10px 20px;
     text-align: center;
     color: #128f8b;
-    font-family: 'Myriad Pro bold';
+    font-family: "Inter",sans-serif;
     text-align: center
 }
 
@@ -8550,7 +9411,7 @@ table.dataTable thead th {
 }
 
 .calendarWrapper .eventTitle {
-    font-family: 'Myriad Pro bold';
+    font-family: "Inter",sans-serif;
     font-size: 12px;
     display: block;
     padding-bottom: 0px;
@@ -8594,7 +9455,7 @@ table.dataTable thead th {
 
 .calendarWrapper .headingText h3 {
     color: #000000;
-    font-family: 'Myriad Pro bold';
+    font-family: "Inter",sans-serif;
     font-size: 18px;
     margin: 0px 0px 10px
 }
@@ -8643,7 +9504,7 @@ table.dataTable thead th {
 
 .calendarWrapper .calMoreLink {
     color: #128f8b;
-    font-family: 'Myriad Pro bold';
+    font-family: "Inter",sans-serif;
     text-align: right;
     margin-bottom: 0px
 }
@@ -8682,7 +9543,7 @@ table.dataTable thead th {
         vertical-align: middle;
         font-size: 13px;
         color: #000;
-        font-family: 'Myriad Pro Semibold';
+        font-family: "Inter",sans-serif;
     }
 
     .calendarPage .legendsCustom {
@@ -8718,7 +9579,7 @@ table.dataTable thead th {
 
     .calendarPage .fc-toolbar .fc-left .fc-today-button {
         color: #000;
-        font-family: 'Myriad Pro Semibold';
+        font-family: "Inter",sans-serif;
         text-transform: capitalize;
         font-size: 15px;
         margin: 0px 25px 0 0;
@@ -8757,7 +9618,7 @@ table.dataTable thead th {
         font-size: 20px;
         margin: 0px 25px;
         display: inline-block;
-        font-family: 'Myriad Pro bold';
+        font-family: "Inter",sans-serif;
         vertical-align: middle
     }
 
@@ -8778,7 +9639,7 @@ table.dataTable thead th {
         position: relative;
         padding-left: 24px;
         margin-top: 12px;
-        font-family: 'Myriad Pro Semibold';
+        font-family: "Inter",sans-serif;
         cursor: pointer;
         font-size: 12px;
         -webkit-user-select: none;
@@ -8837,7 +9698,7 @@ table.dataTable thead th {
         text-align: center;
         color: #000;
         font-size: 15px;
-        font-family: 'Myriad Pro Semibold';
+        font-family: "Inter",sans-serif;
     }
 
         .calendarPage .eventCalendartable table th:last-child {
@@ -8868,7 +9729,7 @@ table.dataTable thead th {
     .calendarPage .eventCalendartable .fc-title {
         font-size: 11px;
         color: #000;
-        font-family: 'Myriad Pro Semibold';
+        font-family: "Inter",sans-serif;
         text-align: left
     }
 
@@ -8892,7 +9753,7 @@ table.dataTable thead th {
 
     .calendarPage .eventCalendartable .fc-more {
         color: #128f8b;
-        font-family: 'Myriad Pro bold';
+        font-family: "Inter",sans-serif;
         font-size: 12px;
         text-decoration: underline;
         text-align: left;
@@ -8992,7 +9853,7 @@ table.dataTable thead th {
 .headBox h4 {
     font-size: 15px;
     color: #000000;
-    font-family: 'Myriad Pro Semibold';
+    font-family: "Inter",sans-serif;
 }
 
 .grusercount {
@@ -9001,7 +9862,7 @@ table.dataTable thead th {
 
 .dashboardtble .table tr th {
     font-size: 11px;
-    font-family: 'Myriad Pro bold';
+    font-family: "Inter",sans-serif;
     padding: 5px 5px 5px 3px;
 }
 
@@ -9024,7 +9885,7 @@ table.dataTable thead th {
 
 .dashboardtble .ul.headRTListing li.text {
     color: #000;
-    font-family: 'Myriad Pro bold';
+    font-family: "Inter",sans-serif;
 }
 
 .tableBg {
@@ -9161,7 +10022,7 @@ table.dataTable thead th {
 
         .reportpage .borderCollapse .activeTr td:nth-child(2) {
             color: #1979bd;
-            font-family: 'Myriad Pro bold';
+            font-family: "Inter",sans-serif;
         }
 
 .bottomtbl .borderCollapse {
@@ -9198,12 +10059,12 @@ table.dataTable thead th {
 
     .bottomtbl .borderCollapse .activeTr td {
         color: #1979bd;
-        font-family: 'Myriad Pro bold';
+        font-family: "Inter",sans-serif;
     }
 
 .reportpage table thead th, .bottomtbl table thead th {
     color: #000;
-    font-family: 'Myriad Pro bold';
+    font-family: "Inter",sans-serif;
 }
 
 .bottomtbl .table {
@@ -9225,7 +10086,7 @@ table.dataTable thead th {
 
 .tblheaderinfo {
     color: #000;
-    font-family: 'Myriad Pro bold';
+    font-family: "Inter",sans-serif;
     margin-top: 11px;
     font-size: 13px;
 }
@@ -9246,7 +10107,7 @@ table.dataTable thead th {
 
 .viewEvent .heading {
     color: #000000;
-    font-family: 'Myriad Pro bold';
+    font-family: "Inter",sans-serif;
     font-size: 14px;
     margin-bottom: 0px
 }
@@ -9261,7 +10122,7 @@ table.dataTable thead th {
 
 .viewEvent .locationText {
     color: #6A6A6A;
-    font-family: 'Myriad Pro bold';
+    font-family: "Inter",sans-serif;
 }
 
 .viewEvent .linkText {
@@ -9345,7 +10206,7 @@ table.dataTable thead th {
 
     .lernesletterpage .newsletterMenu tr td a {
         color: #0A70B9;
-        font-family: 'Myriad Pro Semibold';
+        font-family: "Inter",sans-serif;
         font-size: 14px;
         text-decoration: none
     }
@@ -9425,7 +10286,7 @@ table.dataTable thead th {
 
 .mediaPage .videotitle {
     color: #000000;
-    font-family: 'Myriad Pro bold';
+    font-family: "Inter",sans-serif;
     height: 35px;
     overflow-y: auto;
     text-align: left;
@@ -9523,7 +10384,7 @@ table.dataTable thead th {
 .smallCalendar .fc-center h2 {
     font-size: 15px;
     color: #000000;
-    font-family: 'Myriad Pro Semibold';
+    font-family: "Inter",sans-serif;
     position: relative;
     margin: 0
 }
@@ -9791,12 +10652,14 @@ ul.conRepoListing li.manualTemp .conReposBoxHead .text h1.policyHeading {
     top: 0;
     right: 0;
     left: 0;
+    height: 72px;
     z-index: 880;
+    border-bottom: 1px solid #ddd;
 }
 
-body {
+/*body {
     padding-top: 61px;
-}
+}*/
 
 #sidebar-wrapper {
     position: fixed;
@@ -9808,10 +10671,12 @@ body {
 
 .sidebar-menu {
     max-height: 700px;
-    overflow-y: auto
+    overflow-y: auto;
+    padding: 24px 24px 24px 32px;
+    border-bottom: 1px solid #ddd;
 }
 
-    .sidebar-menu::-webkit-scrollbar-thumb {
+/* .sidebar-menu::-webkit-scrollbar-thumb {
         -webkit-border-radius: 10px;
         border-radius: 10px;
         background: #9ca3ac;
@@ -9822,7 +10687,7 @@ body {
         width: 4px;
         height: 4px
     }
-
+*/
 .mainDashboard .mainLoader {
     z-index: 800
 }
@@ -9962,7 +10827,7 @@ ul.enrollUserHT::-webkit-scrollbar {
 
 .ncpdptbl .table tbody tr td a {
     color: #0A70B9;
-    font-family: 'Myriad Pro Semibold';
+    font-family: "Inter",sans-serif;
     text-decoration: underline
 }
 
@@ -10025,7 +10890,7 @@ ul.formGroupTopListing li.width440 {
 }
 
 .faqFooter .card-header {
-    font-family: 'Myriad Pro Semibold';
+    font-family: "Inter",sans-serif;
     color: #247fc0;
     padding: 5px 10px;
     border: 1px solid #bedfe6;
@@ -10038,7 +10903,7 @@ ul.formGroupTopListing li.width440 {
 .learnerAccordion h3 {
     color: #000000;
     font-size: 18px;
-    font-family: 'Myriad Pro Semibold';
+    font-family: "Inter",sans-serif;
     margin-bottom: 8px;
     border-bottom: 2px solid #128f8b;
     padding-bottom: 10px;
@@ -10100,7 +10965,7 @@ ul.formGroupTopListing li.width440 {
 .helppage .jconfirm-box .videotitle {
     color: #000000;
     font-size: 14px !important;
-    font-family: 'Myriad Pro Semibold';
+    font-family: "Inter",sans-serif;
     width: 100%;
 }
 
@@ -10144,7 +11009,7 @@ ul.formGroupTopListing li.width440 {
 
     .dropDownHeading .agreementText a {
         color: #0A70B9;
-        font-family: 'Myriad Pro bold';
+        font-family: "Inter",sans-serif;
         text-decoration: underline
     }
 
@@ -10382,14 +11247,14 @@ ul.manualList {
         width: 50%;
         text-align: center;
         color: #000000;
-        font-family: 'Myriad Pro Semibold';
+        font-family: "Inter",sans-serif;
     }
 
     .quicklookPage .statusText {
         float: right;
         width: 90%;
         text-align: center;
-        font-family: 'Myriad Pro Semibold';
+        font-family: "Inter",sans-serif;
         font-size: 12px
     }
 
@@ -10571,7 +11436,7 @@ ul.manualList {
 
 @media only screen and (max-width:1920px) {
     .loginMainWrapper {
-        margin-top: 200px;
+        /* margin-top: 200px; */
     }
 
     .filterBody.emailLogBody {
@@ -10675,9 +11540,9 @@ ul.manualList {
     }
 
     .bulkImpLogHT {
-        max-height: 390px;
+        /* max-height: 390px; */
         overflow-y: auto;
-        overflow-x: inherit
+        /* overflow-x: inherit; */
     }
 
     .bulkImpLogHT2 {
@@ -10737,7 +11602,7 @@ ul.manualList {
     }
 
     .navbarRight {
-        right: 0px !important
+        /* right: 0px !important; */
     }
 
     .mngGroupBox .sysRoleBody {
@@ -10808,14 +11673,15 @@ ul.manualList {
 
     .sloagnText {
         color: #F47E26;
-        width: 50%;
-        font-family: 'Myriad Pro bold';
+        /* width: 50%; */
+        font-family: "Inter",sans-serif;
         margin: auto;
         font-size: 22px;
         padding: 6px 0px;
         text-align: right;
         font-style: italic;
         margin-top: 5px;
+        padding: 12px 24px 12px 32px;
         float: left;
         margin-left: 2%;
     }
@@ -10823,7 +11689,7 @@ ul.manualList {
     .learnersloagntext {
         color: #F47E26;
         width: 35%;
-        font-family: 'Myriad Pro bold';
+        font-family: "Inter",sans-serif;
         margin: auto;
         font-size: 22px;
         padding: 6px 0px;
@@ -11002,7 +11868,7 @@ body .owl-next {
 }
 
 .learnerAccordion .boldText {
-    font-family: 'Myriad Pro bold';
+    font-family: "Inter",sans-serif;
     color: #333333;
 }
 
@@ -11028,13 +11894,13 @@ body .owl-next {
 }
 
 .navbarRight ul.topListing:before {
-    position: absolute;
-    top: 12px;
+    /* position: absolute; */
+    /* top: 12px; */
     left: -14px;
-    content: "";
-    height: 28px;
-    width: 1px;
-    background: #c4c4c4;
+    /* content: ""; */
+    /* height: 28px; */
+    /* width: 1px; */
+    /* background: #c4c4c4; */
 }
 
 ul.topListing li.learnerdrp {
@@ -11097,7 +11963,7 @@ ul.topListing li.announcementdrp {
 }
 
 .announceHeading h3 {
-    font-family: 'Myriad Pro bold';
+    font-family: "Inter",sans-serif;
     font-size: 18px;
     color: #000000;
     border-bottom: 2px solid #128f8b;
@@ -11222,7 +12088,7 @@ ul.topListing li.announcementdrp {
     font-size: 12px;
     width: 109px;
     font-weight: normal;
-    font-family: 'Myriad Pro light';
+    font-family: "Inter",sans-serif;
 }
 
 .dashresponsiveBtns {
@@ -11278,7 +12144,7 @@ ul.topListing li.announcementdrp {
 .formbuilderPopupTitle {
     border-bottom: 2px solid #128f8b;
     padding-bottom: 11px;
-    font-family: 'Myriad Pro bold';
+    font-family: "Inter",sans-serif;
     font-size: 18px;
     color: #000000;
     margin-bottom: 15px;
@@ -11500,12 +12366,12 @@ textarea.height70 {
     .surveyContainer .instructonText {
         color: #0a70b9;
         font-size: 16px;
-        font-family: 'Myriad Pro bold';
+        font-family: "Inter",sans-serif;
     }
 
     .surveyContainer .questionheading {
         color: #333333;
-        font-size: 14px; /*font-family: 'Myriad Pro bold';*/
+        font-size: 14px; /*font-family: "Inter",sans-serif;*/
         margin-bottom: 10px;
         display: table
     }
@@ -11611,7 +12477,7 @@ textarea.height70 {
 ul.dateListing li.textTo {
     width: 10%;
     text-align: center;
-    padding-top: 4px
+    padding-top: 14px
 }
 
 @media only screen and (max-width:1920px) {
@@ -11637,7 +12503,7 @@ ul.dateListing li.textTo {
 
 @media only screen and (max-width:1366px) {
     .loginMainWrapper {
-        margin-top: 80px;
+        /* margin-top: 80px; */
     }
 
     .userpagetbl .bulkImpLogHT {
@@ -11649,7 +12515,7 @@ ul.dateListing li.textTo {
     }
 
     .sidebar-menu {
-        max-height: 500px;
+        max-height: 345px;
         overflow-y: auto
     }
 
@@ -11684,7 +12550,7 @@ ul.dateListing li.textTo {
 
 @media(min-width:768px) {
     #wrapper {
-        padding-left: 200px;
+        padding-left: 260px;
     }
 
         #wrapper.toggled {
@@ -11692,12 +12558,12 @@ ul.dateListing li.textTo {
         }
 
     #sidebar-wrapper {
-        width: 200px;
+        width: 260px;
         color: #1f232f;
         outline: none;
-        -webkit-box-shadow: 4px 3px 5px 0px rgba(199,195,199,1);
+        /*-webkit-box-shadow: 4px 3px 5px 0px rgba(199,195,199,1);
         -moz-box-shadow: 4px 3px 5px 0px rgba(199,195,199,1);
-        box-shadow: 4px 3px 5px 0px rgba(199,195,199,1);
+        box-shadow: 4px 3px 5px 0px rgba(199,195,199,1);*/
     }
 
     #wrapper.toggled #sidebar-wrapper {
@@ -11705,7 +12571,7 @@ ul.dateListing li.textTo {
     }
 
     #page-content-wrapper {
-        padding: 20px;
+        padding: 32px 15px 0px;
         position: relative;
         display: inline-block;
     }
@@ -12023,38 +12889,38 @@ ul.dateListing li.textTo {
             display: block
         }
 
-    .hideShowfilter {
+        /* .hideShowfilter {
         display: none
-    }
+    }*/
 
-    .mobileFilter ul.formGroupTopListing {
-        position: relative;
-        width: 100%;
-        right: 0
-    }
-
-    .mobileFilter ul.formGroupTopListing {
-        float: left
-    }
-
-        .mobileFilter ul.formGroupTopListing li.adminrole {
-            clear: right;
-            width: 70%;
+        .mobileFilter ul.formGroupTopListing {
+            position: relative;
+            width: 100%;
+            right: 0
         }
 
-    .mobileFilter .formGroupTop {
-        padding-top: 0
-    }
+        .mobileFilter ul.formGroupTopListing {
+            float: left
+        }
 
-    .mobileFilter .filterWrapp {
-        position: absolute;
-        top: -45px;
-        right: -2px;
-    }
+            .mobileFilter ul.formGroupTopListing li.adminrole {
+                clear: right;
+                width: 70%;
+            }
 
-    .mobileFilter ul.formGroupTopListing li {
-        padding-left: 10px;
-    }
+        .mobileFilter .formGroupTop {
+            padding-top: 0
+        }
+
+        .mobileFilter .filterWrapp {
+            position: absolute;
+            top: -45px;
+            right: -2px;
+        }
+
+        .mobileFilter ul.formGroupTopListing li {
+            padding-left: 10px;
+        }
 
     .mobileHeader ul.headerListing {
         margin-right: 48px;
@@ -12417,8 +13283,36 @@ ul.dateListing li.textTo {
         margin-top: 0
     }
 
-    .sloagnText, .learnersloagntext {
+    /* .sloagnText, .learnersloagntext {
         display: none
+    }*/
+
+    .db-data-cards .card-col:nth-child(1), .db-data-cards .card-col:nth-child(2) {
+        width: 100%;
+    }
+
+    .db-data-cards .card-col:nth-child(3), .db-data-cards .card-col:nth-child(4) {
+        width: 50%;
+    }
+
+    .db-data-cards {
+        margin: 0 -8px
+    }
+
+        .db-data-cards .card-col {
+            padding: 0 8px
+        }
+
+            .db-data-cards .card-col:nth-child(1), .db-data-cards .card-col:nth-child(2) {
+                width: 100%
+            }
+
+            .db-data-cards .card-col:nth-child(3), .db-data-cards .card-col:nth-child(4) {
+                width: 50%
+            }
+
+    .single-data-card {
+        margin-bottom: 16px
     }
 
     .learnPortHeader ul.topListing .announcementdrp a:hover, ul.topListing .announcementdrp a:focus, ul.topListing .announcementdrp a.active {
@@ -12439,13 +13333,13 @@ ul.dateListing li.textTo {
     }
 
     .navbarRight {
-        position: relative;
-        float: right;
-        padding: 5px 0px 0px 20px;
+        /* position: relative; */
+        /* float: right; */
+        /* padding: 5px 0px 0px 20px; */
     }
 
         .navbarRight .topListing {
-            display: block
+            display: block;
         }
 
     .responsiveNav nav {
@@ -12460,8 +13354,8 @@ ul.dateListing li.textTo {
     }
 
     .navbar-toggler {
-        padding: 0px 4px;
-        margin-top: 15px
+        /* padding: 0px 4px; */
+        /* margin-top: 15px; */
     }
 
     .navbar-toggler-icon {
@@ -12480,7 +13374,7 @@ ul.dateListing li.textTo {
     }
 
     .navbarRight {
-        padding: 17px 0px 0px 0px;
+        padding: 22px 0px 0px 0px;
     }
 
     .learnPortHeader .navbar {
@@ -12543,23 +13437,37 @@ ul.dateListing li.textTo {
     }
 
     .navbarRight .userCircle, .userBox .dropdown-menu .innUserCircle {
-        height: 24px;
-        width: 24px;
-        padding-top: 3px
+        /* height: 24px; */
+        /* width: 24px; */
+        /* padding-top: 3px; */
     }
 
     .learnPortHeader ul.topListing li.bellIcon, ul.topListing li.shopCartIcon {
-        margin-right: 13px
+        /* margin-right: 13px; */
     }
 
     .navbarRight .userCircle, .userBox .dropdown-menu .innUserCircle {
-        height: 22px;
-        width: 22px;
-        padding-top: 2px
+        /* height: 22px; */
+        /* width: 22px; */
+        /* padding-top: 2px; */
     }
 
     ul.topListing li {
-        padding-top: 1px
+        /* padding-top: 1px; */
+    }
+
+    .centerReportPage .col-lg-3 {
+        max-width: 33%;
+        margin-top: 4px;
+    }
+
+        .centerReportPage .col-lg-3:first-child {
+            padding-left: 0px;
+            padding-right: 0px;
+        }
+
+    .admissionsandReleasePage .form-control {
+        margin-bottom: 10px;
     }
 
     .landingbanner {
@@ -12620,16 +13528,16 @@ ul.dateListing li.textTo {
     }
 
     .landingpage .headingText {
-        margin-bottom: 8px
+        margin-bottom: 8px;
     }
 
     .calendarWrapper .headingText h3 {
         margin: 0px 15px 10px;
-        font-size: 14px
+        font-size: 14px;
     }
 
     .calendarWrapper .bdrbottom {
-        margin: 0 5px
+        margin: 0 5px;
     }
 
     .mediaPage .calendarWrapper .bdrbottom {
@@ -12964,6 +13872,17 @@ ul.dateListing li.textTo {
         margin-right: -10px;
         margin-left: -10px;
     }
+    .admissionsandReleasePage .row .col-md-9, .admissionsandReleasePage .row .col-sm-9, .admissionsandReleasePage .row .col-md-3,
+    .admissionsandReleasePage .row .col-sm-3, .admissionsandReleasePage .row .col-lg-6, .admissionsandReleasePage .row .col-lg-6, .admissionsandReleasePage .row .col-lg-12 {
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+    ul.dateListing li.textTo{width:9%;}
+    .admissionsandReleasePage .row .col-lg-6.col-md-6.col-sm-6.col-xs-12 {
+        flex: 0 0 51%;
+        max-width: 100%;
+    }
+    .pull-left .addcenterbutton.managepetservicesPage{left:0%;}
 
     .lernHeader .lernHeaderRight {
         width: 100%
@@ -13077,7 +13996,7 @@ ul.dateListing li.textTo {
     }
 
     ol.breadcrumb .breadcrumb-item.active {
-        padding-left: 1px
+        /* padding-left: 1px; */
     }
 
     .col-md-9, .col-sm-9, .col-md-3, .col-sm-3 {
@@ -13194,7 +14113,7 @@ ul.dateListing li.textTo {
         clear: both
     }
 
-        .mobileFilter .filterData {
+    /*    .mobileFilter .filterData {
             padding: 10px 10px 5px !important;
             position: relative;
             float: left;
@@ -13273,7 +14192,7 @@ ul.dateListing li.textTo {
     .hideShowfilter {
         display: none
     }
-
+*/
     ul.lernRTListing li {
         width: 48%;
         margin-left: 1%;
@@ -13317,9 +14236,9 @@ ul.dateListing li.textTo {
         margin-right: 0
     }
 
-    body {
+    /*body {
         padding-top: 70px
-    }
+    }*/
 
     #filterBodyAddUser .bulkImport {
         width: 100% !important
@@ -13518,7 +14437,7 @@ ul.dateListing li.textTo {
     }
 
     ul.topListing li a:hover, ul.topListing li a:focus, ul.topListing li a.active {
-        border: none
+        border: none;
     }
 
     .orderinfoRow .text-center, .orderinfoRow .text-right {
@@ -13858,7 +14777,7 @@ ul.dateListing li.textTo {
     }
 
     #page-content-wrapper {
-        padding: 0 15px
+        /* padding: 0 15px; */
     }
 
     .coursePathTBL .mediaBox .col-lg-8 {
@@ -13949,11 +14868,11 @@ ul.dateListing li.textTo {
 .filterMenuIcon::after{background:#333;width:5px;height:5px;content:"";position:absolute;top:7px;border-radius:100% 100% 100% 100%;}
 .filterMenuIcon::before{background:#333;width:5px;height:5px;content:"";position:absolute;top:14px;border-radius:100% 100% 100% 100%;}*/
     .filterMenuIcon {
-        background: url(../images/filterMenuIcon.png) 0 0 no-repeat;
-        width: 11px;
-        height: 27px;
-        float: right;
-        margin-top: 6px;
+        /* background: url(../images/filterMenuIcon.png) 0 0 no-repeat; */
+        /* width: 11px; */
+        /* height: 27px; */
+        /* float: right; */
+        /* margin-top: 6px; */
         position: relative;
     }
 
@@ -13964,35 +14883,39 @@ ul.dateListing li.textTo {
     }
 
     .mobileFilterMenu {
-        position: absolute;
+        /*position: absolute;*/
         float: left;
-        width: 236px;
-        display: none;
-        background: #fff;
+        width: 100%;
+        /*display: none;*/
+        /*background: #fff;*/
         right: 0;
         top: 36px;
         z-index: 10;
-        -webkit-box-shadow: -1px 0px 5px 0px rgba(173,173,173,1);
+        /*-webkit-box-shadow: -1px 0px 5px 0px rgba(173,173,173,1);
         -moz-box-shadow: -1px 0px 5px 0px rgba(173,173,173,1);
-        box-shadow: -1px 0px 5px 0px rgba(173,173,173,1);
+        box-shadow: -1px 0px 5px 0px rgba(173,173,173,1);*/
     }
 
-        .mobileFilterMenu ul.headerListing li {
+    .bulkImpLogHT {
+        width: 100%;
+    }
+
+    .mobileFilterMenu ul.headerListing li {
+        float: left;
+        width: 100%;
+        /*border-bottom: 1px solid #dee2e6;*/
+        padding: 4px 20px 20px 7px;
+        margin-bottom: 0
+    }
+
+        .mobileFilterMenu ul.headerListing li a {
             float: left;
-            width: 100%;
-            border-bottom: 1px solid #dee2e6;
-            padding: 4px 20px 6px;
-            margin-bottom: 0
         }
 
-            .mobileFilterMenu ul.headerListing li a {
-                float: left;
+            .mobileFilterMenu ul.headerListing li a span.text, .mobileFilterMenu ul.headerListing li a span.icon {
+                float: right;
+                padding-left: 15px;
             }
-
-                .mobileFilterMenu ul.headerListing li a span.text, .mobileFilterMenu ul.headerListing li a span.icon {
-                    float: right;
-                    padding-left: 15px;
-                }
 
     .mobileHeader .filterMenuIconSwipe { /*background:url(../images/FiltermenuSwipe.png) 0 0 no-repeat;*/
     }
@@ -14723,18 +15646,18 @@ ul.dateListing li.textTo {
     }
 
     .humburgbtn {
-        display: block
+        /* display: block; */
     }
 
-    .dismissBtn {
+    /* .dismissBtn {
         display: block
-    }
+    }*/
 
     ul.topListing li.announcementdrp {
-        top: 5px;
+        /* top: 5px; */
     }
 
-    #wrapper {
+    /* #wrapper {
         display: block;
         padding-left: 0;
     }
@@ -14755,7 +15678,7 @@ ul.dateListing li.textTo {
             margin-left: 0px;
             transition: all 0.2s ease-in-out;
         }
-
+*/
     .overlayMobile {
         display: none;
         position: fixed;
@@ -14786,10 +15709,10 @@ ul.dateListing li.textTo {
     }
 
     .humburgbtn {
-        background: none;
-        border: none;
-        padding: 0 2px !important;
-        outline: none !important;
+        /* background: none; */
+        /* border: none; */
+        /* padding: 0 2px !important; */
+        /* outline: none !important; */
     }
 
     #sidebarhide {
@@ -14970,19 +15893,19 @@ ul.dateListing li.textTo {
     }
 
     .lastchildleftalign tbody tr td:last-child {
-        text-align: left !important
+        text-align: left !important;
     }
 
     .mobile-w75 {
-        width: 75%
+        width: 75%;
     }
 
     .mobile-w25 {
-        width: 25%
+        width: 25%;
     }
 
     .mobile-w80 {
-        width: 82%
+        width: 82%;
     }
 
     .mobile-w20 {
@@ -15528,14 +16451,18 @@ ul.dateListing li.textTo {
         }
 
             .mobile4Lis ul.formGroupTopListing li:last-child .form-group {
-                float: right;
+                float: left;
                 margin-top: 6px;
             }
 
-            .mobile4Lis ul.formGroupTopListing li.last-child .form-group {
-                float: right;
-                margin-top: 6px;
-            }
+    .btn-search {
+        margin-left: 0px;
+    }
+
+    .mobile4Lis ul.formGroupTopListing li.last-child .form-group {
+        float: right;
+        margin-top: 6px;
+    }
 
     .mobile3Lis ul.formGroupTopListing {
         width: 100% !important;
@@ -15589,6 +16516,210 @@ ul.dateListing li.textTo {
 
     .priorText .radioTextInput .daysinputBox {
         margin-left: 10%
+    }
+}
+
+@media screen and (max-width:767px) {
+    .db-data-cards .card-col:nth-child(1), .db-data-cards .card-col:nth-child(2) {
+        width: 100%;
+    }
+
+    .db-data-cards .card-col:nth-child(3), .db-data-cards .card-col:nth-child(4) {
+        width: 50%;
+    }
+
+    .db-data-cards {
+        margin: 0 -8px
+    }
+
+        .db-data-cards .card-col {
+            padding: 0 8px
+        }
+
+            .db-data-cards .card-col:nth-child(1), .db-data-cards .card-col:nth-child(2) {
+                width: 100%
+            }
+
+            .db-data-cards .card-col:nth-child(3), .db-data-cards .card-col:nth-child(4) {
+                width: 50%
+            }
+
+    .single-data-card {
+        margin-bottom: 16px
+    }
+
+    .login-screen-main .login-wrapper .login-form .form-control {
+        padding: 12px
+    }
+
+    .login-screen-main .login-wrapper {
+        min-height: 70vh;
+    }
+
+    .login-screen-main .login-side-view.primary-bg {
+        background-color: transparent;
+    }
+
+    .navbarRight {
+        z-index: 9999;
+        padding-top: 0px;
+        position: fixed;
+    }
+
+    .learnPortHeader {
+        width: 100%;
+    }
+
+    #sidebar-wrapper {
+        display: none;
+    }
+
+    #wrapper {
+        padding-left: 0px;
+        display: block;
+    }
+
+    .mainContent {
+        padding: 50px 10px;
+    }
+
+    .humburgbtn {
+        display: block;
+        background: none;
+        border: none;
+        padding: 0 2px !important;
+        outline: none !important;
+    }
+
+    .overlayMobile {
+        z-index: 111111;
+    }
+
+    #sidebar-wrapper {
+        height: 100vh;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 9999;
+        width: 0;
+        transition: all 0.2s ease-in-out;
+    }
+
+        #sidebar-wrapper.active {
+            left: 0%;
+            margin-left: 0px;
+            z-index: 11111111;
+            transition: all 0.2s ease-in-out;
+            display: block;
+            width: 100%;
+        }
+
+    .sidebar-wrapper .sidebar-menu ul li.sidebar-link-group .sidebar-link-head {
+        width: 100%;
+        margin-left: 0px;
+        padding-left: 11px !important;
+    }
+
+    .overlayMobile {
+        display: none;
+        position: fixed;
+        top: 0;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 998;
+        opacity: 0;
+        transition: all 0.2s ease-in-out;
+    }
+
+        .overlayMobile.active {
+            display: block;
+            opacity: 1;
+            z-index: 999999;
+        }
+
+    #dismisssidebar {
+        width: 100%;
+        height: 42px;
+        position: relative;
+        top: 0px;
+        right: 10px;
+        z-index: 222222222222222;
+        background: #fff;
+        display: block;
+        text-align: right;
+        padding-right: 5px;
+    }
+
+    .humburgbtn {
+        background: none;
+        border: none;
+        padding: 3px 2px !important;
+        outline: none !important;
+    }
+
+    #sidebarhide {
+        position: relative;
+        top: 4px;
+    }
+
+    .humburgbtn .bar {
+        width: 20px;
+        height: 2px;
+        background: #128f8b;
+        display: block;
+        border: none;
+        outline: none;
+        position: relative;
+    }
+
+    .humburgbtn .bar1 {
+        top: 5px;
+    }
+
+    .humburgbtn .bar2 {
+        top: 10px;
+    }
+
+    .closemenubtn {
+        font-size: 30px;
+        width: 40px;
+        height: 40px;
+        color: #128f8b;
+        padding-right: 0px;
+        line-height: 41px;
+    }
+
+        .closemenubtn .fa-times:before {
+            content: "X";
+            font-family: Verdana;
+        }
+
+    .centerReportPage .col-lg-3 {
+        max-width: 100%;
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+
+    .admissionsandReleasePage .row .col-md-9, .admissionsandReleasePage .row .col-sm-9, .admissionsandReleasePage .row .col-md-3,
+    .admissionsandReleasePage .row .col-sm-3, .admissionsandReleasePage .row .col-lg-6, .admissionsandReleasePage .row .col-lg-6, .admissionsandReleasePage .row .col-lg-12 {
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+
+    .centerReportPage .row {
+        margin-left: 0px;
+        margin-right: 0px;
+    }
+
+    .centerReportPage .btn-search {
+        margin-left: 7px;
+    }
+    .pull-left .addcenterbutton.managepetservicesPage{
+        left:0%;
+    }
+    #btnChangeCenter {
+        margin-right: 20px;
     }
 }
 

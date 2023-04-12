@@ -41,7 +41,8 @@
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="pull-left">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item active" aria-current="page">Daily Status</li>
+                        <li class="breadcrumb-item active" aria-current="page">Pet Summary | Today</li>
+                        <li><p>View overall details like total admission, surgery, release etc.</p></li>
                     </ol>
                 </div>
                 <div class="filterMenuIcon"></div>
@@ -49,6 +50,46 @@
         </div>
     </div>
     <br />
+    <div class="d-flex db-data-cards mb-4">
+        <div class="card-col">
+            <div class="single-data-card primary-bg rounded-12">
+                <img src='@Url.Content("~/Images/man-with-dog.svg")' class="card-illustration"  style="" />
+                <div class="d-flex gap-2">
+                    <img src='@Url.Content("~/Images/admission-icon.svg")' class="" style="" />
+                    <h3 class="flex-1 text-white">Total Admission</h3>
+                </div>
+                <p class="mb-0 card-data-number text-white">26</p>
+            </div>
+        </div>
+        <div class="card-col">
+            <div class="single-data-card rounded-12 bg-white">
+                <img src='@Url.Content("~/Images/card-pattern.svg")' class="card-illustration" style="" />
+                <div class="d-flex gap-2">
+                    <img src='@Url.Content("~/Images/release-icon.svg")' class="" style="" />
+                    <h3 class="flex-1">Total Release</h3>
+                </div>
+                <p class="mb-0 card-data-number primary-text">13</p>
+            </div>
+        </div>
+        <div class="card-col">
+            <div class="single-data-card rounded-12 bg-white">
+                <div class="d-flex gap-2">
+                    <img src='@Url.Content("~/Images/surgery-icon.svg")' class="" style="" />
+                    <h3 class="flex-1">Total Surgery</h3>
+                </div>
+                <p class="mb-0 card-data-number primary-text">13</p>
+            </div>
+        </div>
+        <div class="card-col">
+            <div class="single-data-card rounded-12 bg-white">
+                <div class="d-flex gap-2">
+                    <img src='@Url.Content("~/Images/expired-icon.svg")' class="" style="" />
+                    <h3 class="flex-1">Total Expired</h3>
+                </div>
+                <p class="mb-0 card-data-number text-red">1</p>
+            </div>
+        </div>
+    </div>
     <div class="conInner">
         <div class="chkTBL">
             <div class="bulkImpLogHT mngEventpage mobileTablenowrap">

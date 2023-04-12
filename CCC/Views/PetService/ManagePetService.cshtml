@@ -11,7 +11,7 @@
 
 }
 
-@* <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>*@
+ <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
 <link href="~/css/autocomplete.css" rel="stylesheet" />
 <link href="~/lib/bootstrap-datepicker/css/bootstrap-datepicker.min.css" rel="stylesheet" />
 <script src="~/lib/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
@@ -95,7 +95,7 @@
                       {
                         "data": "ServiceId", "sName": "", "class": "editTD", "orderable": false, "mRender": function (data, type, full) {
                               if (data != null) {
-                                  debugger;
+                                  //debugger;
                                   if (full.IsAdmin == true) {
                                       return "<a class='AddEditBtnPop' onClick=EditEvent('" + data + "')><i class='fa fa-edit'></i></a>";
                                   } else {
@@ -251,14 +251,21 @@
                 <div class="pull-left">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item active" aria-current="page">Admissions & Release</li>
+                        <li><p>Manage all the pets admission &amp; release</p></li>
                     </ol>
                 </div>
-                <div class="filterMenuIcon"></div>
-                <div class="pull-right mobileFilterMenu">
+                <div class="pull-left mobileFilterMenu">
                     <ul class="headerListing">
-                        <li class="active"> <a href="javascript:void(0);" onclick="AddEvent()"><span class="text">Add</span> <span class="icon iconUser">&nbsp;</span></a></li>
+                        <li class="active">
+                            <a class="addcenterbutton managepetservicesPage" href="javascript:void(0);" onclick="AddEvent()">
+                                <span class="text">+ Add Admission or Released</span>
+                                @*<span class="icon iconUser">&nbsp;</span>*@
+                            </a>
+                        </li>
                     </ul>
                 </div>
+                <div class="filterMenuIcon"></div>
+               
             </div>
         </div>
     </div>
@@ -266,7 +273,7 @@
         <div class="conInner">
             <div class="mobileFilter">
                 <div class="hideShowfilter">
-                    <div class="filterData mobilecofilters">
+                    <div class="filterData mobilecofilters admissionsandReleasePage">
                         <div class="formGroupTop pos mobile4Lis" id="pnlSearch">
                             <div class="row">
                                 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
@@ -341,6 +348,12 @@
                                     <div class="userBoxFooter">
                                         <div class="pull-right">
                                             <div class="form-group"></div>
+                                            @if (Model.IsAdmin == true)
+                                            {
+                                                
+                                                                <button type="button" class="btn btn-primary btn-search" id="btnChangeCenter">Change Center</button>
+                                                           
+                                            }
                                             <button type="button" class="btn btn-primary btn-search" id="btnSearch1"><img src='@Url.Content("~/images/search.png")' /> </button>
                                             <button type="button" class="btn btn-default btn-clear" id="btnClear"><img src='@Url.Content("~/images/refresh.png")' /></button>
                                         </div>
@@ -351,20 +364,9 @@
                     </div>
                 </div>
             </div>
+            
         </div>
-        @if (Model.IsAdmin == true)
-        {
-            <div class="row">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <div class="userBoxFooter">
-                        <div class="pull-right">
-                            <div class="form-group"></div>
-                            <button type="button" class="btn btn-primary btn-search" id="btnChangeCenter">Change Center</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        }
+        
 
         <br /><br /><br />
         <div class="chkTBL">

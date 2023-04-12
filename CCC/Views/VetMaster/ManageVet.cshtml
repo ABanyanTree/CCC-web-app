@@ -22,15 +22,11 @@
                 <div class="pull-left">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item active" aria-current="page">Manage Vets</li>
+                        <li><p>Manage all the vets here</p></li>
                     </ol>
                 </div>
                 <div class="filterMenuIcon"></div>
-                <div class="pull-right mobileFilterMenu">
-                    <ul class="headerListing">
-                        @*<li class="active"><button type="button" id="btnNewUrl" class="btn btnDefault AddEditBtn">Add New</button></li>*@
-                        <li class="active"> <a href="javascript:void(0);" onclick="AddEvent()"><span class="text">Add</span> <span class="icon iconUser">&nbsp;</span></a></li>
-                    </ul>
-                </div>
+               
             </div>
         </div>
     </div>
@@ -41,14 +37,16 @@
                     <div class="filterData mobilecofilters">
                         <div class="formGroupTop pos mobile4Lis">
                             <ul class="formGroupTopListing">
-                                <li>
+                                @*<li>
                                     <div class="form-group" style="margin-top:3px;">
                                         <label class="pt20">Vet Name</label>
                                     </div>
-                                </li>
+                                </li>*@
                                 <li class="firstLastName">
-                                    <div class="form-group">
-                                        <input asp-for="VetName" type="text" id="txtVetName" class="form-control" placeholder="Vet Name" />
+                                    <div class="filter-box">
+                                        <div class="form-group">
+                                            <input asp-for="VetName" type="text" id="txtVetName" class="form-control" placeholder="Vet Name" />
+                                        </div>
                                     </div>
                                 </li>
                                 <li>
@@ -61,6 +59,18 @@
                         </div>
                     </div>
                 </div>
+            </div>
+            <div class="pull-right mobileFilterMenu">
+                <ul class="headerListing">
+                    @*<li class="active"><button type="button" id="btnNewUrl" class="btn btnDefault AddEditBtn">Add New</button></li>*@
+                    <li class="active">
+                        <a class="addcenterbutton" href="javascript:void(0);" onclick="AddEvent()">
+                            <span class="text">
+                                + Add new vet
+                            </span>
+                            @*<span class="icon iconUser">&nbsp;</span>*@
+                        </a></li>
+                </ul>
             </div>
         </div>
         <br /><br /><br />
