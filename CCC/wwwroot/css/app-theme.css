@@ -1861,7 +1861,7 @@ ul.formGroupTopListing li .form-control:-ms-input-placeholder, ul.advFilListing 
     border-bottom: 1px solid #ccc;
     width: 242px;
     padding-left: 43px !important;
-    margin-left: -32px;
+    margin-left: -32px;padding-bottom:15px;
 }
 
     .sidebar-wrapper .sidebar-menu ul li.sidebar-link-group .sidebar-link-head:before {
@@ -2108,22 +2108,34 @@ ul.formGroupTopListing li .form-control:-ms-input-placeholder, ul.advFilListing 
     /* min-height: 578px; */
 }
 
-.conHeader {
+.conHeader .pull-left {
     /* border-bottom: 2px solid #128f8b; */
+    width:60%;
 }
 
-
+.conHeader .pull-left.mobileFilterMenu.filterMenuDblock {
+    width: auto;
+}
 ol.breadcrumb {
     background: none;
     padding: 0px;
     margin-bottom: 44px;
 }
 
-    ol.breadcrumb li {
-        color: #969696;
-        font-size: 18px;
-        width: 100%;
-    }
+.dashMainHeading .pull-left {
+    margin-bottom: 44px;
+    width:55%;
+}
+
+ol.breadcrumb li {
+    color: #969696;
+    font-size: 18px;
+    width: 100%;
+}
+ul.headerListing.backbtn li.active {
+    padding-left:0px;
+    padding-right:15px;
+}
 
 .breadcrumb-item.active {
     font-weight: 600;
@@ -2212,12 +2224,14 @@ ul.headerListing {
                 -moz-border-radius: 100px;
                 -webkit-border-radius: 100px;
             }
-
-            ul.headerListing li a .icon.iconUser {
-                background-image: url("../images/add-user.png");
-                background-repeat: no-repeat, repeat;
-                background-position: 6px 6px;
-            }
+    ul.headerListing.backbtn li a span.icon.iconBack {
+        margin-top: 1px;
+    }
+                ul.headerListing li a .icon.iconUser {
+                    background-image: url("../images/add-user.png");
+                    background-repeat: no-repeat, repeat;
+                    background-position: 6px 6px;
+                }
 
             ul.headerListing li a .icon.iconBack {
                 background-image: url("../images/back-btn.png");
@@ -2991,6 +3005,9 @@ ul.addEditListing.nav-tabs .nav-item {
 
 .login-screen-main .login-wrapper .form-group, .loginFooter {
     margin-bottom: 1.5rem !important
+}
+.jconfirm .jconfirm-box div.jconfirm-content-pane {
+    max-height: 525px !important;
 }
 
 @media(max-width: 767px) {
@@ -4340,7 +4357,7 @@ ul.formGroupTopListing {
     }
 
 .pull-left .addcenterbutton.managepetservicesPage {
-    left: 60%;
+    left: 0%;
     position: relative;
     top: 0px;
 }
@@ -8567,7 +8584,7 @@ tr td.dataTables_empty:last-child {
 }
 
 .ui-menu::-webkit-scrollbar {
-    width: 4px;
+    /*width: 4px;*/
 }
 
 table.dataTable thead th {
@@ -8583,7 +8600,7 @@ table.dataTable thead th {
 }
 
 .bulkImpLogHT::-webkit-scrollbar {
-    width: 4px;
+    /*width: 4px;*/
 }
 
 .mngGroupBox .mngGroupBoxBody::-webkit-scrollbar-thumb, .filterBody.peoPickHT::-webkit-scrollbar-thumb {
@@ -8594,7 +8611,7 @@ table.dataTable thead th {
 }
 
 .mngGroupBox .mngGroupBoxBody::-webkit-scrollbar, .filterBody.peoPickHT::-webkit-scrollbar {
-    width: 4px;
+    /*width: 4px;*/
 }
 
 #divDataTable_length, #divDataTable_length2 {
@@ -12581,6 +12598,39 @@ ul.dateListing li.textTo {
         margin-right: 0;
     }
 }
+@media only screen and (min-device-width:1200px) and (max-device-width: 1362px) {
+    ul.formGroupTopListing li.firstLastName, ul.formGroupTopListing li.groupName {
+        min-width: 520px
+    }
+    .mobileFilterMenu ul.headerListing li {
+        float: left;
+        width: 100%;
+        /* border-bottom: 1px solid #dee2e6; */
+        padding: 4px 20px 20px 0px;
+        margin-bottom: 0;
+    }
+}
+
+@media only screen and (min-device-width:1024px) and (max-device-width: 1199px) {
+    ul.formGroupTopListing li.firstLastName, ul.formGroupTopListing li.groupName {
+        min-width: 355px
+    }
+    .mobileFilterMenu ul.headerListing li {
+        float: left;
+        width: 100%;
+        /* border-bottom: 1px solid #dee2e6; */
+        padding: 4px 20px 20px 0px;
+        margin-bottom: 0;
+    }
+    .pull-left .addcenterbutton.managepetservicesPage {
+        left: -20%;
+    }
+   }
+@media screen and (max-width: 1029px) {
+    .pull-left .addcenterbutton.managepetservicesPage {
+        left: -0%;
+    }
+}
 
 @media only screen and (min-device-width:901px) and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 1) {
     .mobilefullwidth {
@@ -12800,6 +12850,10 @@ ul.dateListing li.textTo {
     .mainContent {
         padding: 7px 10px;
     }
+        .mainContent .conHeader .col-lg-12.col-md-12.col-sm-12.col-xs-12.admissionReleasePage {
+            padding-left: 0px;
+            padding-right: 0px;
+        }
 
     .bulkImpLogHT table.dataTable tbody th, .bulkImpLogHT table.dataTable tbody td {
         padding: 10px 0px;
@@ -12812,19 +12866,23 @@ ul.dateListing li.textTo {
     .mobileFilter {
         clear: both
     }
+    .mainContent .conHeader .col-lg-12.col-md-12.col-sm-12.col-xs-12.admissionReleasePage {
+        padding-left: 0px;
+        padding-right: 0px;
+    }
 
-        .mobileFilter .filterData {
-            padding: 10px 10px 10px !important;
-            position: relative;
-            float: left;
-            width: 100%;
-            position: relative;
-            float: left;
-            width: 100%;
-            -webkit-box-shadow: -1px 0px 5px 0px rgba(173,173,173,1);
+    .mobileFilter .filterData {
+        padding: 0px !important;
+        position: relative;
+        float: left;
+        width: 100%;
+        position: relative;
+        float: left;
+        width: 100%;
+        /* -webkit-box-shadow: -1px 0px 5px 0px rgba(173,173,173,1);
             -moz-box-shadow: -1px 0px 5px 0px rgba(173,173,173,1);
-            box-shadow: -1px 0px 5px 0px rgba(173,173,173,1);
-        }
+            box-shadow: -1px 0px 5px 0px rgba(173,173,173,1);*/
+    }
 
         .mobileFilter .showFilterBtn {
             width: 100%;
@@ -12909,7 +12967,7 @@ ul.dateListing li.textTo {
             }
 
         .mobileFilter .formGroupTop {
-            padding-top: 0
+            padding-top: 0;padding-bottom:20px;
         }
 
         .mobileFilter .filterWrapp {
@@ -13070,9 +13128,12 @@ ul.dateListing li.textTo {
         }
 
     .mobilecofilters ul.formGroupTopListing li:last-child {
-        width: 100%
+        width: 50%
     }
-
+    .navbar-nav{flex-direction:row;}
+    .pull-right .active .addcenterbutton, .pull-left .active .addcenterbutton.managepetservicesPage {
+        margin-bottom: 20px;
+    }
     .mobilecofilters ul.formGroupTopListing li {
         width: 50%
     }
@@ -13093,7 +13154,7 @@ ul.dateListing li.textTo {
         width: 50%;
         margin-top: 23px;
     }
-
+    .bulkImpLogHT{width:100%;}
     .mobwidth100per {
         width: 100% !important
     }
@@ -14904,7 +14965,7 @@ ul.dateListing li.textTo {
         float: left;
         width: 100%;
         /*border-bottom: 1px solid #dee2e6;*/
-        padding: 4px 20px 20px 7px;
+        padding: 4px 20px 20px 0px;
         margin-bottom: 0
     }
 
