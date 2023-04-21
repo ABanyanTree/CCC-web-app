@@ -730,22 +730,11 @@ namespace CCC.UI.Controllers
                     workSheet.Cells[rowCnt, colCnt, rowCnt + (totalMgrCount - 1), colCnt].Merge = true;
                 }
 
-                int d_complication_Total_Male = 0;
-                int d_complication_Total_FeMale = 0;
-                int d_sterilised_Total_Male = 0;
-                int d_sterilised_Total_FeMale = 0;
-                int d_OnHold_Total_Male = 0;
-                int d_OnHold_Total_FeMale = 0;
-                int d_Died_Total_Male = 0;
-                int d_Died_Total_FeMale = 0;
-
-
-                int c_complication_Total_Male = 0, c_complication_Total_FeMale = 0;
-                int c_OnHold_Total_Male = 0, c_OnHold_Total_FeMale = 0;
-                int c_Died_Total_Male = 0, c_Died_Total_FeMale = 0;
-                int c_sterilised_Total_Male = 0, c_sterilised_Total_FeMale = 0;
-
                 int mgrcount = 0;
+                int d_Complication_FinalTotal = 0;
+                int d_Sterilised_FinalTotal = 0;
+                int c_Complication_FinalTotal = 0;
+                int c_Sterilised_FinalTotal = 0;
                 foreach (var mgr in lstCenterManagers)
                 {
                     mgrcount = mgrcount + 1;
@@ -758,30 +747,42 @@ namespace CCC.UI.Controllers
 
                     var dogData = response.Where(x => x.CenterId == cen && x.CreatedBy == mgr && x.PetType == CommonConstants.LOOKUPTYPE_PETTYPE_DOG).ToList();
                     var catData = response.Where(x => x.CenterId == cen && x.CreatedBy == mgr && x.PetType == CommonConstants.LOOKUPTYPE_PETTYPE_Cat).ToList();
+
                     //dog
-                    int d_complication_Male = dogData.Where(x => x.Gender == CommonConstants.LOOKUPTYPE_PETGENDER_MALE && !string.IsNullOrEmpty(x.MedicalNoteId)).ToList().Count;
-                    int d_complication_FeMale = dogData.Where(x => x.Gender == CommonConstants.LOOKUPTYPE_PETGENDER_FEMALE && !string.IsNullOrEmpty(x.MedicalNoteId)).ToList().Count;
-                    int d_sterilised_Male = dogData.Where(x => x.Gender == CommonConstants.LOOKUPTYPE_PETGENDER_MALE && x.ReleaseDate != null).ToList().Count;
-                    int d_sterilised_FeMale = dogData.Where(x => x.Gender == CommonConstants.LOOKUPTYPE_PETGENDER_FEMALE && x.ReleaseDate != null).ToList().Count;
+                    int d_complication_Male = dogData.Where(x => x.Gender == CommonConstants.LOOKUPTYPE_PETGENDER_MALE && !string.IsNullOrEmpty(x.MedicalNoteId) && x.IsOnHold == false && x.ExpiredDate == null &&
+                     (x.ReleaseDate == null || x.ReleaseDate.Value.Date > x.AdmissionDate.Date.AddDays(7))).ToList().Count;
+
+                    int d_complication_FeMale = dogData.Where(x => x.Gender == CommonConstants.LOOKUPTYPE_PETGENDER_FEMALE && !string.IsNullOrEmpty(x.MedicalNoteId) && x.IsOnHold == false && x.ExpiredDate == null &&
+                     (x.ReleaseDate == null || x.ReleaseDate.Value.Date > x.AdmissionDate.Date.AddDays(7))).ToList().Count;
+
+                    int d_sterilised_Male = dogData.Where(x => x.Gender == CommonConstants.LOOKUPTYPE_PETGENDER_MALE && x.ReleaseDate != null && x.IsOnHold == false && x.ExpiredDate == null &&
+                    (string.IsNullOrEmpty(x.MedicalNoteId) || x.ReleaseDate.Value.Date <= x.AdmissionDate.Date.AddDays(7))).ToList().Count;
+
+                    int d_sterilised_FeMale = dogData.Where(x => x.Gender == CommonConstants.LOOKUPTYPE_PETGENDER_FEMALE && x.ReleaseDate != null && x.IsOnHold == false && x.ExpiredDate == null &&
+                    (string.IsNullOrEmpty(x.MedicalNoteId) || x.ReleaseDate.Value.Date <= x.AdmissionDate.Date.AddDays(7))).ToList().Count;
+
                     int d_OnHold_Male = dogData.Where(x => x.Gender == CommonConstants.LOOKUPTYPE_PETGENDER_MALE && x.IsOnHold == true).ToList().Count;
                     int d_OnHold_FeMale = dogData.Where(x => x.Gender == CommonConstants.LOOKUPTYPE_PETGENDER_FEMALE && x.IsOnHold == true).ToList().Count;
                     int d_Died_Male = dogData.Where(x => x.Gender == CommonConstants.LOOKUPTYPE_PETGENDER_MALE && x.ExpiredDate != null).ToList().Count;
                     int d_Died_FeMale = dogData.Where(x => x.Gender == CommonConstants.LOOKUPTYPE_PETGENDER_FEMALE && x.ExpiredDate != null).ToList().Count;
 
                     //cats
-                    int c_complication_Male = catData.Where(x => x.Gender == CommonConstants.LOOKUPTYPE_PETGENDER_MALE && !string.IsNullOrEmpty(x.MedicalNoteId)).ToList().Count;
-                    int c_complication_FeMale = catData.Where(x => x.Gender == CommonConstants.LOOKUPTYPE_PETGENDER_FEMALE && !string.IsNullOrEmpty(x.MedicalNoteId)).ToList().Count;
-                    int c_sterilised_Male = catData.Where(x => x.Gender == CommonConstants.LOOKUPTYPE_PETGENDER_MALE && x.ReleaseDate != null).ToList().Count;
-                    int c_sterilised_FeMale = catData.Where(x => x.Gender == CommonConstants.LOOKUPTYPE_PETGENDER_FEMALE && x.ReleaseDate != null).ToList().Count;
+                    int c_complication_Male = catData.Where(x => x.Gender == CommonConstants.LOOKUPTYPE_PETGENDER_MALE && !string.IsNullOrEmpty(x.MedicalNoteId) && x.IsOnHold == false && x.ExpiredDate == null &&
+                     (x.ReleaseDate == null || x.ReleaseDate.Value.Date > x.AdmissionDate.Date.AddDays(7))).ToList().Count;
+
+                    int c_complication_FeMale = catData.Where(x => x.Gender == CommonConstants.LOOKUPTYPE_PETGENDER_FEMALE && !string.IsNullOrEmpty(x.MedicalNoteId) && x.IsOnHold == false && x.ExpiredDate == null &&
+                     (x.ReleaseDate == null || x.ReleaseDate.Value.Date > x.AdmissionDate.Date.AddDays(7))).ToList().Count;
+
+                    int c_sterilised_Male = catData.Where(x => x.Gender == CommonConstants.LOOKUPTYPE_PETGENDER_MALE && x.ReleaseDate != null && x.IsOnHold == false && x.ExpiredDate == null &&
+                    (string.IsNullOrEmpty(x.MedicalNoteId) || x.ReleaseDate.Value.Date <= x.AdmissionDate.Date.AddDays(7))).ToList().Count;
+
+                    int c_sterilised_FeMale = catData.Where(x => x.Gender == CommonConstants.LOOKUPTYPE_PETGENDER_FEMALE && x.ReleaseDate != null && x.IsOnHold == false && x.ExpiredDate == null &&
+                    (string.IsNullOrEmpty(x.MedicalNoteId) || x.ReleaseDate.Value.Date <= x.AdmissionDate.Date.AddDays(7))).ToList().Count;
+
                     int c_OnHold_Male = catData.Where(x => x.Gender == CommonConstants.LOOKUPTYPE_PETGENDER_MALE && x.IsOnHold == true).ToList().Count;
                     int c_OnHold_FeMale = catData.Where(x => x.Gender == CommonConstants.LOOKUPTYPE_PETGENDER_FEMALE && x.IsOnHold == true).ToList().Count;
                     int c_Died_Male = catData.Where(x => x.Gender == CommonConstants.LOOKUPTYPE_PETGENDER_MALE && x.ExpiredDate != null).ToList().Count;
                     int c_Died_FeMale = catData.Where(x => x.Gender == CommonConstants.LOOKUPTYPE_PETGENDER_FEMALE && x.ExpiredDate != null).ToList().Count;
-
-
-                    int centerManagerTotal = d_complication_Male + d_complication_FeMale + d_sterilised_Male + d_sterilised_FeMale + d_OnHold_Male +
-                        d_OnHold_FeMale + d_Died_Male + d_Died_FeMale + c_complication_Male + c_complication_FeMale + c_sterilised_Male +
-                        c_sterilised_FeMale + c_OnHold_Male + c_OnHold_FeMale + c_Died_Male + c_Died_FeMale;
 
 
 
@@ -797,48 +798,128 @@ namespace CCC.UI.Controllers
                     workSheet.Cells[rowCnt, colCnt + 8].Value = d_OnHold_Male;
                     workSheet.Cells[rowCnt, colCnt + 9].Value = d_OnHold_FeMale;
 
-                    workSheet.Cells[rowCnt, colCnt + 10].Value = c_complication_Male;
-                    workSheet.Cells[rowCnt, colCnt + 11].Value = c_complication_FeMale;
+                    int d_Complication_total = d_complication_Male + d_complication_FeMale;
+                    int d_Sterilised_total = d_sterilised_Male + d_sterilised_FeMale;
 
-                    workSheet.Cells[rowCnt, colCnt + 12].Value = c_sterilised_Male;
-                    workSheet.Cells[rowCnt, colCnt + 13].Value = c_sterilised_FeMale;
-
-                    workSheet.Cells[rowCnt, colCnt + 14].Value = c_Died_Male;
-                    workSheet.Cells[rowCnt, colCnt + 15].Value = c_Died_FeMale;
-
-                    workSheet.Cells[rowCnt, colCnt + 16].Value = c_OnHold_Male;
-                    workSheet.Cells[rowCnt, colCnt + 17].Value = c_OnHold_FeMale;
-
-                    workSheet.Cells[rowCnt, colCnt + 18].Value = centerManagerTotal;
-
-                    d_complication_Total_Male = d_complication_Total_Male + d_complication_Male;
-                    d_complication_Total_FeMale = d_complication_Total_FeMale + d_complication_FeMale;
-                    d_sterilised_Total_Male = d_sterilised_Total_Male + d_sterilised_Male;
-                    d_sterilised_Total_FeMale = d_sterilised_Total_FeMale + d_sterilised_FeMale;
-                    d_OnHold_Total_Male = d_OnHold_Total_Male + d_OnHold_Male;
-                    d_OnHold_Total_FeMale = d_OnHold_Total_FeMale + d_OnHold_FeMale;
-                    d_Died_Total_Male = d_Died_Total_Male + d_Died_Male;
-                    d_Died_Total_FeMale = d_Died_Total_FeMale + d_Died_FeMale;
+                    if (d_Sterilised_total == 0)
+                    {
+                        if (d_Complication_total == 0)
+                        {
+                            workSheet.Cells[rowCnt, colCnt + 10].Value = "00.00";
+                        }
+                        else
+                        {
+                            workSheet.Cells[rowCnt, colCnt + 10].Value = "100.00";
+                        }
+                    }
+                    else
+                    {
+                        decimal vetCross = Convert.ToDecimal(d_Complication_total) / Convert.ToDecimal(d_Sterilised_total);
+                        decimal d_ComplicationOfVet = Convert.ToDecimal(vetCross * 100);
+                        workSheet.Cells[rowCnt, colCnt + 10].Value = Decimal.Round(d_ComplicationOfVet, 2);
+                    }
 
 
-                    c_complication_Total_Male = c_complication_Total_Male + c_complication_Male;
-                    c_complication_Total_FeMale = c_complication_Total_FeMale + c_complication_FeMale;
-                    c_sterilised_Total_Male = c_sterilised_Total_Male + c_sterilised_Male;
-                    c_sterilised_Total_FeMale = c_sterilised_Total_FeMale + c_sterilised_FeMale;
-                    c_OnHold_Total_Male = c_OnHold_Total_Male + c_OnHold_Male;
-                    c_OnHold_Total_FeMale = c_OnHold_Total_FeMale + c_OnHold_FeMale;
-                    c_Died_Total_Male = c_Died_Total_Male + c_Died_Male;
-                    c_Died_Total_FeMale = c_Died_Total_FeMale + c_Died_FeMale;
+                    d_Complication_FinalTotal += d_Complication_total;
+                    d_Sterilised_FinalTotal += d_Sterilised_total;
 
-                    var FirstTableRange = workSheet.Cells[rowCnt, colCnt, rowCnt, colCnt + 18];
-                    workSheet.Cells[rowCnt, colCnt, rowCnt, colCnt + 18].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-                    workSheet.Cells[rowCnt, colCnt, rowCnt, colCnt + 18].Style.VerticalAlignment = ExcelVerticalAlignment.Center;
+                    if (mgrcount == lstCenterManagers.Count)
+                    {
+                        if (d_Sterilised_FinalTotal == 0)
+                        {
+                            if (d_Complication_total == 0)
+                            {
+                                workSheet.Cells[rowCnt, colCnt + 11].Value = "00.00";
+                            }
+                            else
+                            {
+                                workSheet.Cells[rowCnt, colCnt + 11].Value = "100.00";
+                            }
+                           
+                        }
+                        else
+                        {
+                            decimal vetCrossFinal = Convert.ToDecimal(d_Complication_FinalTotal) / Convert.ToDecimal(d_Sterilised_FinalTotal);
+                            decimal d_ComplicationOfCenter = Convert.ToDecimal(vetCrossFinal * 100);
+                            workSheet.Cells[rowCnt, colCnt + 11].Value = Decimal.Round(d_ComplicationOfCenter, 2);
+                        }
+                    }
+                    else
+                    {
+                        workSheet.Cells[rowCnt, colCnt + 11].Value = "";
+                    }
+
+                    workSheet.Cells[rowCnt, colCnt + 12].Value = c_complication_Male;
+                    workSheet.Cells[rowCnt, colCnt + 13].Value = c_complication_FeMale;
+
+                    workSheet.Cells[rowCnt, colCnt + 14].Value = c_sterilised_Male;
+                    workSheet.Cells[rowCnt, colCnt + 15].Value = c_sterilised_FeMale;
+
+                    workSheet.Cells[rowCnt, colCnt + 16].Value = c_Died_Male;
+                    workSheet.Cells[rowCnt, colCnt + 17].Value = c_Died_FeMale;
+
+                    workSheet.Cells[rowCnt, colCnt + 18].Value = c_OnHold_Male;
+                    workSheet.Cells[rowCnt, colCnt + 19].Value = c_OnHold_FeMale;
+
+
+                    int c_Complication_total = c_complication_Male + c_complication_FeMale;
+                    int c_Sterilised_total = c_sterilised_Male + c_sterilised_FeMale;
+
+                    if (c_Sterilised_total == 0)
+                    {
+                        if (c_Complication_total == 0)
+                        {
+                            workSheet.Cells[rowCnt, colCnt + 20].Value = "00.00";
+                        }
+                        else
+                        {
+                            workSheet.Cells[rowCnt, colCnt + 20].Value = "100.00";
+                        }                       
+                    }
+                    else
+                    {
+                        decimal c_vetCross = Convert.ToDecimal(c_Complication_total) / Convert.ToDecimal(c_Sterilised_total);
+                        decimal c_ComplicationOfVet = Convert.ToDecimal(c_vetCross * 100);
+                        workSheet.Cells[rowCnt, colCnt + 20].Value = Decimal.Round(c_ComplicationOfVet);
+                    }
+
+
+                    c_Complication_FinalTotal += c_Complication_total;
+                    c_Sterilised_FinalTotal += c_Sterilised_total;
+                    if (mgrcount == lstCenterManagers.Count)
+                    {
+                        if (c_Sterilised_FinalTotal == 0)
+                        {
+                            if (c_Complication_FinalTotal == 0)
+                            {
+                                workSheet.Cells[rowCnt, colCnt + 21].Value = "00.00";
+                            }
+                            else
+                            {
+                                workSheet.Cells[rowCnt, colCnt + 21].Value = "100.00";
+                            }                            
+                        }
+                        else
+                        {
+                            decimal c_vetCrossFinal = Convert.ToDecimal(c_Complication_FinalTotal) / Convert.ToDecimal(c_Sterilised_FinalTotal);
+                            decimal c_ComplicationOfCenter = Convert.ToDecimal(c_vetCrossFinal * 100);
+                            workSheet.Cells[rowCnt, colCnt + 21].Value = Decimal.Round(c_ComplicationOfCenter, 2);
+                        }
+
+                    }
+                    else
+                    {
+                        workSheet.Cells[rowCnt, colCnt + 21].Value = "";
+                    }
+
+                    var FirstTableRange = workSheet.Cells[rowCnt, colCnt, rowCnt, colCnt + 21];
+                    workSheet.Cells[rowCnt, colCnt, rowCnt, colCnt + 21].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                    workSheet.Cells[rowCnt, colCnt, rowCnt, colCnt + 21].Style.VerticalAlignment = ExcelVerticalAlignment.Center;
                     FirstTableRange.Style.Border.Top.Style = ExcelBorderStyle.Thin;
                     FirstTableRange.Style.Border.Left.Style = ExcelBorderStyle.Thin;
                     FirstTableRange.Style.Border.Right.Style = ExcelBorderStyle.Thin;
                     FirstTableRange.Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
                 }
-
             }
 
             var exportbytes = excel.GetAsByteArray();
@@ -853,14 +934,14 @@ namespace CCC.UI.Controllers
             Color greenBGColor = Color.FromArgb(18, 143, 139);
             Color blueBGColor = Color.FromArgb(83, 142, 213);
 
-            workSheet.Cells[rowCnt, colCnt, rowCnt + 2, colCnt + 18].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-            workSheet.Cells[rowCnt, colCnt, rowCnt + 2, colCnt + 18].Style.VerticalAlignment = ExcelVerticalAlignment.Center;
-            workSheet.Cells[rowCnt, colCnt, rowCnt + 2, colCnt + 18].Style.Font.Bold = true;
-            workSheet.Cells[rowCnt, colCnt, rowCnt + 2, colCnt + 18].Style.Fill.PatternType = ExcelFillStyle.Solid;
-            workSheet.Cells[rowCnt, colCnt, rowCnt + 2, colCnt + 18].Style.Font.Color.SetColor(Color.FromArgb(255, 255, 255));
+            workSheet.Cells[rowCnt, colCnt, rowCnt + 2, colCnt + 21].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+            workSheet.Cells[rowCnt, colCnt, rowCnt + 2, colCnt + 21].Style.VerticalAlignment = ExcelVerticalAlignment.Center;
+            workSheet.Cells[rowCnt, colCnt, rowCnt + 2, colCnt + 21].Style.Font.Bold = true;
+            workSheet.Cells[rowCnt, colCnt, rowCnt + 2, colCnt + 21].Style.Fill.PatternType = ExcelFillStyle.Solid;
+            workSheet.Cells[rowCnt, colCnt, rowCnt + 2, colCnt + 21].Style.Font.Color.SetColor(Color.FromArgb(255, 255, 255));
 
 
-            var FirstTableRange = workSheet.Cells[rowCnt, colCnt, rowCnt + 2, colCnt + 18];
+            var FirstTableRange = workSheet.Cells[rowCnt, colCnt, rowCnt + 2, colCnt + 21];
             FirstTableRange.Style.Border.Top.Style = ExcelBorderStyle.Thin;
             FirstTableRange.Style.Border.Left.Style = ExcelBorderStyle.Thin;
             FirstTableRange.Style.Border.Right.Style = ExcelBorderStyle.Thin;
@@ -875,8 +956,8 @@ namespace CCC.UI.Controllers
             workSheet.Cells[rowCnt, colCnt, rowCnt + 2, colCnt + 1].Style.Fill.BackgroundColor.SetColor(greenBGColor);
 
             workSheet.Cells[rowCnt, colCnt + 2].Value = "Dogs";
-            workSheet.Cells[rowCnt, colCnt + 2, rowCnt, colCnt + 9].Merge = true;
-            workSheet.Cells[rowCnt, colCnt + 2, rowCnt, colCnt + 9].Style.Fill.BackgroundColor.SetColor(greenBGColor);
+            workSheet.Cells[rowCnt, colCnt + 2, rowCnt, colCnt + 11].Merge = true;
+            workSheet.Cells[rowCnt, colCnt + 2, rowCnt, colCnt + 11].Style.Fill.BackgroundColor.SetColor(greenBGColor);
 
             workSheet.Cells[rowCnt + 1, colCnt + 2].Value = "Complications";
             workSheet.Cells[rowCnt + 1, colCnt + 2, rowCnt + 1, colCnt + 3].Merge = true;
@@ -910,20 +991,23 @@ namespace CCC.UI.Controllers
             workSheet.Cells[rowCnt + 2, colCnt + 9].Value = "Female";
             workSheet.Cells[rowCnt + 2, colCnt + 8, rowCnt + 2, colCnt + 9].Style.Fill.BackgroundColor.SetColor(blueBGColor);
 
+            workSheet.Cells[rowCnt + 1, colCnt + 10].Value = "% of Complication of Vet";
+            workSheet.Cells[rowCnt + 1, colCnt + 10].Style.Fill.BackgroundColor.SetColor(voiletBGColor);
 
-            workSheet.Cells[rowCnt, colCnt + 10].Value = "Cats";
-            workSheet.Cells[rowCnt, colCnt + 10, rowCnt, colCnt + 17].Merge = true;
-            workSheet.Cells[rowCnt, colCnt + 10, rowCnt, colCnt + 17].Style.Fill.BackgroundColor.SetColor(greenBGColor);
+            workSheet.Cells[rowCnt + 2, colCnt + 10].Value = "";
+            workSheet.Cells[rowCnt + 2, colCnt + 10].Style.Fill.BackgroundColor.SetColor(blueBGColor);
 
-            workSheet.Cells[rowCnt + 1, colCnt + 10].Value = "Complications";
-            workSheet.Cells[rowCnt + 1, colCnt + 10, rowCnt + 1, colCnt + 11].Merge = true;
-            workSheet.Cells[rowCnt + 1, colCnt + 10, rowCnt + 1, colCnt + 11].Style.Fill.BackgroundColor.SetColor(voiletBGColor);
+            workSheet.Cells[rowCnt + 1, colCnt + 11].Value = "% of Complication of Center";
+            workSheet.Cells[rowCnt + 1, colCnt + 11].Style.Fill.BackgroundColor.SetColor(voiletBGColor);
 
-            workSheet.Cells[rowCnt + 2, colCnt + 10].Value = "Male";
-            workSheet.Cells[rowCnt + 2, colCnt + 11].Value = "Female";
-            workSheet.Cells[rowCnt + 2, colCnt + 10, rowCnt + 2, colCnt + 11].Style.Fill.BackgroundColor.SetColor(blueBGColor);
+            workSheet.Cells[rowCnt + 2, colCnt + 11].Value = "";
+            workSheet.Cells[rowCnt + 2, colCnt + 11].Style.Fill.BackgroundColor.SetColor(blueBGColor);
 
-            workSheet.Cells[rowCnt + 1, colCnt + 12].Value = "Sterilised";
+            workSheet.Cells[rowCnt, colCnt + 12].Value = "Cats";
+            workSheet.Cells[rowCnt, colCnt + 12, rowCnt, colCnt + 21].Merge = true;
+            workSheet.Cells[rowCnt, colCnt + 12, rowCnt, colCnt + 21].Style.Fill.BackgroundColor.SetColor(greenBGColor);
+
+            workSheet.Cells[rowCnt + 1, colCnt + 12].Value = "Complications";
             workSheet.Cells[rowCnt + 1, colCnt + 12, rowCnt + 1, colCnt + 13].Merge = true;
             workSheet.Cells[rowCnt + 1, colCnt + 12, rowCnt + 1, colCnt + 13].Style.Fill.BackgroundColor.SetColor(voiletBGColor);
 
@@ -931,7 +1015,7 @@ namespace CCC.UI.Controllers
             workSheet.Cells[rowCnt + 2, colCnt + 13].Value = "Female";
             workSheet.Cells[rowCnt + 2, colCnt + 12, rowCnt + 2, colCnt + 13].Style.Fill.BackgroundColor.SetColor(blueBGColor);
 
-            workSheet.Cells[rowCnt + 1, colCnt + 14].Value = "Expired";
+            workSheet.Cells[rowCnt + 1, colCnt + 14].Value = "Sterilised";
             workSheet.Cells[rowCnt + 1, colCnt + 14, rowCnt + 1, colCnt + 15].Merge = true;
             workSheet.Cells[rowCnt + 1, colCnt + 14, rowCnt + 1, colCnt + 15].Style.Fill.BackgroundColor.SetColor(voiletBGColor);
 
@@ -939,7 +1023,7 @@ namespace CCC.UI.Controllers
             workSheet.Cells[rowCnt + 2, colCnt + 15].Value = "Female";
             workSheet.Cells[rowCnt + 2, colCnt + 14, rowCnt + 2, colCnt + 15].Style.Fill.BackgroundColor.SetColor(blueBGColor);
 
-            workSheet.Cells[rowCnt + 1, colCnt + 16].Value = "OnHold";
+            workSheet.Cells[rowCnt + 1, colCnt + 16].Value = "Expired";
             workSheet.Cells[rowCnt + 1, colCnt + 16, rowCnt + 1, colCnt + 17].Merge = true;
             workSheet.Cells[rowCnt + 1, colCnt + 16, rowCnt + 1, colCnt + 17].Style.Fill.BackgroundColor.SetColor(voiletBGColor);
 
@@ -947,9 +1031,26 @@ namespace CCC.UI.Controllers
             workSheet.Cells[rowCnt + 2, colCnt + 17].Value = "Female";
             workSheet.Cells[rowCnt + 2, colCnt + 16, rowCnt + 2, colCnt + 17].Style.Fill.BackgroundColor.SetColor(blueBGColor);
 
-            workSheet.Cells[rowCnt, colCnt + 18].Value = "Total";
-            workSheet.Cells[rowCnt, colCnt + 18, rowCnt + 2, colCnt + 18].Merge = true;
-            workSheet.Cells[rowCnt, colCnt + 18, rowCnt + 2, colCnt + 18].Style.Fill.BackgroundColor.SetColor(greenBGColor);
+            workSheet.Cells[rowCnt + 1, colCnt + 18].Value = "OnHold";
+            workSheet.Cells[rowCnt + 1, colCnt + 18, rowCnt + 1, colCnt + 19].Merge = true;
+            workSheet.Cells[rowCnt + 1, colCnt + 18, rowCnt + 1, colCnt + 19].Style.Fill.BackgroundColor.SetColor(voiletBGColor);
+
+            workSheet.Cells[rowCnt + 2, colCnt + 18].Value = "Male";
+            workSheet.Cells[rowCnt + 2, colCnt + 19].Value = "Female";
+            workSheet.Cells[rowCnt + 2, colCnt + 18, rowCnt + 2, colCnt + 19].Style.Fill.BackgroundColor.SetColor(blueBGColor);
+
+            workSheet.Cells[rowCnt + 1, colCnt + 20].Value = "% of Complication of Vet";
+            workSheet.Cells[rowCnt + 1, colCnt + 20].Style.Fill.BackgroundColor.SetColor(voiletBGColor);
+
+            workSheet.Cells[rowCnt + 1, colCnt + 21].Value = "% of Complication of Center";
+            workSheet.Cells[rowCnt + 1, colCnt + 21].Style.Fill.BackgroundColor.SetColor(voiletBGColor);
+
+            workSheet.Cells[rowCnt + 2, colCnt + 20].Value = "";
+            workSheet.Cells[rowCnt + 2, colCnt + 20].Style.Fill.BackgroundColor.SetColor(blueBGColor);
+
+            workSheet.Cells[rowCnt + 2, colCnt + 21].Value = "";
+            workSheet.Cells[rowCnt + 2, colCnt + 21].Style.Fill.BackgroundColor.SetColor(blueBGColor);
+
         }
     }
 }
