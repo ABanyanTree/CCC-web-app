@@ -4,6 +4,14 @@
     ViewData["Title"] = "Dashboard";
     Layout = "~/Views/Shared/_Layout.cshtml";
     SelectList lstCenter = ViewBag.lstCenter;
+
+    int totalAdminssionCount = Model.PetCountDetails.Where(x => Convert.ToDateTime(x.AdmissionDate.Date) == DateTime.Now.Date).ToList().Count;
+    int totalSurgryCount = Model.PetCountDetails.Where(x => Convert.ToDateTime(x.SurgeryDate.Value) == DateTime.Now.Date).ToList().Count;
+    int totalReleaseCount = Model.PetCountDetails.Where(x => Convert.ToDateTime(x.ReleaseDate.Value) == DateTime.Now.Date).ToList().Count;
+    var totalExpire = Model.PetCountDetails.Where(x => x.ExpiredDate != null).ToList();
+    int totalExpireCount = totalExpire.Where(x => Convert.ToDateTime(x.ExpiredDate.Value) == DateTime.Now.Date).ToList().Count;
+
+
 }
 
 <style>
@@ -27,7 +35,7 @@
 
 <script>
     $(document).ready(function () {
-        var count =@Model.TotalCount;
+        var count = @Model.TotalCount;
         if (count > 0) {
             $("#spPetDataCart").text(count);
             $("#spPetDataCart").addClass('badge badge-counter');
@@ -53,12 +61,12 @@
     <div class="d-flex db-data-cards mb-4">
         <div class="card-col">
             <div class="single-data-card primary-bg rounded-12">
-                <img src='@Url.Content("~/Images/man-with-dog.svg")' class="card-illustration"  style="" />
+                <img src='@Url.Content("~/Images/man-with-dog.svg")' class="card-illustration" style="" />
                 <div class="d-flex gap-2">
                     <img src='@Url.Content("~/Images/admission-icon.svg")' class="" style="" />
                     <h3 class="flex-1 text-white">Total Admission</h3>
                 </div>
-                <p class="mb-0 card-data-number text-white">26</p>
+                <p class="mb-0 card-data-number text-white">@totalAdminssionCount</p>
             </div>
         </div>
         <div class="card-col">
@@ -68,7 +76,7 @@
                     <img src='@Url.Content("~/Images/release-icon.svg")' class="" style="" />
                     <h3 class="flex-1">Total Release</h3>
                 </div>
-                <p class="mb-0 card-data-number primary-text">13</p>
+                <p class="mb-0 card-data-number primary-text">@totalReleaseCount</p>
             </div>
         </div>
         <div class="card-col">
@@ -77,7 +85,7 @@
                     <img src='@Url.Content("~/Images/surgery-icon.svg")' class="" style="" />
                     <h3 class="flex-1">Total Surgery</h3>
                 </div>
-                <p class="mb-0 card-data-number primary-text">13</p>
+                <p class="mb-0 card-data-number primary-text">@totalSurgryCount</p>
             </div>
         </div>
         <div class="card-col">
@@ -86,7 +94,7 @@
                     <img src='@Url.Content("~/Images/expired-icon.svg")' class="" style="" />
                     <h3 class="flex-1">Total Expired</h3>
                 </div>
-                <p class="mb-0 card-data-number text-red">1</p>
+                <p class="mb-0 card-data-number text-red">@totalExpireCount</p>
             </div>
         </div>
     </div>
@@ -110,8 +118,9 @@
                             {
                                 int admissionCount = Model.PetCountDetails.Where(x => Convert.ToDateTime(x.AdmissionDate.Date) == DateTime.Now.Date && x.CenterId == item.Value).ToList().Count;
                                 int surgeryCount = Model.PetCountDetails.Where(x => Convert.ToDateTime(x.SurgeryDate.Value.Date) == DateTime.Now.Date && x.CenterId == item.Value).ToList().Count;
-                                int releaseCount = Model.PetCountDetails.Where(x => Convert.ToDateTime(x.ReleaseDate.Value.Date) == DateTime.Now.Date && x.CenterId == item.Value).ToList().Count;
-                                int expiredCount = Model.PetCountDetails.Where(x => Convert.ToDateTime(x.ExpiredDate.Value.Date) == DateTime.Now.Date && x.CenterId == item.Value).ToList().Count;
+                                int releaseCount = Model.PetCountDetails.Where(x => Convert.ToDateTime(x.ReleaseDate.Value.Date) == DateTime.Now.Date && x.ExpiredDate == null && x.CenterId == item.Value).ToList().Count;
+                                var expire = Model.PetCountDetails.Where(x => x.ExpiredDate != null && x.CenterId == item.Value).ToList();
+                                int expiredCount = expire.Where(x => Convert.ToDateTime(x.ExpiredDate.Value.Date) == DateTime.Now.Date && x.CenterId == item.Value).ToList().Count;
 
                                 <tr>
                                     <td>@item.Text</td>
