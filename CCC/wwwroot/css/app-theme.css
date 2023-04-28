@@ -10702,7 +10702,7 @@ ul.conRepoListing li.manualTemp .conReposBoxHead .text h1.policyHeading {
 }
 
 .sidebar-menu {
-    max-height: 700px;
+    max-height: 425px;
     overflow-y: auto;
     padding: 24px 24px 24px 32px;
     border-bottom: 1px solid #ddd;
@@ -14876,7 +14876,7 @@ ul.dateListing li.textTo {
     }
 
     .sidebar-menu {
-        max-height: 600px;
+        max-height: 420px;
         overflow-y: auto;
     }
 
