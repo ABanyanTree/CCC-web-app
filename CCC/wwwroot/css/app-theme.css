@@ -4355,6 +4355,20 @@ ul.formGroupTopListing {
     .pull-left .active .addcenterbutton.managepetservicesPage span:hover, .pull-left .active .addcenterbutton.managepetservicesPage spam:focus {
         text-decoration: none;
     }
+.date-filters button {
+    background-color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 16px;
+    color: #222525;
+    font: 500 16px "Inter",sans-serif;
+    cursor: pointer;
+    font-size: 14px;
+    transition: .3s ease;
+}
+    .date-filters button.active {
+        border: 1px solid #44786c;
+    }
 
 .pull-left .addcenterbutton.managepetservicesPage {
     left: 0%;
