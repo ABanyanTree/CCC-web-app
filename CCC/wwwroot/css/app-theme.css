@@ -4355,6 +4355,7 @@ ul.formGroupTopListing {
     .pull-left .active .addcenterbutton.managepetservicesPage span:hover, .pull-left .active .addcenterbutton.managepetservicesPage spam:focus {
         text-decoration: none;
     }
+.date-filters {float:right;width:17%;margin:0px;}
 .date-filters button {
     background-color: #fff;
     border: none;
