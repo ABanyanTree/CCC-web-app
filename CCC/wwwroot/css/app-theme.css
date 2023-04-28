@@ -12613,6 +12613,9 @@ ul.dateListing li.textTo {
         margin-right: 0;
     }
 }
+@media only screen and (min-device-width:768px) and (max-device-width: 1280px) {
+    .date-filters{width:35%;}
+}
 @media only screen and (min-device-width:1200px) and (max-device-width: 1362px) {
     ul.formGroupTopListing li.firstLastName, ul.formGroupTopListing li.groupName {
         min-width: 520px
