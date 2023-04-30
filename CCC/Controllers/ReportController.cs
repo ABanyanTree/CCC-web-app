@@ -905,8 +905,8 @@ namespace CCC.UI.Controllers
                 {
                     int deathCount = response.Where(x => x.VetName.Trim().ToLower() == item.Trim().ToLower() && x.ExpiredDate != null).ToList().Count;
                     totalDeathCount = totalDeathCount + deathCount;
-                    int complicationCount = response.Where(x => x.VetName.Trim().ToLower() == item.Trim().ToLower() && x.MedicalNoteId != null
-                    && x.IsOnHold == false && x.ExpiredDate == null && x.SurgeryDate != null && (x.ReleaseDate == null || x.ReleaseDate.Value.Date > x.AdmissionDate.Date.AddDays(7))).ToList().Count;
+                    int complicationCount = response.Where(x => x.VetName.Trim().ToLower() == item.Trim().ToLower() 
+                    && x.IsOnHold == false && x.ExpiredDate == null && (x.ReleaseDate == null || x.ReleaseDate.Value.Date > x.AdmissionDate.Date.AddDays(7))).ToList().Count;
                     totalComplicationCount = totalComplicationCount + complicationCount;
                     Color specialVetColor = Color.FromArgb(18, 143, 139); //lstVetColor.Where(x => x.Key.Trim().ToLower() == item.Trim().ToLower()).Select(x => x.Value).FirstOrDefault();
 
