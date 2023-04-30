@@ -66,6 +66,13 @@ namespace CCC.UI.ViewModels
         public string Month { get; set; }
         public string Year { get; set; }
 
+        //for display purpose
+        public int totalSurgeryCount { get; set; }
+        public int totalComplicationCount { get; set; }
+        public decimal complicationPercentage { get; set; }
+        public int totalDeathCount { get; set; }
+
+
 
     }
 }

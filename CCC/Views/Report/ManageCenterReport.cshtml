@@ -1,12 +1,15 @@
 ﻿@using CCC.UI.ViewModels
 @model SearchPetData
 @{
-    ViewData["Title"] = "ManageCenterReport";
+    ViewData["Title"] = "ManageVetReport";
     Layout = "~/Views/Shared/_Layout.cshtml";
 
     SelectList lstCenter = ViewBag.lstCenter;
     SelectList lstMonth = ViewBag.lstMonth;
     SelectList lstYears = ViewBag.lstYears;
+    //SelectList lstVet = ViewBag.lstVet;
+    //SelectList lstPetType = ViewBag.lstPetType;
+
 }
 
 <link href="~/css/autocomplete.css" rel="stylesheet" />
@@ -20,13 +23,16 @@
 <link href="~/lib/bootstrap-multiselect/bootstrap-multiselect.css" rel="stylesheet" />
 <script src="~/lib/bootstrap-multiselect/bootstrap-multiselect.js"></script>
 
+
+
 <div class="mainContent">
     <div class="conHeader">
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="pull-left">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item active" aria-current="page">Center Report</li>
+                        <li class="breadcrumb-item active" aria-current="page">Center Reports</li>
+                       @* <li><p>Manage all vet report and details</p></li>*@
                     </ol>
                 </div>
             </div>
@@ -43,7 +49,7 @@
                                     <div class="form-group">
                                         <label>Center</label>
                                         <select asp-for="CenterId" asp-items="lstCenter" id="ddlCenter" class="form-control">
-                                            <option value="">--All--</option>
+                                            <option value="">--Select--</option>
                                         </select>
                                         <span id="spCenterId" class="redColor"></span>
                                     </div>
@@ -75,8 +81,9 @@
                                                     <div class="form-group"></div>
                                                     <button type="button" class="btn btn-primary btn-search" id="btnExportExcel">
                                                         <svg width="14" height="14" fill="none" viewBox="0 0 14 14">
-                                                          <path stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.375" d="M13 9v2.667A1.334 1.334 0 0 1 11.667 13H2.333A1.334 1.334 0 0 1 1 11.667V9m2.667-3.333L7 9m0 0 3.333-3.333M7 9V1"></path>
-                                                        </svg>Export Excel</button>
+                                                            <path stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.375" d="M13 9v2.667A1.334 1.334 0 0 1 11.667 13H2.333A1.334 1.334 0 0 1 1 11.667V9m2.667-3.333L7 9m0 0 3.333-3.333M7 9V1"></path>
+                                                        </svg>Export Excel
+                                                    </button>
                                                 </div>
                                             </div>
                                         </div>
@@ -89,54 +96,38 @@
                 </div>
             </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            @*<div class="userBoxFooter">
-                <div class="pull-right">
-                    <div class="form-group"></div>
-                    <button type="button" class="btn btn-primary btn-search" id="btnExportExcel">Export Exel</button>
-                </div>
-            </div>*@
-        </div>
-    </div>
-
-    <div class="chkTBL">
-        <div class="bulkImpLogHT mngEventpage mobileTablenowrap">
-            <table id="mydatatable" class="table">
-                <thead>
-                    <tr>
-                        <th>Center Name</th>
-                        <th>Area Name</th>
-                        <th>Vet Name</th>
-                        <th>Pet</th>
-                        <th>Surgery Date</th>
-                        <th>Medical Notes/Comments</th>
-                    </tr>
-                </thead>
-                <tbody></tbody>
-            </table>
-        </div>
-    </div>
-    <div id="divdataTables_info"></div>
-    <div id="divDataTable_length"></div>
+    </div> 
 </div>
 
 <script>
     $("#btnExportExcel").on('click', function () {
         var searchObj = new Object();
         var CenterId = $('#ddlCenter').val();
-        var CenterId = $('#ddlCenter').val();
         var Month = $('#ddlMonth').val();
         var Year = $('#ddlYear').val();
 
-        //if (CenterId == '' || CenterId == null || CenterId == undefined) {
-        //    CenterId = 'All';
-        //    return;
-        //}
+        if (CenterId == '' || CenterId == null || CenterId == undefined) {
+            showWarningMsg("Please select center");
+            return;
+        }
 
         var url = '@Url.Action("ExportCenterReport", "Report")?CenterId=' + CenterId + '&selectedMonth=' + Month + '&selectedYear=' + Year;
         document.location.href = url;
 
-    });
+    @*$.ajax({
+            url: '@Url.Action("ExportVetReport", "Report")?CenterId=' + CenterId + '&selectedMonth=' + Month + '&selectedYear=' + Year,
+            type: "POST",
+            processData: false,
+            contentType: false,
+            data: { },
+            success: function (result) {
+            debugger;
+            if (result == false) {
+            showWarningMsg('No data avaialbe');
+            }
+            }
+            });*@
+
+
+        });
 </script>
