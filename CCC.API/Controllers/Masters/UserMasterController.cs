@@ -2,7 +2,9 @@
 using CCC.API.Filters;
 using CCC.API.Options;
 using CCC.Domain;
+using CCC.Domain.Email;
 using CCC.Service.Infra;
+using CCC.Service.Infra.EmailStuff;
 using CCC.Service.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
@@ -23,15 +25,16 @@ namespace CCC.API.Controllers.Masters
         private readonly ICenterMasterService _iCenterMasterService;
         private readonly JwtSettings _jwtSettings;
         private readonly IRefreshTokenService _iRefreshTokenService;
+        private IEmailSender _iEmailSender;
 
 
-
-        public UserMasterController(IUserMasterService UserMasterService, JwtSettings jwtSettings, ICenterMasterService CenterMasterService, IRefreshTokenService RefreshTokenService)
+        public UserMasterController(IUserMasterService UserMasterService, JwtSettings jwtSettings, ICenterMasterService CenterMasterService, IRefreshTokenService RefreshTokenService, IEmailSender iEmailSender)
         {
             _iUserMasterService = UserMasterService;
             _jwtSettings = jwtSettings;
             _iRefreshTokenService = RefreshTokenService;
             _iCenterMasterService = CenterMasterService;
+            _iEmailSender = iEmailSender;
         }
 
         [HttpPost(ApiRoutes.UserMaster.AddEditUser), DisableRequestSizeLimit]
@@ -285,6 +288,32 @@ namespace CCC.API.Controllers.Masters
         {
             var obj = await _iUserMasterService.ChangePassword(request);
             return Ok();
+        }
+
+        [HttpPost(ApiRoutes.UserMaster.SendTestEmail)]
+        public async Task<IActionResult> SendTestEmail([FromBody] string email)
+        {
+            try
+            {
+                EmailSenderEntity emailconfig = new EmailSenderEntity();
+                emailconfig.EmailTo = email;
+                emailconfig.Body = "This is a test email";
+                emailconfig.Subject = "Test Email from API";
+                var IsEmailSent = await _iEmailSender.SendInstantEmailForTesting(emailconfig);
+                if (IsEmailSent)
+                {
+                    return Ok("Mail Sent");
+                }
+                else
+                {
+                    return BadRequest("Not Sent");
+                }
+            }
+            catch (Exception ex)
+            {
+                string msg = ex.Message + ex.StackTrace.ToString();
+                return BadRequest(msg);
+            }
         }
     }
 }

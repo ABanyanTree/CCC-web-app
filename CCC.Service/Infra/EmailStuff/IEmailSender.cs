@@ -13,7 +13,9 @@ namespace CCC.Service.Infra.EmailStuff
         Task<bool> SendInstantEmailFunctionality(EmailSenderEntity emailSenderEntity);
         void GetForgotPasswordBodyAndSubject(UserMaster obj, ref string body, ref string subject);
         void GetReportNotificationBodySubject(string reportType,string reportFileName, ref string strBody, ref string strSubject);
-        
+
+        Task<bool> SendInstantEmailForTesting(EmailSenderEntity emailSenderEntity);
+
         //Task<EmailSentLog> SendInstantEmail(EmailSenderEntity emailSenderEntity, Object Entity);
         //EmailSentLog GetBodyAndSubject(EmailSenderEntity emailSenderEntity, Object Entity);
         //Task<bool> SendPendingEmail(EmailSentLog emailSentLog);

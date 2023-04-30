@@ -95,6 +95,11 @@ namespace CCC.Service.Infra.EmailStuff
             {
                 smtp.UseDefaultCredentials = false;
                 //smtp.Host = EncryptionManager.Decrypt(_options.Value.SMTP_HOST);
+                if (!string.IsNullOrEmpty(_options.Value.SENDMAIL_DEFAULTCREDENTIALS))
+                {
+                    smtp.UseDefaultCredentials = Convert.ToBoolean(_options.Value.SENDMAIL_DEFAULTCREDENTIALS);
+                }
+
                 smtp.Host = _options.Value.SMTP_HOST;
                 if (!string.IsNullOrEmpty(_options.Value.SENDMAIL_SMTPUSERNAME))
                 {
@@ -110,10 +115,7 @@ namespace CCC.Service.Infra.EmailStuff
                     smtp.Port = Convert.ToInt32(_options.Value.SENDMAIL_PORT);
                 }
 
-                if (!string.IsNullOrEmpty(_options.Value.SENDMAIL_DEFAULTCREDENTIALS))
-                {
-                    smtp.UseDefaultCredentials = Convert.ToBoolean(_options.Value.SENDMAIL_DEFAULTCREDENTIALS);
-                }
+              
             }
 
 
@@ -142,6 +144,98 @@ namespace CCC.Service.Infra.EmailStuff
 
             return IsEmailSend;
 
+        }
+
+        public async Task<bool> SendInstantEmailForTesting(EmailSenderEntity emailSenderEntity)
+        {
+            MailMessage mailInfo = new MailMessage();
+            bool IsEmailSend = false;
+
+            if (!string.IsNullOrEmpty(emailSenderEntity.EmailTo))
+            {
+                string[] strTO = emailSenderEntity.EmailTo.Split(',');
+                foreach (string str in strTO)
+                {
+                    if (!string.IsNullOrEmpty(str) && str.Contains("@"))
+                    {
+                        mailInfo.To.Add(str);
+                    }
+                }
+            }
+
+            if (!string.IsNullOrEmpty(emailSenderEntity.CC))
+            {
+                string[] strCC = emailSenderEntity.CC.Split(',');
+                foreach (string str in strCC)
+                {
+                    if (!string.IsNullOrEmpty(str) && str.Contains("@"))
+                    {
+                        mailInfo.CC.Add(str);
+                    }
+                }
+            }
+
+            if (!string.IsNullOrEmpty(emailSenderEntity.BCC))
+            {
+                string[] strBCC = emailSenderEntity.BCC.Split(',');
+                foreach (string str in strBCC)
+                {
+                    if (!string.IsNullOrEmpty(str))
+                    {
+                        mailInfo.Bcc.Add(str);
+                    }
+                }
+            }
+
+            mailInfo.From = new MailAddress(_options.Value.From);
+            mailInfo.Body = emailSenderEntity.Body;
+            mailInfo.IsBodyHtml = true;
+            mailInfo.Subject = emailSenderEntity.Subject;
+
+
+            SmtpClient smtp = new SmtpClient();
+            if (_options.Value.IsEmailToFolder)
+            {
+                smtp.DeliveryMethod = SmtpDeliveryMethod.SpecifiedPickupDirectory;
+                smtp.PickupDirectoryLocation = Path.Combine(WWWROOT, _options.Value.SystemEmailDeliveryPath);
+            }
+            else
+            {
+                smtp.UseDefaultCredentials = false;
+                //smtp.Host = EncryptionManager.Decrypt(_options.Value.SMTP_HOST);
+                if (!string.IsNullOrEmpty(_options.Value.SENDMAIL_DEFAULTCREDENTIALS))
+                {
+                    smtp.UseDefaultCredentials = Convert.ToBoolean(_options.Value.SENDMAIL_DEFAULTCREDENTIALS);
+                }
+                smtp.Host = _options.Value.SMTP_HOST;
+                if (!string.IsNullOrEmpty(_options.Value.SENDMAIL_SMTPUSERNAME))
+                {
+                    smtp.Credentials = new System.Net.NetworkCredential(
+                        _options.Value.SENDMAIL_SMTPUSERNAME,
+                    _options.Value.SENDMAIL_SMTPUSERPASSWORD);
+                    
+                }
+
+                if (!string.IsNullOrEmpty(_options.Value.SENDMAIL_PORT))
+                {
+                    smtp.Port = Convert.ToInt32(_options.Value.SENDMAIL_PORT);
+                }
+
+              
+            }
+
+
+            if (_options.Value.SendEmail)
+            {
+
+                smtp.EnableSsl = true;
+                await smtp.SendMailAsync(mailInfo);
+                IsEmailSend = true;
+
+            }
+
+
+            return IsEmailSend;
         }
 
         public void GetForgotPasswordBodyAndSubject(UserMaster obj, ref string body, ref string subject)
