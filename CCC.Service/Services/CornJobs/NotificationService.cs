@@ -1,64 +1,60 @@
-﻿using CCC.API.ApiPath;
-using CCC.API.APIUtility;
-using CCC.Domain;
+﻿using CCC.Domain;
 using CCC.Service.Infra;
-using CCC.Service.Infra.EmailStuff;
-using CCC.Service.Interfaces;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
-using OfficeOpenXml;
 using OfficeOpenXml.Style;
-using System;
+using OfficeOpenXml;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
-using System.Linq;
 using System.Text;
+using System;
 using System.Threading.Tasks;
-namespace CCC.API.Controllers
+using CCC.Service.Interfaces;
+using System.Linq;
+using Microsoft.AspNetCore.Mvc;
+using FluentValidation.Validators;
+using Microsoft.Extensions.Options;
+using CCC.Domain.Others;
+
+namespace CCC.Service.Interfaces
 {
-    public class NotificationController : Controller
+    public class NotificationService : INotificationService
     {
         private readonly IPetServices _iPetService;
         private readonly ICenterMasterService _iCenterMasterService;
         private readonly IPetDataNotificationService _iPetDataNotificationService;
         private readonly IUserMasterService _iUserMasterService;
-        private IWebHostEnvironment Environment;
-        private readonly INotificationService _notificationService;
+        private readonly IOptions<CornJobConfig> _cornJobConfig;
 
-        public NotificationController(IPetServices petServices, IPetDataNotificationService PetDataNotificationService,
-            ICenterMasterService CenterMasterService, IUserMasterService UserMasterService, IWebHostEnvironment _environment, INotificationService notificationService)
+        public NotificationService(IPetServices iPetService, ICenterMasterService iCenterMasterService, IPetDataNotificationService iPetDataNotificationService, IUserMasterService iUserMasterService, IOptions<CornJobConfig> cornJobConfig)
         {
-            _iPetService = petServices;
-            _iPetDataNotificationService = PetDataNotificationService;
-            _iCenterMasterService = CenterMasterService;
-            _iUserMasterService = UserMasterService;
-            Environment = _environment;
-            _notificationService = notificationService;
+            _iPetService = iPetService;
+            _iCenterMasterService = iCenterMasterService;
+            _iPetDataNotificationService = iPetDataNotificationService;
+            _iUserMasterService = iUserMasterService;
+            _cornJobConfig = cornJobConfig;
         }
 
-        [HttpGet(ApiRoutes.Notification.DailyDataCheck)]
-        [ProducesResponseType(typeof(bool), statusCode: 200)]
-        public async Task<IActionResult> DailyDataCheck()
+        public async Task MonthlyReport()
         {
-            var objResponse = await _iCenterMasterService.DailyDataCheck();
-            var admins = await _iUserMasterService.GetAllUsers();
-            //EmailSender obj = new EmailSender();
-            //var responceObj = obj.SendDailyNotificationToAdmin(objResponse, admins);
+            try
+            {
+                //Vet Report
+                await VetReportNotificationAsync();
 
-            return Ok(objResponse);
+                //Center Report
+                await CenterReportNotificationAsync();
+            }
+            catch (Exception ex) 
+            { 
+
+            }              
         }
 
-        [HttpGet(ApiRoutes.Notification.VetReportNotification)]
-        [ProducesResponseType(typeof(bool), statusCode: 200)]
-        public async Task<IActionResult> VetReportNotification()
+        private async Task<bool> VetReportNotificationAsync()
         {
-
-            await _notificationService.MonthlyReport();
-            return Ok("true");
-
             DateTime today = DateTime.Now;
-            if (today.Day == 15)
+            int dayToSend = _cornJobConfig.Value.Monthly_Report_Send_Day_Of_Month;
+            if (today.Day == dayToSend)
             {
                 var month = new DateTime(today.Year, today.Month, 1);
                 var firstDayOfMonth = month.AddMonths(-1);
@@ -79,7 +75,7 @@ namespace CCC.API.Controllers
                     searchObj.SurgeryDateTo = lastDayOfMonth;
 
                     var response = await _iPetService.GetVetReport(searchObj);
-
+                    
                     string path = Path.Combine(AppContext.BaseDirectory, "VetReports");
                     if (!Directory.Exists(path))
                     {
@@ -87,8 +83,15 @@ namespace CCC.API.Controllers
                     }
 
                     string centerName = centers.CenterName;
-                    string reportFileName = centers.CenterName + "_" + firstDayOfMonth.Month + "-" + firstDayOfMonth.Year;
-                    FileInfo newFile = new FileInfo(Path.Combine(path, "VetReport_" + reportFileName));
+                    string reportFileName = string.Format("{0}_{1}_{2}.xlsx",centers.CenterName 
+                                                    ,firstDayOfMonth.Month ,firstDayOfMonth.Year);
+                    FileInfo newFile = new FileInfo(Path.Combine(path, "Vet_Report_" + reportFileName));
+
+                    if(newFile.Exists)
+                    {
+                        newFile.Delete();   
+                    }
+
                     using (ExcelPackage package = new ExcelPackage(newFile))
                     {
                         ExcelWorksheet workSheet = package.Workbook.Worksheets.Add("VetReport");
@@ -96,6 +99,16 @@ namespace CCC.API.Controllers
 
                         int rowCnt = 1;
                         int colCnt = 1;
+
+                        //Add Header 
+                        string monthName = HelperUtility.GetMonthName(firstDayOfMonth.Month);
+                        workSheet.Cells[rowCnt, colCnt].Value = string.Format("Vet Report for Month of {0} - {1}", monthName, firstDayOfMonth.Year.ToString());
+                        workSheet.Cells[rowCnt, colCnt].Style.Border.BorderAround(ExcelBorderStyle.Thick, Color.Black);
+                        workSheet.Cells[rowCnt, colCnt].Style.Font.Bold=true;
+
+                        workSheet.Cells[rowCnt+1, colCnt].Value = string.Format("Center Name : {0}", centerName);
+                        workSheet.Cells[rowCnt+1, colCnt].Style.Border.BorderAround(ExcelBorderStyle.Thick, Color.Black);
+                        workSheet.Cells[rowCnt+1, colCnt].Style.Font.Bold = true;
 
 
                         rowCnt = rowCnt + 2;
@@ -105,7 +118,8 @@ namespace CCC.API.Controllers
                         {
                             rowCnt = rowCnt + 1;
                             colCnt = 1;
-                            string date = string.Format("{0}/{1}/{2}", firstDayOfMonth.Month, i.ToString(), firstDayOfMonth.Year);
+                            string date =string.Format("{0}/{1}/{2}", firstDayOfMonth.Month 
+                                            , i.ToString() , firstDayOfMonth.Year);
                             DateTime sDate = DateTime.Parse(date);
                             int totalSurgeryCountOnDay = response.Where(x => x.SurgeryDate.Value.Date == sDate.Date).ToList().Count;
 
@@ -327,51 +341,40 @@ namespace CCC.API.Controllers
 
 
                     //Email the file to respective centerManagers
-                    var IsEmailSend = await _iPetDataNotificationService.SendMonthlyNotification(reportFileName, CommonConst.FEATURE_VetReport, CM_Emails);
-
+                    var IsEmailSend = await _iPetDataNotificationService.SendMonthlyNotification(reportFileName, CommonConst.FEATURE_VetReport
+                        , CM_Emails, newFile.FullName);
 
                 }
 
-                return Ok(true);
+                return true;
             }
-            return Ok(false);
+            return false;
         }
-
-        #region -- All Excel Design Stuff --
-
-        private void SetCellAlignment(ExcelWorksheet workSheet, int rowCntFrom, int colCntFrom, int rowCntTo, int colCntTo)
+        private string GetDaywithSuffix(int Day)
         {
-            workSheet.Cells[rowCntFrom, colCntFrom, rowCntTo, colCntTo].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-            workSheet.Cells[rowCntFrom, colCntFrom, rowCntTo, colCntTo].Style.VerticalAlignment = ExcelVerticalAlignment.Center;
-            workSheet.Cells[rowCntFrom, colCntFrom, rowCntTo, colCntTo].Style.Font.Bold = true;
-        }
-        private void DesignPetGenderData(ExcelWorksheet workSheet, string gender, int totalCount, int rowCnt, int colCnt)
-        {
-            workSheet.Cells[rowCnt + 1, colCnt].Value = gender;
-            workSheet.Cells[rowCnt + 1, colCnt].Style.Border.BorderAround(ExcelBorderStyle.Thick, Color.Black);
-            workSheet.Cells[rowCnt + 1, colCnt + 1].Value = totalCount;
-            workSheet.Cells[rowCnt + 1, colCnt + 1].Style.Border.BorderAround(ExcelBorderStyle.Thick, Color.Black);
-        }
+            string suffixDay;
 
-        private void DesignVetTotalOperation(ExcelWorksheet workSheet, dynamic vetOperatedCount, int rowCnt, int colCnt, Color specialVetColor, bool IsGrandTotal = false)
-        {
-            Color bgColor = Color.FromArgb(76, 82, 112);
-            workSheet.Cells[rowCnt, colCnt].Value = vetOperatedCount;
-            workSheet.Cells[rowCnt, colCnt].Style.Border.BorderAround(ExcelBorderStyle.Thick, Color.Black);
-            workSheet.Cells[rowCnt, colCnt].Style.Font.Bold = true;
-            if (IsGrandTotal == false)
+            if (new[] { 11, 12, 13 }.Contains(Day))
             {
-                workSheet.Cells[rowCnt, colCnt].Style.Fill.PatternType = ExcelFillStyle.Solid;
-                workSheet.Cells[rowCnt, colCnt].Style.Font.Color.SetColor(Color.FromArgb(255, 255, 255));
-                workSheet.Cells[rowCnt, colCnt].Style.Fill.BackgroundColor.SetColor(specialVetColor);
+                suffixDay = Day + "th";
+            }
+            else if (Day % 10 == 1)
+            {
+                suffixDay = Day + "st";
+            }
+            else if (Day % 10 == 2)
+            {
+                suffixDay = Day + "nd";
+            }
+            else if (Day % 10 == 3)
+            {
+                suffixDay = Day + "rd";
             }
             else
             {
-                workSheet.Cells[rowCnt, colCnt].Style.Fill.PatternType = ExcelFillStyle.Solid;
-                workSheet.Cells[rowCnt, colCnt].Style.Font.Color.SetColor(Color.FromArgb(255, 255, 255));
-                workSheet.Cells[rowCnt, colCnt].Style.Fill.BackgroundColor.SetColor(bgColor);
+                suffixDay = Day + "th";
             }
-
+            return suffixDay;
         }
 
         private void DesignVetCell(ExcelWorksheet workSheet, dynamic val, int rowCnt, int colCnt, Color specialVetColor)
@@ -433,92 +436,48 @@ namespace CCC.API.Controllers
             workSheet.Cells[rowCnt + 1, colCnt + 8].Style.Fill.BackgroundColor.SetColor(bgColor);
         }
 
-        private void DesignCalenderTableHeader(int days, ExcelWorksheet workSheet, int rowCnt, int colCnt)
+        private void DesignVetTotalOperation(ExcelWorksheet workSheet, dynamic vetOperatedCount, int rowCnt, int colCnt, Color specialVetColor, bool IsGrandTotal = false)
         {
-            workSheet.Cells[rowCnt, colCnt, rowCnt + 2 + days, colCnt + 8].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-            workSheet.Cells[rowCnt, colCnt, rowCnt + 2 + days, colCnt + 8].Style.VerticalAlignment = ExcelVerticalAlignment.Center;
-            workSheet.Cells[rowCnt, colCnt, rowCnt + 2 + days, colCnt + 8].Style.Font.Bold = true;
-
-            workSheet.Cells[rowCnt, colCnt].Value = "Date";
-            workSheet.Cells[rowCnt, colCnt, rowCnt + 2, colCnt].Merge = true;
-            workSheet.Cells[rowCnt, colCnt + 3, rowCnt, colCnt + 4].Style.Border.BorderAround(ExcelBorderStyle.Thick, Color.Black);
-
-            workSheet.Cells[rowCnt, colCnt + 1].Value = "Venue";
-            workSheet.Cells[rowCnt, colCnt + 1, rowCnt + 2, colCnt + 1].Merge = true;
-            workSheet.Cells[rowCnt, colCnt + 1, rowCnt + 2, colCnt + 1].Style.Border.BorderAround(ExcelBorderStyle.Thick, Color.Black);
-
-            workSheet.Cells[rowCnt, colCnt + 2].Value = "Vet";
-            workSheet.Cells[rowCnt, colCnt + 2, rowCnt + 2, colCnt + 2].Merge = true;
-            workSheet.Cells[rowCnt, colCnt + 2, rowCnt + 2, colCnt + 2].Style.Border.BorderAround(ExcelBorderStyle.Thick, Color.Black);
-
-            workSheet.Cells[rowCnt, colCnt + 3].Value = "Dogs";
-            workSheet.Cells[rowCnt, colCnt + 3, rowCnt, colCnt + 4].Merge = true;
-            workSheet.Cells[rowCnt, colCnt + 3, rowCnt, colCnt + 4].Style.Border.BorderAround(ExcelBorderStyle.Thick, Color.Black);
-
-            workSheet.Cells[rowCnt + 1, colCnt + 3].Value = "Male";
-            workSheet.Cells[rowCnt + 1, colCnt + 3, rowCnt + 2, colCnt + 3].Merge = true;
-            workSheet.Cells[rowCnt + 1, colCnt + 3, rowCnt + 2, colCnt + 3].Style.Border.BorderAround(ExcelBorderStyle.Thick, Color.Black);
-
-            workSheet.Cells[rowCnt + 1, colCnt + 4].Value = "Female";
-            workSheet.Cells[rowCnt + 1, colCnt + 4, rowCnt + 2, colCnt + 4].Merge = true;
-            workSheet.Cells[rowCnt + 1, colCnt + 4, rowCnt + 2, colCnt + 4].Style.Border.BorderAround(ExcelBorderStyle.Thick, Color.Black);
-
-            workSheet.Cells[rowCnt, colCnt + 5].Value = "Cats";
-            workSheet.Cells[rowCnt, colCnt + 5, rowCnt, colCnt + 6].Merge = true;
-            workSheet.Cells[rowCnt, colCnt + 5, rowCnt, colCnt + 6].Style.Border.BorderAround(ExcelBorderStyle.Thick, Color.Black);
-
-            workSheet.Cells[rowCnt + 1, colCnt + 5].Value = "Male";
-            workSheet.Cells[rowCnt + 1, colCnt + 5, rowCnt + 2, colCnt + 5].Merge = true;
-            workSheet.Cells[rowCnt + 1, colCnt + 5, rowCnt + 2, colCnt + 5].Style.Border.BorderAround(ExcelBorderStyle.Thick, Color.Black);
-
-            workSheet.Cells[rowCnt + 1, colCnt + 6].Value = "Female";
-            workSheet.Cells[rowCnt + 1, colCnt + 6, rowCnt + 2, colCnt + 6].Merge = true;
-            workSheet.Cells[rowCnt + 1, colCnt + 6, rowCnt + 2, colCnt + 6].Style.Border.BorderAround(ExcelBorderStyle.Thick, Color.Black);
-
-            workSheet.Cells[rowCnt, colCnt + 7].Value = "Deaths/Notes";
-            workSheet.Cells[rowCnt, colCnt + 7, rowCnt + 2, colCnt + 7].Merge = true;
-            workSheet.Cells[rowCnt, colCnt + 7, rowCnt + 2, colCnt + 7].Style.Border.BorderAround(ExcelBorderStyle.Thick, Color.Black);
-
-            workSheet.Cells[rowCnt, colCnt + 8].Value = "Total";
-            workSheet.Cells[rowCnt, colCnt + 8, rowCnt + 2, colCnt + 8].Merge = true;
-            workSheet.Cells[rowCnt, colCnt + 8, rowCnt + 2, colCnt + 8].Style.Border.BorderAround(ExcelBorderStyle.Thick, Color.Black);
-        }
-
-        private string GetDaywithSuffix(int Day)
-        {
-            string suffixDay;
-
-            if (new[] { 11, 12, 13 }.Contains(Day))
+            Color bgColor = Color.FromArgb(76, 82, 112);
+            workSheet.Cells[rowCnt, colCnt].Value = vetOperatedCount;
+            workSheet.Cells[rowCnt, colCnt].Style.Border.BorderAround(ExcelBorderStyle.Thick, Color.Black);
+            workSheet.Cells[rowCnt, colCnt].Style.Font.Bold = true;
+            if (IsGrandTotal == false)
             {
-                suffixDay = Day + "th";
-            }
-            else if (Day % 10 == 1)
-            {
-                suffixDay = Day + "st";
-            }
-            else if (Day % 10 == 2)
-            {
-                suffixDay = Day + "nd";
-            }
-            else if (Day % 10 == 3)
-            {
-                suffixDay = Day + "rd";
+                workSheet.Cells[rowCnt, colCnt].Style.Fill.PatternType = ExcelFillStyle.Solid;
+                workSheet.Cells[rowCnt, colCnt].Style.Font.Color.SetColor(Color.FromArgb(255, 255, 255));
+                workSheet.Cells[rowCnt, colCnt].Style.Fill.BackgroundColor.SetColor(specialVetColor);
             }
             else
             {
-                suffixDay = Day + "th";
+                workSheet.Cells[rowCnt, colCnt].Style.Fill.PatternType = ExcelFillStyle.Solid;
+                workSheet.Cells[rowCnt, colCnt].Style.Font.Color.SetColor(Color.FromArgb(255, 255, 255));
+                workSheet.Cells[rowCnt, colCnt].Style.Fill.BackgroundColor.SetColor(bgColor);
             }
-            return suffixDay;
+
         }
-        #endregion
+
+        private void SetCellAlignment(ExcelWorksheet workSheet, int rowCntFrom, int colCntFrom, int rowCntTo, int colCntTo)
+        {
+            workSheet.Cells[rowCntFrom, colCntFrom, rowCntTo, colCntTo].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+            workSheet.Cells[rowCntFrom, colCntFrom, rowCntTo, colCntTo].Style.VerticalAlignment = ExcelVerticalAlignment.Center;
+            workSheet.Cells[rowCntFrom, colCntFrom, rowCntTo, colCntTo].Style.Font.Bold = true;
+        }
+
+        private void DesignPetGenderData(ExcelWorksheet workSheet, string gender, int totalCount, int rowCnt, int colCnt)
+        {
+            workSheet.Cells[rowCnt + 1, colCnt].Value = gender;
+            workSheet.Cells[rowCnt + 1, colCnt].Style.Border.BorderAround(ExcelBorderStyle.Thick, Color.Black);
+            workSheet.Cells[rowCnt + 1, colCnt + 1].Value = totalCount;
+            workSheet.Cells[rowCnt + 1, colCnt + 1].Style.Border.BorderAround(ExcelBorderStyle.Thick, Color.Black);
+        }
 
 
-        [HttpGet(ApiRoutes.Notification.CenterReportNotification)]
-        [ProducesResponseType(typeof(bool), statusCode: 200)]
-        public async Task<IActionResult> CenterReportNotification()
+        public async Task<bool> CenterReportNotificationAsync()
         {
             DateTime today = DateTime.Now;
-            if (today.Day == 1)
+            int dayToSend = _cornJobConfig.Value.Monthly_Report_Send_Day_Of_Month;
+            if (today.Day == dayToSend)
             {
                 var month = new DateTime(today.Year, today.Month, 1);
                 var firstDayOfMonth = month.AddMonths(-1);
@@ -532,9 +491,21 @@ namespace CCC.API.Controllers
 
                 var response = await _iPetService.GetCenterReportData(searchObj);
 
-                string path = Path.Combine(this.Environment.WebRootPath, "CenterReports");
-                string reportFileName = firstDayOfMonth.Month + "-" + firstDayOfMonth.Year;
+                string path = Path.Combine(AppContext.BaseDirectory, "CenterReports");
+                
+                if (!Directory.Exists(path))
+                {
+                    Directory.CreateDirectory(path);
+                }
+
+
+                string reportFileName = string.Format("{0}_{1}.xlsx", firstDayOfMonth.Month, firstDayOfMonth.Year);
                 FileInfo newFile = new FileInfo(Path.Combine(path, "CenterReport_" + reportFileName));
+
+                if (newFile.Exists)
+                {
+                    newFile.Delete();
+                }
 
                 using (ExcelPackage package = new ExcelPackage(newFile))
                 {
@@ -672,18 +643,22 @@ namespace CCC.API.Controllers
                         }
 
                     }
-
+                    
                     package.Save();
+                    
+                    
+                    
                 }
 
                 //Email the file to respective Admins
                 var adminData = await _iUserMasterService.GetUserDetails(new UserMaster());
                 adminData = adminData.Where(z => z.UserRole == "Admin").ToList();
                 string adminEmails = string.Join(",", adminData.Select(x => x.Email));
-                var IsEmailSend = await _iPetDataNotificationService.SendMonthlyNotification(reportFileName, CommonConst.FEATURE_CenterReport, adminEmails);
-                return Ok(true);
+                var IsEmailSend = await _iPetDataNotificationService.SendMonthlyNotification(reportFileName
+                    , CommonConst.FEATURE_CenterReport, adminEmails,newFile.FullName);
+                return true;
             }
-            return Ok(false);
+            return false;
         }
 
         private void DesignCenterReportTableHeader(ExcelWorksheet workSheet, int rowCnt, int colCnt)
@@ -790,6 +765,5 @@ namespace CCC.API.Controllers
             workSheet.Cells[rowCnt, colCnt + 18, rowCnt + 2, colCnt + 18].Merge = true;
             workSheet.Cells[rowCnt, colCnt + 18, rowCnt + 2, colCnt + 18].Style.Fill.BackgroundColor.SetColor(greenBGColor);
         }
-
     }
 }

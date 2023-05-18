@@ -1,9 +1,11 @@
 ﻿using CCC.Domain;
 using CCC.Domain.Email;
+using CCC.Domain.Others;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net.Mail;
@@ -19,6 +21,7 @@ namespace CCC.Service.Infra.EmailStuff
         private IHostingEnvironment _hostingEnvironment;
         private IOptions<EmailConfig> _options;
         private IOptions<FileSystemPath> _optionsfilesystem;
+        private IOptions<CornJobConfig> _cornJobConfig;
         private string WWWROOT = "";
         // private IUriService _uriService;
 
@@ -30,12 +33,14 @@ namespace CCC.Service.Infra.EmailStuff
         //    _optionsfilesystem = optionsfilesystem;
         //}
 
-        public EmailSender(IHostingEnvironment hostingEnvironment, IOptions<EmailConfig> options, IOptions<FileSystemPath> optionsfilesystem)
+        public EmailSender(IHostingEnvironment hostingEnvironment, IOptions<EmailConfig> options,
+            IOptions<FileSystemPath> optionsfilesystem, IOptions<CornJobConfig> cornJobConfig)
         {
             _hostingEnvironment = hostingEnvironment;
             WWWROOT = _hostingEnvironment.WebRootPath;
             _options = options;
             _optionsfilesystem = optionsfilesystem;
+            _cornJobConfig = cornJobConfig;
         }
 
         public async Task<bool> SendInstantEmailFunctionality(EmailSenderEntity emailSenderEntity)
@@ -83,6 +88,16 @@ namespace CCC.Service.Infra.EmailStuff
             mailInfo.Body = emailSenderEntity.Body;
             mailInfo.IsBodyHtml = true;
             mailInfo.Subject = emailSenderEntity.Subject;
+
+            //Attachments
+            if (emailSenderEntity.AttachmentFilePath != null 
+                && emailSenderEntity.AttachmentFilePath.Count > 0)
+            {
+                foreach (var item in emailSenderEntity.AttachmentFilePath)
+                {
+                    mailInfo.Attachments.Add(new Attachment(item));
+                }
+            }
 
 
             SmtpClient smtp = new SmtpClient();
@@ -263,17 +278,22 @@ namespace CCC.Service.Infra.EmailStuff
         {
             string[] fileName = reportFileName.Split('_');
             StringBuilder sb = new StringBuilder();
+
+            string appUrl=_cornJobConfig.Value.APP_URL;
+
             if (reportType == CommonConst.FEATURE_VetReport)
             {
                 string centerName = fileName[0];
                 string MonthName = fileName[1];
+                string strMonthName = HelperUtility.GetMonthName(Convert.ToInt32(MonthName));
+                
                 string Year = fileName[2];
-                strSubject = "New" + reportType + "For " + MonthName + " " + Year;
+                strSubject = string.Format("New Vet Report for the month of {0} - {1}",  strMonthName, Year);
                 sb.Append("Dear Sir,");
                 sb.Append("<br/>");
-                sb.Append("Please find attached new Vet Report for month " + MonthName + " " + Year);
+                sb.Append(string.Format("Please find attached new Vet Report for the month of {0} - {1}",strMonthName ,Year));
                 sb.Append("<br/>");
-                sb.Append("Login at: app url"); //add app url 
+                sb.Append(string.Format("Please use the link to login: <a href='{0}' target_'_blank'>{0}</a>", appUrl)); //add app url 
                 sb.Append("<br/>");
                 sb.Append("<br/>");
                 sb.Append("Regards,");
@@ -285,12 +305,13 @@ namespace CCC.Service.Infra.EmailStuff
                 //Admin center report
                 string MonthName = fileName[0];
                 string Year = fileName[1];
-                strSubject = "New" + reportType + "For " + MonthName + " " + Year;
+                string strMonthName = HelperUtility.GetMonthName(Convert.ToInt32(MonthName));
+                strSubject = string.Format("New Center Report for the month of {0} - {1}",strMonthName,Year);
                 sb.Append("Dear Sir,");
                 sb.Append("<br/>");
-                sb.Append("Please find attached new Center Report for month " + MonthName + " " + Year);
+                sb.Append(string.Format("Please find attached new Center Report for month {0} - {1}",strMonthName,Year));
                 sb.Append("<br/>");
-                sb.Append("Login at: app url"); //add app url 
+                sb.Append(string.Format("Please use the link to login: <a href='{0}' target_'_blank'>{0}</a>", appUrl)); //add app url 
                 sb.Append("<br/>");
                 sb.Append("<br/>");
                 sb.Append("Regards,");

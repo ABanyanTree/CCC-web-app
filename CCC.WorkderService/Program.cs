@@ -22,7 +22,12 @@ namespace CCC.WorkderService
                 {
                     services.Configure<NotifyAlertEmailServiceConfiguration>(hostContext.Configuration.GetSection("EmailServiceConfiguration"));
                     services.AddHostedService<NotifyAlertEmailService>();
+                  
+
                 });
+
+
+           
 
             if (isService)
             {

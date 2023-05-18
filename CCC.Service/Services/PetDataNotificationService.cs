@@ -50,7 +50,8 @@ namespace CCC.Service.Services
             return await _PetDataNotificationRepository.ReadPetDataByUser(userId, IsAdmin);
         }
 
-        public async Task<bool> SendMonthlyNotification(string reportFileName, string reportType, string toEmails)
+        public async Task<bool> SendMonthlyNotification(string reportFileName, string reportType, string toEmails
+            ,string reportFullPath="")
         {
             bool IsEmailSend = false;
             if (!string.IsNullOrEmpty(toEmails))
@@ -65,6 +66,15 @@ namespace CCC.Service.Services
                 emailconfig.EmailTo = toEmails;
                 emailconfig.Body = strBody;
                 emailconfig.Subject = strSubject;
+                if (emailconfig.AttachmentFilePath == null)
+                {
+                    emailconfig.AttachmentFilePath = new List<string>();
+                }
+                if (!string.IsNullOrEmpty(reportFullPath))
+                {
+                    emailconfig.AttachmentFilePath.Add(reportFullPath);
+                }
+
                 IsEmailSend = await _iEmailSender.SendInstantEmailFunctionality(emailconfig);
             }
             return IsEmailSend;

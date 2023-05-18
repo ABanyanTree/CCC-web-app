@@ -1,5 +1,6 @@
 ﻿using CCC.API.Filters;
 using CCC.Domain;
+using CCC.Domain.Others;
 using CCC.lOC;
 using CCC.Service.Infra.EmailStuff;
 using FluentValidation.AspNetCore;
@@ -20,10 +21,15 @@ namespace CCC.API.Installers
         {
             services.Configure<ReadConfig>(configuration.GetSection("data:DBcon"));
             services.Configure<EmailConfig>(configuration.GetSection("EmailConfig"));
+            services.Configure<CornJobConfig>(configuration.GetSection("CornJobConfig"));
             //services.Configure<FileSystemPath>(configuration.GetSection("FileSystemPath"));
             //services.Configure<VersionSettings>(configuration.GetSection("VersionSettings"));
             //services.Configure<RetailConfig>(configuration.GetSection("RetailConfig"));
 
+
+            services.AddMvc(setupAction: action => {
+                action.Filters.Add<ExceptionActionFilter>();
+            });
 
             //services.AddMvc(setupAction: options => {
             //    options.EnableEndpointRouting = false;
