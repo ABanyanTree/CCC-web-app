@@ -156,7 +156,8 @@ namespace CCC.UI.Controllers
                         data.totalComplicationCount = lst1.Where(x => x.VetId == vet && x.IsOnHold == false && x.ExpiredDate == null &&
                          (x.ReleaseDate == null || x.ReleaseDate.Value.Date > x.AdmissionDate.Date.AddDays(7))).ToList().Count;
 
-                        decimal complication = Convert.ToDecimal(data.totalComplicationCount) / Convert.ToDecimal(data.totalSurgeryCount);
+                        decimal complication = (data.totalSurgeryCount == 0 ? 0 
+                                    : Convert.ToDecimal(data.totalComplicationCount) / Convert.ToDecimal(data.totalSurgeryCount));
                         data.complicationPercentage = Convert.ToDecimal(complication * 100);
 
 
