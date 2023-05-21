@@ -16,5 +16,7 @@ namespace CCC.Domain.Email
         public string HtmlFileName { get; set; }
         public string GroupId { get; set; }
         public string Body { get; set; }
+
+        public List<string> AttachmentFilePath { get; set; }
     }
 }

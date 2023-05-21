@@ -68,7 +68,7 @@ namespace CCC.lOC
 
             services.AddSingleton<IEmailSender, EmailSender>();
 
-
+            services.AddSingleton<INotificationService, NotificationService>();
 
 
         }

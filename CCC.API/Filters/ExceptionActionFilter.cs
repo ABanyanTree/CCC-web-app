@@ -61,6 +61,7 @@ namespace CCC.API.Filters
                     RequesterUserId = loggedInUserId
                 };
 
+                errorLogs.ErrorLogID = Utility.GeneratorUniqueId("ERR_");
                 _errorLogs.AddEditAsync(errorLogs);
             }
             context.HttpContext.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
