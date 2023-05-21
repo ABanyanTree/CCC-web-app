@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Mvc;
 using FluentValidation.Validators;
 using Microsoft.Extensions.Options;
 using CCC.Domain.Others;
+using System.Diagnostics;
 
 namespace CCC.Service.Interfaces
 {
@@ -24,14 +25,18 @@ namespace CCC.Service.Interfaces
         private readonly IPetDataNotificationService _iPetDataNotificationService;
         private readonly IUserMasterService _iUserMasterService;
         private readonly IOptions<CornJobConfig> _cornJobConfig;
+        private readonly IErrorLogs _errorLogs;
 
-        public NotificationService(IPetServices iPetService, ICenterMasterService iCenterMasterService, IPetDataNotificationService iPetDataNotificationService, IUserMasterService iUserMasterService, IOptions<CornJobConfig> cornJobConfig)
+        public NotificationService(IPetServices iPetService, ICenterMasterService iCenterMasterService, 
+            IPetDataNotificationService iPetDataNotificationService, IUserMasterService iUserMasterService,
+            IOptions<CornJobConfig> cornJobConfig, IErrorLogs errorLogs)
         {
             _iPetService = iPetService;
             _iCenterMasterService = iCenterMasterService;
             _iPetDataNotificationService = iPetDataNotificationService;
             _iUserMasterService = iUserMasterService;
             _cornJobConfig = cornJobConfig;
+            _errorLogs = errorLogs;
         }
 
         public async Task MonthlyReport()
@@ -44,10 +49,23 @@ namespace CCC.Service.Interfaces
                 //Center Report
                 await CenterReportNotificationAsync();
             }
-            catch (Exception ex) 
-            { 
+            catch (Exception ex)
+            {
 
-            }              
+                ErrorLogs errorLogs = new ErrorLogs { 
+                    ControllerName = "MonthlyScedhuler",
+                    ActionName = "MonthlyScedhuler",
+                    ErrorMessage = ex.Message,
+                    InnerException = ex.InnerException?.ToString(),
+                    StackTrace = ex.StackTrace?.ToString(),
+                };
+
+                errorLogs.ErrorLogID = Utility.GeneratorUniqueId("ERR_");
+
+                await _errorLogs.AddEditAsync(errorLogs);
+            }
+                
+                       
         }
 
         private async Task<bool> VetReportNotificationAsync()
@@ -61,7 +79,6 @@ namespace CCC.Service.Interfaces
                 var lastDayOfMonth = month.AddDays(-1);
 
                 int days = DateTime.DaysInMonth(firstDayOfMonth.Year, firstDayOfMonth.Month);
-
                 var objResponse = await _iCenterMasterService.GetAllCenters(new CenterMaster());
 
                 foreach (var centers in objResponse)

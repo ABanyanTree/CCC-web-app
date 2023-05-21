@@ -22,4 +22,16 @@ namespace CCC.Domain
         public string LastName { get; set; }
         public string UserDataXML { get; set; }
     }
+    public class ErrorLogs_Constant : BaseEntity_Constant
+    {
+        public const string ERRORLOGID = "ErrorLogID";
+        public const string CONTROLLERNAME = "ControllerName";
+        public const string ACTIONNAME = "ActionName";
+        public const string ERRORMESSAGE = "ErrorMessage";
+        public const string INNEREXCEPTION = "InnerException";
+        public const string STACKTRACE = "StackTrace";
+        public const string ERRORDATETIME = "ErrorDateTime";
+
+        public const string SPROC_ERRORS_UPS = "sproc_Errors_ups";
+    }
 }

@@ -18,12 +18,11 @@ namespace CCC.Data.Services
         }
 
         public async Task<int> AddEditAsync(ErrorLogs obj)
-        {
-            throw new NotImplementedException();
-            //string[] addParams = new string[] { ErrorLogsInfra.CONTROLLERNAME, ErrorLogsInfra.ACTIONNAME,
-            //    ErrorLogsInfra.ERRORMESSAGE, ErrorLogsInfra.INNEREXCEPTION,
-            //ErrorLogsInfra.STACKTRACE, BaseInfra.REQUESTERUSERID, ErrorLogsInfra.USERDATAXML};
-            //return await ExecuteNonQueryAsync(obj, addParams, ErrorLogsInfra.SPROC_APIERRORLOG_ADD);
+        {            
+            string[] addParams = new string[] { ErrorLogs_Constant.CONTROLLERNAME, ErrorLogs_Constant.ACTIONNAME,
+                ErrorLogs_Constant.ERRORMESSAGE, ErrorLogs_Constant.INNEREXCEPTION,ErrorLogs_Constant.STACKTRACE,
+            ErrorLogs_Constant.ERRORLOGID};
+            return await ExecuteNonQueryAsync(obj, addParams, ErrorLogs_Constant.SPROC_ERRORS_UPS);
         }
 
         public async Task<IEnumerable<ErrorLogs>> GetAllAsync(ErrorLogs obj)

@@ -18,7 +18,6 @@ namespace CCC.API.Scheduler
         public Task Execute(IJobExecutionContext context)
         {
             _notificationService.MonthlyReport();
-            WriteFile(DateTime.Now);
             return Task.CompletedTask;    
         }
 

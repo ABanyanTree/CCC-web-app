@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using OfficeOpenXml;
 using OfficeOpenXml.Style;
+using OfficeOpenXml.Table.PivotTable;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -53,8 +54,8 @@ namespace CCC.API.Controllers
         [ProducesResponseType(typeof(bool), statusCode: 200)]
         public async Task<IActionResult> VetReportNotification()
         {
-
-            await _notificationService.MonthlyReport();
+            throw new Exception("Not found");
+            //await _notificationService.MonthlyReport();
             return Ok("true");
 
             DateTime today = DateTime.Now;
