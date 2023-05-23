@@ -1,0 +1,158 @@
+﻿@using CCC.UI.ViewModels
+@model CityAreaMasterRequest
+@{
+    ViewData["Title"] = "AddEditCityArea";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@*<script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
+<link href="~/lib/bootstrap-datepicker/css/bootstrap-datepicker.min.css" rel="stylesheet" />
+<script src="~/lib/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+<script src="~/lib/jquery.alphanum/jquery.alphanum.min.js"></script>
+
+<link href="~/lib/bootstrap-multiselect/bootstrap-multiselect.css" rel="stylesheet" />
+<script src="~/lib/bootstrap-multiselect/bootstrap-multiselect.js"></script>*@
+
+<form id="AddEditCityArea" asp-action="AddEditCityArea" asp-controller="CityAreaMaster" method="post" enctype="multipart/form-data">
+    @Html.HiddenFor(model => model.AreaId, new { @id = "AreaId" })
+    <div class="mainContent">
+        <div class="conHeader">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="pull-left">
+                        <ul class="headerListing backbtn">
+                            <li class="active"> <a href="javascript:void(0);" onclick="BackToManage()"><span class="text"></span> <span class="icon iconBack">&nbsp;</span></a></li>
+                        </ul>
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item active" aria-current="page">Add/Edit Area</li>
+                        </ol>
+                    </div>
+                    <div class="filterMenuIcon"></div>
+                    <div class="pull-right mobileFilterMenu">
+                       @* <ul class="headerListing">
+                            <li class="active"> <a href="javascript:void(0);" onclick="BackToManage()"><span class="text">Back</span> <span class="icon iconBack">&nbsp;</span></a></li>
+                        </ul>*@
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br /><br />
+        <div class="conInner">
+            <div class=" row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                            <div class="form-group">
+                                <label class="pt20">Area Name<span class="redColor">*</span></label>
+                                <div class="form-group2">
+                                    <input asp-for="AreaName" type="text" class="form-control" />
+                                    <span id="spAreaName" asp-validation-for="AreaName" class="redColor"></span>
+                                </div>
+                            </div>
+                        </div>
+                        @*<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                            <div class="form-group">
+                                <label class="pt20">Center Address<span class="redColor">*</span></label>
+                                <div class="form-group2">
+                                    <textarea asp-for="CenterAddress" rows="3" type="text" class="form-control" style="resize:none;"></textarea>
+                                    <span asp-validation-for="CenterAddress" class="redColor"></span>
+                                </div>
+                            </div>
+                        </div>*@
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                            <div class="form-group">
+                                <label class="pt20">Description</label>
+                                <div class="form-group2">
+                                    <textarea asp-for="Description" rows="3" type="text" class="form-control" style="resize:none;"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="userBoxFooter">
+                        <div class="pull-right">
+                            <button type="button" class="btn btn-primary btn-search" id="btnSubmit">Submit</button>
+                            <button type="button" class="btn btn-primary btn-search" id="btnCancel">Cancel</button>
+                        </div>
+                    </div>
+                    <div class="bottomSpace">&nbsp;</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<script>
+    $("#btnSubmit").on('click', function (e) {
+        e.preventDefault();
+
+        $('#AddEditCityArea').find('input:text').each(function () {
+            $(this).val($.trim($(this).val()));
+        });
+
+        if ($('#AddEditCityArea').valid()) {
+            var formAction = $('#AddEditCityArea').attr("action");
+            var fdata = new FormData();
+            var params = $('#AddEditCityArea').serializeArray();
+            $.each(params, function (i, val) {
+                fdata.append(val.name, val.value);
+            });
+
+            var AreaName = $("#AreaName").val();
+            var AreaId = $("#AreaId").val();
+            var chkData = { areaName: AreaName, areaId: AreaId}
+            var urlNameChk = '@Url.Action("IsAreaNameInUse", "CityAreaMaster")';
+            var IsSuccess = true;
+            $.ajax({
+                type: 'POST',
+                url: urlNameChk,
+                data: chkData,
+                cache: false,
+                dataType: "Json",
+            }).done(function (result) {
+                if (result == true) {
+                    $("#spAreaName").text('Area name is already exists');
+                    IsSuccess=false;
+
+                } else {
+                    $("#spAreaName").text('');
+                    IsSuccess = true;
+                    $.ajax({
+                        type: 'post',
+                        url: formAction,
+                        data: fdata,
+                        processData: false,
+                        contentType: false
+                    }).done(function (result) {
+                        if (result.isSuccess == true) {
+                            showSuccessMsg('Success', BackToManage);
+
+                        } else {
+                            showWarningMsg('something went wrong ');
+                        }
+                    });
+                }
+            });
+
+
+
+         
+        }
+    });
+
+     function BackToManage() {
+        var url = '@Url.Action("ManageCityArea", "CityAreaMaster")';
+        document.location.href = url;
+    }
+
+    $("#btnCancel").on('click', function (e) {
+        var url = '@Url.Action("ManageCityArea", "CityAreaMaster")';
+        document.location.href = url;
+    });
+</script>

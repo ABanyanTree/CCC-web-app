@@ -1,0 +1,15 @@
+﻿<Calendar>
+	<Year id="1" type="Send To Labor confirmation">
+		<SMSbody>
+			<!--<![CDATA[Kindly confirm for $ShowName$ on Date $AllowDate$, $Url$]]>-->
+			<!--<[CDATA[Kindly confirm your availability for Show $ShowName$ on Date $AllowDate$, by clicking on the link $Url$]]>-->
+			<![CDATA[Click link to confirm your availability for $ShowName$ on $AllowDate$: $Url$]]>
+		</SMSbody>
+	</SMStype>
+	<SMStype id="2" type="MMI Approved">
+		<SMSbody>
+			<!--<![CDATA[Login url $Url$]]>-->
+			<![CDATA[You have been assigned as lead man for show $ShowName$ on Date $AllowDate$, please click the link to login $Url$]]>
+		</SMSbody>
+	</SMStype>
+</Calendar>

@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CCC.Data\CCC.Data.csproj" />
+    <ProjectReference Include="..\CCC.Service\CCC.Service.csproj" />
+  </ItemGroup>
+
+</Project>

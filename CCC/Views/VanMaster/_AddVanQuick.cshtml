@@ -1,0 +1,143 @@
+﻿@using CCC.UI.ViewModels
+@model VanMasterRequest
+
+<form id="AddEditVan" asp-action="AddEditVan" asp-controller="VanMaster" method="post" enctype="multipart/form-data">
+    <div class="mainContent">
+        <div class="conInner">
+            <div class=" row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="row">
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                            <div class="form-group">
+                                <label class="pt20">Van Number<span class="redColor">*</span></label>
+                                <div class="form-group2">
+                                    <input asp-for="VanNumber" type="text" class="form-control" />
+                                    <span id="spVanNumber" class="redColor"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                            <div class="form-group">
+                                <label class="pt20">Driver Name<span class="redColor">*</span></label>
+                                <div class="form-group2">
+                                    <input asp-for="DriverName" type="text" class="form-control" />
+                                    <span id="spDriverName" class="redColor"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                            <div class="form-group">
+                                <label class="pt20">Mobile No<span class="redColor">*</span></label>
+                                <div class="form-group2">
+                                    <input asp-for="ContactNo" type="text" class="form-control" />
+                                    <span id="spContactNo" class="redColor"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                            <div class="form-group">
+                                <div class="form-group">
+                                    <button type="button" class="btn btn-primary btn-search" id="btnAddVan">Add</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<script>
+    $("#btnAddVan").on('click', function (e) {
+
+        e.preventDefault();
+
+        $('#AddEditVan').find('input:text').each(function () {
+            $(this).val($.trim($(this).val()));
+        });
+
+        if ($('#AddEditVan').valid()) {
+            var formAction = $('#AddEditVan').attr("action");
+            var fdata = new FormData();
+            var params = $('#AddEditVan').serializeArray();
+            $.each(params, function (i, val) {
+                fdata.append(val.name, val.value);
+            });
+
+            var IsSuccess = true;
+            var vanNo = $("#VanNumber").val();
+            var driverName = $("#DriverName").val();
+            var contactNo = $("#ContactNo").val();
+            var pattern = /[A-Z][A-Z][ ][0-9][0-9][ ][A-Z][A-Z][ ][0-9][0-9][0-9][0-9]$/i;
+
+
+            if (vanNo == '' || vanNo == undefined) {
+                $('#spVanNumber').text('Please enter van no');
+                IsSuccess = false;
+            } else if (!vanNo.match(pattern)) {
+                $('#spVanNumber').text('Please enter valid van no');
+                IsSuccess = false;
+            } else {
+                $('#spVanNumber').text('');
+                IsSuccess = true;
+            }
+            if (driverName == '' || driverName == undefined) {
+                $('#spDriverName').text('Please enter driver name');
+                IsSuccess = false;
+            } else {
+                $('#spDriverName').text('');
+                IsSuccess = true;
+            }
+            if (contactNo == '' || contactNo == undefined) {
+                $('#spContactNo').text('Please enter contact no');
+                IsSuccess = false;
+            } else {
+                $('#spContactNo').text('');
+                IsSuccess = true;
+            }
+
+            if (IsSuccess) {
+                var chkData = { vanNumber: vanNo}
+            var urlNameChk = '@Url.Action("IsVanNumberInUse", "VanMaster")';
+            var IsSuccess = true;
+            $.ajax({
+                type: 'POST',
+                url: urlNameChk,
+                data: chkData,
+                cache: false,
+                dataType: "Json",
+            }).done(function (result) {
+                if (result == true) {
+                    $("#spVanNumber").text('Van number is already exists');
+                    IsSuccess=false;
+
+                } else {
+                    $("#spVanNumber").text('');
+                    IsSuccess = true;
+                    $.ajax({
+                        type: 'post',
+                        url: formAction,
+                        data: fdata,
+                        processData: false,
+                        contentType: false
+                    }).done(function (result) {
+                        if (result.isSuccess == true) {
+                            showSuccessMsg('New Van Added Successfully', reload('VanId', result.VanId, result.VanNumber));
+
+                        } else {
+                            showWarningMsg('something went wrong ');
+                        }
+                    });
+
+                }
+            });
+
+
+
+           
+            }
+         }
+    });
+
+</script>

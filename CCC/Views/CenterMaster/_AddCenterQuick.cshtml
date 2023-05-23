@@ -1,0 +1,110 @@
+﻿@using CCC.UI.ViewModels
+@model CenterMasterRequest
+<form id="AddEditCenter" asp-action="AddEditCenter" asp-controller="CenterMaster" method="post" enctype="multipart/form-data">
+    @Html.HiddenFor(model => model.CenterId, new { @id = "CenterId" })
+    <div class="mainContent">
+        <div class="conInner">
+            <div class=" row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                            <div class="form-group">
+                                <label class="pt20">Center Name<span class="redColor">*</span></label>
+                                <div class="form-group2">
+                                    <input asp-for="CenterName" type="text" class="form-control" />
+                                    <span id="spCenterName" class="redColor"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                            <div class="form-group">
+                                <label class="pt20">Center Address<span class="redColor">*</span></label>
+                                <div class="form-group2">
+                                    <textarea asp-for="CenterAddress" rows="3" type="text" class="form-control" style="resize:none;"></textarea>
+                                    <span id="spCenterAddress" class="redColor"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                            <div class="form-group">
+                                <button type="button" class="btn btn-primary btn-search" id="btnAddCenter">Add</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<script>
+    $("#btnAddCenter").on('click', function (e) {
+        e.preventDefault();
+
+        $('#AddEditCenter').find('input:text').each(function () {
+            $(this).val($.trim($(this).val()));
+        });
+
+        if ($('#AddEditCenter').valid()) {
+            var formAction = $('#AddEditCenter').attr("action");
+            var fdata = new FormData();
+            var params = $('#AddEditCenter').serializeArray();
+            $.each(params, function (i, val) {
+                fdata.append(val.name, val.value);
+            });
+
+            var IsSuccess = true;
+            var cntName = $("#CenterName").val();
+            var cntAddrs = $("#CenterAddress").val();
+            if (cntName == '' || cntName == undefined) {
+                $('#spCenterName').text('Please enter center name');
+                IsSuccess = false;
+            } else {
+                $('#spCenterName').text('');
+                IsSuccess = true;
+            }
+            if (cntAddrs == '' || cntAddrs == undefined) {
+                $('#spCenterAddress').text('Please enter center address');
+                IsSuccess = false;
+            } else {
+                $('#spCenterAddress').text('');
+                IsSuccess = true;
+            }
+            if (IsSuccess) {
+            var chkData = { centerName: cntName}
+             var urlNameChk = '@Url.Action("IsCenterNameInUse", "CenterMaster")';
+            var IsSuccess = true;
+            $.ajax({
+                type: 'POST',
+                url: urlNameChk,
+                data: chkData,
+                cache: false,
+                dataType: "Json",
+            }).done(function (result) {
+                if (result == true) {
+                    $("#spCenterName").text('Center name is already exists');
+                    IsSuccess=false;
+                } else {
+                    $("#spCenterName").text('');
+                    IsSuccess = true;
+                    $.ajax({
+                        type: 'post',
+                        url: formAction,
+                        data: fdata,
+                        processData: false,
+                        contentType: false
+                    }).done(function (result) {
+                        if (result.isSuccess == true) {
+                            showSuccessMsg('New Center Added Successfully', reload('CenterId', result.CenterId, result.CenterName));
+
+                        } else {
+                            showWarningMsg('something went wrong ');
+                        }
+                    });
+                }
+            });
+            }
+         }
+    });
+
+</script>

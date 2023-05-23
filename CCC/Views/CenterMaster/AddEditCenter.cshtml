@@ -1,0 +1,153 @@
+﻿@using CCC.UI.ViewModels
+@model CenterMasterRequest
+@{
+    ViewData["Title"] = "AddEditCenter";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@*<script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
+<link href="~/lib/bootstrap-datepicker/css/bootstrap-datepicker.min.css" rel="stylesheet" />
+<script src="~/lib/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+<script src="~/lib/jquery.alphanum/jquery.alphanum.min.js"></script>*@
+
+<link href="~/lib/bootstrap-multiselect/bootstrap-multiselect.css" rel="stylesheet" />
+<script src="~/lib/bootstrap-multiselect/bootstrap-multiselect.js"></script>
+
+<form id="AddEditCenter" asp-action="AddEditCenter" asp-controller="CenterMaster" method="post" enctype="multipart/form-data">
+    @Html.HiddenFor(model => model.CenterId, new { @id = "CenterId" })
+    <div class="mainContent">
+        <div class="conHeader">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="pull-left">
+                        <ul class="headerListing backbtn">
+                            <li class="active"> <a href="javascript:void(0);" onclick="BackToManage()"><span class="text"></span> <span class="icon iconBack">&nbsp;</span></a></li>
+                        </ul>
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item active" aria-current="page">Add/Edit Center</li>
+
+                        </ol>
+                        
+                    </div>
+                    <div class="filterMenuIcon"></div>
+                    <div class="pull-right mobileFilterMenu backbtn">
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br /><br />
+        <div class="conInner">
+            <div class=" row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                            <div class="form-group">
+                                <label class="pt20">Center Name<span class="redColor">*</span></label>
+                                <div class="form-group2">
+                                    <input asp-for="CenterName" type="text" class="form-control" />
+                                    <span id="spCenterName" asp-validation-for="CenterName" class="redColor"></span>
+                                    @*<span id="spCenterName" class="redColor"></span>*@
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                            <div class="form-group">
+                                <label class="pt20">Center Address<span class="redColor">*</span></label>
+                                <div class="form-group2">
+                                    <textarea asp-for="CenterAddress" rows="3" type="text" class="form-control" style="resize:none;"></textarea>
+                                    <span asp-validation-for="CenterAddress" class="redColor"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                            <div class="form-group">
+                                <label class="pt20">Description</label>
+                                <div class="form-group2">
+                                    <textarea asp-for="Description" rows="3" type="text" class="form-control" style="resize:none;"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="userBoxFooter">
+                        <div class="pull-right">
+                            <button type="button" class="btn btn-primary btn-search" id="btnSubmit">Submit</button>
+                            <button type="button" class="btn btn-primary btn-search" id="btnCancel">Cancel</button>
+                        </div>
+                    </div>
+                    <div class="bottomSpace">&nbsp;</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<script>
+    $("#btnSubmit").on('click', function (e) {
+        e.preventDefault();
+        $('#AddEditCenter').find('input:text').each(function () {
+            $(this).val($.trim($(this).val()));
+        });
+        if ($('#AddEditCenter').valid()) {
+            var formAction = $('#AddEditCenter').attr("action");
+            var fdata = new FormData();
+            var params = $('#AddEditCenter').serializeArray();
+            $.each(params, function (i, val) {
+                fdata.append(val.name, val.value);
+            });
+
+
+        var CenterName = $("#CenterName").val();
+        var CenterId = $("#CenterId").val();
+        var chkData = { centerName: CenterName, centerId: CenterId}
+        var urlNameChk = '@Url.Action("IsCenterNameInUse", "CenterMaster")';
+            var IsSuccess = true;
+            $.ajax({
+                type: 'POST',
+                url: urlNameChk,
+                data: chkData,
+                cache: false,
+                dataType: "Json",
+            }).done(function (result) {
+                if (result == true) {
+                    $("#spCenterName").text('Center name is already exists');
+                    IsSuccess=false;
+
+                } else {
+                    $("#spCenterName").text('');
+                    IsSuccess = true;
+                    $.ajax({
+                        type: 'post',
+                        url: formAction,
+                        data: fdata,
+                        processData: false,
+                        contentType: false
+                    }).done(function (result) {
+                        if (result.isSuccess == true) {
+                            showSuccessMsg('Success', BackToManage);
+
+                        } else {
+                            showWarningMsg('something went wrong ');
+                        }
+                    });
+                }
+            });            
+        }
+    });
+
+     function BackToManage() {
+        var url = '@Url.Action("ManageCenter", "CenterMaster")';
+        document.location.href = url;
+    }
+
+    $("#btnCancel").on('click', function (e) {
+        BackToManage();
+    });
+</script>

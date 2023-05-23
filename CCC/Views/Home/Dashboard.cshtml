@@ -1,0 +1,150 @@
+﻿@using CCC.UI.ViewModels
+@model SearchPetData
+@{
+    ViewData["Title"] = "Dashboard";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    SelectList lstCenter = ViewBag.lstCenter;
+
+    int totalAdminssionCount = Model.PetCountDetails.Where(x => Convert.ToDateTime(x.AdmissionDate.Date) == DateTime.Now.Date).ToList().Count;
+    int totalSurgryCount = Model.PetCountDetails.Where(x => Convert.ToDateTime(x.SurgeryDate.Value) == DateTime.Now.Date).ToList().Count;
+    int totalReleaseCount = Model.PetCountDetails.Where(x => Convert.ToDateTime(x.ReleaseDate.Value) == DateTime.Now.Date).ToList().Count;
+    var totalExpire = Model.PetCountDetails.Where(x => x.ExpiredDate != null).ToList();
+    int totalExpireCount = totalExpire.Where(x => Convert.ToDateTime(x.ExpiredDate.Value) == DateTime.Now.Date).ToList().Count;
+
+
+}
+
+<style>
+    table {
+        text-align: left;
+        position: relative;
+        border-collapse: collapse;
+    }
+
+    th, td {
+        padding: 0.25rem;
+    }
+
+    th {
+        background: white;
+        position: sticky;
+        top: 0; /* Don't forget this, required for the stickiness */
+        box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.4);
+    }
+</style>
+
+<script>
+    $(document).ready(function () {
+        var count = @Model.TotalCount;
+        if (count > 0) {
+            $("#spPetDataCart").text(count);
+            $("#spPetDataCart").addClass('badge badge-counter');
+        }
+    });
+</script>
+
+<div class="mainContent">
+    <div class="conHeader">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="pull-left">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item active" aria-current="page">Pet Summary | Today</li>
+                        <li><p>View overall details like total admission, surgery, release etc.</p></li>
+                    </ol>
+                </div>
+                <div class="filterMenuIcon"></div>
+                 <div class="date-filters">
+                    <button type="button" class="active">Today</button>
+                    @*<button type="button">This week</button>
+                    <button type="button">This month</button>
+                    <button type="button">Custom Date</button>*@
+                </div>
+            </div>
+        </div>
+    </div>
+    <br />
+    <div class="d-flex db-data-cards mb-4">
+        <div class="card-col">
+            <div class="single-data-card primary-bg rounded-12">
+                <img src='@Url.Content("~/Images/man-with-dog.svg")' class="card-illustration" style="" />
+                <div class="d-flex gap-2">
+                    <img src='@Url.Content("~/Images/admission-icon.svg")' class="" style="" />
+                    <h3 class="flex-1 text-white">Total Admission</h3>
+                </div>
+                <p class="mb-0 card-data-number text-white">@totalAdminssionCount</p>
+            </div>
+        </div>
+        <div class="card-col">
+            <div class="single-data-card rounded-12 bg-white">
+                <img src='@Url.Content("~/Images/card-pattern.svg")' class="card-illustration" style="" />
+                <div class="d-flex gap-2">
+                    <img src='@Url.Content("~/Images/release-icon.svg")' class="" style="" />
+                    <h3 class="flex-1">Total Release</h3>
+                </div>
+                <p class="mb-0 card-data-number primary-text">@totalReleaseCount</p>
+            </div>
+        </div>
+        <div class="card-col">
+            <div class="single-data-card rounded-12 bg-white">
+                <div class="d-flex gap-2">
+                    <img src='@Url.Content("~/Images/surgery-icon.svg")' class="" style="" />
+                    <h3 class="flex-1">Total Surgery</h3>
+                </div>
+                <p class="mb-0 card-data-number primary-text">@totalSurgryCount</p>
+            </div>
+        </div>
+        <div class="card-col">
+            <div class="single-data-card rounded-12 bg-white">
+                <div class="d-flex gap-2">
+                    <img src='@Url.Content("~/Images/expired-icon.svg")' class="" style="" />
+                    <h3 class="flex-1">Total Expired</h3>
+                </div>
+                <p class="mb-0 card-data-number text-red">@totalExpireCount</p>
+            </div>
+        </div>
+    </div>
+    <div class="conInner">
+        <div class="chkTBL">
+            <div class="bulkImpLogHT mngEventpage mobileTablenowrap">
+                <table id="mydatatable" class="table">
+                    <thead>
+                        <tr>
+                            <th>Center</th>
+                            <th>Total Admission</th>
+                            <th>Total Pet Surgery</th>
+                            <th>Total Pet Release</th>
+                            <th>Total Pet Expired</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model.PetCountDetails.Count > 0)
+                        {
+                            foreach (var item in lstCenter)
+                            {
+                                int admissionCount = Model.PetCountDetails.Where(x => Convert.ToDateTime(x.AdmissionDate.Date) == DateTime.Now.Date && x.CenterId == item.Value).ToList().Count;
+                                int surgeryCount = Model.PetCountDetails.Where(x => Convert.ToDateTime(x.SurgeryDate.Value.Date) == DateTime.Now.Date && x.CenterId == item.Value).ToList().Count;
+                                int releaseCount = Model.PetCountDetails.Where(x => Convert.ToDateTime(x.ReleaseDate.Value.Date) == DateTime.Now.Date && x.ExpiredDate == null && x.CenterId == item.Value).ToList().Count;
+                                var expire = Model.PetCountDetails.Where(x => x.ExpiredDate != null && x.CenterId == item.Value).ToList();
+                                int expiredCount = expire.Where(x => Convert.ToDateTime(x.ExpiredDate.Value.Date) == DateTime.Now.Date && x.CenterId == item.Value).ToList().Count;
+
+                                <tr>
+                                    <td>@item.Text</td>
+                                    <td>@admissionCount</td>
+                                    <td>@surgeryCount</td>
+                                    <td>@releaseCount</td>
+                                    <td>@expiredCount</td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+

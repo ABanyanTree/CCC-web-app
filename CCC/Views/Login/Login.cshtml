@@ -1,0 +1,121 @@
+﻿@model UserLoginRequestVM
+@using CCC.UI.ViewModels;
+@using Microsoft.AspNetCore.Http
+
+@{
+    Layout = "~/Views/Shared/_BlankLayout.cshtml";
+    ViewBag.Title = "Login";
+
+    string LoginPageText = ViewBag.loginPageText;
+
+
+    var versionName = Context.Session.GetString("SessionVersionName");
+    string sessionVersion = versionName == null ? "" : Newtonsoft.Json.JsonConvert.DeserializeObject<string>(versionName);
+    string imgPath = string.IsNullOrEmpty(sessionVersion) ? "" : "/" + sessionVersion;
+
+    var footer = Context.Session.GetString("SessionFooterText");
+    string footerText = versionName == null ? "" : Newtonsoft.Json.JsonConvert.DeserializeObject<string>(footer);
+}
+
+<script src="~/js/MD5.js"></script>
+<body class="LoginBg">
+
+    <form asp-action="Login" asp-controller="Login" id="frmLogin">
+        <input type='hidden' name='ReturnUrl' value='@ViewBag.ReturnUrl' />
+        @Html.HiddenFor(x => x.Salt)
+
+
+        <!--Login Updated Page--->
+        <div class="retailHeight login-screen-main">
+                <div class="login-side-view primary-bg">
+                    <div class="login-side-line">
+                    <img src='@Url.Content("~/Images/side-line.svg")' class="" />
+                    </div>
+                <img src='@Url.Content("~/Images/login-illustration.svg")' class="" />
+                </div>
+            <div class="container loginPage">
+                <div class="row">      
+                    
+                    <div class="col-md-5 offset-md-7 rightPanel">
+                        <div class="loginMainWrapper login-wrapper">
+                            <div class="loginContent">
+                                <div class="loginBg sidebar-logo single-sidebar-block">
+                                    <div class="loginHeader">
+                                        <img src='@Url.Content("~/Images/ccc_main_logo1.png")' class="img-responsive" />
+                                        <!--<h2>
+                                            Welcome to CCC Log-->
+                                            @*@Html.Raw(LoginPageText)*@
+                                        <!--</h2>-->
+                                    </div>
+                                    <div class="loginInnerBg login-form">
+                                        <h2 class="heading mb-2">Log in to your account</h2>
+                                        <p class="subhead">Enter your details below</p>
+                                        <div class="form-group">
+                                            <label for="" class="lblText">Username</label>
+                                            <input type="text" asp-for="Email" class="form-control" placeholder="Username / Email Address" tabindex="1" />
+                                            <span asp-validation-for="Email" class="redColor"></span>
+                                        </div>
+                                        <div class="form-group mb3">
+                                            <div class="posRel">
+                                                <label for="" class="lblText">Password</label>
+                                                <input type="password" asp-for="Password" class="form-control" placeholder="Password" tabindex="2" />
+                                                <span asp-validation-for="Password" class="redColor"></span>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                    <div class="loginFooter">
+                                        <button type="submit" id="btnLogin" class="btn btnLogin">Login</button>
+                                    </div>
+                                    <div class="fotPass">
+                                        <a href="javascript:void(0)" onclick="ShowContent('@Url.Action("ForgotPassword", "Login")')" data-toggle="modal" data-target="#myModal">Forgot password</a>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="mainFooter">
+            @*<p>@Html.Raw(footerText)</p>*@
+        </div>
+
+    </form>
+</body>
+<script type="text/javascript">
+    $("#btnLogin").on("click", function (e) {
+        e.preventDefault();
+        var password = $("#Password").val();
+        if (password != '' && password != null && password != undefined) {
+            var salt = $("#Salt").val();
+            var hash = MD5(password);
+            var hashedPwd = MD5(salt + hash);
+            $("#Password").val(hashedPwd);
+        }
+        $("#frmLogin").submit();
+    });
+
+    function ShowContent(url) {
+        $.dialog({
+            title: 'Forgot Password',
+            content: 'url:' + url, columnClass: 'col-md-4 col-md-offset-4'
+        });
+    }
+</script>
+
+@if (TempData["alertMsg"] != null)
+{
+    <script type="text/javascript">
+        debugger;
+        showWarningMsg('@Html.Raw(TempData["alertMsg"])');
+    </script>
+}
+
+
+
+
+
+
+

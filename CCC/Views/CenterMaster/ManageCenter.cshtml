@@ -1,0 +1,324 @@
+﻿@using CCC.UI.ViewModels
+@model CenterMasterRequest
+@{
+    ViewData["Title"] = "Manage Center";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@*<link href="~/css/autocomplete.css" rel="stylesheet" />
+<script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
+<link href="~/lib/bootstrap-datepicker/css/bootstrap-datepicker.min.css" rel="stylesheet" />
+<script src="~/lib/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+<script src="~/js/jquery.btnswitch.js"></script>
+<link href="~/css/jquery.btnswitch.min.css" rel="stylesheet" />
+<link href="~/css/jquery-ui.css" rel="stylesheet" />
+<link href="~/lib/bootstrap-multiselect/bootstrap-multiselect.css" rel="stylesheet" />
+<script src="~/lib/bootstrap-multiselect/bootstrap-multiselect.js"></script>
+<script src="~/js/Datatable1.10.6/fnMultiFilter.js"></script>*@
+
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#mydatatable").tableHeadFixer({ "head": true, "top": 1 });
+        var langUrl = $("#LangUrl").val();
+        var mytable = $('#mydatatable').dataTable({
+            "ajax": {
+                 "url": "@Url.Content("~/CenterMaster/FillTableCenterMasterAsync")",
+                "type": "POST",
+                "error": function (x, y, z) {
+                }
+            },
+            "language":
+            {
+                "url": langUrl
+            },
+            // "aaSorting": [[2, "asc"]],
+            "pageLength": 50,
+            "serverSide": true,
+            "bStateSave": false,
+           // "pagingType": "listbox",  //pagination type using pulgin
+            "processing": true,
+            "pagingType": "full_numbers",  //pagination type using pulgin
+            "dom": '<"top"i>rt<"bottom"flp><"clear">',
+            "filter": false,
+            "oLanguage": {
+            "oPaginate": {
+            "sFirst": "<i class='fa fa-angle-double-left'></i>",
+            "sPrevious": "«",
+            "sNext": "»",
+            "sLast": "<i class='fa fa-angle-double-right'></i>"
+             }
+            },
+            //"sDom": 'lrtip',
+           "bDeferRender": true,//hide the default search filter textbox by removing "f"
+            "aoColumns":
+                [
+
+                    { "data": "CenterName", "sName": "CenterName" },
+                    { "data": "CenterAddress", "sName": "CenterAddress" },
+                    { "data": "Description", "sName": "Description" },
+                    {
+                        "data": "CenterId", "sName": "", "class": "editTD", "orderable": false, "mRender": function (data, type, full) {
+                              if (data != null) {
+                                   return "<a class='AddEditBtnPop' onClick=EditEvent('" + data + "')><i class='fa fa-edit'></i></a>";
+                                //return "<div class='tablehoverbuttons'> <i class='fa fa-ellipsis-h'></i> <div class='buttonshover'><div class='editbtn'><a class='' href='javascript:void(0);' onClick=EditEvent('" + data + "')><span><img title='Edit' src='@Url.Content("~/images/edit.png")' /></span></a></div> </div> </div>";
+                            }
+                            else
+                                return "";
+                        }
+                      },
+                      {
+                          "data": "CenterId", "sName": "", "class": "deleteTD", "orderable": false, "mRender": function (data, type, full) {
+                              if (data != null) {
+                                  return "<a class='del' onClick=DeleteEvent('" + data + "')><i class='fa fa-trash'></i></a>";
+                                //return "<div class='tablehoverbuttons'> <i class='fa fa-ellipsis-h'></i> <div class='buttonshover'><div class='editbtn'><a class='' href='javascript:void(0);' onClick=DeleteEvent('" + data + "')><span><img title='Delete' src='@Url.Content("~/images/delete grey.png")' /></span></a></div> </div> </div>";
+                            }
+                            else
+                                return "";
+                        }
+                      },
+
+                ]
+        });
+        mytable.on('order.dt', function () { $('.dataTables_paginate,.dataTables_info').show(); });
+        mytable.on('length.dt', function (e, settings, len) { $('.dataTables_paginate,.dataTables_info').show(); });
+
+        $("#divDataTable_length").append($(".dataTables_info"));
+        $("#divdataTables_info").append($(".dataTables_length"));
+        $("#divdataTables_info").append($(".dataTables_paginate"));
+
+        function fnGetDataForActivities() {
+
+            var searchObj = new Object();
+            searchObj.CenterName = $('#txtCenterName').val();
+            return searchObj;
+        }
+
+        function fnFilterActivities() {
+            searchObj = fnGetDataForActivities();
+            var cnterName = searchObj.CenterName;
+            $('#mydatatable').dataTable().fnMultiFilter({
+                "CenterName": cnterName
+            });
+        }
+
+        function clearfilter() {
+            $('#txtCenterName').val('');
+            fnFilterActivities();
+        }
+
+        $('#btnClear').click(function () {
+            clearfilter();
+        });
+
+
+        $('#btnSearch1').click(function () {
+            fnFilterActivities();
+        });
+
+
+        $("#txtCenterName").keyup(function (e) {
+            if (e.which == 13) {
+                fnFilterActivities();
+            }
+        });
+
+    });
+
+</script>
+
+
+
+<div class="mainContent">
+    <div class="conHeader">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="pull-left">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item active" aria-current="page">Manage Center</li>
+                        <li><p>You can manage all centre related tasks here</p></li>
+                    </ol>
+                </div>
+                <div class="filterMenuIcon"></div>
+               
+            </div>
+        </div>
+    </div>
+
+    <div class="conInner">
+        <div class="conInner">
+            <div class="mobileFilter">
+                <div class="hideShowfilter">
+                    <div class="filterData mobilecofilters">
+                        <div class="formGroupTop pos mobile4Lis">
+                            <ul class="formGroupTopListing">
+                                @*<li>
+                                    <div class="form-group" style="margin-top:3px;">
+                                        <label class="pt20">Center Name</label>
+                                    </div>
+                                </li>*@
+                                <li class="firstLastName">
+                                    <div class="filter-box search-box">
+                                        <span class="input-group-text">
+                                            <svg width="17" height="16" fill="none" viewBox="0 0 17 16">
+                                                <path stroke="#354056" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2" d="M7.915 14a6.333 6.333 0 1 0 0-12.667 6.333 6.333 0 0 0 0 12.667Zm7 .667-1.333-1.334"></path>
+                                            </svg>
+                                        </span>
+                                        <div class="form-group">                                            
+                                            <input asp-for="CenterName" type="text" id="txtCenterName" class="form-control" placeholder="Search centre name" />
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="form-group">
+                                        <button type="button" class="btn btn-primary btn-search" id="btnSearch1"><img src='@Url.Content("~/images/search.png")' /> </button>
+                                        <button type="button" class="btn btn-default btn-clear" id="btnClear"><img src='@Url.Content("~/images/refresh.png")' /></button>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pull-right mobileFilterMenu">
+                <ul class="headerListing">
+                    @*<li class="active"><button type="button" id="btnNewUrl" class="btn btnDefault AddEditBtn">Add New</button></li>*@
+                    <li class="active">
+                        <a class="addcenterbutton" href="javascript:void(0);" onclick="AddEvent()">
+                            <span class="text">
+                                + Add new center
+                            </span>
+                            @*<span class="icon iconUser">&nbsp;</span>*@
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <br /><br /><br />
+        <div class="chkTBL">
+            <div class="bulkImpLogHT mngEventpage mobileTablenowrap">
+                <table id="mydatatable" class="table">
+                    <thead>
+                        <tr>
+                            <th>Center Name</th>
+                            <th>Address</th>
+                            <th>Description</th>
+                            <th align="left" class="editTD">Edit</th>
+                            <th align="left" class="deleteTD">Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+        <div id="divdataTables_info"></div>
+        @*<div id="divDataTable_length"></div>*@
+    </div>
+
+</div>
+
+
+
+
+
+
+<script>
+
+     @*$("#btnNewUrl").click(function () {
+        var url = '@Url.Action("AddEditPetData", "PetService");
+        document.location.href = url;
+    });*@
+
+    function AddEvent() {
+          var url = '@Url.Action("AddEditCenter", "CenterMaster")';
+        document.location.href = url;
+        //AddEditDialog(url, "Add New Center");
+    }
+    function EditEvent(centerId) {
+      var url = '@Url.Action("AddEditCenter", "CenterMaster")?centerId=' + centerId + '';
+      document.location.href = url;
+    }
+
+
+    //$("#showBtnID").click(function () {
+    //    $(".hideShowfilter").slideDown();
+    //    $("#showBtnID").hide();
+    //});
+
+    //$("#hideBtnId").click(function () {
+    //    $(".hideShowfilter").slideUp();
+    //    $("#showBtnID").show();
+    //});
+
+</script>
+
+<script type="text/javascript">
+    function AddEditDialog(_url, _title) {
+        $.dialog({
+            title: _title,
+            content: 'url:' + _url,
+            columnClass: 'col-md-8 col-md-offset-2',
+            alignMiddle: true,
+            onClose: function () {
+
+            }
+        });
+    }
+
+    function DeleteEvent(CenterId) {
+                    $.confirm({
+                title: 'Confirm',
+                content: "Are you sure want to delete this Center?",
+                buttons: {
+                    confirm: function () {
+
+                        $.ajax({
+                            url: "@Url.Content("~/CenterMaster/IsInUseCount")",
+                            type: "POST",
+                            dataType: "json",
+                            data: { CenterId: CenterId },
+                            success: function (result) {
+                                if (result.isSuccess == true && parseInt(result.Count) > 0) {
+                                    showWarningMsg('Center does not delete, This Center associated with the other data.');
+                                }
+                                else if (result.isSuccess == true && parseInt(result.Count) == 0) {
+                                         $.ajax({
+                                             url: "@Url.Content("~/CenterMaster/DeleteCenter")",
+                                             type: "Delete",
+                                             dataType: "json",
+                                             data: { CenterId: CenterId },
+                                             success: function (result) {
+
+                                                 if (result.isSuccess == true) {
+                                                     showSuccessMsg('Center deleted successfully.', BackToManage);
+                                                }
+                                                else {
+                                                showWarningMsg('something went wrong');
+                                                }
+                                            }
+                                        });
+                                    }
+                                    else {
+                                    showWarningMsg('something went wrong');
+                                    }
+                            }
+                        });
+
+
+
+
+
+                    },
+                    cancel: function () {
+
+                    }
+                }
+            });
+    }
+    function BackToManage() {
+        var url = '@Url.Action("ManageCenter", "CenterMaster")';
+        document.location.href = url;
+    }
+</script>

@@ -1,0 +1,90 @@
+﻿@using CCC.UI.ViewModels
+@model CreatePetService
+@{
+    SelectList lstCenter = ViewBag.lstCenter;    
+}
+
+
+<form id="ChangeCenter" asp-action="ChangeCenter" asp-controller="PetService" method="post" enctype="multipart/form-data">
+    @Html.HiddenFor(model => model.ServiceId, new { @id = "ServiceId" })
+    <div class="mainContent">
+        @*<div class="conHeader">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="pull-left">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item active" aria-current="page">Add/Edit Center</li>
+                        </ol>
+                    </div>
+                    <div class="filterMenuIcon"></div>
+                    <div class="pull-right mobileFilterMenu">
+                        <ul class="headerListing">
+                            <li class="active"> <a href="javascript:void(0);" onclick="BackToManage()"><span class="text">Back</span> <span class="icon iconUser">&nbsp;</span></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>*@
+        <br /><br />
+        <div class="conInner">
+            <div class=" row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                            <div class="form-group">
+                                <label>Center</label>
+                                <select asp-for="CenterId" asp-items="lstCenter" class="form-control">
+                                    <option value="">--Select--</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                            <div class="form-group">
+                                <button type="button" class="btn btn-primary btn-search" style="margin-top: 8%;" id="btnChangeCenters">Change Center</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>            
+        </div>
+    </div>
+</form>
+
+<script>
+    $("#btnChangeCenters").on('click', function (e) {        
+        var centerId = $('#CenterId').val();
+        if (centerId == '' || centerId == undefined) {
+            showWarningMsg('Please select center');
+            return false;
+        }
+
+        if ($('#ChangeCenter').valid()) {
+            var formAction = $('#ChangeCenter').attr("action");
+            var fdata = new FormData();
+            var params = $('#ChangeCenter').serializeArray();
+            $.each(params, function (i, val) {
+                fdata.append(val.name, val.value);
+            });
+            $.ajax({
+                type: 'post',
+                url: formAction,
+                data: fdata,
+                processData: false,
+                contentType: false
+            }).done(function (result) {
+                if (result.isSuccess == true) {
+                    showSuccessMsg('Center changed successfully',clsDailog);
+                } else {
+                    showWarningMsg('something went wrong ');
+                }
+            });
+        }
+
+    });
+
+    function clsDailog() {
+        $(".jconfirm-closeIcon").trigger('click');
+        var url = '@Url.Action("ManagePetService", "PetService")';
+        document.location.href = url;
+    }
+</script>

@@ -1,0 +1,43 @@
+﻿@using CCC.UI.ViewModels
+@model List<PetDataNotificationResponse>
+
+<div id="dvContactList">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="table-responsive mimTable">
+            <table class="table rmvtbl Tbl_ClientContacts">
+                <thead>
+                    <tr>
+                        <th>Pet</th>
+                        <th>Gender</th>
+                        <th>Center Name</th>
+                        <th>Surgery Date</th>
+                        <th>Edit</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.Count > 0)
+                    {
+                        foreach (PetDataNotificationResponse item in Model)
+                        {
+                            <tr>
+                                <td>@item.PetType</td>
+                                <td>@item.Gender</td>
+                                <td>@item.CenterName</td>
+                                <td>@item.SurgeryDateDisplay</td>
+                                <td><a class='AddEditBtnPop' href='@Url.Content("~/PetService/AddEditPetData")?serviceId=@item.ServiceId&redirectFrom=petservice'><i class='fa fa-edit'></i></a></td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+            <div class="bottomSpace">&nbsp;</div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $("#spPetDataCart").text('');
+        $("#spPetDataCart").removeClass('badge badge-counter');
+    });
+</script>

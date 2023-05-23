@@ -1,0 +1,273 @@
+﻿@using CCC.UI.ViewModels
+@model SearchPetData
+@{
+    ViewData["Title"] = "Center Manager Dashboard";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    SelectList lstCenter = ViewBag.lstCenter;
+    SelectList lstCityArea = ViewBag.lstCityArea;
+    //SelectList lstVet = ViewBag.lstVet;
+    //SelectList lstPetType = ViewBag.lstPetType;
+
+}
+
+@*<link href="~/css/autocomplete.css" rel="stylesheet" />
+<script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
+<link href="~/lib/bootstrap-datepicker/css/bootstrap-datepicker.min.css" rel="stylesheet" />
+<script src="~/lib/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+<script src="~/js/jquery.btnswitch.js"></script>
+<link href="~/css/jquery.btnswitch.min.css" rel="stylesheet" />
+<link href="~/css/jquery-ui.css" rel="stylesheet" />
+
+<link href="~/lib/bootstrap-multiselect/bootstrap-multiselect.css" rel="stylesheet" />
+<script src="~/lib/bootstrap-multiselect/bootstrap-multiselect.js"></script>*@
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#mydatatable").tableHeadFixer({ "head": true, "top": 1 });
+        var langUrl = $("#LangUrl").val();
+        var mytable = $('#mydatatable').dataTable({
+            "ajax": {
+                "url": "@Url.Content("~/Home/FillTableCMDashboardAsync")",
+                "type": "POST",
+                "error": function (x, y, z) {
+                }
+            },
+            "dataSrc": function (json) {
+                if (json.Columns != null && json.Columns.length > 0) {
+                    for (var i = 0; i < json.Columns.length; i++) {
+                        //if (json.Columns[i].ColName == "ShowName")
+                        //    $(".filterShowName").val(json.Columns[i].ColValue);
+                    }
+                }
+                if (json.IsResetPaging) {
+                    mytable.fnPageChange(0);
+                }
+                return json.data;
+            },
+            "aaSorting": [[1, "asc"]],
+            "pageLength": 50,
+            "serverSide": true,
+            "bStateSave": false,
+            // "pagingType": "listbox",  //pagination type using pulgin
+            "processing": true,
+            "pagingType": "full_numbers",  //pagination type using pulgin
+            "dom": '<"top"i>rt<"bottom"flp><"clear">',
+            "filter": false,
+            "oLanguage": {
+                "oPaginate": {
+                    "sFirst": "<i class='fa fa-angle-double-left'></i>",
+                    "sPrevious": "«",
+                    "sNext": "»",
+                    "sLast": "<i class='fa fa-angle-double-right'></i>"
+                }
+            },
+            //"sDom": 'lrtip',
+            "bDeferRender": true,//hide the default search filter textbox by removing "f"
+            "aoColumns":
+                [
+                    { "data": "PetType", "sName": "PetType" },
+                    { "data": "SurgeryDateDisplay", "sName": "SurgeryDate" },
+                    { "data": "OnHoldDays", "sName": "OnHoldDays" },
+                    { "data": "VetName", "sName": "VetName" },
+                    { "data": "CenterName", "sName": "CenterName" },
+                    { "data": "AreaName", "sName": "AreaName" },
+                     {
+                        "data": "ServiceId", "sName": "", "class": "editTD", "orderable": false, "mRender": function (data, type, full) {
+                              if (data != null) {
+                                  var rlDate = full.ReleaseDate;
+                                  var exDate = full.ExpiredDate;
+                                  if (rlDate == null || rlDate == '' || rlDate == undefined || exDate== null || exDate == '' || exDate == undefined) {
+                                      return "<a class='AddEditBtnPop' onClick=EditEvent('" + data + "')><i class='fa fa-edit'></i></a>";
+                                      //return "<div class='tablehoverbuttons'> <i class='fa fa-ellipsis-h'></i> <div class='buttonshover'><div class='editbtn'><a class='' href='javascript:void(0);' onClick=EditEvent('" + data + "')><span><img title='Edit' src='@Url.Content("~/images/edit.png")' /></span></a></div> </div> </div>";
+                                  } else {
+                                      return "";
+                                  }
+                            }
+                            else
+                                return "";
+                        }
+                    },
+                    { "data": "CenterId", "sName": "CenterId", "visible": false },
+                    { "data": "AreaId", "sName": "AreaId", "visible": false},
+                ]
+        });
+        mytable.on('order.dt', function () { $('.dataTables_paginate,.dataTables_info').show(); });
+        mytable.on('length.dt', function (e, settings, len) { $('.dataTables_paginate,.dataTables_info').show(); });
+
+
+        mytable.on("click", "th.select-checkbox", function () {
+            var chkAll = this;
+            var chkAllEl = $(this).find(".chkclass");
+            var chkRows = $("#mydatatable").find(".chkclass");
+            chkRows.each(function () {
+                $(this)[0].checked = chkAllEl[0].checked;
+            });
+        });
+
+        mytable.on('click', 'td .chkclass', function () {
+            var chkAll = $("th.select-checkbox .chkclass");
+            chkAll.attr("checked", "checked");
+            var chkRows = $("#mydatatable").find(".chkclass").prop("checked");
+            var rowCount = $('#mydatatable tbody tr').length;
+            var count = 0;
+            $("#mydatatable tbody tr").each(function () { if ($(this).find('.chkclass').is(':checked')) { count++; } });
+            if (count === rowCount) { chkAll.prop("checked", true); } else { chkAll.prop("checked", false); }
+        });
+
+
+
+        $("#divDataTable_length").append($(".dataTables_info"));
+        $("#divdataTables_info").append($(".dataTables_length"));
+        $("#divdataTables_info").append($(".dataTables_paginate"));
+
+        function fnGetDataForActivities() {
+            var searchObj = new Object();
+            searchObj.CenterId = $('#ddlCenter').val();
+            searchObj.AreaId = $('#ddlArea').val();
+            return searchObj;
+        }
+
+        function fnFilterActivities() {
+            searchObj = fnGetDataForActivities();
+            $("#mydatatable").dataTable().fnMultiFilter({
+                "CenterId": searchObj.CenterId,
+                "AreaId": searchObj.AreaId
+            });
+        }
+
+        function clearfilter() {
+            $('#pnlSearch').find('input:text').val('');
+            $("#pnlSearch select").each(function () {
+                $(this).val('');
+            });
+            fnFilterActivities();
+        }
+
+        $('#btnClear').click(function () {
+            clearfilter();
+        });
+
+
+        $('#btnSearch1').click(function () {
+            fnFilterActivities();
+        });
+
+
+        $("#CenterId").keyup(function (e) {
+            if (e.which == 13) {
+                fnFilterActivities();
+            }
+        });
+    });
+
+</script>
+
+
+<div class="mainContent">
+    <div class="conHeader">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="pull-left">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item active" aria-current="page">Pet Data(Not Released)</li>
+                    </ol>
+                </div>
+                <div class="filterMenuIcon"></div>
+                @*<div class="pull-right mobileFilterMenu">
+                        <ul class="headerListing">
+                            <li class="active"> <a href="javascript:void(0);" onclick="AddEvent()"><span class="text">Add</span> <span class="icon iconUser">&nbsp;</span></a></li>
+                        </ul>
+                    </div>*@
+            </div>
+        </div>
+    </div>
+    <div class="conInner">
+        <div class="conInner">
+            <div class="mobileFilter">
+                <div class="hideShowfilter">
+                    <div class="filterData mobilecofilters">
+                        <div class="formGroupTop pos mobile4Lis" id="pnlSearch">
+                            <div class="row">
+                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                    <div class="form-group">
+                                        <label>Center</label>
+                                        <select asp-for="CenterId" asp-items="lstCenter" id="ddlCenter" class="form-control">
+                                            <option value="">--Select--</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                    <div class="form-group">
+                                        <label>Area</label>
+                                        <select asp-for="AreaId" asp-items="lstCityArea" id="ddlArea" class="form-control">
+                                            <option value="">--Select--</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <div class="userBoxFooter">
+                                        <div class="pull-right">
+                                            <div class="form-group"></div>
+                                            <button type="button" class="btn btn-primary btn-search" id="btnSearch1"><img src='@Url.Content("~/images/search.png")' /> </button>
+                                            <button type="button" class="btn btn-default btn-clear" id="btnClear"><img src='@Url.Content("~/images/refresh.png")' /></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="chkTBL">
+            <div class="bulkImpLogHT mngEventpage mobileTablenowrap">
+                <table id="mydatatable" class="table">
+                    <thead>
+                        <tr>
+                            <th>Pet</th>
+                            <th>Surgery Date</th>
+                            <th>Total Days<br />(After Surgery)</th>
+                            <th>Vet Name</th>
+                            <th>Center Name</th>
+                            <th>Area Name</th>
+                            <th align="left" class="editTD">Edit</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+        <div id="divdataTables_info"></div>
+        <div id="divDataTable_length"></div>
+    </div>
+
+</div>
+
+
+
+
+
+<script>
+    function AddEvent() {
+        var url = '@Url.Action("AddEditPetData", "PetService")';
+        document.location.href = url;
+    }
+    function EditEvent(serviceId) {
+        var url = '@Url.Action("AddEditPetData", "PetService")?serviceId=' + serviceId + '&redirectFrom=dashboard';
+        document.location.href = url;
+    }
+
+     $(document).ready(function () {
+        var count =@Model.TotalCount;
+        if (count > 0) {
+            $("#spPetDataCart").text(count);
+            $("#spPetDataCart").addClass('badge badge-counter');
+        }
+    });
+
+</script>
+
+
