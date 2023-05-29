@@ -153,7 +153,7 @@ namespace CCC.UI.Controllers
                         data.totalSurgeryCount = lst1.Where(x => x.VetId == vet && x.ReleaseDate != null && x.IsOnHold == false && x.ExpiredDate == null &&
                         (x.ReleaseDate.Value.Date <= x.AdmissionDate.Date.AddDays(7))).ToList().Count;
 
-                        data.totalComplicationCount = lst1.Where(x => x.VetId == vet && x.IsOnHold == false && x.ExpiredDate == null &&
+                        data.totalComplicationCount = lst1.Where(x => x.VetId == vet && x.IsOnHold==true &&
                          (x.ReleaseDate == null || x.ReleaseDate.Value.Date > x.AdmissionDate.Date.AddDays(7))).ToList().Count;
 
                         decimal complication = (data.totalSurgeryCount == 0 ? 0 
@@ -295,10 +295,10 @@ namespace CCC.UI.Controllers
                         //int d_complication_FeMale = dogData.Where(x => x.Gender == CommonConstants.LOOKUPTYPE_PETGENDER_FEMALE && !string.IsNullOrEmpty(x.MedicalNoteId) && x.IsOnHold == false && x.ExpiredDate == null && x.SurgeryDate != null &&
                         // (x.ReleaseDate == null || x.ReleaseDate.Value.Date > x.AdmissionDate.Date.AddDays(7))).ToList().Count;
 
-                        int d_complication_Male = dogData.Where(x => x.Gender == CommonConstants.LOOKUPTYPE_PETGENDER_MALE && x.IsOnHold == false && x.ExpiredDate == null &&
+                        int d_complication_Male = dogData.Where(x => x.Gender == CommonConstants.LOOKUPTYPE_PETGENDER_MALE && x.IsOnHold == true && x.ExpiredDate == null &&
                         (x.ReleaseDate == null || x.ReleaseDate.Value.Date > x.AdmissionDate.Date.AddDays(7))).ToList().Count;
 
-                        int d_complication_FeMale = dogData.Where(x => x.Gender == CommonConstants.LOOKUPTYPE_PETGENDER_FEMALE && x.IsOnHold == false && x.ExpiredDate == null &&
+                        int d_complication_FeMale = dogData.Where(x => x.Gender == CommonConstants.LOOKUPTYPE_PETGENDER_FEMALE && x.IsOnHold == true && x.ExpiredDate == null &&
                          (x.ReleaseDate == null || x.ReleaseDate.Value.Date > x.AdmissionDate.Date.AddDays(7))).ToList().Count;
 
                         //int d_sterilised_Male = dogData.Where(x => x.Gender == CommonConstants.LOOKUPTYPE_PETGENDER_MALE && x.ReleaseDate != null && x.ExpiredDate == null &&
@@ -333,10 +333,10 @@ namespace CCC.UI.Controllers
                         //(string.IsNullOrEmpty(x.MedicalNoteId) || x.ReleaseDate.Value.Date <= x.AdmissionDate.Date.AddDays(7))).ToList().Count;
 
 
-                        int c_complication_Male = catData.Where(x => x.Gender == CommonConstants.LOOKUPTYPE_PETGENDER_MALE && x.IsOnHold == false && x.ExpiredDate == null &&
+                        int c_complication_Male = catData.Where(x => x.Gender == CommonConstants.LOOKUPTYPE_PETGENDER_MALE && x.IsOnHold == true && x.ExpiredDate == null &&
                          (x.ReleaseDate == null || x.ReleaseDate.Value.Date > x.AdmissionDate.Date.AddDays(7))).ToList().Count;
 
-                        int c_complication_FeMale = catData.Where(x => x.Gender == CommonConstants.LOOKUPTYPE_PETGENDER_FEMALE && x.IsOnHold == false && x.ExpiredDate == null &&
+                        int c_complication_FeMale = catData.Where(x => x.Gender == CommonConstants.LOOKUPTYPE_PETGENDER_FEMALE && x.IsOnHold == true && x.ExpiredDate == null &&
                          (x.ReleaseDate == null || x.ReleaseDate.Value.Date > x.AdmissionDate.Date.AddDays(7))).ToList().Count;
 
                         int c_sterilised_Male = catData.Where(x => x.Gender == CommonConstants.LOOKUPTYPE_PETGENDER_MALE && x.ReleaseDate != null && x.IsOnHold == false && x.ExpiredDate == null &&

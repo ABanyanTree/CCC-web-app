@@ -104,8 +104,14 @@ namespace CCC.Data.Services
 
         public async Task<IEnumerable<PetServiceDetails>> GetCenterReportData(PetServiceDetails obj)
         {
-            string[] addParams = new string[] {PetServiceDetails_Constant.CENTERID,PetServiceDetails_Constant.ADMISSIONDATEFROM,
-                PetServiceDetails_Constant.ADMISSIONDATETO};
+            string[] addParams = new string[] 
+            {
+                PetServiceDetails_Constant.CENTERID
+                ,PetServiceDetails_Constant.ADMISSIONDATEFROM
+                ,PetServiceDetails_Constant.ADMISSIONDATETO
+                ,PetServiceDetails_Constant.SURGERYDATEFROM
+                ,PetServiceDetails_Constant.SURGERYDATETO
+            };
             return await GetAllAsync(obj, addParams, PetServiceDetails_Constant.SPROC_GETCENTERREPORT);
         }
     }

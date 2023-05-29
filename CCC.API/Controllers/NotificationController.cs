@@ -54,9 +54,10 @@ namespace CCC.API.Controllers
         [ProducesResponseType(typeof(bool), statusCode: 200)]
         public async Task<IActionResult> VetReportNotification()
         {
-            throw new Exception("Not found");
-            //await _notificationService.MonthlyReport();
-            return Ok("true");
+            
+            await _notificationService.MonthlyReport();
+            WriteFile();
+            return Ok("true-sent");
 
             DateTime today = DateTime.Now;
             if (today.Day == 15)
@@ -337,6 +338,24 @@ namespace CCC.API.Controllers
             }
             return Ok(false);
         }
+        public void WriteFile()
+        {
+            
+            string path = Path.Combine(AppContext.BaseDirectory, "TestFiles");
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+            path = Path.Combine(path, "test.txt");
+            using (StreamWriter writer = new StreamWriter(path, true))
+            {
+                string s = string.Format("This is test : - {0}", DateTime.Now.ToShortDateString());
+                writer.WriteLine(s);
+                writer.Close();
+            }
+        }
+
+
 
         #region -- All Excel Design Stuff --
 
