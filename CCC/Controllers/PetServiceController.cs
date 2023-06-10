@@ -42,12 +42,19 @@ namespace CCC.UI.Controllers
                 AuthorizationHeaderValueGetter = () => Task.FromResult(cachedToken)
             });
 
+            var LookupMasterAPI = RestService.For<ILookupMasterApi>(hostUrl: ApplicationSettings.WebApiUrl, new RefitSettings
+            {
+                AuthorizationHeaderValueGetter = () => Task.FromResult(cachedToken)
+            });
+
             var centerRes = await CenterMasterAPI.GetAllCenters(objSessionUser.UserCenters);
             ViewBag.lstCenter = new SelectList(centerRes.Content, "CenterId", "CenterName");
 
             var cityAreaRes = await CityAreaMasterAPI.GetAllCityAreas();
             ViewBag.lstCityArea = new SelectList(cityAreaRes.Content, "AreaId", "AreaName");
 
+            var Colors = await LookupMasterAPI.GetLookupData(CommonConstants.LOOKUPTYPE_COLOR);
+            ViewBag.lstColors = new SelectList(Colors.Content, "LookupId", "LookupValue");
 
             var objResponse = await PetServiceAPI.GetPetUnReadData(objSessionUser.UserId, objSessionUser.IsAdmin);
             obj.TotalCount = objResponse.Content != null ? objResponse.Content.TotalCount : 0;
@@ -84,7 +91,17 @@ namespace CCC.UI.Controllers
             //    searchObj.Status = true;
 
             if (!string.IsNullOrEmpty(dt.SortColumnName))
-                searchObj.SortExp = dt.SortColumnName + " " + sortdir;
+            {
+                if (dt.SortColumnName == "PetType")
+                {
+                    searchObj.SortExp = "lk.LookupValue" + " " + sortdir;
+                }
+                else
+                {
+                    searchObj.SortExp = dt.SortColumnName + " " + sortdir;
+                }
+                
+            }
 
             searchObj.PageSize = iPageSize;
 
@@ -110,10 +127,17 @@ namespace CCC.UI.Controllers
                             }
                             break;
 
+
                         case "AreaId":
                             if (!string.IsNullOrEmpty(col.Search.Value))
                             {
                                 searchObj.AreaId = col.Search.Value.Trim();
+                            }
+                            break;
+                        case "Color":
+                            if (!string.IsNullOrEmpty(col.Search.Value))
+                            {
+                                searchObj.Color = col.Search.Value.Trim();
                             }
                             break;
                         case "AdmissionDateFrom":
@@ -236,7 +260,11 @@ namespace CCC.UI.Controllers
 
             var MedicalNotes = await LookupMasterAPI.GetLookupData(CommonConstants.LOOKUPTYPE_MEDICALNOTES);
             ViewBag.lstMedicalNotes = new SelectList(MedicalNotes.Content, "LookupId", "LookupValue");
-           
+
+
+            var Colors = await LookupMasterAPI.GetLookupData(CommonConstants.LOOKUPTYPE_COLOR);
+            ViewBag.lstColors = new SelectList(Colors.Content, "LookupId", "LookupValue");
+
 
             CreatePetService model = new CreatePetService();
             model.IsAdmin = objSessionUser.IsAdmin;

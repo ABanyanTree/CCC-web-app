@@ -41,7 +41,8 @@ namespace CCC.Data.Services
                 PetServiceDetails_Constant.CAUSEOFDEATH,
                 PetServiceDetails_Constant.CREATEDBY,
                 PetServiceDetails_Constant.MODIFIEDBY,
-                PetServiceDetails_Constant.ISACTIVE
+                PetServiceDetails_Constant.ISACTIVE,
+                PetServiceDetails_Constant.COLOR
 
             };
 
@@ -61,6 +62,7 @@ namespace CCC.Data.Services
             PetServiceDetails_Constant.CENTERID,PetServiceDetails_Constant.AREAID,PetServiceDetails_Constant.ADMISSIONDATEFROM,
             PetServiceDetails_Constant.ADMISSIONDATETO,PetServiceDetails_Constant.SURGERYDATEFROM,PetServiceDetails_Constant.SURGERYDATETO,
             PetServiceDetails_Constant.RELEASEDATEFROM,PetServiceDetails_Constant.RELEASEDATETO,BaseEntity_Constant.REQUESTERUSERID,PetServiceDetails_Constant.USERCENTERS
+            ,PetServiceDetails_Constant.COLOR
             };
             return await GetAllAsync(obj, addParams, PetServiceDetails_Constant.SPROC_PETSERVICE_LSTALL);
         }

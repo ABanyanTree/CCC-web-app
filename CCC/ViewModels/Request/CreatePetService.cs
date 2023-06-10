@@ -44,5 +44,7 @@ namespace CCC.UI.ViewModels
         public bool? IsActive { get; set; }
         public bool IsAdmin { get; set; }
         public string redirectFrom { get; set; }
+        public string Color { get; set; }
+
     }
 }

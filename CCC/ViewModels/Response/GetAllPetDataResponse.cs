@@ -72,7 +72,7 @@ namespace CCC.UI.ViewModels
         public decimal complicationPercentage { get; set; }
         public int totalDeathCount { get; set; }
 
-
-
+        public string Color { get; set; }
+        public string ColorValue { get; set; }
     }
 }

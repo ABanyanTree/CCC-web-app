@@ -6,6 +6,7 @@
 
     SelectList lstCenter = ViewBag.lstCenter;
     SelectList lstCityArea = ViewBag.lstCityArea;
+    SelectList lstColors = ViewBag.lstColors;
     //SelectList lstVet = ViewBag.lstVet;
     //SelectList lstPetType = ViewBag.lstPetType;
 
@@ -45,7 +46,7 @@
                 }
                 return json.data;
             },
-            "aaSorting": [[12, "asc"]],
+            "aaSorting": [[13, "asc"]],
             "pageLength": 50,
             "serverSide": true,
             "bStateSave": false,
@@ -79,15 +80,16 @@
                     { "data": "AdmissionDateDisplay", "sName": "AdmissionDate" },
                     { "data": "SurgeryDateDisplay", "sName": "SurgeryDate" },
                    /* { "data": "VanNumber", "sName": "VanNumber" },*/
-                    { "data": "VetName", "sName": "Vet Name" },
+                    { "data": "VetName", "sName": "VetName" },
                     { "data": "PetType", "sName": "PetType" },
-                    { "data": "CertificateNo", "sName": "Certificate No" },
-                    { "data": "TagId", "sName": "Tag Id" },
-                    { "data": "CenterName", "sName": "Center Name" },
-                    { "data": "AreaName", "sName": "Area Name" },
-                    { "data": "CareGiver", "sName": "Care Giver" },
-                    { "data": "ReleaseDateDisplay", "sName": "Release Date" },
-                    { "data": "MedicalComments", "sName": "Medical Comments" },
+                    { "data": "ColorValue", "sName": "Color" },
+                    { "data": "CertificateNo", "sName": "CertificateNo" },
+                    { "data": "TagId", "sName": "TagId" },
+                    { "data": "CenterName", "sName": "CenterName" },
+                    { "data": "AreaName", "sName": "AreaName" },
+                    { "data": "CareGiver", "sName": "CareGiver" },
+                    { "data": "ReleaseDateDisplay", "sName": "ReleaseDate" },
+                    { "data": "MedicalComments", "sName": "MedicalComments" },
                     //{ "data": "CreatorName", "sName": "Created By" },
                     //{ "data": "ModifiorName", "sName": "ModifiorName" },
                      @{<text>
@@ -125,6 +127,7 @@
 
                     { "data": "CenterId", "sName": "CenterId", "visible": false},
                     { "data": "AreaId", "sName": "AreaId", "visible": false},
+                    { "data": "Color", "sName": "Color", "visible": false },
                     { "data": "AdmissionDateFrom", "sName": "AdmissionDateFrom", "visible": false },
                     { "data": "AdmissionDateTo", "sName": "AdmissionDateTo", "visible": false },
                     { "data": "SurgeryDateFrom", "sName": "SurgeryDateFrom", "visible": false },
@@ -167,6 +170,7 @@
             var searchObj = new Object();
             searchObj.CenterId = $('#ddlCenter').val();
             searchObj.AreaId = $('#ddlArea').val();
+            searchObj.Color = $('#ddlColor').val();
             searchObj.AdmissionDateFrom = $('#dtAdmissionDateFrom').val();
             searchObj.AdmissionDateTo = $('#dtAdmissionDateTo').val();
             searchObj.SurgeryDateFrom = $('#dtSurgeryDateFrom').val();
@@ -181,6 +185,7 @@
             $("#mydatatable").dataTable().fnMultiFilter({
                 "CenterId": searchObj.CenterId,
                 "AreaId": searchObj.AreaId,
+                "Color": searchObj.Color,
                 "AdmissionDateFrom": searchObj.AdmissionDateFrom ,
                 "AdmissionDateTo": searchObj.AdmissionDateTo,
                 "SurgeryDateFrom": searchObj.SurgeryDateFrom ,
@@ -292,6 +297,17 @@
                                         </select>
                                     </div>
                                 </div>
+                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                    <div class="form-group">
+                                        <label>Color</label>
+                                        <select asp-for="Color" asp-items="lstColors" id="ddlColor" class="form-control">
+                                            <option value="">--Select--</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            
+                            </div>
+                            <div class="row">
                                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                     <div class="form-group">
                                         <label>Admission Dates</label>
@@ -308,8 +324,6 @@
                                         </ul>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row">
                                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                     <div class="form-group">
                                         <label>Surgery Dates</label>
@@ -380,6 +394,7 @@
                             @*<th>Van Number</th>*@
                             <th>Vet Name</th>
                             <th>Pet</th>
+                            <th>Color</th>
                             <th>Certificate No</th>
                             <th>Tag Id</th>
                             <th>Center Name</th>

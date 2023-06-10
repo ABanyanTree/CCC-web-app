@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -51,6 +52,10 @@ namespace CCC.Domain
         public string UserCenters { get; set; }
         public int OnHoldDays { get; set; }
 
+        public string Color { get; set; }
+
+        public string ColorValue { get; set; }
+
     }
 
     public class PetServiceDetails_Constant : BaseEntity_Constant
@@ -83,6 +88,7 @@ namespace CCC.Domain
         public const string RELEASEDATEFROM = "ReleaseDateFrom";
         public const string RELEASEDATETO = "ReleaseDateTo";
         public const string USERCENTERS = "UserCenters";
+        public const string COLOR = "Color";
 
 
         public const string SPROC_PETSERVICE_UPS = "sproc_PetService_ups";

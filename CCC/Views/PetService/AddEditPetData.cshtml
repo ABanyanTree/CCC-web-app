@@ -10,6 +10,7 @@
     SelectList lstPetType = ViewBag.lstPetType;
     SelectList lstMedicalNotes = ViewBag.lstMedicalNotes;
     SelectList lstVan = ViewBag.lstVan;
+    SelectList lstColors = ViewBag.lstColors;
 
 }
 
@@ -43,7 +44,7 @@
                     <div class="filterMenuIcon"></div>
                     <div class="pull-right mobileFilterMenu">
                         @*<ul class="headerListing">
-                            <li class="active"> <a href="javascript:void(0);" onclick="BackToManage()"><span class="text">Back</span> <span class="icon iconBack">&nbsp;</span></a></li>
+                        <li class="active"> <a href="javascript:void(0);" onclick="BackToManage()"><span class="text">Back</span> <span class="icon iconBack">&nbsp;</span></a></li>
                         </ul>*@
                     </div>
                 </div>
@@ -242,8 +243,27 @@
                 </div>
             </div>
             <div class=" row">
+
+
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="row">
+
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                            <div class="form-group">
+                                <span><label class="pt20">Color</label></span>&nbsp;
+
+                                <div class="form-group2">
+                                    <div class="form-group fullscreen">
+                                        <select asp-for="Color" asp-items="lstColors" class="form-control">
+                                            <option value="">--Select--</option>
+                                        </select>
+                                        <span id="spMedicalNotes" class="redColor"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
                         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
                             <div class="form-group">
                                 <label class="pt20">Expire Date</label>
@@ -356,14 +376,14 @@
         debugger;
         var rediect = $("#redirectFrom").val();
         BackToManage(rediect);
-        });
+    });
     function BackToManage(redirectFrom) {
         if (redirectFrom == 'dashboard') {
             var url = '@Url.Action("CenterManagerDashnoard", "Home")';
-        document.location.href = url;
+            document.location.href = url;
         } else {
             var url = '@Url.Action("ManagePetService", "PetService")';
-        document.location.href = url;
+            document.location.href = url;
         }
 
     }
@@ -399,7 +419,7 @@
     $("#spAddAreaInst").on('click', function () {
         var _url = '@Url.Action("AddAreaQuick", "CityAreaMaster")';
         Dialogcont(_url, 'Add New Area');
-     });
+    });
     $("#spAddVetInst").on('click', function () {
         var _url = '@Url.Action("AddVetQuick", "VetMaster")';
         Dialogcont(_url, 'Add New Vet');
