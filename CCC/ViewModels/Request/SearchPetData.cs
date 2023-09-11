@@ -34,5 +34,9 @@ namespace CCC.UI.ViewModels
         public List<PetCountDetails> PetCountDetails { get; set; }
 
         public string Color { get; set; }
+
+        public bool ShowReleasedPet { get; set; }
+
+        
     }
 }

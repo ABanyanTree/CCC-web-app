@@ -12,7 +12,7 @@
 
 }
 
- <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
 <link href="~/css/autocomplete.css" rel="stylesheet" />
 <link href="~/lib/bootstrap-datepicker/css/bootstrap-datepicker.min.css" rel="stylesheet" />
 <script src="~/lib/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
@@ -68,18 +68,20 @@
             "aoColumns":
                 [
                     /* { "data": "ModifiedDate", "sName": "ModifiedDate", "visible": false },*/
-                   @{<text>
-                      {
-                        "data": "ServiceId", "sName": "", "class": "chkBoxWTD", "orderable": false, "mRender": function (data, type, full) {
-                              return '<div class="chkBoxTD"><input type="checkbox" value="' + data + '" class="chkclass" /></div>';
-                        }
-                    },
-                    </text>}
+    @{
+        <text>
+                        {
+                            "data": "ServiceId", "sName": "", "class": "chkBoxWTD", "orderable": false, "mRender": function (data, type, full) {
+                                return '<div class="chkBoxTD"><input type="checkbox" value="' + data + '" class="chkclass" /></div>';
+                            }
+                        },
+        </text>
+    }
 
 
-                    { "data": "AdmissionDateDisplay", "sName": "AdmissionDate" },
+                        { "data": "AdmissionDateDisplay", "sName": "AdmissionDate" },
                     { "data": "SurgeryDateDisplay", "sName": "SurgeryDate" },
-                   /* { "data": "VanNumber", "sName": "VanNumber" },*/
+                    /* { "data": "VanNumber", "sName": "VanNumber" },*/
                     { "data": "VetName", "sName": "VetName" },
                     { "data": "PetType", "sName": "PetType" },
                     { "data": "ColorValue", "sName": "Color" },
@@ -92,41 +94,43 @@
                     { "data": "MedicalComments", "sName": "MedicalComments" },
                     //{ "data": "CreatorName", "sName": "Created By" },
                     //{ "data": "ModifiorName", "sName": "ModifiorName" },
-                     @{<text>
+    @{
+        <text>
 
-                      {
-                        "data": "ServiceId", "sName": "", "class": "editTD", "orderable": false, "mRender": function (data, type, full) {
-                              if (data != null) {
-                                  //debugger;
-                                  if (full.IsAdmin == true) {
-                                      return "<a class='AddEditBtnPop' onClick=EditEvent('" + data + "')><i class='fa fa-edit'></i></a>";
-                                  } else {
-                                      var rlDate = full.ReleaseDate;
-                                      var exDate = full.ExpiredDate;
-                                      if ((rlDate != null && rlDate != '' && rlDate != undefined) || (exDate != null && exDate != '' && exDate != undefined)) {
-                                          return "";
-                                      } else {
-                                          return "<a class='AddEditBtnPop' onClick=EditEvent('" + data + "')><i class='fa fa-edit'></i></a>";
-                                      }
-                                  }
-                           }
-                            else
-                                return "";
-                        }
-                    },
-                    </text>}
-                     @* {
-                          "data": "ServiceId", "sName": "", "class": "", "orderable": false, "mRender": function (data, type, full) {
-                            if (data != null) {
-                                return "<div class='tablehoverbuttons'> <i class='fa fa-ellipsis-h'></i> <div class='buttonshover'><div class='editbtn'><a class='' href='javascript:void(0);' onClick=DeleteEvent('" + data + "')><span><img title='Delete' src='@Url.Content("~/images/delete grey.png")' /></span></a></div> </div> </div>";
+                        {
+                            "data": "ServiceId", "sName": "", "class": "editTD", "orderable": false, "mRender": function (data, type, full) {
+                                if (data != null) {
+                                    //debugger;
+                                    if (full.IsAdmin == true) {
+                                        return "<a class='AddEditBtnPop' onClick=EditEvent('" + data + "')><i class='fa fa-edit'></i></a>";
+                                    } else {
+                                        var rlDate = full.ReleaseDate;
+                                        var exDate = full.ExpiredDate;
+                                        if ((rlDate != null && rlDate != '' && rlDate != undefined) || (exDate != null && exDate != '' && exDate != undefined)) {
+                                            return "";
+                                        } else {
+                                            return "<a class='AddEditBtnPop' onClick=EditEvent('" + data + "')><i class='fa fa-edit'></i></a>";
+                                        }
+                                    }
+                                }
+                                else
+                                    return "";
                             }
-                            else
-                                return "";
-                        }
+                        },
+        </text>
+    }
+    @* {
+                    "data": "ServiceId", "sName": "", "class": "", "orderable": false, "mRender": function (data, type, full) {
+                    if (data != null) {
+                    return "<div class='tablehoverbuttons'> <i class='fa fa-ellipsis-h'></i> <div class='buttonshover'><div class='editbtn'><a class='' href='javascript:void(0);' onClick=DeleteEvent('" + data + "')><span><img title='Delete' src='@Url.Content("~/images/delete grey.png")' /></span></a></div> </div> </div>";
+                    }
+                    else
+                    return "";
+                    }
                     },*@
 
-                    { "data": "CenterId", "sName": "CenterId", "visible": false},
-                    { "data": "AreaId", "sName": "AreaId", "visible": false},
+                    { "data": "CenterId", "sName": "CenterId", "visible": false },
+                    { "data": "AreaId", "sName": "AreaId", "visible": false },
                     { "data": "Color", "sName": "Color", "visible": false },
                     { "data": "AdmissionDateFrom", "sName": "AdmissionDateFrom", "visible": false },
                     { "data": "AdmissionDateTo", "sName": "AdmissionDateTo", "visible": false },
@@ -134,6 +138,8 @@
                     { "data": "SurgeryDateTo", "sName": "SurgeryDateTo", "visible": false },
                     { "data": "ReleaseDateFrom", "sName": "ReleaseDateFrom", "visible": false },
                     { "data": "ReleaseDateTo", "sName": "ReleaseDateTo", "visible": false },
+                    { "data": "ShowReleasedPet", "sName": "ShowReleasedPet", "visible": false }
+                    
 
                 ]
         });
@@ -177,6 +183,13 @@
             searchObj.SurgeryDateTo = $('#dtSurgeryDateTo').val();
             searchObj.ReleaseDateFrom = $('#dtReleaseDateFrom').val();
             searchObj.ReleaseDateTo = $('#dtReleaseDateTo').val();
+            if ($('#chkShowRPet').is(":checked")) {
+                searchObj.ShowReleasedPet ="1";
+            }
+            else{
+                searchObj.ShowReleasedPet ="0";
+            }
+            searchObj.TagId =$('#txtTagId').val();
             return searchObj;
         }
 
@@ -186,12 +199,14 @@
                 "CenterId": searchObj.CenterId,
                 "AreaId": searchObj.AreaId,
                 "Color": searchObj.Color,
-                "AdmissionDateFrom": searchObj.AdmissionDateFrom ,
+                "AdmissionDateFrom": searchObj.AdmissionDateFrom,
                 "AdmissionDateTo": searchObj.AdmissionDateTo,
-                "SurgeryDateFrom": searchObj.SurgeryDateFrom ,
-                "SurgeryDateTo": searchObj.SurgeryDateTo ,
+                "SurgeryDateFrom": searchObj.SurgeryDateFrom,
+                "SurgeryDateTo": searchObj.SurgeryDateTo,
                 "ReleaseDateFrom": searchObj.ReleaseDateFrom,
-                "ReleaseDateTo": searchObj.ReleaseDateTo ,
+                "ReleaseDateTo": searchObj.ReleaseDateTo,
+                "ShowReleasedPet": searchObj.ShowReleasedPet,
+                "TagId":searchObj.TagId
             });
         }
 
@@ -220,26 +235,26 @@
         });
 
         $("#btnChangeCenter").click(function (e) {
-         e.preventDefault();
-        var checked = mytable.find('input[type="checkbox"]:checked').length;
-        if (checked <= 0) {
-            showWarningMsg('Select at least one pet entry');
-            return false;
-        }
+            e.preventDefault();
+            var checked = mytable.find('input[type="checkbox"]:checked').length;
+            if (checked <= 0) {
+                showWarningMsg('Select at least one pet entry');
+                return false;
+            }
 
-        var serviceIds='';
+            var serviceIds = '';
             mytable.find('input[type="checkbox"]:checked').each(function () {
                 if (this.checked) {
                     serviceIds = serviceIds + ',' + $(this).attr("value");
-            }
-        });
+                }
+            });
 
             var _url = '@Url.Action("ChangeCenter", "PetService")?serviceIds=' + serviceIds;
-        Dialogcont(_url, 'Change Centers');
+            Dialogcont(_url, 'Change Centers');
         });
 
 
-        var count ='@Model.TotalCount';
+        var count = '@Model.TotalCount';
         if (count > 0) {
             $("#spPetDataCart").text(count);
             $("#spPetDataCart").addClass('badge badge-counter');
@@ -270,7 +285,7 @@
                     </ul>
                 </div>
                 <div class="filterMenuIcon"></div>
-               
+
             </div>
         </div>
     </div>
@@ -305,7 +320,14 @@
                                         </select>
                                     </div>
                                 </div>
-                            
+
+                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                    <div class="form-group">
+                                        <label>Tag Id</label>
+                                        <input asp-for="TagId" id="txtTagId" type="text" class="form-control" />
+                                    </div>
+                                </div>
+
                             </div>
                             <div class="row">
                                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
@@ -340,7 +362,7 @@
                                         </ul>
                                     </div>
                                 </div>
-                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" >
                                     <div class="form-group">
                                         <label>Release Dates</label>
                                         <ul class="footageListing dateListing">
@@ -358,15 +380,23 @@
                                 </div>
                             </div>
                             <div class="row">
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" style="padding-top:15px;">
+                                    <div class="form-group">
+                                        <input type="checkbox" id="chkShowRPet" name="chkShowRPet" />
+                                        <label>Show Released</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
                                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                     <div class="userBoxFooter">
                                         <div class="pull-right">
                                             <div class="form-group"></div>
                                             @if (Model.IsAdmin == true)
                                             {
-                                                
-                                                                <button type="button" class="btn btn-primary btn-search" id="btnChangeCenter">Change Center</button>
-                                                           
+
+                                                <button type="button" class="btn btn-primary btn-search" id="btnChangeCenter">Change Center</button>
+
                                             }
                                             <button type="button" class="btn btn-primary btn-search" id="btnSearch1"><img src='@Url.Content("~/images/search.png")' /> </button>
                                             <button type="button" class="btn btn-default btn-clear" id="btnClear"><img src='@Url.Content("~/images/refresh.png")' /></button>
@@ -378,9 +408,9 @@
                     </div>
                 </div>
             </div>
-            
+
         </div>
-        
+
 
         <br /><br /><br />
         <div class="chkTBL">
@@ -403,7 +433,7 @@
                             <th>Release Date</th>
                             <th>Medical Notes/Comments</th>
                             @*<th>Created By</th>
-                                <th>Modified By</th>*@
+                            <th>Modified By</th>*@
                             <th align="left" class="editTD">Edit</th>
                             @*<th>Delete</th>*@
                         </tr>

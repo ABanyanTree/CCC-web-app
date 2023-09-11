@@ -62,7 +62,8 @@ namespace CCC.Data.Services
             PetServiceDetails_Constant.CENTERID,PetServiceDetails_Constant.AREAID,PetServiceDetails_Constant.ADMISSIONDATEFROM,
             PetServiceDetails_Constant.ADMISSIONDATETO,PetServiceDetails_Constant.SURGERYDATEFROM,PetServiceDetails_Constant.SURGERYDATETO,
             PetServiceDetails_Constant.RELEASEDATEFROM,PetServiceDetails_Constant.RELEASEDATETO,BaseEntity_Constant.REQUESTERUSERID,PetServiceDetails_Constant.USERCENTERS
-            ,PetServiceDetails_Constant.COLOR
+            ,PetServiceDetails_Constant.COLOR,PetServiceDetails_Constant.SHOWRELEASEDPET,
+            PetServiceDetails_Constant.TAGID
             };
             return await GetAllAsync(obj, addParams, PetServiceDetails_Constant.SPROC_PETSERVICE_LSTALL);
         }

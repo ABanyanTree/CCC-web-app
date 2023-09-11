@@ -47,6 +47,7 @@ namespace CCC.API.Controllers
         [ProducesResponseType(typeof(List<PetServiceDetails>), statusCode: 200)]
         public async Task<IActionResult> GetAllPetData(PetServiceDetails searchRequest)
         {
+         
             var objResponse = await _iPetService.GetAllAsync(searchRequest);
             return Ok(objResponse);
         }

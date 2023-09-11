@@ -176,6 +176,23 @@ namespace CCC.UI.Controllers
                                 searchObj.ReleaseDateTo = Convert.ToDateTime(col.Search.Value.Trim());
                             }
                             break;
+                        case "ShowReleasedPet":
+                            if (!string.IsNullOrEmpty(col.Search.Value))
+                            {
+                                if (col.Search.Value == "1")
+                                {
+                                    searchObj.ShowReleasedPet = true;
+                                }
+                                else
+                                {
+                                    searchObj.ShowReleasedPet = false;
+                                }
+                            }
+                            break;
+                        case "TagId":
+                            searchObj.TagId= col.Search.Value.Trim();
+                            break;
+                            
                     }
                 }
             }

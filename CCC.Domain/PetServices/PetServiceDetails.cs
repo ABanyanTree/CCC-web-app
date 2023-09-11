@@ -55,6 +55,7 @@ namespace CCC.Domain
         public string Color { get; set; }
 
         public string ColorValue { get; set; }
+        public bool ShowReleasedPet { get; set; } = false;
 
     }
 
@@ -89,6 +90,7 @@ namespace CCC.Domain
         public const string RELEASEDATETO = "ReleaseDateTo";
         public const string USERCENTERS = "UserCenters";
         public const string COLOR = "Color";
+        public const string SHOWRELEASEDPET = "ShowReleasedPet";
 
 
         public const string SPROC_PETSERVICE_UPS = "sproc_PetService_ups";

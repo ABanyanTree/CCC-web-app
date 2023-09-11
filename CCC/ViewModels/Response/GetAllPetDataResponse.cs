@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NLog.Time;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -74,5 +75,7 @@ namespace CCC.UI.ViewModels
 
         public string Color { get; set; }
         public string ColorValue { get; set; }
+
+        public bool ShowReleasedPet { get; set; } = false;
     }
 }

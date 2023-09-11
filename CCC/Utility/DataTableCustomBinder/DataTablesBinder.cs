@@ -210,7 +210,7 @@ namespace DataTables.Mvc
 
                 return columns;
             }
-            catch
+            catch(Exception ex)
             {
                 // Returns an empty column collection to avoid null exceptions.
                 return new List<Column>();
