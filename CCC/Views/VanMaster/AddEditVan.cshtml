@@ -89,6 +89,13 @@
 </form>
 
 <script>
+
+    $(function () {
+        $('#VanNumber').keyup(function () {
+            this.value = this.value.toLocaleUpperCase();
+        });
+    });
+
     $("#btnSubmit").on('click', function (e) {
         e.preventDefault();
 

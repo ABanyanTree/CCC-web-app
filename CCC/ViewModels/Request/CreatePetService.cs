@@ -33,6 +33,8 @@ namespace CCC.UI.ViewModels
         public DateTime? SurgeryDate { get; set; }
         public DateTime? ReleaseDate { get; set; }
         public string MedicalNoteId { get; set; }
+
+        [Required(ErrorMessage = "Please select Van Number")]
         public string VanId { get; set; }
         public bool? IsEarNotch { get; set; }
         public bool? IsARV { get; set; }

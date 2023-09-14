@@ -79,23 +79,34 @@
                         </div>
                         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
                             <div class="form-group">
-                                <label class="pt20">Certificate No<span class="redColor">*</span></label>
+                                <span><label class="pt20">Colour</label></span>&nbsp;
+
                                 <div class="form-group2">
-                                    <input asp-for="CertificateNo" type="text" class="form-control" />
-                                    <span asp-validation-for="CertificateNo" class="redColor"></span>
+                                    <div class="form-group fullscreen">
+                                        <select asp-for="Color" asp-items="lstColors" class="form-control">
+                                            <option value="">--Select--</option>
+                                        </select>
+                                        <span id="spMedicalNotes" class="redColor"></span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
                             <div class="form-group">
-                                <label class="pt20">Tag Id<span class="redColor">*</span></label>
+                                <span><label class="pt20">Area<span class="redColor">*</span></label></span>&nbsp;
+                                <span class="sysColor"><i id="spAddAreaInst" class="fa fa-plus" aria-hidden="true"></i></span>
                                 <div class="form-group2">
-                                    <input asp-for="TagId" type="text" class="form-control" />
-                                    <span asp-validation-for="TagId" class="redColor"></span>
+                                    <select asp-for="AreaId" asp-items="lstCityArea" class="form-control">
+                                        <option value="">--Select--</option>
+                                    </select>
+                                    <span asp-validation-for="AreaId" class="redColor"></span>
                                 </div>
                             </div>
                         </div>
                     </div>
+                   
+                 
+                    
                 </div>
             </div>
             <div class=" row">
@@ -127,23 +138,22 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                            <div class="form-group">
-                                <span><label class="pt20">Area<span class="redColor">*</span></label></span>&nbsp;
-                                <span class="sysColor"><i id="spAddAreaInst" class="fa fa-plus" aria-hidden="true"></i></span>
-                                <div class="form-group2">
-                                    <select asp-for="AreaId" asp-items="lstCityArea" class="form-control">
-                                        <option value="">--Select--</option>
-                                    </select>
-                                    <span asp-validation-for="AreaId" class="redColor"></span>
-                                </div>
-                            </div>
-                        </div>
+                      
                         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
                             <div class="form-group">
                                 <label class="pt20">Care Giver</label>
                                 <div class="form-group2">
                                     <input asp-for="CareGiver" type="text" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                            <div class="form-group">
+                                <label class="pt20">Tag Id<span class="redColor">*</span></label>
+                                <div class="form-group2">
+                                    <input asp-for="TagId" type="text" class="form-control" />
+                                    <span asp-validation-for="TagId" class="redColor"></span>
                                 </div>
                             </div>
                         </div>
@@ -153,23 +163,28 @@
             <div class=" row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="row">
+                   
                         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
                             <div class="form-group">
-                                <span><label class="pt20">Vet</label></span>&nbsp;
-                                <span class="sysColor"><i id="spAddVetInst" class="fa fa-plus" aria-hidden="true"></i></span>
+                                <span><label class="pt20">Van Number<span class="redColor">*</span></label></span>&nbsp;
+                                <span class="sysColor"><i id="spAddVanNoInst" class="fa fa-plus" aria-hidden="true"></i></span>
                                 <div class="form-group2">
-                                    <select asp-for="VetId" asp-items="lstVet" class="form-control">
+                                    <select asp-for="VanId" asp-items="lstVan" class="form-control">
                                         <option value="">--Select--</option>
                                     </select>
+                                    <span asp-validation-for="VanId" class="redColor"></span>
                                 </div>
                             </div>
                         </div>
                         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
                             <div class="form-group">
-                                <span><label class="pt20">Van Number</label></span>&nbsp;
-                                <span class="sysColor"><i id="spAddVanNoInst" class="fa fa-plus" aria-hidden="true"></i></span>
+                                <span><label class="pt20">Vet</label></span>&nbsp;
+                                @if (Model.IsAdmin == true)
+                                {
+                                    <span class="sysColor"><i id="spAddVetInst" class="fa fa-plus" aria-hidden="true"></i></span>
+                                }
                                 <div class="form-group2">
-                                    <select asp-for="VanId" asp-items="lstVan" class="form-control">
+                                    <select asp-for="VetId" asp-items="lstVet" class="form-control">
                                         <option value="">--Select--</option>
                                     </select>
                                 </div>
@@ -199,6 +214,15 @@
                     <div class="row">
                         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
                             <div class="form-group">
+                                <label class="pt20">Certificate No<span class="redColor">*</span></label>
+                                <div class="form-group2">
+                                    <input asp-for="CertificateNo" type="text" class="form-control" />
+                                    <span asp-validation-for="CertificateNo" class="redColor"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                            <div class="form-group">
                                 <label class="pt20">Ear Notch</label>
                                 <div class="form-group2">
                                     <input type="radio" asp-for="IsEarNotch" value="true" />Yes
@@ -215,19 +239,14 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                            <div class="form-group">
-                                <label class="pt20">On Hold</label>
-                                <div class="form-group2">
-                                    <input type="radio" asp-for="IsOnHold" value="true" class="rdOnHold" />Yes
-                                    <input type="radio" asp-for="IsOnHold" value="false" class="rdOnHold" />No
-                                </div>
-                            </div>
-                        </div>
+                  
                         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
                             <div class="form-group">
                                 <span><label class="pt20">Medical Notes/Comments</label></span>&nbsp;
-                                <span class="sysColor"><i id="spAddMedicalNotesInst" class="fa fa-plus" aria-hidden="true"></i></span>
+                                 @if (Model.IsAdmin == true)
+                                {
+                                    <span class="sysColor"><i id="spAddMedicalNotesInst" class="fa fa-plus" aria-hidden="true"></i></span>
+                                }
                                 <div class="form-group2">
                                     <div class="form-group fullscreen">
                                         <select asp-for="MedicalNoteId" asp-items="lstMedicalNotes" class="form-control">
@@ -250,18 +269,12 @@
 
                         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
                             <div class="form-group">
-                                <span><label class="pt20">Color</label></span>&nbsp;
-
+                                <label class="pt20">On Hold</label>
                                 <div class="form-group2">
-                                    <div class="form-group fullscreen">
-                                        <select asp-for="Color" asp-items="lstColors" class="form-control">
-                                            <option value="">--Select--</option>
-                                        </select>
-                                        <span id="spMedicalNotes" class="redColor"></span>
-                                    </div>
+                                    <input type="radio" asp-for="IsOnHold" value="true" class="rdOnHold" />Yes
+                                    <input type="radio" asp-for="IsOnHold" value="false" class="rdOnHold" />No
                                 </div>
                             </div>
-
                         </div>
 
                         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
