@@ -17,6 +17,7 @@ using System.Threading.Tasks;
 using CCC.UI.Helper;
 using CCC.UI.Extensions;
 using CCC.UI.NLogger;
+using CCC.UI.Error;
 
 namespace CCC
 {
@@ -35,6 +36,7 @@ namespace CCC
             services.AddMvc(setupAction: options =>
             {
                 options.EnableEndpointRouting = true;
+                options.Filters.Add(typeof(SessionTimeoutActionFilter));
                 //options.Filters.Add<ValidationFilters>();
                 //options.Filters.Add<ExceptionActionFilter>();
             });
@@ -74,6 +76,7 @@ namespace CCC
             options =>
             {
                 options.IdleTimeout = TimeSpan.FromMinutes(sessionTimeoutInMin);//You can set Time   
+                //options.Cookie.IsEssential = true; // This is important for tracking the session
             });
 
             //add bahubali 7-may-2021 for JsonSerializer
