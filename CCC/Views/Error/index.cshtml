@@ -1,8 +1,54 @@
-﻿@page
+﻿@model UserLoginRequestVM
+@using CCC.UI.ViewModels;
+@using Microsoft.AspNetCore.Http
+
 @{
-    Layout = "~/Views/Shared/_BlankLayout.cshtml";
-    ViewBag.Title = "Session expired";
+	Layout = "~/Views/Shared/_BlankLayout.cshtml";
+	ViewBag.Title = "Login";
 }
 
-<h1>Session Expired</h1>
-<p>Your session has timed out. Please <a href="/Login">log in</a> again.</p>
+<body class="LoginBg">
+
+	<form asp-action="Login" asp-controller="Login" id="frmLogin">
+
+		<!--Login Updated Page--->
+		<div class="retailHeight login-screen-main">
+			<div class="login-side-view primary-bg">
+				<div class="login-side-line">
+					<img src='@Url.Content("~/Images/side-line.svg")' class="" />
+				</div>
+				<img src='@Url.Content("~/Images/login-illustration.svg")' class="" />
+			</div>
+			<div class="container loginPage">
+				<div class="row">
+
+					<div class="col-md-5 offset-md-7 rightPanel">
+						<div class="loginMainWrapper login-wrapper">
+							<div class="loginContent">
+								<div class="loginBg sidebar-logo single-sidebar-block">
+									<div class="loginHeader">
+										<img src='@Url.Content("~/Images/ccc_main_logo1.png")' class="img-responsive" />
+									</div>
+									<div class="loginInnerBg login-form">
+									</div>
+									<div class="loginFooter">
+										<div class="text-center">
+											<div class="container loginPage">
+												<h1 class="display-6">Session Expired</h1>
+												<p>Your session has timed out. Please <a href="/Login">log in</a> again.</p>
+											</div>
+										</div>
+									</div>
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="mainFooter">
+		</div>
+
+	</form>
+</body>
