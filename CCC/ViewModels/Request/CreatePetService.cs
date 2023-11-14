@@ -36,6 +36,7 @@ namespace CCC.UI.ViewModels
 
         [Required(ErrorMessage = "Please select Van Number")]
         public string VanId { get; set; }
+        public bool? IsNineInOne { get; set; }
         public bool? IsEarNotch { get; set; }
         public bool? IsARV { get; set; }
         public bool? IsOnHold { get; set; }

@@ -36,6 +36,7 @@ namespace CCC.Domain
         public string ReleaseDateDisplay { get; set; }
 
         public string VanId { get; set; }
+        public bool? IsNineInOne { get; set; }
         public bool? IsEarNotch { get; set; }
         public bool? IsARV { get; set; }
         public bool? IsOnHold { get; set; }
@@ -76,6 +77,7 @@ namespace CCC.Domain
         public const string MEDICALNOTEID = "MedicalNoteId";
 
         public const string VANID = "VanId";
+        public const string ISNINEINONE = "IsNineInOne";
         public const string ISEARNOTCH = "IsEarNotch";
         public const string ISARV = "IsARV";
         public const string ISONHOLD = "IsOnHold";

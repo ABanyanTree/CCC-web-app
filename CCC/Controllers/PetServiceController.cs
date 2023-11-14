@@ -316,6 +316,7 @@ namespace CCC.UI.Controllers
             });
             if (IsNewRecord) { model.CreatedBy = objSessionUSer.UserId; }
             model.ModifiedBy = objSessionUSer.UserId;
+            model.CertificateNo = "-"; // Not in use but kept if required then need to remove this line
             var apiResponse = await PetServiceAPI.AddEditPetData(model);
             string serviceId = apiResponse?.Content?.ReadAsStringAsync().Result;
 

@@ -35,6 +35,7 @@ namespace CCC.Data.Services
                 PetServiceDetails_Constant.MEDICALNOTEID,
                 PetServiceDetails_Constant.VANID,
                 PetServiceDetails_Constant.ISARV,
+                PetServiceDetails_Constant.ISNINEINONE,
                 PetServiceDetails_Constant.ISEARNOTCH,
                 PetServiceDetails_Constant.ISONHOLD,
                 PetServiceDetails_Constant.EXPIREDDATE,

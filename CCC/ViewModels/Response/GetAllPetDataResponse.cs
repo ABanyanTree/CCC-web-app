@@ -23,6 +23,7 @@ namespace CCC.UI.ViewModels
         public string MedicalNoteId { get; set; }
 
         public string VanId { get; set; }
+        public bool? IsNineInOne { get; set; }
         public bool? IsEarNotch { get; set; }
         public bool? IsARV { get; set; }
         public bool? IsOnHold { get; set; }

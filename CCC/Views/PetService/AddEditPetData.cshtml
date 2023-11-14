@@ -38,7 +38,7 @@
                             <li class="active"> <a href="javascript:void(0);" onclick="BackToManage()"><span class="text"></span> <span class="icon iconBack">&nbsp;</span></a></li>
                         </ul>
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item active" aria-current="page">Add/Edit Pet Data</li>
+                            <li class="breadcrumb-item active" aria-current="page">Add/Edit</li>
                         </ol>
                     </div>
                     <div class="filterMenuIcon"></div>
@@ -57,7 +57,7 @@
                     <div class="row">
                         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
                             <div class="form-group">
-                                <label class="pt20">Pet Type<span class="redColor">*</span></label>
+                                <label class="pt20">Species<span class="redColor">*</span></label>
                                 <div class="form-group2">
                                     <select asp-for="PetId" asp-items="lstPetType" class="form-control">
                                         <option value="">--Select--</option>
@@ -212,12 +212,21 @@
             <div class=" row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="row">
-                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                        @*<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
                             <div class="form-group">
                                 <label class="pt20">Certificate No<span class="redColor">*</span></label>
                                 <div class="form-group2">
                                     <input asp-for="CertificateNo" type="text" class="form-control" />
                                     <span asp-validation-for="CertificateNo" class="redColor"></span>
+                                </div>
+                            </div>
+                        </div>*@
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                            <div class="form-group">
+                                <label class="pt20">9in1</label>
+                                <div class="form-group2">
+                                    <input type="radio" asp-for="IsNineInOne" value="true" />Yes
+                                    <input type="radio" asp-for="IsNineInOne" value="false" />No
                                 </div>
                             </div>
                         </div>
@@ -242,8 +251,18 @@
                   
                         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
                             <div class="form-group">
+                                <label class="pt20">On Hold</label>
+                                <div class="form-group2">
+                                    <input type="radio" asp-for="IsOnHold" value="true" class="rdOnHold" />Yes
+                                    <input type="radio" asp-for="IsOnHold" value="false" class="rdOnHold" />No
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                            <div class="form-group">
                                 <span><label class="pt20">Medical Notes/Comments</label></span>&nbsp;
-                                 @if (Model.IsAdmin == true)
+                                @if (Model.IsAdmin == true)
                                 {
                                     <span class="sysColor"><i id="spAddMedicalNotesInst" class="fa fa-plus" aria-hidden="true"></i></span>
                                 }
@@ -258,6 +277,8 @@
                             </div>
 
                         </div>
+
+
                     </div>
                 </div>
             </div>
@@ -267,16 +288,7 @@
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="row">
 
-                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                            <div class="form-group">
-                                <label class="pt20">On Hold</label>
-                                <div class="form-group2">
-                                    <input type="radio" asp-for="IsOnHold" value="true" class="rdOnHold" />Yes
-                                    <input type="radio" asp-for="IsOnHold" value="false" class="rdOnHold" />No
-                                </div>
-                            </div>
-                        </div>
-
+                        
                         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
                             <div class="form-group">
                                 <label class="pt20">Expired Date</label>
