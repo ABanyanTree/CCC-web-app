@@ -295,7 +295,7 @@ namespace CCC.UI.Controllers
             {
                 //default selected as No
                 model.AdmissionDate = DateTime.Now;
-                model.IsARV = model.IsEarNotch = model.IsOnHold = false;
+                model.IsARV = model.IsEarNotch = model.IsOnHold = model.IsNineInOne = false;
 
             }
             return View(model);
