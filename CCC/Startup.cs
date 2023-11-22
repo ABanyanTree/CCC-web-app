@@ -86,8 +86,13 @@ namespace CCC
                    options.JsonSerializerOptions.PropertyNamingPolicy = null;
                });
 
-            //add bahubali 7-may-2021 for runtime Compilation
-            services.AddControllersWithViews().AddRazorRuntimeCompilation();
+			services.ConfigureApplicationCookie(config =>
+			{
+				config.LogoutPath = "/login";
+			});
+
+			//add bahubali 7-may-2021 for runtime Compilation
+			services.AddControllersWithViews().AddRazorRuntimeCompilation();
 
 
 
@@ -123,7 +128,7 @@ namespace CCC
                 app.UseExceptionHandler("/Home/Error");
             }
 
-            app.ConfigureExceptionHandler(nLogger);
+			app.ConfigureExceptionHandler(nLogger);
 
             //app.UseExceptionHandler("/Error");
             ////  app.UseStatusCodePagesWithRedirects("/Error/{0}");
