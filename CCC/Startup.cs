@@ -1,27 +1,19 @@
+using System;
+using CCC.UI.Extensions;
+using CCC.UI.Helper;
 using CCC.UI.Models;
-using FluentValidation.AspNetCore;
+using CCC.UI.NLogger;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Features;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-using CCC.UI.Helper;
-using CCC.UI.Extensions;
-using CCC.UI.NLogger;
-using CCC.UI.Error;
 
 namespace CCC
 {
-    public class Startup
+	public class Startup
     {
         public Startup(IConfiguration configuration)
         {
@@ -36,7 +28,7 @@ namespace CCC
             services.AddMvc(setupAction: options =>
             {
                 options.EnableEndpointRouting = true;
-                options.Filters.Add(typeof(SessionTimeoutActionFilter));
+                //options.Filters.Add(typeof(SessionTimeoutActionFilter));
                 //options.Filters.Add<ValidationFilters>();
                 //options.Filters.Add<ExceptionActionFilter>();
             });
