@@ -92,7 +92,8 @@ namespace CCC.API.ApiPath
             public const string CheckExistingPassword = Base + "/usermaster/checkexistingpassword";
             public const string ChangePassword = Base + "/usermaster/changepassword";
             public const string SendTestEmail = Base + "/usermaster/sendtestemail";
-            
+            public const string SessionPoller= Base + "/usermaster/sessionpoller";
+
 
         }
         public static class LookupMaster

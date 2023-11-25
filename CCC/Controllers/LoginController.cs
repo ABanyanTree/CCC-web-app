@@ -177,6 +177,13 @@ namespace CCC.UI.Controllers
             return Json("1");
         }
 
+        [HttpPost]
+        public async Task<IActionResult> SessionPoll()
+        {
+            var userApi = RestService.For<IUserApi>(hostUrl: ApplicationSettings.WebApiUrl);
+            var apiResponse = await userApi.SessionPoller();
+            return Json("1");
+        }
 
         public IActionResult ForgotPassword()
         {

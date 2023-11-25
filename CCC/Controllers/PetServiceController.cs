@@ -1,19 +1,29 @@
-﻿using CCC.UI.RefitClientFactory;
+﻿using CCC.UI.Models;
+using CCC.UI.RefitClientFactory;
 using CCC.UI.Utility;
 using CCC.UI.ViewModels;
 using DataTables.Mvc;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Extensions.Options;
 using Refit;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
 namespace CCC.UI.Controllers
 {
     public class PetServiceController : Controller
     {
+        private readonly IOptions<MySettingsModel> appSettings;
+
+        public PetServiceController(IOptions<MySettingsModel> appSettings)
+        {
+            ApplicationSettings.WebApiUrl = appSettings.Value.WebApiBaseUrl; 
+        }
+
         public IActionResult Index()
         {
             return View();

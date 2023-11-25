@@ -315,5 +315,11 @@ namespace CCC.API.Controllers.Masters
                 return BadRequest(msg);
             }
         }
+
+        [HttpPost(ApiRoutes.UserMaster.SessionPoller)]
+        public IActionResult SessionPoller()
+        {
+            return Ok("1");
+        }
     }
 }
