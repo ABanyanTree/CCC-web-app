@@ -1,4 +1,12 @@
-﻿using CCC.UI.RefitClientFactory;
+﻿using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Globalization;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using CCC.UI.RefitClientFactory;
 using CCC.UI.Utility;
 using CCC.UI.ViewModels;
 using DataTables.Mvc;
@@ -7,21 +15,14 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using OfficeOpenXml;
 using OfficeOpenXml.Style;
 using Refit;
-using System;
-using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.Drawing;
-using System.Globalization;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 
 namespace CCC.UI.Controllers
 {
 	public class ReportController : Controller
 	{
+		private string DateTimeFormat = "d/M/yyyy";
+
 		public async Task<ActionResult> ManageVetReport()
 		{
 			var objSessionUser = HttpContext.Session.GetSessionUser();
@@ -122,9 +123,9 @@ namespace CCC.UI.Controllers
 
 			int days = DateTime.DaysInMonth(Convert.ToInt32(searchObj.Year), Convert.ToInt32(searchObj.Month));
 			string firstDate = "1/" + searchObj.Month + "/" + searchObj.Year;
-			DateTime firstDayOfMonth = DateTime.Parse(firstDate);
+			DateTime firstDayOfMonth = DateTime.ParseExact(firstDate, DateTimeFormat, null);
 			string lastDate = days.ToString() + '/' + searchObj.Month + '/' + searchObj.Year;
-			DateTime lastDayOfMonth = DateTime.Parse(lastDate);
+			DateTime lastDayOfMonth = DateTime.ParseExact(lastDate, DateTimeFormat, null);
 			searchObj.SurgeryDateFrom = firstDayOfMonth;
 			searchObj.SurgeryDateTo = lastDayOfMonth;
 
@@ -182,10 +183,10 @@ namespace CCC.UI.Controllers
 			int days = DateTime.DaysInMonth(Convert.ToInt32(selectedYear), Convert.ToInt32(selectedMonth));
 
 			string firstDate = "1/" + selectedMonth + "/" + selectedYear;
-			DateTime firstDayOfMonth = DateTime.Parse(firstDate);
+			DateTime firstDayOfMonth = DateTime.ParseExact(firstDate, DateTimeFormat, null);
 
 			string lastDate = days.ToString() + '/' + selectedMonth + '/' + selectedYear;
-			DateTime lastDayOfMonth = DateTime.Parse(lastDate);
+			DateTime lastDayOfMonth = DateTime.ParseExact(lastDate, DateTimeFormat, null);
 
 
 			string monthName = firstDayOfMonth.Date.ToString("MMM");
@@ -694,10 +695,10 @@ namespace CCC.UI.Controllers
 			int days = DateTime.DaysInMonth(Convert.ToInt32(selectedYear), Convert.ToInt32(selectedMonth));
 
 			string firstDate = "1/" + selectedMonth + '/' + selectedYear;
-			DateTime firstDayOfMonth = DateTime.Parse(firstDate);
+			DateTime firstDayOfMonth = DateTime.ParseExact(firstDate, DateTimeFormat, null);
 
 			string lastDate = days.ToString() + '/' + selectedMonth + '/' + selectedYear;
-			DateTime lastDayOfMonth = DateTime.Parse(lastDate);
+			DateTime lastDayOfMonth = DateTime.ParseExact(lastDate, DateTimeFormat, null);
 
 			SearchPetData searchObj = new SearchPetData();
 			searchObj.CenterId = CenterId;
@@ -747,7 +748,7 @@ namespace CCC.UI.Controllers
 				rowCnt = rowCnt + 1;
 				colCnt = 1;
 				string date = i.ToString() + '/' + selectedMonth + '/' + selectedYear;
-				DateTime sDate = DateTime.Parse(date);
+				DateTime sDate = DateTime.ParseExact(date, DateTimeFormat, null);
 				int totalSurgeryCountOnDay = response.Where(x => x.SurgeryDate.Value.Date == sDate.Date).ToList().Count;
 
 				workSheet.Cells[rowCnt, colCnt].Value = GetDaywithSuffix(sDate.Day);
@@ -845,10 +846,11 @@ namespace CCC.UI.Controllers
 				workSheet.Cells[rowCnt, colCnt, rowCnt, colCnt + 1].Style.Fill.BackgroundColor.SetColor(bgColor);
 
 				int grandTotalByVet = 0;
+				lstVetNames = lstVetNames.Where(x => x != null).ToList();
 				foreach (var item in lstVetNames)
 				{
-					int vetOperatedCount = response.Where(x => x.VetName.Trim().ToLower() == item.Trim().ToLower()).ToList().Count;
-					int exCanCount = response.Where(x => x.VetName.Trim().ToLower() == item.Trim().ToLower() && (x.IsOnHold == true || x.ExpiredDate != null)).ToList().Count;
+					int vetOperatedCount = response.Where(x => x.VetName != null && x.VetName.Trim().ToLower() == item.Trim().ToLower()).ToList().Count;
+					int exCanCount = response.Where(x => x.VetName != null && x.VetName.Trim().ToLower() == item.Trim().ToLower() && (x.IsOnHold == true || x.ExpiredDate != null)).ToList().Count;
 					int opCountFinal = vetOperatedCount - exCanCount;
 					grandTotalByVet = (grandTotalByVet + opCountFinal);
 					Color specialVetColor = Color.FromArgb(18, 143, 139); //lstVetColor.Where(x => x.Key.Trim().ToLower() == item.Trim().ToLower()).Select(x => x.Value).FirstOrDefault();
@@ -938,9 +940,9 @@ namespace CCC.UI.Controllers
 				int totalComplicationCount = 0;
 				foreach (var item in lstVetNames)
 				{
-					int deathCount = response.Where(x => x.VetName.Trim().ToLower() == item.Trim().ToLower() && x.ExpiredDate != null).ToList().Count;
+					int deathCount = response.Where(x => x.VetName != null && x.VetName.Trim().ToLower() == item.Trim().ToLower() && x.ExpiredDate != null).ToList().Count;
 					totalDeathCount = totalDeathCount + deathCount;
-					int complicationCount = response.Where(x => x.VetName.Trim().ToLower() == item.Trim().ToLower()
+					int complicationCount = response.Where(x => x.VetName != null && x.VetName.Trim().ToLower() == item.Trim().ToLower()
 					&& x.IsOnHold == false && x.ExpiredDate == null && (x.ReleaseDate == null || x.ReleaseDate.Value.Date > x.AdmissionDate.Date.AddDays(7))).ToList().Count;
 					totalComplicationCount = totalComplicationCount + complicationCount;
 					Color specialVetColor = Color.FromArgb(18, 143, 139); //lstVetColor.Where(x => x.Key.Trim().ToLower() == item.Trim().ToLower()).Select(x => x.Value).FirstOrDefault();

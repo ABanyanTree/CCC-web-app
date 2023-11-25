@@ -107,9 +107,10 @@ namespace CCC.API
                 .AllowAnyHeader();
             });
 
-            app.UseAuthorization();
+			app.UseAuthentication();
+			app.UseAuthorization();
 
-            app.UseEndpoints(endpoints =>
+			app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
             });
