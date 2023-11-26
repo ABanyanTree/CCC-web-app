@@ -1,6 +1,7 @@
 ﻿using CCC.API.ApiPath;
 using CCC.Domain;
 using CCC.Service.Interfaces;
+using CCC.Service.Services;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -126,5 +127,13 @@ namespace CCC.API.Controllers
             return Ok(objResponse);
         }
 
+        [HttpGet(ApiRoutes.PetServicesDetails.IsTagIdInUse)]
+        [ProducesResponseType(typeof(PetServiceDetails), statusCode: 200)]
+        public async Task<IActionResult> IsTagIdInUse([FromQuery] string tagId)
+        {
+            var objResponse = await _iPetService.IsTagIdInUse(tagId);
+            return Ok(objResponse);
+        }
+        
     }
 }

@@ -153,7 +153,7 @@
                                 <label class="pt20">Tag Id<span class="redColor">*</span></label>
                                 <div class="form-group2">
                                     <input asp-for="TagId" type="text" class="form-control" />
-                                    <span asp-validation-for="TagId" class="redColor"></span>
+                                    <span id="spTagId" asp-validation-for="TagId" class="redColor"></span>
                                 </div>
                             </div>
                         </div>
@@ -371,20 +371,37 @@
             } else {
                 $('#spCauseOfDeath').text('');
             }
-
+            var TagID = $("#TagId").val();
+            var ServiceId = $("#ServiceId").val();
+            var chkData = { tagId: TagID, serviceId: ServiceId }
+            var urlNameChk = '@Url.Action("IsTagIdInUse", "PetService")';
             if (IsSuccess) {
                 $.ajax({
-                    type: 'post',
-                    url: formAction,
-                    data: fdata,
-                    processData: false,
-                    contentType: false
+                    type: 'POST',
+                    url: urlNameChk,
+                    data: chkData,
+                    cache: false,
+                    dataType: "Json",
                 }).done(function (result) {
-                    if (result.isSuccess == true) {
-                        showSuccessMsg('Success', BackToManage(result.redirectFrom));
-
+                    if (result == true) {
+                        $("#spTagId").text('Tag Id is already exists');
                     } else {
-                        showWarningMsg('something went wrong ');
+                        $("#spTagId").text('');
+                        $.ajax({
+                            type: 'post',
+                            url: formAction,
+                            data: fdata,
+                            processData: false,
+                            contentType: false
+                        }).done(function (result) {
+                            if (result.isSuccess == true) {
+                                showSuccessMsg('Success', BackToManage(result.redirectFrom));
+
+                            } else {
+                                showWarningMsg('something went wrong ');
+                            }
+                        });
+
                     }
                 });
             }

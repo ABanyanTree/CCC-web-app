@@ -1,4 +1,5 @@
 ﻿using CCC.Domain;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,5 +16,6 @@ namespace CCC.Service.Interfaces
         Task<IEnumerable<PetServiceDetails>> GetCenterMgrDashboardList(PetServiceDetails searchRequest);
         Task<IEnumerable<PetServiceDetails>> GetPetCountDetails();
         Task<IEnumerable<PetServiceDetails>> GetCenterReportData(PetServiceDetails searchRequest);
+        Task<PetServiceDetails> IsTagIdInUse(string tagId);
     }
 }

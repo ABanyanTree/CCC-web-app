@@ -1,4 +1,5 @@
-﻿using CCC.UI.ViewModels;
+﻿using CCC.Domain;
+using CCC.UI.ViewModels;
 using Refit;
 using System;
 using System.Collections.Generic;
@@ -44,7 +45,8 @@ namespace CCC.UI.RefitClientFactory
         [Get(path: "/api/petservice/getcenterreportdata")]
         Task<ApiResponse<List<GetAllPetDataResponse>>> GetCenterReportData(SearchPetData request);
 
-
+        [Get(path: "/api/petservice/istagidinuse")]
+        Task<ApiResponse<PetServiceDetails>> IsTagIdInUse(string tagId);
 
     }
 }

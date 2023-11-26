@@ -24,7 +24,7 @@ namespace CCC.API.ApiPath
             public const string GetPetCountDetails = Base + "/petservice/getpetcountdetails";
             public const string GetCenterReportData = Base + "/petservice/getcenterreportdata";
             
-
+            public const string IsTagIdInUse = Base + "/petservice/istagidinuse";
         }
 
         public static class CenterMaster

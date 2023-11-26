@@ -426,5 +426,39 @@ namespace CCC.UI.Controllers
                 return Json(new { isSuccess = false });
             }
         }
+
+        [HttpPost]
+        public async Task<JsonResult> IsTagIdInUse(string tagId, string ServiceId = "")
+        {
+            if (tagId == null || string.IsNullOrEmpty(tagId.Trim()))
+            {
+                return Json("Please enter tag Id.");
+            }
+            else
+            {
+                var objSessionUser = HttpContext.Session.GetSessionUser();
+                var cachedToken = HttpContext.Session.GetBearerToken();
+                var petServiceAPI = RestService.For<IPetServiceApi>(hostUrl: ApplicationSettings.WebApiUrl, new RefitSettings
+                {
+                    AuthorizationHeaderValueGetter = () => Task.FromResult(cachedToken)
+                });
+
+                var IsTagIdExists = false;
+                var apiResponse = await petServiceAPI.IsTagIdInUse(tagId.Trim());
+                if (apiResponse != null)
+                {
+                    if (string.IsNullOrEmpty(ServiceId))
+                    {
+                        IsTagIdExists = (apiResponse.Content == null) ? false : true;
+                    }
+                    else
+                    {
+                        IsTagIdExists = apiResponse.Content == null ? false :
+                            (ServiceId != apiResponse.Content.ServiceId) ? true : false;
+                    }
+                }
+                return Json(IsTagIdExists);
+            }
+        }
     }
 }

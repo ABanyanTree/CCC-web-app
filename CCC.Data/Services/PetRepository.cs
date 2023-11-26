@@ -108,7 +108,7 @@ namespace CCC.Data.Services
 
         public async Task<IEnumerable<PetServiceDetails>> GetCenterReportData(PetServiceDetails obj)
         {
-            string[] addParams = new string[] 
+            string[] addParams = new string[]
             {
                 PetServiceDetails_Constant.CENTERID
                 ,PetServiceDetails_Constant.ADMISSIONDATEFROM
@@ -117,6 +117,13 @@ namespace CCC.Data.Services
                 ,PetServiceDetails_Constant.SURGERYDATETO
             };
             return await GetAllAsync(obj, addParams, PetServiceDetails_Constant.SPROC_GETCENTERREPORT);
+        }
+
+        public async Task<PetServiceDetails> IsTagIdInUse(string tagId)
+        {
+            PetServiceDetails obj = new PetServiceDetails() { TagId = tagId };
+            string[] addParams = new string[] { PetServiceDetails_Constant.TAGID };
+            return await GetAsync(obj, addParams, PetServiceDetails_Constant.SPROC_PETSERVICE_ISTAGIDINUSE);
         }
     }
 }

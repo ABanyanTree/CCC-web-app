@@ -135,7 +135,7 @@
             var VetName = $("#VetName").val();
             var VetId = $("#VetId").val();
             var chkData = { vetName: VetName, vetId: VetId}
-        var urlNameChk = '@Url.Action("IsVetNameInUse", "VetMaster")';
+            var urlNameChk = '@Url.Action("IsVetNameInUse", "VetMaster")';
             var IsSuccess = true;
             $.ajax({
                 type: 'POST',

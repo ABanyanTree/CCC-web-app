@@ -1,4 +1,5 @@
-﻿using CCC.Domain;
+﻿using CCC.Data.Services;
+using CCC.Domain;
 using CCC.Domain.DomainInterface;
 using CCC.Service.Interfaces;
 using System;
@@ -70,6 +71,11 @@ namespace CCC.Service.Services
         public async Task<IEnumerable<PetServiceDetails>> GetCenterReportData(PetServiceDetails obj)
         {
             return await _iPetRepository.GetCenterReportData(obj);
+        }
+
+        public async Task<PetServiceDetails> IsTagIdInUse(string tagId)
+        {
+            return await _iPetRepository.IsTagIdInUse(tagId);
         }
     }
 }
