@@ -29,7 +29,7 @@ namespace CCC
             services.AddMvc(setupAction: options =>
             {
                 options.EnableEndpointRouting = true;
-                //options.Filters.Add(typeof(SessionTimeoutActionFilter));
+                options.Filters.Add(typeof(SessionTimeoutActionFilter));
                 //options.Filters.Add<ValidationFilters>();
                 //options.Filters.Add<ExceptionActionFilter>();
             });
