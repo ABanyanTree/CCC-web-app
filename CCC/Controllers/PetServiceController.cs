@@ -304,10 +304,8 @@ namespace CCC.UI.Controllers
 
             var lst1 = lst?.ToList();
 
-            FileInfo newFile = new FileInfo("D:\\Shahen-WorkFront\\PetServiceReport_" + Guid.NewGuid().ToString() + "_.xlsx");
-            ExcelPackage excel = new ExcelPackage();
-            ExcelWorksheet workSheet = excel.Workbook.Worksheets.Add("Vet Report");            
-            var exportbytes = ExportReport(lst1, newFile); ;
+			FileInfo newFile = new FileInfo("D:\\Shahen-WorkFront\\PetReport.xlsx");
+            var exportbytes = ExportReport(lst1, newFile);
             return File(exportbytes, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", newFile.Name);
         }
 
@@ -319,7 +317,7 @@ namespace CCC.UI.Controllers
 
 			using (ExcelPackage package = new ExcelPackage(newFile))
 			{
-				ExcelWorksheet workSheet = package.Workbook.Worksheets.Add("VetReport");
+				ExcelWorksheet workSheet = package.Workbook.Worksheets.Add("Pet Report");
 				var lstVetNames = lst1.ToList();
 
 				int rowCnt = 1;
@@ -327,7 +325,7 @@ namespace CCC.UI.Controllers
 
 				//Add Header 
 				string monthName = HelperUtility.GetMonthName(firstDayOfMonth.Month);
-				workSheet.Cells[rowCnt, colCnt].Value = string.Format("Vet Report for Month of {0} - {1}", monthName, firstDayOfMonth.Year.ToString());
+				workSheet.Cells[rowCnt, colCnt].Value = string.Format("Pet Report"); // for Month of {0} - {1}", monthName, firstDayOfMonth.Year.ToString());
 				workSheet.Cells[rowCnt, colCnt].Style.Border.BorderAround(ExcelBorderStyle.Thick, Color.Black);
 				workSheet.Cells[rowCnt, colCnt].Style.Font.Bold = true;
 
