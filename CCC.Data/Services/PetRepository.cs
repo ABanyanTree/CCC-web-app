@@ -69,6 +69,19 @@ namespace CCC.Data.Services
             return await GetAllAsync(obj, addParams, PetServiceDetails_Constant.SPROC_PETSERVICE_LSTALL);
         }
 
+        public async Task<IEnumerable<PetServiceDetails>> GetAllPetReportData(PetServiceDetails obj)
+        {
+            string[] addParams = new string[] { BaseEntity_Constant.SORTEXP, PetServiceDetails_Constant.CENTERID,PetServiceDetails_Constant.AREAID,PetServiceDetails_Constant.ADMISSIONDATEFROM,
+            PetServiceDetails_Constant.ADMISSIONDATETO,PetServiceDetails_Constant.SURGERYDATEFROM,PetServiceDetails_Constant.SURGERYDATETO,
+            PetServiceDetails_Constant.RELEASEDATEFROM,PetServiceDetails_Constant.RELEASEDATETO,BaseEntity_Constant.REQUESTERUSERID,PetServiceDetails_Constant.USERCENTERS
+            ,PetServiceDetails_Constant.COLOR,PetServiceDetails_Constant.SHOWRELEASEDPET,
+            PetServiceDetails_Constant.TAGID
+            };
+           
+            var responce = await GetAllAsync(obj, addParams, PetServiceDetails_Constant.SPROC_PETSERVICEREPORT);
+            return responce;
+        }
+
         public async Task<int> DeletePetData(PetServiceDetails obj)
         {
             string[] addParams = new string[] { PetServiceDetails_Constant.SERVICEID };

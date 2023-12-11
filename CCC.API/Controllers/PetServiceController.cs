@@ -40,7 +40,7 @@ namespace CCC.API.Controllers
         }
 
         /// <summary>
-        /// Get list of all Country
+        /// Get list of Pets.
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
@@ -50,6 +50,19 @@ namespace CCC.API.Controllers
         {
          
             var objResponse = await _iPetService.GetAllAsync(searchRequest);
+            return Ok(objResponse);
+        }
+
+        /// <summary>
+        /// Download report of filtered Pets.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        [HttpGet(ApiRoutes.PetServicesDetails.GetAllPetReportData)]
+        [ProducesResponseType(typeof(List<PetServiceDetails>), statusCode: 200)]
+        public async Task<IActionResult> GetAllPetReportData(PetServiceDetails searchRequest)
+        {
+            var objResponse = await _iPetService.GetAllPetReportAsync(searchRequest);
             return Ok(objResponse);
         }
 

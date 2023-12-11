@@ -14,6 +14,7 @@ namespace CCC.API.ApiPath
             public const string AddEditPetData = Base + "/petservice/addeditpetdata";
             public const string GetPetData = Base + "/petservice/getpetdata";
             public const string GetAllPetData = Base + "/petservice/getallpetdata";
+            public const string GetAllPetReportData = Base + "/petservice/getallpetreportdata";
             public const string DeletePetData = Base + "/petservice/deletepetdata";
             public const string ChangePetCenters = Base + "/petservice/changepetcenters";
             public const string GetVetReport = Base + "/petservice/getvetreport";
