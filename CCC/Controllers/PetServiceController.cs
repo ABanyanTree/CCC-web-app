@@ -4,7 +4,6 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using CCC.Service.Infra;
 using CCC.UI.Models;
 using CCC.UI.RefitClientFactory;
 using CCC.UI.Utility;
@@ -244,70 +243,70 @@ namespace CCC.UI.Controllers
 			//var objComplex = HttpContext.Session.GetObject<List<GetAllPetDataResponse>>("ExportReport");
 
 			return Json(new DataTablesResponse(dt.Draw, lst1, TotalCount, TotalCount, colList, set));
-		}		
+		}
 
 		[HttpGet("/PetService/ExportReportPetServiceAsync")]
 		public async Task<IActionResult> ExportReportPetServiceAsync(string CenterId, string areaId, string color, string admissionDateFrom, string admissionDateTo, string surgeryDateFrom, string surgeryDateTo, string releaseDateFrom, string releaseDateTo, string showReleasedPet, string tagId)
 		{
-            var objSessionUSer = HttpContext.Session.GetSessionUser();
-            var cachedToken = HttpContext.Session.GetBearerToken();
-           
-            var PetServiceAPI = RestService.For<IPetServiceApi>(hostUrl: ApplicationSettings.WebApiUrl, new RefitSettings
-            {
-                AuthorizationHeaderValueGetter = () => Task.FromResult(cachedToken)
-            });
+			var objSessionUSer = HttpContext.Session.GetSessionUser();
+			var cachedToken = HttpContext.Session.GetBearerToken();
 
-            SearchPetData searchObj = new SearchPetData();			
-		
+			var PetServiceAPI = RestService.For<IPetServiceApi>(hostUrl: ApplicationSettings.WebApiUrl, new RefitSettings
+			{
+				AuthorizationHeaderValueGetter = () => Task.FromResult(cachedToken)
+			});
+
+			SearchPetData searchObj = new SearchPetData();
+
 			searchObj.TagId = tagId;
 
-            if (!string.IsNullOrEmpty(CenterId)) searchObj.CenterId = CenterId.Trim();
-            else searchObj.CenterId = CenterId;
+			if (!string.IsNullOrEmpty(CenterId)) searchObj.CenterId = CenterId.Trim();
+			else searchObj.CenterId = CenterId;
 
-            if (!string.IsNullOrEmpty(areaId)) searchObj.AreaId = areaId.Trim();
+			if (!string.IsNullOrEmpty(areaId)) searchObj.AreaId = areaId.Trim();
 			else searchObj.AreaId = areaId;
 
 			if (!string.IsNullOrEmpty(color)) searchObj.Color = color.Trim();
 			else searchObj.Color = color;
 
 			if (!string.IsNullOrEmpty(Convert.ToString(admissionDateFrom))) searchObj.AdmissionDateFrom = Convert.ToDateTime(admissionDateFrom);
-		
+
 			if (!string.IsNullOrEmpty(Convert.ToString(admissionDateTo))) searchObj.AdmissionDateTo = Convert.ToDateTime(admissionDateTo);
 
-            if (!string.IsNullOrEmpty(Convert.ToString(surgeryDateFrom))) searchObj.SurgeryDateFrom = Convert.ToDateTime(surgeryDateFrom);
-            
-            if (!string.IsNullOrEmpty(Convert.ToString(surgeryDateTo))) searchObj.SurgeryDateTo = Convert.ToDateTime(surgeryDateTo);
+			if (!string.IsNullOrEmpty(Convert.ToString(surgeryDateFrom))) searchObj.SurgeryDateFrom = Convert.ToDateTime(surgeryDateFrom);
 
-            if (!string.IsNullOrEmpty(Convert.ToString(releaseDateFrom))) searchObj.ReleaseDateFrom = Convert.ToDateTime(releaseDateFrom);
-      
-            if (!string.IsNullOrEmpty(Convert.ToString(releaseDateTo)))  searchObj.ReleaseDateTo = Convert.ToDateTime(releaseDateTo);
-        
-            if (!string.IsNullOrEmpty(showReleasedPet))
-            {
-                if (showReleasedPet == "1")
-                {
-                    searchObj.ShowReleasedPet = true;
-                }
-                else
-                {
-                    searchObj.ShowReleasedPet = false;
-                }
-            }
+			if (!string.IsNullOrEmpty(Convert.ToString(surgeryDateTo))) searchObj.SurgeryDateTo = Convert.ToDateTime(surgeryDateTo);
 
-            searchObj.RequesterUserId = objSessionUSer.UserId;
-            searchObj.UserCenters = objSessionUSer.UserCenters;
+			if (!string.IsNullOrEmpty(Convert.ToString(releaseDateFrom))) searchObj.ReleaseDateFrom = Convert.ToDateTime(releaseDateFrom);
 
-            var apiResponse = await PetServiceAPI.GetAllPetReportDataList(searchObj);
-            var response = apiResponse.Content;
+			if (!string.IsNullOrEmpty(Convert.ToString(releaseDateTo))) searchObj.ReleaseDateTo = Convert.ToDateTime(releaseDateTo);
 
-            var lst = response;
+			if (!string.IsNullOrEmpty(showReleasedPet))
+			{
+				if (showReleasedPet == "1")
+				{
+					searchObj.ShowReleasedPet = true;
+				}
+				else
+				{
+					searchObj.ShowReleasedPet = false;
+				}
+			}
 
-            var lst1 = lst?.ToList();
+			searchObj.RequesterUserId = objSessionUSer.UserId;
+			searchObj.UserCenters = objSessionUSer.UserCenters;
+
+			var apiResponse = await PetServiceAPI.GetAllPetReportDataList(searchObj);
+			var response = apiResponse.Content;
+
+			var lst = response;
+
+			var lst1 = lst?.ToList();
 
 			FileInfo newFile = new FileInfo("D:\\Shahen-WorkFront\\PetReport.xlsx");
-            var exportbytes = ExportReport(lst1);
-            return File(exportbytes, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", newFile.Name);
-        }
+			var exportbytes = ExportReport(lst1);
+			return File(exportbytes, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", newFile.Name);
+		}
 
 		public byte[] ExportReport(List<GetAllPetDataResponse> lst1)
 		{
@@ -324,25 +323,25 @@ namespace CCC.UI.Controllers
 				int colCnt = 1;
 
 				//Add Header 
-				string monthName = HelperUtility.GetMonthName(firstDayOfMonth.Month);
+				//string monthName = HelperUtility.GetMonthName(firstDayOfMonth.Month);
 				workSheet.Cells[rowCnt, colCnt].Value = string.Format("Pet Report"); // for Month of {0} - {1}", monthName, firstDayOfMonth.Year.ToString());
 				workSheet.Cells[rowCnt, colCnt].Style.Border.BorderAround(ExcelBorderStyle.Thick, Color.Black);
 				workSheet.Cells[rowCnt, colCnt].Style.Font.Bold = true;
 
 				workSheet.Cells[rowCnt + 1, colCnt].Value = "Admission Date";
-                workSheet.Cells[rowCnt + 1, colCnt + 1].Value = "Surgery Date";
-                workSheet.Cells[rowCnt + 1, colCnt + 2].Value = "Vet Name";
-                workSheet.Cells[rowCnt + 1, colCnt + 3].Value = "Species";
-                workSheet.Cells[rowCnt + 1, colCnt + 4].Value = "Colour";
-                workSheet.Cells[rowCnt + 1, colCnt + 5].Value = "Gender";
-                workSheet.Cells[rowCnt + 1, colCnt + 6].Value = "Tag Id";
-                workSheet.Cells[rowCnt + 1, colCnt + 7].Value = "Center Name";
-                workSheet.Cells[rowCnt + 1, colCnt + 8].Value = "Area Name";
-                workSheet.Cells[rowCnt + 1, colCnt + 9].Value = "Care Giver";
-                workSheet.Cells[rowCnt + 1, colCnt + 10].Value = "Release Date";
-                workSheet.Cells[rowCnt + 1, colCnt + 11].Value = "Medical Comments";
+				workSheet.Cells[rowCnt + 1, colCnt + 1].Value = "Surgery Date";
+				workSheet.Cells[rowCnt + 1, colCnt + 2].Value = "Vet Name";
+				workSheet.Cells[rowCnt + 1, colCnt + 3].Value = "Species";
+				workSheet.Cells[rowCnt + 1, colCnt + 4].Value = "Colour";
+				workSheet.Cells[rowCnt + 1, colCnt + 5].Value = "Gender";
+				workSheet.Cells[rowCnt + 1, colCnt + 6].Value = "Tag Id";
+				workSheet.Cells[rowCnt + 1, colCnt + 7].Value = "Center Name";
+				workSheet.Cells[rowCnt + 1, colCnt + 8].Value = "Area Name";
+				workSheet.Cells[rowCnt + 1, colCnt + 9].Value = "Care Giver";
+				workSheet.Cells[rowCnt + 1, colCnt + 10].Value = "Release Date";
+				workSheet.Cells[rowCnt + 1, colCnt + 11].Value = "Medical Comments";
 
-                if (lstVetNames.Count > 0)
+				if (lstVetNames.Count > 0)
 				{
 					rowCnt = 1;
 					colCnt = 1;
@@ -359,23 +358,23 @@ namespace CCC.UI.Controllers
 
 						DesignVetCell(workSheet, item.AdmissionDate, rowCnt + 2, colCnt, specialVetColor);
 						DesignVetCell(workSheet, item.SurgeryDate, rowCnt + 2, colCnt + 1, specialVetColor);
-                        DesignVetCell(workSheet, item.VetName, rowCnt + 2, colCnt + 2, specialVetColor);
-                        DesignVetCell(workSheet, item.PetType, rowCnt + 2, colCnt + 3, specialVetColor);
-                        DesignVetCell(workSheet, item.ColorValue, rowCnt + 2, colCnt + 4, specialVetColor);
-                        DesignVetCell(workSheet, item.Gender, rowCnt + 2, colCnt + 5, specialVetColor);
-                        DesignVetCell(workSheet, item.TagId, rowCnt + 2, colCnt + 6, specialVetColor);
-                        DesignVetCell(workSheet, item.CenterName, rowCnt + 2, colCnt + 7, specialVetColor);
-                        DesignVetCell(workSheet, item.AreaName, rowCnt + 2, colCnt + 8, specialVetColor);
-                        DesignVetCell(workSheet, item.CareGiver, rowCnt + 2, colCnt + 9, specialVetColor);
-                        DesignVetCell(workSheet, item.ReleaseDate, rowCnt + 2, colCnt + 10, specialVetColor);
-                        DesignVetCell(workSheet, item.MedicalComments, rowCnt + 2, colCnt + 11, specialVetColor);
-                        rowCnt = rowCnt + 1;
+						DesignVetCell(workSheet, item.VetName, rowCnt + 2, colCnt + 2, specialVetColor);
+						DesignVetCell(workSheet, item.PetType, rowCnt + 2, colCnt + 3, specialVetColor);
+						DesignVetCell(workSheet, item.ColorValue, rowCnt + 2, colCnt + 4, specialVetColor);
+						DesignVetCell(workSheet, item.Gender, rowCnt + 2, colCnt + 5, specialVetColor);
+						DesignVetCell(workSheet, item.TagId, rowCnt + 2, colCnt + 6, specialVetColor);
+						DesignVetCell(workSheet, item.CenterName, rowCnt + 2, colCnt + 7, specialVetColor);
+						DesignVetCell(workSheet, item.AreaName, rowCnt + 2, colCnt + 8, specialVetColor);
+						DesignVetCell(workSheet, item.CareGiver, rowCnt + 2, colCnt + 9, specialVetColor);
+						DesignVetCell(workSheet, item.ReleaseDate, rowCnt + 2, colCnt + 10, specialVetColor);
+						DesignVetCell(workSheet, item.MedicalComments, rowCnt + 2, colCnt + 11, specialVetColor);
+						rowCnt = rowCnt + 1;
 
-					}					
+					}
 				}
-               // package.Save(); ;
+				// package.Save(); ;
 				return package.GetAsByteArray();
-            }
+			}
 
 		}
 
