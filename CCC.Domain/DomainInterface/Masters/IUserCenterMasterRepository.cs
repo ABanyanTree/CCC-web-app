@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CCC.Domain.DomainInterface
+﻿namespace CCC.Domain.DomainInterface
 {
-    public interface IUserCenterMasterRepository : IRepository<UserCenterMaster>
+	public interface IUserCenterMasterRepository : IRepository<UserCenterMaster>
     {
     }
 }

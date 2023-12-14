@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace CCC.UI.ViewModels
 {
-    public class UserLoginRequestVM
+	public class UserLoginRequestVM
     {
         [Required(ErrorMessage = "Please enter LoginId")]
         public string Email { get; set; }

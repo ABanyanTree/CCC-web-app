@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace CCC.UI.ViewModels
 {
-    public class PetCountDetails
+	public class PetCountDetails
     {
         public string ServiceId { get; set; }
         public string CenterId { get; set; }

@@ -305,17 +305,17 @@ namespace CCC.UI.Controllers
             var lst1 = lst?.ToList();
 
 			FileInfo newFile = new FileInfo("D:\\Shahen-WorkFront\\PetReport.xlsx");
-            var exportbytes = ExportReport(lst1, newFile);
+            var exportbytes = ExportReport(lst1);
             return File(exportbytes, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", newFile.Name);
         }
 
-		public byte[] ExportReport(List<GetAllPetDataResponse> lst1, FileInfo newFile)
+		public byte[] ExportReport(List<GetAllPetDataResponse> lst1)
 		{
 			DateTime today = DateTime.Now;
 			var month = new DateTime(today.Year, today.Month, 1);
 			var firstDayOfMonth = month.AddMonths(-1);
 
-			using (ExcelPackage package = new ExcelPackage(newFile))
+			using (ExcelPackage package = new ExcelPackage())
 			{
 				ExcelWorksheet workSheet = package.Workbook.Worksheets.Add("Pet Report");
 				var lstVetNames = lst1.ToList();

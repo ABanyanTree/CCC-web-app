@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace CCC.UI.ViewModels
+﻿namespace CCC.UI.ViewModels
 {
-    public class GetVetResponse : BaseResponse
+	public class GetVetResponse : BaseResponse
     {
         public string VetId { get; set; }
         public string VetName { get; set; }

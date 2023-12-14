@@ -3,19 +3,12 @@ using CCC.Domain;
 using CCC.Domain.Others;
 using CCC.lOC;
 using CCC.Service.Infra.EmailStuff;
-using FluentValidation.AspNetCore;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace CCC.API.Installers
 {
-    public class MVCInstallers : IInstaller
+	public class MVCInstallers : IInstaller
     {
         public void InstallServices(IServiceCollection services, IConfiguration configuration)
         {

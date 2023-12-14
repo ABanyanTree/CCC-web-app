@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CCC.Domain
+﻿namespace CCC.Domain
 {
-    public class FeatureAccess
+	public class FeatureAccess
     {
         public const string FEATURE_Masters = "Masters";
         public const string FEATURE_ManageCenter = "ManageCenter";

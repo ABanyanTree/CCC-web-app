@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CCC.Domain
+﻿namespace CCC.Domain
 {
-    public class VanMaster : BaseEntity
+	public class VanMaster : BaseEntity
     {
         public string VanId { get; set; }
         public string VanNumber { get; set; }

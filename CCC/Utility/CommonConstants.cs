@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace CCC.UI.Utility
+﻿namespace CCC.UI.Utility
 {
-    public static class CommonConstants
+	public static class CommonConstants
     {
         public const string FEATURE_Masters = "Masters";
         public const string FEATURE_ManageCenter = "ManageCenter";

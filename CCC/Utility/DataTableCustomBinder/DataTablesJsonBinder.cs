@@ -26,18 +26,14 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using System.Web;
 
 namespace DataTables.Mvc
 {
-    /// <summary>
-    /// Defines an abstract DataTables binder to bind a model with the JSON request from DataTables.
-    /// </summary>
-    public abstract class DataTablesJsonBinder : IModelBinder
+	/// <summary>
+	/// Defines an abstract DataTables binder to bind a model with the JSON request from DataTables.
+	/// </summary>
+	public abstract class DataTablesJsonBinder : IModelBinder
     {
         /// <summary>
         /// Get's the JSON parameter name to retrieve data. 

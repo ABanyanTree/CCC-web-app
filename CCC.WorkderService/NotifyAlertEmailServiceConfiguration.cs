@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CCC.WorkderService
+﻿namespace CCC.WorkderService
 {
-    public class NotifyAlertEmailServiceConfiguration
+	public class NotifyAlertEmailServiceConfiguration
     {
         public string Mode { get; set; }
         public string IntervalMinutes { get; set; }

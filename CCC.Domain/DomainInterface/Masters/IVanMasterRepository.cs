@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace CCC.Domain.DomainInterface
 {
-    public interface IVanMasterRepository : IRepository<VanMaster>
+	public interface IVanMasterRepository : IRepository<VanMaster>
     {
         Task<int> AddEditVan(VanMaster obj);
         Task<VanMaster> GetVanDetail(VanMaster obj);

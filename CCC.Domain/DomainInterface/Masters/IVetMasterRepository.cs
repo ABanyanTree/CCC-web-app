@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace CCC.Domain.DomainInterface
 {
-    public interface IVetMasterRepository : IRepository<VetMaster>
+	public interface IVetMasterRepository : IRepository<VetMaster>
     {
         Task<int> AddEditVetDetail(VetMaster obj);
         Task<VetMaster> IsVetNameInUse(string vetName);

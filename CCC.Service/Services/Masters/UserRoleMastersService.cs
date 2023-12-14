@@ -3,13 +3,11 @@ using CCC.Domain.DomainInterface;
 using CCC.Service.Interfaces;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace CCC.Service.Services
 {
-    public class UserRoleMastersService : IUserRoleMastersService
+	public class UserRoleMastersService : IUserRoleMastersService
     {
         private IUserRoleMastersRepository _iUserRoleMastersRepository;
         public UserRoleMastersService(IUserRoleMastersRepository UserRoleMastersRepository) : base()

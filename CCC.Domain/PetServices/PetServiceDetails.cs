@@ -1,13 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Metadata.Ecma335;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CCC.Domain
 {
-    public class PetServiceDetails : BaseEntity
+	public class PetServiceDetails : BaseEntity
     {
         public string ServiceId { get; set; }
         public string PetId { get; set; }

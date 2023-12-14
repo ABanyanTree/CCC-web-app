@@ -2,14 +2,12 @@
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Configuration;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace CCC.API.Filters
 {
-    [AttributeUsage(validOn: AttributeTargets.Class | AttributeTargets.Method)]
+	[AttributeUsage(validOn: AttributeTargets.Class | AttributeTargets.Method)]
     public class ApiKeyAuthorizeAttribute : Attribute, IAsyncActionFilter
     {
         public const string Apikey = "ApiKey";

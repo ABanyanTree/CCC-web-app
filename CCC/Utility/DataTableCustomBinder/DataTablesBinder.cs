@@ -23,22 +23,20 @@ THE SOFTWARE.
 */
 #endregion Copyright
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 
 namespace DataTables.Mvc
 {
-    /// <summary>
-    /// Defines a DataTables binder to bind a model with the request parameters from DataTables.
-    /// </summary>
-    public class DataTablesBinder : IModelBinder
+	/// <summary>
+	/// Defines a DataTables binder to bind a model with the request parameters from DataTables.
+	/// </summary>
+	public class DataTablesBinder : IModelBinder
     {
         /// <summary>
         /// Formatting to retrieve data for each column.

@@ -9,13 +9,12 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Dynamic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using static Dapper.SqlMapper;
 
 namespace CCC.Data.Services
 {
-    public class Repository<T> : IRepository<T>
+	public class Repository<T> : IRepository<T>
     {
         private IOptions<ReadConfig> _connStr;
         private IDapperResolver<T> _resolver;

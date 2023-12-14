@@ -1,5 +1,4 @@
 ﻿using CCC.API.ApiPath;
-using CCC.API.Filters;
 using CCC.API.Options;
 using CCC.Domain;
 using CCC.Domain.Email;
@@ -19,7 +18,7 @@ using System.Threading.Tasks;
 
 namespace CCC.API.Controllers.Masters
 {
-    public class UserMasterController : Controller
+	public class UserMasterController : Controller
     {
         private readonly IUserMasterService _iUserMasterService;
         private readonly ICenterMasterService _iCenterMasterService;

@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace CCC.UI.NLogger
+﻿namespace CCC.UI.NLogger
 {
-    public interface ILog
+	public interface ILog
     {
         void Information(string message);
         void Warning(string message);

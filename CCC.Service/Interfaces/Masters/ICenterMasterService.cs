@@ -1,11 +1,10 @@
 ﻿using CCC.Domain;
-using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace CCC.Service.Interfaces
 {
-    public interface ICenterMasterService : IServiceBase<CenterMaster>
+	public interface ICenterMasterService : IServiceBase<CenterMaster>
     {
         Task<string> AddEditCenter(CenterMaster obj);
         Task<CenterMaster> IsCenterNameInUse(string centerName);

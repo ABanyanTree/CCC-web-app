@@ -1,14 +1,11 @@
 ﻿using CCC.Data.Interfaces;
 using CCC.Domain;
 using CCC.Domain.DomainInterface;
-using CCC.Domain.Others;
 using Microsoft.Extensions.Options;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 namespace CCC.Data.Services
 {
-    public class RefreshTokenRepository : Repository<RefreshToken>, IRefreshTokenRepository
+	public class RefreshTokenRepository : Repository<RefreshToken>, IRefreshTokenRepository
     {
         public RefreshTokenRepository(IOptions<ReadConfig> connStr, IDapperResolver<RefreshToken> resolver) : base(connStr, resolver)
         {

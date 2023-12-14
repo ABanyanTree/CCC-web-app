@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CCC.Domain
+﻿namespace CCC.Domain
 {
-    public class CityAreaMaster : BaseEntity
+	public class CityAreaMaster : BaseEntity
     {
         public string AreaId { get; set; }
         public string AreaName { get; set; }

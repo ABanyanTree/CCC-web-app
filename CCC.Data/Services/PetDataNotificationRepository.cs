@@ -2,15 +2,12 @@
 using CCC.Domain;
 using CCC.Domain.DomainInterface;
 using Microsoft.Extensions.Options;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace CCC.Data.Services
 {
-    public class PetDataNotificationRepository : Repository<PetDataNotification>, IPetDataNotificationRepository
+	public class PetDataNotificationRepository : Repository<PetDataNotification>, IPetDataNotificationRepository
     {
         public PetDataNotificationRepository(IOptions<ReadConfig> connStr, IDapperResolver<PetDataNotification> resolver) : base(connStr, resolver)
         {

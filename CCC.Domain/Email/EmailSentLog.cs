@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CCC.Domain.Email
 {
-    public class EmailSentLog : BaseEntity
+	public class EmailSentLog : BaseEntity
     {
         public string EmailLogId { get; set; }
         public string EmailTo { get; set; }

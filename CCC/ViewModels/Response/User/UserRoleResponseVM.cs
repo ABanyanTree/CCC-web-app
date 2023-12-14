@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace CCC.UI.ViewModels
+﻿namespace CCC.UI.ViewModels
 {
-    public class UserRoleResponseVM
+	public class UserRoleResponseVM
     {
         public string UserRoleId { get; set; }
         public string UserId { get; set; }

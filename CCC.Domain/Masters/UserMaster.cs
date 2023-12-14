@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CCC.Domain
 {
-    public class UserMaster : BaseEntity
+	public class UserMaster : BaseEntity
     {
         public string UserId { get; set; }
         public string FirstName { get; set; }

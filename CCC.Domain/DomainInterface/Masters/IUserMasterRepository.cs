@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace CCC.Domain.DomainInterface
 {
-    public interface IUserMasterRepository : IRepository<UserMaster>
+	public interface IUserMasterRepository : IRepository<UserMaster>
     {
         Task<int> AddEditUser(UserMaster obj);
         Task<int> DeleteUser(UserMaster obj);

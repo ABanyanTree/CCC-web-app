@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CCC.Domain
+﻿namespace CCC.Domain
 {
-    public class FeatureMaster
+	public class FeatureMaster
     {
         public string FeatureId { get; set; }
         public string FeatureName { get; set; }

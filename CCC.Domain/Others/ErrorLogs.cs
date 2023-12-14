@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CCC.Domain
 {
-    public class ErrorLogs:BaseEntity
+	public class ErrorLogs:BaseEntity
     {
         public string ErrorLogID { get; set; }
         public string ControllerName { get; set; }

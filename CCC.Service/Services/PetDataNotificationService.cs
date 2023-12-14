@@ -5,13 +5,11 @@ using CCC.Service.Infra.EmailStuff;
 using CCC.Service.Interfaces;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace CCC.Service.Services
 {
-    public class PetDataNotificationService : IPetDataNotificationService
+	public class PetDataNotificationService : IPetDataNotificationService
     {
         private IPetDataNotificationRepository _PetDataNotificationRepository;
         private IEmailSender _iEmailSender;

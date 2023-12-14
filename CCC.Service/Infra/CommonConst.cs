@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CCC.Service.Infra
+﻿namespace CCC.Service.Infra
 {
-    public static class CommonConst
+	public static class CommonConst
     {
         public const string FEATURE_VetReport = "VetReport";
         public const string FEATURE_CenterReport = "CenterReport";

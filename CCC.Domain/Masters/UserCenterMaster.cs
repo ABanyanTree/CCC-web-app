@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CCC.Domain
+﻿namespace CCC.Domain
 {
-    public class UserCenterMaster : BaseEntity
+	public class UserCenterMaster : BaseEntity
     {
         public string UserCenterId { get; set; }
         public string UserId { get; set; }

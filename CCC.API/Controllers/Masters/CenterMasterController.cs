@@ -1,15 +1,11 @@
 ﻿using CCC.API.ApiPath;
-using CCC.API.Filters;
 using CCC.Domain;
 using CCC.Service.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 namespace CCC.API.Controllers.Masters
 {
-    public class CenterMasterController : Controller
+	public class CenterMasterController : Controller
     {
         private readonly ICenterMasterService _iCenterMasterService;
 

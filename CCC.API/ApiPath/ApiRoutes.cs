@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace CCC.API.ApiPath
+﻿namespace CCC.API.ApiPath
 {
-    public static class ApiRoutes
+	public static class ApiRoutes
     {
         public const string Base = "api";
 

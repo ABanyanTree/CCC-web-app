@@ -2,14 +2,12 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
 using Microsoft.Extensions.Primitives;
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace CCC.API.Middleware
 {
-    public class FileHandlerMiddleWare
+	public class FileHandlerMiddleWare
     {
 
         private readonly RequestDelegate _next;

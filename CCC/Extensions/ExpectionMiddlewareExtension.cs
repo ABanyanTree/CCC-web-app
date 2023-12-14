@@ -2,15 +2,11 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Threading.Tasks;
 
 namespace CCC.UI.Extensions
 {
-    public static class ExpectionMiddlewareExtension
+	public static class ExpectionMiddlewareExtension
     {
         public static void ConfigureExceptionHandler(this IApplicationBuilder app, ILog logger)
         {

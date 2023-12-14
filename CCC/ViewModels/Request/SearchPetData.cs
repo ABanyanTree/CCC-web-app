@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace CCC.UI.ViewModels
 {
-    public class SearchPetData : BaseRequestVM
+	public class SearchPetData : BaseRequestVM
     {
         public string PetId { get; set; }
         public bool Gender { get; set; }

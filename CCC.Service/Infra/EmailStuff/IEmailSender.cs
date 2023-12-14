@@ -1,14 +1,10 @@
 ﻿using CCC.Domain;
 using CCC.Domain.Email;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace CCC.Service.Infra.EmailStuff
 {
-    public interface IEmailSender
+	public interface IEmailSender
     {
         Task<bool> SendInstantEmailFunctionality(EmailSenderEntity emailSenderEntity);
         void GetForgotPasswordBodyAndSubject(UserMaster obj, ref string body, ref string subject);

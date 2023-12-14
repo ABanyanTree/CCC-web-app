@@ -5,9 +5,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
-using System.Linq;
 using System.Net.Mail;
 using System.Reflection;
 using System.Text;
@@ -16,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace CCC.Service.Infra.EmailStuff
 {
-    public class EmailSender : IEmailSender
+	public class EmailSender : IEmailSender
     {
         private IHostingEnvironment _hostingEnvironment;
         private IOptions<EmailConfig> _options;

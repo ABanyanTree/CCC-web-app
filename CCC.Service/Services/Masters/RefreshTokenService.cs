@@ -3,14 +3,11 @@ using CCC.Domain.DomainInterface;
 using CCC.Service.Interfaces;
 using Microsoft.Extensions.Options;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace CCC.Service.Services
 {
-    public class RefreshTokenService : IRefreshTokenService
+	public class RefreshTokenService : IRefreshTokenService
     {
         IRefreshTokenRepository _IRefreshTokenRepository = null;
         private IOptions<FileSystemPath> _options;

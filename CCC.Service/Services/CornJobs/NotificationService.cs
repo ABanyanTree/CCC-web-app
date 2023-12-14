@@ -8,17 +8,13 @@ using System.IO;
 using System.Text;
 using System;
 using System.Threading.Tasks;
-using CCC.Service.Interfaces;
 using System.Linq;
-using Microsoft.AspNetCore.Mvc;
-using FluentValidation.Validators;
 using Microsoft.Extensions.Options;
 using CCC.Domain.Others;
-using System.Diagnostics;
 
 namespace CCC.Service.Interfaces
 {
-    public class NotificationService : INotificationService
+	public class NotificationService : INotificationService
     {
         private readonly IPetServices _iPetService;
         private readonly ICenterMasterService _iCenterMasterService;

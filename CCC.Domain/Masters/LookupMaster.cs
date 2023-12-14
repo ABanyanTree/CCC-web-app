@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CCC.Domain
+﻿namespace CCC.Domain
 {
-    public class LookupMaster : BaseEntity
+	public class LookupMaster : BaseEntity
     {
         public string LookupId { get; set; }
         public string LookupType { get; set; }

@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace CCC.Domain.DomainInterface
 {
-    public interface ICenterMasterRepository : IRepository<CenterMaster>
+	public interface ICenterMasterRepository : IRepository<CenterMaster>
     {
         Task<int> AddEditCenter(CenterMaster obj);
         Task<CenterMaster> GetCenter(CenterMaster obj);

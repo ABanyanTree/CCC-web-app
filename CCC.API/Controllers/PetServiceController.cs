@@ -1,16 +1,13 @@
 ﻿using CCC.API.ApiPath;
 using CCC.Domain;
 using CCC.Service.Interfaces;
-using CCC.Service.Services;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace CCC.API.Controllers
 {
-    public class PetServiceController : Controller
+	public class PetServiceController : Controller
     {
         private readonly IPetServices _iPetService;
         private readonly IPetDataNotificationService _iPetDataNotificationService;

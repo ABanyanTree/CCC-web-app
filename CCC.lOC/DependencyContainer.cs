@@ -5,15 +5,10 @@ using CCC.Service.Infra.EmailStuff;
 using CCC.Service.Interfaces;
 using CCC.Service.Services;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CCC.lOC
 {
-    public class DependencyContainer
+	public class DependencyContainer
     {
         public string newstr { get; set; }
 

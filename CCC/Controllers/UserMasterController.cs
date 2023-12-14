@@ -5,14 +5,13 @@ using DataTables.Mvc;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Refit;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace CCC.UI.Controllers
 {
-    public class UserMasterController : Controller
+	public class UserMasterController : Controller
     {
 
         public async Task<ActionResult> ManageUsers()

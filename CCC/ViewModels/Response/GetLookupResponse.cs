@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace CCC.UI.ViewModels
+﻿namespace CCC.UI.ViewModels
 {
-    public class GetLookupResponse : BaseResponse
+	public class GetLookupResponse : BaseResponse
     {
         public string LookupId { get; set; }
         public string LookupType { get; set; }

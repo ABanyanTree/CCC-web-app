@@ -6,20 +6,17 @@ using Microsoft.AspNetCore.Http.Features;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Quartz.Impl;
 using Quartz;
 using System;
-using System.Collections.Generic;
 using System.Collections.Specialized;
-using System.Linq;
 using System.Threading.Tasks;
 using CCC.API.Options;
 
 namespace CCC.API
 {
-    public class Program
+	public class Program
     {
         public static void Main(string[] args)
         {

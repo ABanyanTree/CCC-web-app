@@ -3,14 +3,12 @@ using CCC.Domain.DomainInterface;
 using CCC.Service.Interfaces;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 
 namespace CCC.Service.Services
 {
-    public class CenterMasterService : ICenterMasterService
+	public class CenterMasterService : ICenterMasterService
     {
         private ICenterMasterRepository _iCenterMasterRepository;
         public CenterMasterService(ICenterMasterRepository ICenterMasterRepository) : base()

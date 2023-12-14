@@ -3,13 +3,11 @@ using CCC.Domain.DomainInterface;
 using CCC.Service.Interfaces;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace CCC.Service.Services
 {
-    public class ErrorLogsService : IErrorLogs
+	public class ErrorLogsService : IErrorLogs
     {
         private IErrorLogsRepository _errorLogsRepository;
 

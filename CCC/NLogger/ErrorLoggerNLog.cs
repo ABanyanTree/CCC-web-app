@@ -1,12 +1,8 @@
 ﻿using NLog;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace CCC.UI.NLogger
 {
-    public class ErrorLoggerNLog : ILog
+	public class ErrorLoggerNLog : ILog
     {
         private static readonly ILogger logger = LogManager.GetCurrentClassLogger();
 

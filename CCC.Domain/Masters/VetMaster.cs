@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CCC.Domain
+﻿namespace CCC.Domain
 {
-    public class VetMaster : BaseEntity
+	public class VetMaster : BaseEntity
     {
         public string VetId { get; set; }
         public string VetName { get; set; }

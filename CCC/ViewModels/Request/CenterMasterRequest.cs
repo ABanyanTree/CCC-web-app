@@ -1,13 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace CCC.UI.ViewModels
 {
-    public class CenterMasterRequest : BaseRequestVM
+	public class CenterMasterRequest : BaseRequestVM
     {
         public string CenterId { get; set; }
 

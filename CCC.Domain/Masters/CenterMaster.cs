@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CCC.Domain
+﻿namespace CCC.Domain
 {
-    public class CenterMaster : BaseEntity
+	public class CenterMaster : BaseEntity
     {
         public string CenterId { get; set; }
         public string CenterName { get; set; }

@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace CCC.UI.ViewModels
+﻿namespace CCC.UI.ViewModels
 {
-    public class GetCentersResponse : BaseResponse
+	public class GetCentersResponse : BaseResponse
     {
         public string CenterId { get; set; }
         public string CenterName { get; set; }

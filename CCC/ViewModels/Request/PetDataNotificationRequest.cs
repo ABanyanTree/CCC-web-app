@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace CCC.UI.ViewModels
+﻿namespace CCC.UI.ViewModels
 {
-    public class PetDataNotificationRequest
+	public class PetDataNotificationRequest
     {
         public string PetNotifyId { get; set; }
         public string ServiceId { get; set; }

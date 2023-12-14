@@ -1,14 +1,10 @@
 ﻿using CCC.UI.Utility;
 using CCC.UI.ViewModels;
 using Microsoft.AspNetCore.Http;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace CCC.UI.Helper
 {
-    public static class CustomHelpers
+	public static class CustomHelpers
     {
         private static IHttpContextAccessor _httpContextAccessor;
 

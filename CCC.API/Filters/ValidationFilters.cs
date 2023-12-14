@@ -1,14 +1,13 @@
 ﻿using CCC.Domain;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace CCC.API.Filters
 {
-    public class ValidationFilters : IAsyncActionFilter
+	public class ValidationFilters : IAsyncActionFilter
     {
         public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
         {

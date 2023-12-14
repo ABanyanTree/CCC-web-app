@@ -1,15 +1,13 @@
 ﻿using CCC.Domain;
 using CCC.UI.ViewModels;
 using Refit;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace CCC.UI.RefitClientFactory
 {
-    [Headers("Authorization: Bearer")]
+	[Headers("Authorization: Bearer")]
     public interface IPetServiceApi
     {
         [Get(path: "/api/petservice/getpetdata")]

@@ -6,13 +6,11 @@ using CCC.Service.Infra.EmailStuff;
 using CCC.Service.Interfaces;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace CCC.Service.Services
 {
-    public class UserMasterService : IUserMasterService
+	public class UserMasterService : IUserMasterService
     {
         private IUserMasterRepository _iUserMasterRepository;
         private IEmailSender _iEmailSender;

@@ -1,14 +1,11 @@
 ﻿using CCC.API.ApiPath;
-using CCC.API.APIUtility;
 using CCC.Domain;
 using CCC.Service.Infra;
-using CCC.Service.Infra.EmailStuff;
 using CCC.Service.Interfaces;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using OfficeOpenXml;
 using OfficeOpenXml.Style;
-using OfficeOpenXml.Table.PivotTable;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -18,7 +15,7 @@ using System.Text;
 using System.Threading.Tasks;
 namespace CCC.API.Controllers
 {
-    public class NotificationController : Controller
+	public class NotificationController : Controller
     {
         private readonly IPetServices _iPetService;
         private readonly ICenterMasterService _iCenterMasterService;

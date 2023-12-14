@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CCC.Service.Infra.EmailStuff
+﻿namespace CCC.Service.Infra.EmailStuff
 {
-    public class EmailConfig
+	public class EmailConfig
     {
         public string From { get; set; }
         public bool SendEmail { get; set; }

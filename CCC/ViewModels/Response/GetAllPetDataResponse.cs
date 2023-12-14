@@ -1,12 +1,8 @@
-﻿using NLog.Time;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System;
 
 namespace CCC.UI.ViewModels
 {
-    public class GetAllPetDataResponse
+	public class GetAllPetDataResponse
     {
         public string ServiceId { get; set; }
         public string PetId { get; set; }

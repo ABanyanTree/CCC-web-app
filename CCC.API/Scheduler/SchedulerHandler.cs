@@ -1,11 +1,10 @@
 ﻿using Quartz.Impl;
 using Quartz;
-using System.Threading.Tasks;
 using System;
 
 namespace CCC.API.Scheduler
 {
-    public class SchedulerHandler
+	public class SchedulerHandler
     {
         private static readonly string ScheduleCronExpression = "0 */5 * ? * *";
         public static async System.Threading.Tasks.Task StartAsync(string cornExpression)

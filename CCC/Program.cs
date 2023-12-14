@@ -1,8 +1,4 @@
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
 using CCC;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
@@ -12,7 +8,7 @@ using NLog.Extensions.Logging;
 
 namespace ZurichGov.UI
 {
-    public class Program
+	public class Program
     {
         public static void Main(string[] args)
         {

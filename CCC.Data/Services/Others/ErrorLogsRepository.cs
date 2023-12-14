@@ -4,13 +4,11 @@ using CCC.Domain.DomainInterface;
 using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace CCC.Data.Services
 {
-    public class ErrorLogsRepository : Repository<ErrorLogs>, IErrorLogsRepository
+	public class ErrorLogsRepository : Repository<ErrorLogs>, IErrorLogsRepository
     {
         public ErrorLogsRepository(IOptions<ReadConfig> connStr, IDapperResolver<ErrorLogs> resolver) : base(connStr, resolver)
         {

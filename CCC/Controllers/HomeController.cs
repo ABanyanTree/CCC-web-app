@@ -1,7 +1,6 @@
 ﻿using CCC.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -16,7 +15,7 @@ using Refit;
 
 namespace CCC.Controllers
 {
-    public class HomeController : Controller
+	public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
 

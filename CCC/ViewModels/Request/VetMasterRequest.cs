@@ -1,14 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.VisualBasic.CompilerServices;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace CCC.UI.ViewModels
 {
-    public class VetMasterRequest : BaseRequestVM
+	public class VetMasterRequest : BaseRequestVM
     {
         public string VetId { get; set; }
 

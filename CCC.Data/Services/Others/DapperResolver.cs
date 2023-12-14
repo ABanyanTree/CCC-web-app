@@ -4,12 +4,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CCC.Data.Services
 {
-    public class DapperResolver<T> : IDapperResolver<T>
+	public class DapperResolver<T> : IDapperResolver<T>
     {
         public DynamicParameters GetParameters(string[] addParams, T entity)
         {

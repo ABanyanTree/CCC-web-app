@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace CCC.UI.Models
+﻿namespace CCC.UI.Models
 {
-    public class VersionSettings
+	public class VersionSettings
     {
         public string VersionName { get; set; }
         public string ShowReportHelp { get; set; }

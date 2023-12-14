@@ -1,29 +1,22 @@
 using CCC.API.Installers;
-using CCC.API.Middleware;
 using CCC.API.Options;
 using CCC.API.Scheduler;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http.Features;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Quartz.Impl;
 using Quartz;
 using System;
-using System.Collections.Generic;
 using System.Collections.Specialized;
-using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Options;
 
 namespace CCC.API
 {
-    public class Startup
+	public class Startup
     {
         public Startup(IConfiguration configuration)
         {

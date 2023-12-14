@@ -5,14 +5,13 @@ using DataTables.Mvc;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Refit;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace CCC.UI.Controllers
 {
-    public class LookupMasterController : Controller
+	public class LookupMasterController : Controller
     {
         public async Task<ActionResult> ManageLookup()
         {

@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace CCC.Domain.Email
 {
-    public class EmailSenderEntity : BaseEntity
+	public class EmailSenderEntity : BaseEntity
     {
         public string EmailType { get; set; }
         public string EmailTo { get; set; }
