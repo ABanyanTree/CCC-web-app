@@ -142,9 +142,7 @@
 
 
 				]
-		});
-		mytable.on('order.dt', function () { $('.dataTables_paginate,.dataTables_info').show(); });
-		mytable.on('length.dt', function (e, settings, len) { $('.dataTables_paginate,.dataTables_info').show(); });
+		});		
 
 
 		mytable.on("click", "th.select-checkbox", function () {
@@ -166,7 +164,8 @@
 			if (count === rowCount) { chkAll.prop("checked", true); } else { chkAll.prop("checked", false); }
 		});
 
-
+		mytable.on('order.dt', function () { $('.dataTables_paginate,.dataTables_info').show(); });
+		mytable.on('length.dt', function (e, settings, len) { $('.dataTables_paginate,.dataTables_info').show(); });
 
 		$("#divDataTable_length").append($(".dataTables_info"));
 		$("#divdataTables_info").append($(".dataTables_length"));
@@ -461,15 +460,15 @@
 					</thead>
 					<tbody></tbody>
 				</table>
+			
 			</div>
+			<div id="divdataTables_info" style="margin-top: 1rem !important;margin-bottom: 6rem !important;margin-right: 20rem !important;"></div>
+			<div id="divDataTable_length"></div>
 		</div>
-		<div id="divdataTables_info"></div>
-		<div id="divDataTable_length"></div>
+		
 	</div>
-
+	
 </div>
-
-
 
 
 
