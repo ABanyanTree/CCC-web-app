@@ -356,9 +356,9 @@ namespace CCC.UI.Controllers
 						grandTotalByVet = (grandTotalByVet + opCountFinal);
 						Color specialVetColor = Color.FromArgb(18, 143, 139); //lstVetColor.Where(x => x.Key.Trim().ToLower() == item.Trim().ToLower()).Select(x => x.Value).FirstOrDefault();
 
-						DesignVetCell(workSheet, item.AdmissionDate, rowCnt + 2, colCnt, specialVetColor);
-						DesignVetCell(workSheet, item.SurgeryDate, rowCnt + 2, colCnt + 1, specialVetColor);
-						DesignVetCell(workSheet, item.VetName, rowCnt + 2, colCnt + 2, specialVetColor);
+                        DesignVetCell(workSheet, item.AdmissionDate.ToString("ddd MMM dd yyyy"), rowCnt + 2, colCnt, specialVetColor);
+                        DesignVetCell(workSheet, item.SurgeryDate?.ToString("ddd MMM dd yyyy"), rowCnt + 2, colCnt + 1, specialVetColor);
+                        DesignVetCell(workSheet, item.VetName, rowCnt + 2, colCnt + 2, specialVetColor);
 						DesignVetCell(workSheet, item.PetType, rowCnt + 2, colCnt + 3, specialVetColor);
 						DesignVetCell(workSheet, item.ColorValue, rowCnt + 2, colCnt + 4, specialVetColor);
 						DesignVetCell(workSheet, item.Gender, rowCnt + 2, colCnt + 5, specialVetColor);
@@ -366,8 +366,8 @@ namespace CCC.UI.Controllers
 						DesignVetCell(workSheet, item.CenterName, rowCnt + 2, colCnt + 7, specialVetColor);
 						DesignVetCell(workSheet, item.AreaName, rowCnt + 2, colCnt + 8, specialVetColor);
 						DesignVetCell(workSheet, item.CareGiver, rowCnt + 2, colCnt + 9, specialVetColor);
-						DesignVetCell(workSheet, item.ReleaseDate, rowCnt + 2, colCnt + 10, specialVetColor);
-						DesignVetCell(workSheet, item.MedicalComments, rowCnt + 2, colCnt + 11, specialVetColor);
+                        DesignVetCell(workSheet, item.ReleaseDate?.ToString("ddd MMM dd yyyy"), rowCnt + 2, colCnt + 10, specialVetColor);
+                        DesignVetCell(workSheet, item.MedicalComments, rowCnt + 2, colCnt + 11, specialVetColor);
 						rowCnt = rowCnt + 1;
 
 					}
