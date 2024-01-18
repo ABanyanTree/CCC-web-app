@@ -336,10 +336,10 @@
 		$(this).val(str.toUpperCase());
 		//}
 	});
-
+	var clickCount = 0;
 	$("#btnSubmit").on('click', function (e) {
 		e.preventDefault();
-
+		
 		$('#AddEditPetData').find('input:text').each(function () {
 			$(this).val($.trim($(this).val()));
 		});
@@ -385,6 +385,7 @@
 			var chkData = { tagId: TagID, serviceId: ServiceId }
 			var urlNameChk = '@Url.Action("IsTagIdInUse", "PetService")';
 			if (IsSuccess) {
+				$("#btnSubmit").prop('disabled', true);
 				$.ajax({
 					type: 'POST',
 					url: urlNameChk,
@@ -393,9 +394,12 @@
 					dataType: "Json",
 				}).done(function (result) {
 					if (result == true) {
+						$("#btnSubmit").removeAttr('disabled');
 						$("#spTagId").text('Tag ID already exists.');
+						
 					} else {
 						$("#spTagId").text('');
+						$(this).prop('disabled', true);
 						$.ajax({
 							type: 'post',
 							url: formAction,
@@ -408,6 +412,7 @@
 
 							} else {
 								showWarningMsg('something went wrong ');
+								$("#btnSubmit").removeAttr('disabled');
 							}
 						});
 
