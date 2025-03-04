@@ -683,7 +683,6 @@ namespace CCC.UI.Controllers
 
 			var centerRes = await CenterMasterAPI.GetAllCenters(objSessionUser.UserCenters);
 			ViewBag.lstCenter = new SelectList(centerRes.Content, "CenterId", "CenterName");
-
 			return View(obj);
 		}
 
@@ -696,11 +695,13 @@ namespace CCC.UI.Controllers
 
 			string firstDate = "1/" + selectedMonth + '/' + selectedYear;
 			DateTime firstDayOfMonth = DateTime.ParseExact(firstDate, DateTimeFormat, null);
+			
 
 			string lastDate = days.ToString() + '/' + selectedMonth + '/' + selectedYear;
 			DateTime lastDayOfMonth = DateTime.ParseExact(lastDate, DateTimeFormat, null);
+            
 
-			SearchPetData searchObj = new SearchPetData();
+            SearchPetData searchObj = new SearchPetData();
 			searchObj.CenterId = CenterId;
 			searchObj.SurgeryDateFrom = firstDayOfMonth;
 			searchObj.SurgeryDateTo = lastDayOfMonth;
@@ -742,75 +743,101 @@ namespace CCC.UI.Controllers
 			string centerName = response.Select(x => x.CenterName).FirstOrDefault();
 			rowCnt = rowCnt + 2;
 			int petTotal = 0, m_DogTotal = 0, f_DogTotal = 0, m_CatTotal = 0, f_CatTotal = 0;
-
+			
 			for (int i = 1; i <= days; i++)
 			{
 				rowCnt = rowCnt + 1;
+				
+
 				colCnt = 1;
 				string date = i.ToString() + '/' + selectedMonth + '/' + selectedYear;
 				DateTime sDate = DateTime.ParseExact(date, DateTimeFormat, null);
 				int totalSurgeryCountOnDay = response.Where(x => x.SurgeryDate.Value.Date == sDate.Date).ToList().Count;
+				int vetCount = 0;
 
-				workSheet.Cells[rowCnt, colCnt].Value = GetDaywithSuffix(sDate.Day);
+                var vets = response.Where(x => x.SurgeryDate == sDate).Select(x => x.VetId).Distinct().ToList();
+				vetCount = vets.Count;
+
+                workSheet.Cells[rowCnt, colCnt].Value = GetDaywithSuffix(sDate.Day);
 				workSheet.Cells[rowCnt, colCnt].Style.Border.BorderAround(ExcelBorderStyle.Thick, Color.Black);
 				workSheet.Cells[rowCnt, colCnt + 1].Value = centerName;
 				workSheet.Cells[rowCnt, colCnt + 1].Style.Border.BorderAround(ExcelBorderStyle.Thick, Color.Black);
 
+				if (vetCount > 1)
+				{
+                    workSheet.Cells[rowCnt, colCnt, rowCnt + (vetCount-1), colCnt].Merge = true;
+                    workSheet.Cells[rowCnt, colCnt +1 , rowCnt + (vetCount - 1), colCnt+1].Merge = true;
+                    workSheet.Cells[rowCnt, colCnt, rowCnt + (vetCount - 1), colCnt].Style.Border.BorderAround(ExcelBorderStyle.Thick, Color.Black);
+                }
+
 				if (totalSurgeryCountOnDay > 0)
 				{
-					string drName = response.Where(x => x.SurgeryDate == sDate).Select(x => x.VetName).FirstOrDefault();
-					Color specialVetColor = Color.FromArgb(18, 143, 139); //lstVetColor.Where(x => x.Key.Trim().ToLower() == drName.Trim().ToLower()).Select(x => x.Value).FirstOrDefault();
 
-					int optDogsCount_m = response.Where(x => x.SurgeryDate.Value.Date == sDate.Date && x.PetType == CommonConstants.LOOKUPTYPE_PETTYPE_DOG && x.Gender == CommonConstants.LOOKUPTYPE_PETGENDER_MALE).ToList().Count;
-					int optDogsCount_f = response.Where(x => x.SurgeryDate.Value.Date == sDate.Date && x.PetType == CommonConstants.LOOKUPTYPE_PETTYPE_DOG && x.Gender == CommonConstants.LOOKUPTYPE_PETGENDER_FEMALE).ToList().Count;
+					int vetCounter = 1;
+                    foreach (var vet in vets)
+					{
+						
+                        string drName = response.Where(x => x.SurgeryDate == sDate && x.VetId == vet).Select(x => x.VetName).FirstOrDefault();
+                        int vetSurgeryCount = response.Where(x => x.SurgeryDate == sDate && x.VetId == vet).ToList().Count;
+                        Color specialVetColor = Color.FromArgb(18, 143, 139);
 
-					int optCatsCount_m = response.Where(x => x.SurgeryDate.Value.Date == sDate.Date && x.PetType == CommonConstants.LOOKUPTYPE_PETTYPE_Cat && x.Gender == CommonConstants.LOOKUPTYPE_PETGENDER_MALE).ToList().Count;
-					int optCatsCount_f = response.Where(x => x.SurgeryDate.Value.Date == sDate.Date && x.PetType == CommonConstants.LOOKUPTYPE_PETTYPE_Cat && x.Gender == CommonConstants.LOOKUPTYPE_PETGENDER_FEMALE).ToList().Count;
+                        int optDogsCount_m = response.Where(x => x.SurgeryDate.Value.Date == sDate.Date && x.VetId==vet && x.PetType == CommonConstants.LOOKUPTYPE_PETTYPE_DOG && x.Gender == CommonConstants.LOOKUPTYPE_PETGENDER_MALE).ToList().Count;
+                        int optDogsCount_f = response.Where(x => x.SurgeryDate.Value.Date == sDate.Date && x.VetId == vet && x.PetType == CommonConstants.LOOKUPTYPE_PETTYPE_DOG && x.Gender == CommonConstants.LOOKUPTYPE_PETGENDER_FEMALE).ToList().Count;
 
-					int mCncDog = 0; int fCncDog = 0; int mCncCat = 0; int fCncCat = 0;
-					int mDeathDog = 0; int fDeathDog = 0; int mDeathCat = 0; int fDeathCat = 0;
+                        int optCatsCount_m = response.Where(x => x.SurgeryDate.Value.Date == sDate.Date && x.VetId == vet && x.PetType == CommonConstants.LOOKUPTYPE_PETTYPE_Cat && x.Gender == CommonConstants.LOOKUPTYPE_PETGENDER_MALE).ToList().Count;
+                        int optCatsCount_f = response.Where(x => x.SurgeryDate.Value.Date == sDate.Date && x.VetId == vet && x.PetType == CommonConstants.LOOKUPTYPE_PETTYPE_Cat && x.Gender == CommonConstants.LOOKUPTYPE_PETGENDER_FEMALE).ToList().Count;
 
-					mCncDog = response.Where(x => x.SurgeryDate.Value.Date == sDate.Date && x.PetType == CommonConstants.LOOKUPTYPE_PETTYPE_DOG && x.Gender == CommonConstants.LOOKUPTYPE_PETGENDER_MALE && x.IsOnHold == true && x.ExpiredDate == null).ToList().Count;
-					fCncDog = response.Where(x => x.SurgeryDate.Value.Date == sDate.Date && x.PetType == CommonConstants.LOOKUPTYPE_PETTYPE_DOG && x.Gender == CommonConstants.LOOKUPTYPE_PETGENDER_FEMALE && x.IsOnHold == true && x.ExpiredDate == null).ToList().Count;
+                        int mCncDog = 0; int fCncDog = 0; int mCncCat = 0; int fCncCat = 0;
+                        int mDeathDog = 0; int fDeathDog = 0; int mDeathCat = 0; int fDeathCat = 0;
 
-					mCncCat = response.Where(x => x.SurgeryDate.Value.Date == sDate.Date && x.PetType == CommonConstants.LOOKUPTYPE_PETTYPE_Cat && x.Gender == CommonConstants.LOOKUPTYPE_PETGENDER_MALE && x.IsOnHold == true && x.ExpiredDate == null).ToList().Count;
-					fCncCat = response.Where(x => x.SurgeryDate.Value.Date == sDate.Date && x.PetType == CommonConstants.LOOKUPTYPE_PETTYPE_Cat && x.Gender == CommonConstants.LOOKUPTYPE_PETGENDER_FEMALE && x.IsOnHold == true && x.ExpiredDate == null).ToList().Count;
+                        mCncDog = response.Where(x => x.SurgeryDate.Value.Date == sDate.Date && x.VetId == vet && x.PetType == CommonConstants.LOOKUPTYPE_PETTYPE_DOG && x.Gender == CommonConstants.LOOKUPTYPE_PETGENDER_MALE && x.IsOnHold == true && x.ExpiredDate == null).ToList().Count;
+                        fCncDog = response.Where(x => x.SurgeryDate.Value.Date == sDate.Date && x.VetId == vet && x.PetType == CommonConstants.LOOKUPTYPE_PETTYPE_DOG && x.Gender == CommonConstants.LOOKUPTYPE_PETGENDER_FEMALE && x.IsOnHold == true && x.ExpiredDate == null).ToList().Count;
 
-					mDeathDog = response.Where(x => x.SurgeryDate.Value.Date == sDate.Date && x.PetType == CommonConstants.LOOKUPTYPE_PETTYPE_DOG && x.Gender == CommonConstants.LOOKUPTYPE_PETGENDER_MALE && x.ExpiredDate != null).ToList().Count;
-					fDeathDog = response.Where(x => x.SurgeryDate.Value.Date == sDate.Date && x.PetType == CommonConstants.LOOKUPTYPE_PETTYPE_DOG && x.Gender == CommonConstants.LOOKUPTYPE_PETGENDER_FEMALE && x.ExpiredDate != null).ToList().Count;
+                        mCncCat = response.Where(x => x.SurgeryDate.Value.Date == sDate.Date && x.VetId == vet && x.PetType == CommonConstants.LOOKUPTYPE_PETTYPE_Cat && x.Gender == CommonConstants.LOOKUPTYPE_PETGENDER_MALE && x.IsOnHold == true && x.ExpiredDate == null).ToList().Count;
+                        fCncCat = response.Where(x => x.SurgeryDate.Value.Date == sDate.Date && x.VetId == vet && x.PetType == CommonConstants.LOOKUPTYPE_PETTYPE_Cat && x.Gender == CommonConstants.LOOKUPTYPE_PETGENDER_FEMALE && x.IsOnHold == true && x.ExpiredDate == null).ToList().Count;
 
-					mDeathCat = response.Where(x => x.SurgeryDate.Value.Date == sDate.Date && x.PetType == CommonConstants.LOOKUPTYPE_PETTYPE_Cat && x.Gender == CommonConstants.LOOKUPTYPE_PETGENDER_MALE && x.ExpiredDate != null).ToList().Count;
-					fDeathCat = response.Where(x => x.SurgeryDate.Value.Date == sDate.Date && x.PetType == CommonConstants.LOOKUPTYPE_PETTYPE_Cat && x.Gender == CommonConstants.LOOKUPTYPE_PETGENDER_FEMALE && x.ExpiredDate != null).ToList().Count;
+                        mDeathDog = response.Where(x => x.SurgeryDate.Value.Date == sDate.Date && x.VetId == vet && x.PetType == CommonConstants.LOOKUPTYPE_PETTYPE_DOG && x.Gender == CommonConstants.LOOKUPTYPE_PETGENDER_MALE && x.ExpiredDate != null).ToList().Count;
+                        fDeathDog = response.Where(x => x.SurgeryDate.Value.Date == sDate.Date && x.VetId == vet && x.PetType == CommonConstants.LOOKUPTYPE_PETTYPE_DOG && x.Gender == CommonConstants.LOOKUPTYPE_PETGENDER_FEMALE && x.ExpiredDate != null).ToList().Count;
 
-					StringBuilder sb = new StringBuilder();
+                        mDeathCat = response.Where(x => x.SurgeryDate.Value.Date == sDate.Date && x.VetId == vet && x.PetType == CommonConstants.LOOKUPTYPE_PETTYPE_Cat && x.Gender == CommonConstants.LOOKUPTYPE_PETGENDER_MALE && x.ExpiredDate != null).ToList().Count;
+                        fDeathCat = response.Where(x => x.SurgeryDate.Value.Date == sDate.Date && x.VetId == vet && x.PetType == CommonConstants.LOOKUPTYPE_PETTYPE_Cat && x.Gender == CommonConstants.LOOKUPTYPE_PETGENDER_FEMALE && x.ExpiredDate != null).ToList().Count;
 
-					if (mCncDog > 0 || mCncCat > 0) { sb.Append((mCncDog + mCncCat) + "m Canc +"); }
-					if (fCncDog > 0 || fCncCat > 0) { sb.Append((fCncDog + fCncCat) + "f Canc +"); }
+                        StringBuilder sb = new StringBuilder();
 
-					if (mDeathDog > 0 || mDeathCat > 0) { sb.Append((mDeathDog + mDeathCat) + "m death +"); }
-					if (fDeathDog > 0 || fDeathCat > 0) { sb.Append((fDeathDog + fDeathCat) + "f death +"); }
+                        if (mCncDog > 0 || mCncCat > 0) { sb.Append((mCncDog + mCncCat) + "m Canc +"); }
+                        if (fCncDog > 0 || fCncCat > 0) { sb.Append((fCncDog + fCncCat) + "f Canc +"); }
 
-					m_DogTotal = m_DogTotal + optDogsCount_m;
-					f_DogTotal = f_DogTotal + optDogsCount_f;
+                        if (mDeathDog > 0 || mDeathCat > 0) { sb.Append((mDeathDog + mDeathCat) + "m death +"); }
+                        if (fDeathDog > 0 || fDeathCat > 0) { sb.Append((fDeathDog + fDeathCat) + "f death +"); }
 
-					m_CatTotal = m_CatTotal + optCatsCount_m;
-					f_CatTotal = f_CatTotal + optCatsCount_f;
+                        m_DogTotal = m_DogTotal + optDogsCount_m;
+                        f_DogTotal = f_DogTotal + optDogsCount_f;
 
-					int totalOpt = (optDogsCount_m + optDogsCount_f + optCatsCount_m + optCatsCount_f) - (mCncDog + mCncCat + fCncDog + fCncCat + mDeathDog + mDeathCat + fDeathDog + fDeathCat);
-					petTotal = petTotal + totalOpt;
+                        m_CatTotal = m_CatTotal + optCatsCount_m;
+                        f_CatTotal = f_CatTotal + optCatsCount_f;
 
-					string deathNotes = (mDeathDog + fDeathDog + mDeathCat + fDeathCat).ToString(); //sb.ToString();
-																									//deathNotes = (!string.IsNullOrEmpty(deathNotes)) ? deathNotes.Remove(deathNotes.Length - 1, 1) : "";
+                        int totalOpt = (optDogsCount_m + optDogsCount_f + optCatsCount_m + optCatsCount_f) - (mCncDog + mCncCat + fCncDog + fCncCat + mDeathDog + mDeathCat + fDeathDog + fDeathCat);
+                        petTotal = petTotal + totalOpt;
 
-					DesignVetCell(workSheet, drName, rowCnt, colCnt + 2, specialVetColor);
-					DesignVetCell(workSheet, optDogsCount_m, rowCnt, colCnt + 3, specialVetColor);
-					DesignVetCell(workSheet, optDogsCount_f, rowCnt, colCnt + 4, specialVetColor);
-					DesignVetCell(workSheet, optCatsCount_m, rowCnt, colCnt + 5, specialVetColor);
-					DesignVetCell(workSheet, optCatsCount_f, rowCnt, colCnt + 6, specialVetColor);
-					DesignVetCell(workSheet, deathNotes, rowCnt, colCnt + 7, specialVetColor);
+                        string deathNotes = (mDeathDog + fDeathDog + mDeathCat + fDeathCat).ToString();
 
-					DesignVetTotalOperation(workSheet, totalOpt, rowCnt, colCnt + 8, specialVetColor, false);
+                        DesignVetCell(workSheet, drName, rowCnt, colCnt + 2, specialVetColor);
+                        DesignVetCell(workSheet, optDogsCount_m, rowCnt, colCnt + 3, specialVetColor);
+                        DesignVetCell(workSheet, optDogsCount_f, rowCnt, colCnt + 4, specialVetColor);
+                        DesignVetCell(workSheet, optCatsCount_m, rowCnt, colCnt + 5, specialVetColor);
+                        DesignVetCell(workSheet, optCatsCount_f, rowCnt, colCnt + 6, specialVetColor);
+                        DesignVetCell(workSheet, deathNotes, rowCnt, colCnt + 7, specialVetColor);
+                        DesignVetTotalOperation(workSheet, totalOpt, rowCnt, colCnt + 8, specialVetColor, false);
 
+						                       
+                        if (vetCount > 1 && vetCounter < vetCount)
+                        {
+                            rowCnt++;
+                        }
+                        vetCounter++;
+                        
+                    }
+                      
 				}
 				else
 				{
@@ -822,7 +849,7 @@ namespace CCC.UI.Controllers
 					workSheet.Cells[rowCnt, colCnt + 2, rowCnt, colCnt + 8].Style.Fill.BackgroundColor.SetColor(Color.FromArgb(246, 253, 252));
 					workSheet.Cells[rowCnt, colCnt, rowCnt, colCnt + 8].Style.Border.BorderAround(ExcelBorderStyle.Thick, Color.Black);
 				}
-			}
+			} //end of days loop
 
 			DesignCalenderTableTotal(workSheet, rowCnt, colCnt, m_DogTotal, f_DogTotal, m_CatTotal, f_CatTotal, petTotal);
 
