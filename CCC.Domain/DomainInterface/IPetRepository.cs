@@ -16,5 +16,7 @@ namespace CCC.Domain.DomainInterface
         Task<IEnumerable<PetServiceDetails>> GetPetCountDetails();
         Task<IEnumerable<PetServiceDetails>> GetCenterReportData(PetServiceDetails obj);
         Task<PetServiceDetails> IsTagIdInUse(string tagId);
+
+        Task<IEnumerable<PetServiceDetails>> GetConsolidatedReport(PetServiceDetails obj);
     }
 }

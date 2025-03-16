@@ -135,5 +135,15 @@ namespace CCC.Data.Services
             string[] addParams = new string[] { PetServiceDetails_Constant.TAGID };
             return await GetAsync(obj, addParams, PetServiceDetails_Constant.SPROC_PETSERVICE_ISTAGIDINUSE);
         }
+
+        public async Task<IEnumerable<PetServiceDetails>> GetConsolidatedReport(PetServiceDetails obj)
+        {
+            string[] addParams = new string[] { PetServiceDetails_Constant.STARTDATE, 
+                PetServiceDetails_Constant.ENDDATE
+            };
+
+            var responce = await GetAllAsync(obj, addParams, PetServiceDetails_Constant.SPPROC_CENTERCONSOLIDATEDREPORT);
+            return responce;
+        }
     }
 }

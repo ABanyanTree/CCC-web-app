@@ -1,6 +1,8 @@
 ﻿using CCC.Domain;
 using CCC.UI.ViewModels;
+using CCC.UI.ViewModels.Response;
 using Refit;
+using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -48,6 +50,10 @@ namespace CCC.UI.RefitClientFactory
 
         [Get(path: "/api/petservice/istagidinuse")]
         Task<ApiResponse<PetServiceDetails>> IsTagIdInUse(string tagId);
+
+        [Get(path: "/api/petservice/getconsolidatedreport")]
+        Task<ApiResponse<List<ConsolidatedReportResponse>>> GetConsolidatedReportData(DateTime startDate, DateTime endDate);
+        
 
     }
 }

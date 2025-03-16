@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection;
 
 namespace CCC.Domain
 {
@@ -53,6 +54,21 @@ namespace CCC.Domain
         public string ColorValue { get; set; }
         public bool ShowReleasedPet { get; set; } = false;
 
+        #region Consolidated Report
+        public string SurgeryMonthYearShort { get; set; }
+        public int SurgeryYear { get; set; }
+        public int SurgeryMonth { get; set; }
+        
+        public string Species { get; set; }
+        
+        public int SurgeryCount { get; set; }
+        public int rowIndex { get; set; }
+        public DateTime? StartDate { get; set; }
+        public DateTime? EndDate { get; set; }
+        public int DeathCount { get; set; }
+
+        #endregion
+
     }
 
     public class PetServiceDetails_Constant : BaseEntity_Constant
@@ -88,6 +104,8 @@ namespace CCC.Domain
         public const string USERCENTERS = "UserCenters";
         public const string COLOR = "Color";
         public const string SHOWRELEASEDPET = "ShowReleasedPet";
+        public const string STARTDATE = "StartDate";
+        public const string ENDDATE = "EndDate";
 
 
         public const string SPROC_PETSERVICE_UPS = "sproc_PetService_ups";
@@ -104,6 +122,6 @@ namespace CCC.Domain
 
         public const string SPROC_GETCENTERREPORT = "sproc_GetCenterReport";
         public const string SPROC_PETSERVICE_ISTAGIDINUSE = "sproc_PetService_IsTagIdInUse";
-
+        public const string SPPROC_CENTERCONSOLIDATEDREPORT = "spproc_CenterConsolidatedReport"; 
     }
 }

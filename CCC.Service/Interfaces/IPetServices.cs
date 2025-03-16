@@ -14,5 +14,7 @@ namespace CCC.Service.Interfaces
         Task<IEnumerable<PetServiceDetails>> GetCenterReportData(PetServiceDetails searchRequest);
         Task<PetServiceDetails> IsTagIdInUse(string tagId);
 		Task<IEnumerable<PetServiceDetails>> GetAllPetReportAsync(PetServiceDetails obj);
-	}
+        Task<IEnumerable<PetServiceDetails>> GetConsolidatedReport(PetServiceDetails obj);
+
+    }
 }

@@ -2,6 +2,7 @@
 using CCC.Domain;
 using CCC.Service.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -144,6 +145,16 @@ namespace CCC.API.Controllers
             var objResponse = await _iPetService.IsTagIdInUse(tagId);
             return Ok(objResponse);
         }
-        
+
+        [HttpGet(ApiRoutes.PetServicesDetails.GetConsolidatedReport), DisableRequestSizeLimit]
+        [ProducesResponseType(typeof(PetDataNotification), statusCode: 200)]
+        public async Task<IActionResult> GetConsolidatedReportData(DateTime startDate,DateTime endDate)
+        {
+            var searchRequest = new PetServiceDetails { StartDate= startDate, EndDate= endDate };
+            var objResponse = await _iPetService.GetConsolidatedReport(searchRequest);
+            return Ok(objResponse);
+        }
+
+
     }
 }
