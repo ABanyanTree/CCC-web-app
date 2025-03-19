@@ -40,7 +40,8 @@ namespace CCC.Data.Services
                 PetServiceDetails_Constant.CREATEDBY,
                 PetServiceDetails_Constant.MODIFIEDBY,
                 PetServiceDetails_Constant.ISACTIVE,
-                PetServiceDetails_Constant.COLOR
+                PetServiceDetails_Constant.COLOR,
+                PetServiceDetails_Constant.ComplicationID
 
             };
 

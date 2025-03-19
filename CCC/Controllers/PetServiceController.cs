@@ -466,8 +466,11 @@ namespace CCC.UI.Controllers
 			var MedicalNotes = await LookupMasterAPI.GetLookupData(CommonConstants.LOOKUPTYPE_MEDICALNOTES);
 			ViewBag.lstMedicalNotes = new SelectList(MedicalNotes.Content, "LookupId", "LookupValue");
 
+            var Complications = await LookupMasterAPI.GetLookupData(CommonConstants.LOOKUPTYPE_COMPLICATIONS);
+            ViewBag.lstComplications = new SelectList(Complications.Content, "LookupId", "LookupValue");
 
-			var Colors = await LookupMasterAPI.GetLookupData(CommonConstants.LOOKUPTYPE_COLOR);
+
+            var Colors = await LookupMasterAPI.GetLookupData(CommonConstants.LOOKUPTYPE_COLOR);
 			ViewBag.lstColors = new SelectList(Colors.Content, "LookupId", "LookupValue");
 
 

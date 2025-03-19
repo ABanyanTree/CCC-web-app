@@ -69,6 +69,8 @@ namespace CCC.Domain
 
         #endregion
 
+        public string ComplicationID { get; set; }
+
     }
 
     public class PetServiceDetails_Constant : BaseEntity_Constant
@@ -106,6 +108,7 @@ namespace CCC.Domain
         public const string SHOWRELEASEDPET = "ShowReleasedPet";
         public const string STARTDATE = "StartDate";
         public const string ENDDATE = "EndDate";
+        public const string ComplicationID = "ComplicationID";
 
 
         public const string SPROC_PETSERVICE_UPS = "sproc_PetService_ups";

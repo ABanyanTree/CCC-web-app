@@ -172,6 +172,15 @@ namespace CCC.UI.Controllers
             return PartialView("_AddMedicalNotesQuick", model);
         }
 
+        public async Task<IActionResult> AddComplicationQuick()
+        {
+            LookupMasterRequest model = new LookupMasterRequest();
+            var objSessionUSer = HttpContext.Session.GetSessionUser();
+            var cachedToken = HttpContext.Session.GetBearerToken();
+            model.LookupType = CommonConstants.LOOKUPTYPE_COMPLICATIONS;
+            return PartialView("_AddComplicationsQuick", model);
+        }
+
 
     }
 }
