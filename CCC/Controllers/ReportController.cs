@@ -972,8 +972,11 @@ namespace CCC.UI.Controllers
 				{
 					int deathCount = response.Where(x => x.VetName != null && x.VetName.Trim().ToLower() == item.Trim().ToLower() && x.ExpiredDate != null).ToList().Count;
 					totalDeathCount = totalDeathCount + deathCount;
+					//int complicationCount = response.Where(x => x.VetName != null && x.VetName.Trim().ToLower() == item.Trim().ToLower()
+					//&& x.IsOnHold == false && x.ExpiredDate == null && (x.ReleaseDate == null || x.ReleaseDate.Value.Date > x.AdmissionDate.Date.AddDays(7))).ToList().Count;
 					int complicationCount = response.Where(x => x.VetName != null && x.VetName.Trim().ToLower() == item.Trim().ToLower()
-					&& x.IsOnHold == false && x.ExpiredDate == null && (x.ReleaseDate == null || x.ReleaseDate.Value.Date > x.AdmissionDate.Date.AddDays(7))).ToList().Count;
+					&& x.ComplicationID!=null).ToList().Count;
+
 					totalComplicationCount = totalComplicationCount + complicationCount;
 					Color specialVetColor = Color.FromArgb(18, 143, 139); //lstVetColor.Where(x => x.Key.Trim().ToLower() == item.Trim().ToLower()).Select(x => x.Value).FirstOrDefault();
 
@@ -1380,10 +1383,10 @@ namespace CCC.UI.Controllers
                             , wrapText: true, autoFit: true);
 
                     int monthTotalComplication = 0;
-                    //monthTotal = response.Where(x => x.SurgeryMonthYearShort == monthYr)
-                    //      .Sum(x => x.SurgeryCount);
+                    monthTotalComplication = response.Where(x => x.SurgeryMonthYearShort == monthYr)
+						  .Sum(x => x.ComplicationCount);
 
-                    ApplyCellFormatting(cellValue: monthTotalComplication, cellRange: workSheet.Cells[startRow, (centerCol+1), startRow, (centerCol+1)]
+					ApplyCellFormatting(cellValue: monthTotalComplication, cellRange: workSheet.Cells[startRow, (centerCol+1), startRow, (centerCol+1)]
                             , fontSize: 11, bold: false, fontColor: null, bgColor: null
                             , verticalAlignment: ExcelVerticalAlignment.Center, horizontalAlignment: ExcelHorizontalAlignment.Center
                             , wrapText: true, autoFit: true);
@@ -1448,7 +1451,7 @@ namespace CCC.UI.Controllers
                 int grdTotalOverall = 0; int grdTotComplication= 0; int grdTotalDeaths = 0;
 
                 grdTotalOverall = response.Sum(x => x.SurgeryCount);
-				grdTotComplication = 0;
+				grdTotComplication = response.Sum(x=>x.ComplicationCount);
 				grdTotalDeaths = response.Sum(x => x.DeathCount);
 
 

@@ -67,6 +67,7 @@ namespace CCC.Domain
         public DateTime? EndDate { get; set; }
         public int DeathCount { get; set; }
 
+        public int ComplicationCount { get; set; }
         #endregion
 
         public string ComplicationID { get; set; }

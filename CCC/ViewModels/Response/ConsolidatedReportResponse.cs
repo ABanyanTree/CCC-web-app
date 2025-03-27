@@ -20,5 +20,6 @@ namespace CCC.UI.ViewModels.Response
         public string CenterId { get; set; }
 
         public string Gender { get; set; }
+        
     }
 }
