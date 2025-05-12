@@ -25,8 +25,26 @@ namespace CCC.API.Controllers
         [ProducesResponseType(typeof(List<ErrorLogs>), statusCode: 400)]
         public async Task<IActionResult> AddEditPetData([FromBody] PetServiceDetails request)
         {
-            var serviceId = await _iPetService.AddEditPetData(request);
-            return Ok(serviceId);
+            bool IsTagIdExists = false;
+            var objResponse = await _iPetService.IsTagIdInUse(request.TagId);
+
+            if (objResponse != null)
+            {
+                if (objResponse.ServiceId != request.ServiceId)
+                {
+                    IsTagIdExists = true;
+                }
+            }
+
+            if (!IsTagIdExists)
+            {
+                var serviceId = await _iPetService.AddEditPetData(request);
+                return Ok(serviceId);
+            }
+            else
+            {
+                return BadRequest("Tag Id already exists");
+            }
         }
 
         [HttpGet(ApiRoutes.PetServicesDetails.GetPetData)]

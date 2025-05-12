@@ -429,7 +429,12 @@
 								showSuccessMsg('Success', BackToManage(result.redirectFrom));
 
 							} else {
-								showWarningMsg('something went wrong ');
+								if (result && result.message && result.message.length > 0) {
+										showWarningMsg(result.message);
+								}
+								else{
+									showWarningMsg('something went wrong ');
+								}
 								$("#btnSubmit").removeAttr('disabled');
 							}
 						});

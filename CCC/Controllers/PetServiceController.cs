@@ -511,16 +511,22 @@ namespace CCC.UI.Controllers
 			var apiResponse = await PetServiceAPI.AddEditPetData(model);
 			string serviceId = apiResponse?.Content?.ReadAsStringAsync().Result;
 
-			var IsNotificationUpdated = await UpdatePetDataForNotification(serviceId, objSessionUSer.UserId, objSessionUSer.IsAdmin);
-
 			if (apiResponse != null && apiResponse.IsSuccessStatusCode)
 			{
-				string msg = IsNewRecord ? "Pet added successfully." : "Pet updated successfully.";
+                var IsNotificationUpdated = await UpdatePetDataForNotification(serviceId, objSessionUSer.UserId, objSessionUSer.IsAdmin);
+                string msg = IsNewRecord ? "Pet added successfully." : "Pet updated successfully.";
 				return Json(new { serviceId = serviceId, isSuccess = true, message = msg, redirectFrom = model.redirectFrom });
 			}
 			else
 			{
-				return Json(new { CountryID = 0, isSuccess = false, message = "" });
+				if (string.IsNullOrEmpty(serviceId))
+				{
+					return Json(new { CountryID = 0, isSuccess = false, message = "" });
+				}
+				else
+				{
+                    return Json(new { CountryID = 0, isSuccess = false, message = serviceId });
+                }
 			}
 		}
 
@@ -638,7 +644,7 @@ namespace CCC.UI.Controllers
 							(ServiceId != apiResponse.Content.ServiceId) ? true : false;
 					}
 				}
-				return Json(IsTagIdExists);
+                return Json(IsTagIdExists);
 			}
 		}
 	}
