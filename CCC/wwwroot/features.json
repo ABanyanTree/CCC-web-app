@@ -75,6 +75,12 @@
     "ControllerName": "Report",
     "ActionName": "ManageCenterReport",
     "CssClass": ""
+  },
+  "ManageConsolidatedReport": {
+    "FeatureId": "FEA000012",
+    "ControllerName": "Report",
+    "ActionName": "ManageConsolidatedReport",
+    "CssClass": ""
   }
 
 }

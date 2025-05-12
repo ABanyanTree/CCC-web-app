@@ -40,7 +40,8 @@ namespace CCC.Data.Services
                 PetServiceDetails_Constant.CREATEDBY,
                 PetServiceDetails_Constant.MODIFIEDBY,
                 PetServiceDetails_Constant.ISACTIVE,
-                PetServiceDetails_Constant.COLOR
+                PetServiceDetails_Constant.COLOR,
+                PetServiceDetails_Constant.ComplicationID
 
             };
 
@@ -134,6 +135,16 @@ namespace CCC.Data.Services
             PetServiceDetails obj = new PetServiceDetails() { TagId = tagId };
             string[] addParams = new string[] { PetServiceDetails_Constant.TAGID };
             return await GetAsync(obj, addParams, PetServiceDetails_Constant.SPROC_PETSERVICE_ISTAGIDINUSE);
+        }
+
+        public async Task<IEnumerable<PetServiceDetails>> GetConsolidatedReport(PetServiceDetails obj)
+        {
+            string[] addParams = new string[] { PetServiceDetails_Constant.STARTDATE, 
+                PetServiceDetails_Constant.ENDDATE
+            };
+
+            var responce = await GetAllAsync(obj, addParams, PetServiceDetails_Constant.SPPROC_CENTERCONSOLIDATEDREPORT);
+            return responce;
         }
     }
 }

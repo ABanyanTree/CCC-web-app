@@ -11,6 +11,7 @@
 	SelectList lstMedicalNotes = ViewBag.lstMedicalNotes;
 	SelectList lstVan = ViewBag.lstVan;
 	SelectList lstColors = ViewBag.lstColors;
+	SelectList lstComplications = ViewBag.lstComplications;
 
 }
 
@@ -277,7 +278,24 @@
 							</div>
 
 						</div>
+						<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+							<div class="form-group">
+								<span><label class="pt20">Complications</label></span>&nbsp;
+								@if (Model.IsAdmin == true)
+								{
+									<span class="sysColor"><i id="spAddComplication" class="fa fa-plus" aria-hidden="true"></i></span>
+								}
+								<div class="form-group2">
+									<div class="form-group fullscreen">
+										<select asp-for="ComplicationID" asp-items="lstComplications" class="form-control">
+											<option value="">--Select--</option>
+										</select>
+										<span id="spComplications" class="redColor"></span>
+									</div>
+								</div>
+							</div>
 
+						</div>
 
 					</div>
 				</div>
@@ -411,7 +429,12 @@
 								showSuccessMsg('Success', BackToManage(result.redirectFrom));
 
 							} else {
-								showWarningMsg('something went wrong ');
+								if (result && result.message && result.message.length > 0) {
+										showWarningMsg(result.message);
+								}
+								else{
+									showWarningMsg('something went wrong ');
+								}
 								$("#btnSubmit").removeAttr('disabled');
 							}
 						});
@@ -489,6 +512,14 @@
 		var _url = '@Url.Action("AddMedicalNotesQuick", "LookupMaster")';
 		Dialogcont(_url, 'Add New Medical Notes/Comments');
 	});
+
+	$("#spAddComplication").on('click',function(){
+		var _url = '@Url.Action("AddComplicationQuick", "LookupMaster")';
+		Dialogcont(_url, 'Add New Complications');
+	});
+
+
+	
 
 
 	function Dialogcont(_url, headtitle) {

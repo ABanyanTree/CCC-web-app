@@ -74,5 +74,6 @@ namespace CCC.UI.ViewModels
         public string ColorValue { get; set; }
 
         public bool ShowReleasedPet { get; set; } = false;
+        public string ComplicationID { get; set; }
     }
 }

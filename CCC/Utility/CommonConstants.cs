@@ -17,6 +17,7 @@
         public const string LOOKUPTYPE_PETTYPE = "PetType";
         public const string LOOKUPTYPE_MEDICALNOTES = "MedicalNotes";
         public const string LOOKUPTYPE_COLOR = "Color";
+        public const string LOOKUPTYPE_COMPLICATIONS = "Complications";
 
         public const string LOOKUPTYPE_PETTYPE_DOG = "Dog";
         public const string LOOKUPTYPE_PETTYPE_Cat = "Cat";

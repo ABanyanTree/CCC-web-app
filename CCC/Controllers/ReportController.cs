@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Runtime.Intrinsics.X86;
 using System.Text;
 using System.Threading.Tasks;
 using CCC.UI.RefitClientFactory;
@@ -13,6 +14,8 @@ using DataTables.Mvc;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using OfficeOpenXml;
+using OfficeOpenXml.FormulaParsing.Excel.Functions.DateTime;
+using OfficeOpenXml.FormulaParsing.Excel.Functions.Math;
 using OfficeOpenXml.Style;
 using Refit;
 
@@ -683,7 +686,6 @@ namespace CCC.UI.Controllers
 
 			var centerRes = await CenterMasterAPI.GetAllCenters(objSessionUser.UserCenters);
 			ViewBag.lstCenter = new SelectList(centerRes.Content, "CenterId", "CenterName");
-
 			return View(obj);
 		}
 
@@ -696,11 +698,13 @@ namespace CCC.UI.Controllers
 
 			string firstDate = "1/" + selectedMonth + '/' + selectedYear;
 			DateTime firstDayOfMonth = DateTime.ParseExact(firstDate, DateTimeFormat, null);
+			
 
 			string lastDate = days.ToString() + '/' + selectedMonth + '/' + selectedYear;
 			DateTime lastDayOfMonth = DateTime.ParseExact(lastDate, DateTimeFormat, null);
+            
 
-			SearchPetData searchObj = new SearchPetData();
+            SearchPetData searchObj = new SearchPetData();
 			searchObj.CenterId = CenterId;
 			searchObj.SurgeryDateFrom = firstDayOfMonth;
 			searchObj.SurgeryDateTo = lastDayOfMonth;
@@ -742,75 +746,101 @@ namespace CCC.UI.Controllers
 			string centerName = response.Select(x => x.CenterName).FirstOrDefault();
 			rowCnt = rowCnt + 2;
 			int petTotal = 0, m_DogTotal = 0, f_DogTotal = 0, m_CatTotal = 0, f_CatTotal = 0;
-
+			
 			for (int i = 1; i <= days; i++)
 			{
 				rowCnt = rowCnt + 1;
+				
+
 				colCnt = 1;
 				string date = i.ToString() + '/' + selectedMonth + '/' + selectedYear;
 				DateTime sDate = DateTime.ParseExact(date, DateTimeFormat, null);
 				int totalSurgeryCountOnDay = response.Where(x => x.SurgeryDate.Value.Date == sDate.Date).ToList().Count;
+				int vetCount = 0;
 
-				workSheet.Cells[rowCnt, colCnt].Value = GetDaywithSuffix(sDate.Day);
+                var vets = response.Where(x => x.SurgeryDate == sDate).Select(x => x.VetId).Distinct().ToList();
+				vetCount = vets.Count;
+
+                workSheet.Cells[rowCnt, colCnt].Value = GetDaywithSuffix(sDate.Day);
 				workSheet.Cells[rowCnt, colCnt].Style.Border.BorderAround(ExcelBorderStyle.Thick, Color.Black);
 				workSheet.Cells[rowCnt, colCnt + 1].Value = centerName;
 				workSheet.Cells[rowCnt, colCnt + 1].Style.Border.BorderAround(ExcelBorderStyle.Thick, Color.Black);
 
+				if (vetCount > 1)
+				{
+                    workSheet.Cells[rowCnt, colCnt, rowCnt + (vetCount-1), colCnt].Merge = true;
+                    workSheet.Cells[rowCnt, colCnt +1 , rowCnt + (vetCount - 1), colCnt+1].Merge = true;
+                    workSheet.Cells[rowCnt, colCnt, rowCnt + (vetCount - 1), colCnt].Style.Border.BorderAround(ExcelBorderStyle.Thick, Color.Black);
+                }
+
 				if (totalSurgeryCountOnDay > 0)
 				{
-					string drName = response.Where(x => x.SurgeryDate == sDate).Select(x => x.VetName).FirstOrDefault();
-					Color specialVetColor = Color.FromArgb(18, 143, 139); //lstVetColor.Where(x => x.Key.Trim().ToLower() == drName.Trim().ToLower()).Select(x => x.Value).FirstOrDefault();
 
-					int optDogsCount_m = response.Where(x => x.SurgeryDate.Value.Date == sDate.Date && x.PetType == CommonConstants.LOOKUPTYPE_PETTYPE_DOG && x.Gender == CommonConstants.LOOKUPTYPE_PETGENDER_MALE).ToList().Count;
-					int optDogsCount_f = response.Where(x => x.SurgeryDate.Value.Date == sDate.Date && x.PetType == CommonConstants.LOOKUPTYPE_PETTYPE_DOG && x.Gender == CommonConstants.LOOKUPTYPE_PETGENDER_FEMALE).ToList().Count;
+					int vetCounter = 1;
+                    foreach (var vet in vets)
+					{
+						
+                        string drName = response.Where(x => x.SurgeryDate == sDate && x.VetId == vet).Select(x => x.VetName).FirstOrDefault();
+                        int vetSurgeryCount = response.Where(x => x.SurgeryDate == sDate && x.VetId == vet).ToList().Count;
+                        Color specialVetColor = Color.FromArgb(18, 143, 139);
 
-					int optCatsCount_m = response.Where(x => x.SurgeryDate.Value.Date == sDate.Date && x.PetType == CommonConstants.LOOKUPTYPE_PETTYPE_Cat && x.Gender == CommonConstants.LOOKUPTYPE_PETGENDER_MALE).ToList().Count;
-					int optCatsCount_f = response.Where(x => x.SurgeryDate.Value.Date == sDate.Date && x.PetType == CommonConstants.LOOKUPTYPE_PETTYPE_Cat && x.Gender == CommonConstants.LOOKUPTYPE_PETGENDER_FEMALE).ToList().Count;
+                        int optDogsCount_m = response.Where(x => x.SurgeryDate.Value.Date == sDate.Date && x.VetId==vet && x.PetType == CommonConstants.LOOKUPTYPE_PETTYPE_DOG && x.Gender == CommonConstants.LOOKUPTYPE_PETGENDER_MALE).ToList().Count;
+                        int optDogsCount_f = response.Where(x => x.SurgeryDate.Value.Date == sDate.Date && x.VetId == vet && x.PetType == CommonConstants.LOOKUPTYPE_PETTYPE_DOG && x.Gender == CommonConstants.LOOKUPTYPE_PETGENDER_FEMALE).ToList().Count;
 
-					int mCncDog = 0; int fCncDog = 0; int mCncCat = 0; int fCncCat = 0;
-					int mDeathDog = 0; int fDeathDog = 0; int mDeathCat = 0; int fDeathCat = 0;
+                        int optCatsCount_m = response.Where(x => x.SurgeryDate.Value.Date == sDate.Date && x.VetId == vet && x.PetType == CommonConstants.LOOKUPTYPE_PETTYPE_Cat && x.Gender == CommonConstants.LOOKUPTYPE_PETGENDER_MALE).ToList().Count;
+                        int optCatsCount_f = response.Where(x => x.SurgeryDate.Value.Date == sDate.Date && x.VetId == vet && x.PetType == CommonConstants.LOOKUPTYPE_PETTYPE_Cat && x.Gender == CommonConstants.LOOKUPTYPE_PETGENDER_FEMALE).ToList().Count;
 
-					mCncDog = response.Where(x => x.SurgeryDate.Value.Date == sDate.Date && x.PetType == CommonConstants.LOOKUPTYPE_PETTYPE_DOG && x.Gender == CommonConstants.LOOKUPTYPE_PETGENDER_MALE && x.IsOnHold == true && x.ExpiredDate == null).ToList().Count;
-					fCncDog = response.Where(x => x.SurgeryDate.Value.Date == sDate.Date && x.PetType == CommonConstants.LOOKUPTYPE_PETTYPE_DOG && x.Gender == CommonConstants.LOOKUPTYPE_PETGENDER_FEMALE && x.IsOnHold == true && x.ExpiredDate == null).ToList().Count;
+                        int mCncDog = 0; int fCncDog = 0; int mCncCat = 0; int fCncCat = 0;
+                        int mDeathDog = 0; int fDeathDog = 0; int mDeathCat = 0; int fDeathCat = 0;
 
-					mCncCat = response.Where(x => x.SurgeryDate.Value.Date == sDate.Date && x.PetType == CommonConstants.LOOKUPTYPE_PETTYPE_Cat && x.Gender == CommonConstants.LOOKUPTYPE_PETGENDER_MALE && x.IsOnHold == true && x.ExpiredDate == null).ToList().Count;
-					fCncCat = response.Where(x => x.SurgeryDate.Value.Date == sDate.Date && x.PetType == CommonConstants.LOOKUPTYPE_PETTYPE_Cat && x.Gender == CommonConstants.LOOKUPTYPE_PETGENDER_FEMALE && x.IsOnHold == true && x.ExpiredDate == null).ToList().Count;
+                        mCncDog = response.Where(x => x.SurgeryDate.Value.Date == sDate.Date && x.VetId == vet && x.PetType == CommonConstants.LOOKUPTYPE_PETTYPE_DOG && x.Gender == CommonConstants.LOOKUPTYPE_PETGENDER_MALE && x.IsOnHold == true && x.ExpiredDate == null).ToList().Count;
+                        fCncDog = response.Where(x => x.SurgeryDate.Value.Date == sDate.Date && x.VetId == vet && x.PetType == CommonConstants.LOOKUPTYPE_PETTYPE_DOG && x.Gender == CommonConstants.LOOKUPTYPE_PETGENDER_FEMALE && x.IsOnHold == true && x.ExpiredDate == null).ToList().Count;
 
-					mDeathDog = response.Where(x => x.SurgeryDate.Value.Date == sDate.Date && x.PetType == CommonConstants.LOOKUPTYPE_PETTYPE_DOG && x.Gender == CommonConstants.LOOKUPTYPE_PETGENDER_MALE && x.ExpiredDate != null).ToList().Count;
-					fDeathDog = response.Where(x => x.SurgeryDate.Value.Date == sDate.Date && x.PetType == CommonConstants.LOOKUPTYPE_PETTYPE_DOG && x.Gender == CommonConstants.LOOKUPTYPE_PETGENDER_FEMALE && x.ExpiredDate != null).ToList().Count;
+                        mCncCat = response.Where(x => x.SurgeryDate.Value.Date == sDate.Date && x.VetId == vet && x.PetType == CommonConstants.LOOKUPTYPE_PETTYPE_Cat && x.Gender == CommonConstants.LOOKUPTYPE_PETGENDER_MALE && x.IsOnHold == true && x.ExpiredDate == null).ToList().Count;
+                        fCncCat = response.Where(x => x.SurgeryDate.Value.Date == sDate.Date && x.VetId == vet && x.PetType == CommonConstants.LOOKUPTYPE_PETTYPE_Cat && x.Gender == CommonConstants.LOOKUPTYPE_PETGENDER_FEMALE && x.IsOnHold == true && x.ExpiredDate == null).ToList().Count;
 
-					mDeathCat = response.Where(x => x.SurgeryDate.Value.Date == sDate.Date && x.PetType == CommonConstants.LOOKUPTYPE_PETTYPE_Cat && x.Gender == CommonConstants.LOOKUPTYPE_PETGENDER_MALE && x.ExpiredDate != null).ToList().Count;
-					fDeathCat = response.Where(x => x.SurgeryDate.Value.Date == sDate.Date && x.PetType == CommonConstants.LOOKUPTYPE_PETTYPE_Cat && x.Gender == CommonConstants.LOOKUPTYPE_PETGENDER_FEMALE && x.ExpiredDate != null).ToList().Count;
+                        mDeathDog = response.Where(x => x.SurgeryDate.Value.Date == sDate.Date && x.VetId == vet && x.PetType == CommonConstants.LOOKUPTYPE_PETTYPE_DOG && x.Gender == CommonConstants.LOOKUPTYPE_PETGENDER_MALE && x.ExpiredDate != null).ToList().Count;
+                        fDeathDog = response.Where(x => x.SurgeryDate.Value.Date == sDate.Date && x.VetId == vet && x.PetType == CommonConstants.LOOKUPTYPE_PETTYPE_DOG && x.Gender == CommonConstants.LOOKUPTYPE_PETGENDER_FEMALE && x.ExpiredDate != null).ToList().Count;
 
-					StringBuilder sb = new StringBuilder();
+                        mDeathCat = response.Where(x => x.SurgeryDate.Value.Date == sDate.Date && x.VetId == vet && x.PetType == CommonConstants.LOOKUPTYPE_PETTYPE_Cat && x.Gender == CommonConstants.LOOKUPTYPE_PETGENDER_MALE && x.ExpiredDate != null).ToList().Count;
+                        fDeathCat = response.Where(x => x.SurgeryDate.Value.Date == sDate.Date && x.VetId == vet && x.PetType == CommonConstants.LOOKUPTYPE_PETTYPE_Cat && x.Gender == CommonConstants.LOOKUPTYPE_PETGENDER_FEMALE && x.ExpiredDate != null).ToList().Count;
 
-					if (mCncDog > 0 || mCncCat > 0) { sb.Append((mCncDog + mCncCat) + "m Canc +"); }
-					if (fCncDog > 0 || fCncCat > 0) { sb.Append((fCncDog + fCncCat) + "f Canc +"); }
+                        StringBuilder sb = new StringBuilder();
 
-					if (mDeathDog > 0 || mDeathCat > 0) { sb.Append((mDeathDog + mDeathCat) + "m death +"); }
-					if (fDeathDog > 0 || fDeathCat > 0) { sb.Append((fDeathDog + fDeathCat) + "f death +"); }
+                        if (mCncDog > 0 || mCncCat > 0) { sb.Append((mCncDog + mCncCat) + "m Canc +"); }
+                        if (fCncDog > 0 || fCncCat > 0) { sb.Append((fCncDog + fCncCat) + "f Canc +"); }
 
-					m_DogTotal = m_DogTotal + optDogsCount_m;
-					f_DogTotal = f_DogTotal + optDogsCount_f;
+                        if (mDeathDog > 0 || mDeathCat > 0) { sb.Append((mDeathDog + mDeathCat) + "m death +"); }
+                        if (fDeathDog > 0 || fDeathCat > 0) { sb.Append((fDeathDog + fDeathCat) + "f death +"); }
 
-					m_CatTotal = m_CatTotal + optCatsCount_m;
-					f_CatTotal = f_CatTotal + optCatsCount_f;
+                        m_DogTotal = m_DogTotal + optDogsCount_m;
+                        f_DogTotal = f_DogTotal + optDogsCount_f;
 
-					int totalOpt = (optDogsCount_m + optDogsCount_f + optCatsCount_m + optCatsCount_f) - (mCncDog + mCncCat + fCncDog + fCncCat + mDeathDog + mDeathCat + fDeathDog + fDeathCat);
-					petTotal = petTotal + totalOpt;
+                        m_CatTotal = m_CatTotal + optCatsCount_m;
+                        f_CatTotal = f_CatTotal + optCatsCount_f;
 
-					string deathNotes = (mDeathDog + fDeathDog + mDeathCat + fDeathCat).ToString(); //sb.ToString();
-																									//deathNotes = (!string.IsNullOrEmpty(deathNotes)) ? deathNotes.Remove(deathNotes.Length - 1, 1) : "";
+                        int totalOpt = (optDogsCount_m + optDogsCount_f + optCatsCount_m + optCatsCount_f) - (mCncDog + mCncCat + fCncDog + fCncCat + mDeathDog + mDeathCat + fDeathDog + fDeathCat);
+                        petTotal = petTotal + totalOpt;
 
-					DesignVetCell(workSheet, drName, rowCnt, colCnt + 2, specialVetColor);
-					DesignVetCell(workSheet, optDogsCount_m, rowCnt, colCnt + 3, specialVetColor);
-					DesignVetCell(workSheet, optDogsCount_f, rowCnt, colCnt + 4, specialVetColor);
-					DesignVetCell(workSheet, optCatsCount_m, rowCnt, colCnt + 5, specialVetColor);
-					DesignVetCell(workSheet, optCatsCount_f, rowCnt, colCnt + 6, specialVetColor);
-					DesignVetCell(workSheet, deathNotes, rowCnt, colCnt + 7, specialVetColor);
+                        string deathNotes = (mDeathDog + fDeathDog + mDeathCat + fDeathCat).ToString();
 
-					DesignVetTotalOperation(workSheet, totalOpt, rowCnt, colCnt + 8, specialVetColor, false);
+                        DesignVetCell(workSheet, drName, rowCnt, colCnt + 2, specialVetColor);
+                        DesignVetCell(workSheet, optDogsCount_m, rowCnt, colCnt + 3, specialVetColor);
+                        DesignVetCell(workSheet, optDogsCount_f, rowCnt, colCnt + 4, specialVetColor);
+                        DesignVetCell(workSheet, optCatsCount_m, rowCnt, colCnt + 5, specialVetColor);
+                        DesignVetCell(workSheet, optCatsCount_f, rowCnt, colCnt + 6, specialVetColor);
+                        DesignVetCell(workSheet, deathNotes, rowCnt, colCnt + 7, specialVetColor);
+                        DesignVetTotalOperation(workSheet, totalOpt, rowCnt, colCnt + 8, specialVetColor, false);
 
+						                       
+                        if (vetCount > 1 && vetCounter < vetCount)
+                        {
+                            rowCnt++;
+                        }
+                        vetCounter++;
+                        
+                    }
+                      
 				}
 				else
 				{
@@ -822,7 +852,7 @@ namespace CCC.UI.Controllers
 					workSheet.Cells[rowCnt, colCnt + 2, rowCnt, colCnt + 8].Style.Fill.BackgroundColor.SetColor(Color.FromArgb(246, 253, 252));
 					workSheet.Cells[rowCnt, colCnt, rowCnt, colCnt + 8].Style.Border.BorderAround(ExcelBorderStyle.Thick, Color.Black);
 				}
-			}
+			} //end of days loop
 
 			DesignCalenderTableTotal(workSheet, rowCnt, colCnt, m_DogTotal, f_DogTotal, m_CatTotal, f_CatTotal, petTotal);
 
@@ -942,8 +972,11 @@ namespace CCC.UI.Controllers
 				{
 					int deathCount = response.Where(x => x.VetName != null && x.VetName.Trim().ToLower() == item.Trim().ToLower() && x.ExpiredDate != null).ToList().Count;
 					totalDeathCount = totalDeathCount + deathCount;
+					//int complicationCount = response.Where(x => x.VetName != null && x.VetName.Trim().ToLower() == item.Trim().ToLower()
+					//&& x.IsOnHold == false && x.ExpiredDate == null && (x.ReleaseDate == null || x.ReleaseDate.Value.Date > x.AdmissionDate.Date.AddDays(7))).ToList().Count;
 					int complicationCount = response.Where(x => x.VetName != null && x.VetName.Trim().ToLower() == item.Trim().ToLower()
-					&& x.IsOnHold == false && x.ExpiredDate == null && (x.ReleaseDate == null || x.ReleaseDate.Value.Date > x.AdmissionDate.Date.AddDays(7))).ToList().Count;
+					&& x.ComplicationID!=null).ToList().Count;
+
 					totalComplicationCount = totalComplicationCount + complicationCount;
 					Color specialVetColor = Color.FromArgb(18, 143, 139); //lstVetColor.Where(x => x.Key.Trim().ToLower() == item.Trim().ToLower()).Select(x => x.Value).FirstOrDefault();
 
@@ -1140,14 +1173,314 @@ namespace CCC.UI.Controllers
 			}
 			return suffixDay;
 		}
-		#endregion
+        #endregion
 
-		#endregion
-
-
+        #endregion
 
 
-		private SelectList GetAllYears()
+        #region Consolidated Report
+        public async Task<ActionResult> ManageConsolidatedReport()
+        {
+            var objSessionUser = HttpContext.Session.GetSessionUser();
+            var cachedToken = HttpContext.Session.GetBearerToken();
+
+            SearchPetData obj = new SearchPetData();
+
+            var CenterMasterAPI = RestService.For<ICenterMasterApi>(hostUrl: ApplicationSettings.WebApiUrl, new RefitSettings
+            {
+                AuthorizationHeaderValueGetter = () => Task.FromResult(cachedToken)
+            });
+
+            ViewBag.lstMonth = GetAllMonths();
+            ViewBag.lstYears = GetAllYears();
+
+            var centerRes = await CenterMasterAPI.GetAllCenters(objSessionUser.UserCenters);
+            ViewBag.lstCenter = new SelectList(centerRes.Content, "CenterId", "CenterName");
+            return View(obj);
+        }
+
+
+        public async Task<IActionResult> ExportConsolidatedReport(string frmMonth, string fromYear,string toMonth,string toYear)
+        {
+            var objSessionUSer = HttpContext.Session.GetSessionUser();
+            var cachedToken = HttpContext.Session.GetBearerToken();
+
+
+			DateTime startDate = new DateTime(Convert.ToInt32(fromYear), Convert.ToInt32(frmMonth), 1);
+            int lastDay = DateTime.DaysInMonth(Convert.ToInt32(toYear),Convert.ToInt32(toMonth)); // Get the last day of the month
+            DateTime lastDate = new DateTime(Convert.ToInt32(toYear), Convert.ToInt32(toMonth), lastDay);
+
+			var PetServiceAPI = RestService.For<IPetServiceApi>(hostUrl: ApplicationSettings.WebApiUrl, new RefitSettings
+			{
+				AuthorizationHeaderValueGetter = () => Task.FromResult(cachedToken)
+			});
+			var apiResponse = await PetServiceAPI.GetConsolidatedReportData(startDate, lastDate);
+            var response = apiResponse.Content;
+
+
+			string reportDuration = string.Format("{0}-{1} To {2}-{3}"
+							, startDate.ToString("MMM"), startDate.ToString("yy")
+							, lastDate.ToString("MMM"), lastDate.ToString("yy"));
+
+			
+            ExcelPackage excel = new ExcelPackage();
+            ExcelWorksheet workSheet = excel.Workbook.Worksheets.Add("Consolidated Report " + reportDuration);
+
+			if (response.Count > 0)
+			{
+				int startRow = 3;
+				int startCol = 2;
+
+				List<string> lstCenters = response.Select(x => x.CenterId).Distinct().ToList();
+				int CenterCount = lstCenters.Count();
+
+                //ReportDuration 
+                int noHeaderColMerge = (4 + (CenterCount * 4))-1;
+				ExcelRange cellH1Rng = workSheet.Cells[startRow, startCol, startRow, (startCol + noHeaderColMerge)];
+				ApplyCellFormatting(cellValue: reportDuration, cellRange: cellH1Rng
+					,fontSize:13,bold:true,fontColor:null,bgColor:Color.LightBlue
+					,verticalAlignment:ExcelVerticalAlignment.Center,horizontalAlignment:ExcelHorizontalAlignment.Center);
+
+                
+				ExcelRange cellH2Rng = workSheet.Cells[startRow + 1, startCol, startRow + 1, (startCol + noHeaderColMerge)];
+                ApplyCellFormatting(cellValue: "Surgery Count", cellRange: cellH2Rng
+                    , fontSize: 13, bold: true, fontColor: Color.White, bgColor: Color.Black
+                    , verticalAlignment: ExcelVerticalAlignment.Center, horizontalAlignment: ExcelHorizontalAlignment.Center);
+
+
+                //headers
+				startRow = startRow + 2;
+				ExcelRange cellH3Rng = workSheet.Cells[startRow, startCol, (startRow + 1), startCol];
+
+                ApplyCellFormatting(cellValue: "Month", cellRange: cellH3Rng
+                   , fontSize: 11, bold: true, fontColor: null, bgColor: null
+                   , verticalAlignment: ExcelVerticalAlignment.Center, horizontalAlignment: ExcelHorizontalAlignment.Center);
+    
+                
+
+                //center header
+                int centerColIndex = 3;
+				foreach (var centerId in lstCenters)
+				{
+					string center = response.Where(x => x.CenterId == centerId).Select(x => x.CenterName).FirstOrDefault();
+					ExcelRange hdrCell = workSheet.Cells[startRow, centerColIndex, startRow, (centerColIndex + 3)];
+                    ApplyCellFormatting(cellValue: center, cellRange: hdrCell
+                   , fontSize: 11, bold: true, fontColor: null, bgColor: null
+                   , verticalAlignment: ExcelVerticalAlignment.Center, horizontalAlignment: ExcelHorizontalAlignment.Center);
+                    
+					int genderRow = startRow + 1;
+                    ApplyCellFormatting(cellValue: "M (Dog)", cellRange: workSheet.Cells[genderRow, centerColIndex, genderRow, (centerColIndex)]
+                   , fontSize: 11, bold: true, fontColor: null, bgColor: null
+                   , verticalAlignment: ExcelVerticalAlignment.Center, horizontalAlignment: ExcelHorizontalAlignment.Center);
+
+                    ApplyCellFormatting(cellValue: "F (Dog)", cellRange: workSheet.Cells[genderRow, (centerColIndex+1), genderRow, (centerColIndex+1)]
+					, fontSize: 11, bold: true, fontColor: null, bgColor: null
+					, verticalAlignment: ExcelVerticalAlignment.Center, horizontalAlignment: ExcelHorizontalAlignment.Center);
+
+                    ApplyCellFormatting(cellValue: "M (Cat)", cellRange: workSheet.Cells[genderRow, (centerColIndex + 2), genderRow, (centerColIndex + 2)]
+                    , fontSize: 11, bold: true, fontColor: Color.Red, bgColor: null
+                    , verticalAlignment: ExcelVerticalAlignment.Center, horizontalAlignment: ExcelHorizontalAlignment.Center);
+
+                    ApplyCellFormatting(cellValue: "F (Cat)", cellRange: workSheet.Cells[genderRow, (centerColIndex + 3), genderRow, (centerColIndex + 3)]
+					, fontSize: 11, bold: true, fontColor: Color.Red, bgColor: null
+					, verticalAlignment: ExcelVerticalAlignment.Center, horizontalAlignment: ExcelHorizontalAlignment.Center);
+
+                    centerColIndex = centerColIndex + 4;
+                }
+
+                //totals
+                ApplyCellFormatting(cellValue: "Overall total", cellRange: workSheet.Cells[startRow, centerColIndex, (startRow + 1), centerColIndex]
+                   , fontSize: 11, bold: true, fontColor: null, bgColor: null
+                   , verticalAlignment: ExcelVerticalAlignment.Center, horizontalAlignment: ExcelHorizontalAlignment.Center
+				   ,wrapText:true,autoFit:true);
+    
+                
+				centerColIndex = centerColIndex + 1;
+
+                ApplyCellFormatting(cellValue: "Total complications", cellRange: workSheet.Cells[startRow, centerColIndex, (startRow + 1), centerColIndex]
+                   , fontSize: 11, bold: true, fontColor: null, bgColor: null
+                   , verticalAlignment: ExcelVerticalAlignment.Center, horizontalAlignment: ExcelHorizontalAlignment.Center
+                   , wrapText: true, autoFit: true);
+                workSheet.Column(centerColIndex).Width = 20;
+
+
+                centerColIndex = centerColIndex + 1;
+                ApplyCellFormatting(cellValue: "Total deaths", cellRange: workSheet.Cells[startRow, centerColIndex, (startRow + 1), centerColIndex]
+	             , fontSize: 11, bold: true, fontColor: null, bgColor: null
+		         , verticalAlignment: ExcelVerticalAlignment.Center, horizontalAlignment: ExcelHorizontalAlignment.Center
+			     , wrapText: true, autoFit: true);
+
+
+
+                //Month Loop
+                startRow = startRow + 2;
+				int colMonth = 2;
+				List<string> monthYearUnique = response.Select(x => x.SurgeryMonthYearShort).Distinct().ToList();
+                workSheet.Column(colMonth).Width = 15;
+                foreach (var monthYr in monthYearUnique)
+                {
+                    ApplyCellFormatting(cellValue: monthYr.ToString(), cellRange: workSheet.Cells[startRow, colMonth, startRow , colMonth]
+	                 , fontSize: 11, bold: true, fontColor: null, bgColor: null
+		             , verticalAlignment: ExcelVerticalAlignment.Center, horizontalAlignment: ExcelHorizontalAlignment.Center
+			         , wrapText: true, autoFit: true);
+
+					//Center Data Count
+					int centerCol = 3;
+					foreach (var centerId in lstCenters)
+					{
+						int MD = 0; //male dog
+						int FD = 0; // female dog
+						int MC = 0; //male cat
+						int FC = 0; //female cat
+
+                        MD = response.Where(x => x.SurgeryMonthYearShort == monthYr
+							&& x.CenterId == centerId && x.Species == "Dog" && x.Gender == "Male")
+							.Select(x => x.SurgeryCount).FirstOrDefault();
+
+                        ApplyCellFormatting(cellValue: MD, cellRange: workSheet.Cells[startRow, centerCol, startRow, centerCol]
+						   , fontSize: 11, bold: false, fontColor: null, bgColor: null
+						   , verticalAlignment: ExcelVerticalAlignment.Center, horizontalAlignment: ExcelHorizontalAlignment.Center
+						   , wrapText: true, autoFit: true);
+
+                        FD = response.Where(x => x.SurgeryMonthYearShort == monthYr
+                         && x.CenterId == centerId && x.Species == "Dog" && x.Gender == "Female")
+                         .Select(x => x.SurgeryCount).FirstOrDefault();
+
+                        ApplyCellFormatting(cellValue: FD, cellRange: workSheet.Cells[startRow, (centerCol+1), startRow, (centerCol + 1)]
+							 , fontSize: 11, bold: false, fontColor: null, bgColor: null
+							 , verticalAlignment: ExcelVerticalAlignment.Center, horizontalAlignment: ExcelHorizontalAlignment.Center
+							 , wrapText: true, autoFit: true);
+
+                        MC = response.Where(x => x.SurgeryMonthYearShort == monthYr
+                         && x.CenterId == centerId && x.Species == "Cat" && x.Gender == "Male")
+                         .Select(x => x.SurgeryCount).FirstOrDefault();
+
+                        ApplyCellFormatting(cellValue: MC, cellRange: workSheet.Cells[startRow, (centerCol + 2), startRow, (centerCol + 2)]
+                             , fontSize: 11, bold: false, fontColor: null, bgColor: null
+                             , verticalAlignment: ExcelVerticalAlignment.Center, horizontalAlignment: ExcelHorizontalAlignment.Center
+                             , wrapText: true, autoFit: true);
+
+                        FC = response.Where(x => x.SurgeryMonthYearShort == monthYr
+						 && x.CenterId == centerId && x.Species == "Cat" && x.Gender == "Female")
+						 .Select(x => x.SurgeryCount).FirstOrDefault();
+
+                        ApplyCellFormatting(cellValue: FC, cellRange: workSheet.Cells[startRow, (centerCol + 3), startRow, (centerCol + 3)]
+                             , fontSize: 11, bold: false, fontColor: null, bgColor: null
+                             , verticalAlignment: ExcelVerticalAlignment.Center, horizontalAlignment: ExcelHorizontalAlignment.Center
+                             , wrapText: true, autoFit: true);
+
+                        centerCol = centerCol + 4;
+                    }
+
+					//Month Total
+					int monthTotal = 0;
+					monthTotal = response.Where(x => x.SurgeryMonthYearShort == monthYr)
+						  .Sum(x => x.SurgeryCount);
+
+                    ApplyCellFormatting(cellValue: monthTotal, cellRange: workSheet.Cells[startRow, (centerCol), startRow, (centerCol)]
+                            , fontSize: 11, bold: false, fontColor: null, bgColor: null
+                            , verticalAlignment: ExcelVerticalAlignment.Center, horizontalAlignment: ExcelHorizontalAlignment.Center
+                            , wrapText: true, autoFit: true);
+
+                    int monthTotalComplication = 0;
+                    monthTotalComplication = response.Where(x => x.SurgeryMonthYearShort == monthYr)
+						  .Sum(x => x.ComplicationCount);
+
+					ApplyCellFormatting(cellValue: monthTotalComplication, cellRange: workSheet.Cells[startRow, (centerCol+1), startRow, (centerCol+1)]
+                            , fontSize: 11, bold: false, fontColor: null, bgColor: null
+                            , verticalAlignment: ExcelVerticalAlignment.Center, horizontalAlignment: ExcelHorizontalAlignment.Center
+                            , wrapText: true, autoFit: true);
+
+                    int monthTotalDeaths = 0;
+                    monthTotalDeaths = response.Where(x => x.SurgeryMonthYearShort == monthYr)
+						  .Sum(x => x.DeathCount);
+
+					ApplyCellFormatting(cellValue: monthTotalDeaths, cellRange: workSheet.Cells[startRow, (centerCol + 2), startRow, (centerCol + 2)]
+                            , fontSize: 11, bold: false, fontColor: null, bgColor: null
+                            , verticalAlignment: ExcelVerticalAlignment.Center, horizontalAlignment: ExcelHorizontalAlignment.Center
+                            , wrapText: true, autoFit: true);
+
+
+					startRow++;
+                }
+
+                //grand total center
+                ApplyCellFormatting(cellValue: "Totals", cellRange: workSheet.Cells[startRow, colMonth, startRow, colMonth]
+                        , fontSize: 12, bold: true, fontColor: Color.White, bgColor: Color.Black
+                        , verticalAlignment: ExcelVerticalAlignment.Center, horizontalAlignment: ExcelHorizontalAlignment.Center
+                        , wrapText: true, autoFit: true);
+
+
+                int centerTotCol = 3;
+                foreach (var centerId in lstCenters)
+                {
+					int totMD = 0; int totFD = 0; int totMC = 0;int totFC = 0;
+                    totMD = response.Where(x => x.CenterId == centerId && x.Species == "Dog" && x.Gender == "Male")
+						 .Sum(x => x.SurgeryCount);
+                    totFD = response.Where(x => x.CenterId == centerId && x.Species == "Dog" && x.Gender == "Female")
+                         .Sum(x => x.SurgeryCount);
+                    totMC = response.Where(x => x.CenterId == centerId && x.Species == "Cat" && x.Gender == "Male")
+                         .Sum(x => x.SurgeryCount);
+                    totFC = response.Where(x => x.CenterId == centerId && x.Species == "Cat" && x.Gender == "Female")
+						.Sum(x => x.SurgeryCount);
+
+                    ApplyCellFormatting(cellValue: totMD, cellRange: workSheet.Cells[startRow, centerTotCol, startRow, centerTotCol]
+                      , fontSize: 12, bold: true, fontColor: Color.Black, bgColor: Color.LightBlue
+					  , verticalAlignment: ExcelVerticalAlignment.Center, horizontalAlignment: ExcelHorizontalAlignment.Center
+					  , wrapText: true, autoFit: true);
+
+                    ApplyCellFormatting(cellValue: totFD, cellRange: workSheet.Cells[startRow, (centerTotCol +1), startRow, (centerTotCol+1)]
+                     , fontSize: 12, bold: true, fontColor: Color.Black, bgColor: Color.LightBlue
+                     , verticalAlignment: ExcelVerticalAlignment.Center, horizontalAlignment: ExcelHorizontalAlignment.Center
+                     , wrapText: true, autoFit: true);
+
+                    ApplyCellFormatting(cellValue: totMC, cellRange: workSheet.Cells[startRow, (centerTotCol + 2), startRow, (centerTotCol + 2)]
+					 , fontSize: 12, bold: true, fontColor: Color.Black, bgColor: Color.LightBlue
+					 , verticalAlignment: ExcelVerticalAlignment.Center, horizontalAlignment: ExcelHorizontalAlignment.Center
+					 , wrapText: true, autoFit: true);
+
+                    ApplyCellFormatting(cellValue: totFC, cellRange: workSheet.Cells[startRow, (centerTotCol + 3), startRow, (centerTotCol + 3)]
+					  , fontSize: 12, bold: true, fontColor: Color.Black, bgColor: Color.LightBlue
+					  , verticalAlignment: ExcelVerticalAlignment.Center, horizontalAlignment: ExcelHorizontalAlignment.Center
+					  , wrapText: true, autoFit: true);
+
+                    centerTotCol = centerTotCol + 4;
+                }
+
+                //grand total -- over all total , complication total and death total
+                int grdTotalOverall = 0; int grdTotComplication= 0; int grdTotalDeaths = 0;
+
+                grdTotalOverall = response.Sum(x => x.SurgeryCount);
+				grdTotComplication = response.Sum(x=>x.ComplicationCount);
+				grdTotalDeaths = response.Sum(x => x.DeathCount);
+
+
+                ApplyCellFormatting(cellValue: grdTotalOverall, cellRange: workSheet.Cells[startRow, (centerTotCol ), startRow, (centerTotCol)]
+                  , fontSize: 12, bold: true, fontColor: Color.White, bgColor: Color.Black
+                  , verticalAlignment: ExcelVerticalAlignment.Center, horizontalAlignment: ExcelHorizontalAlignment.Center
+                  , wrapText: true, autoFit: true);
+
+                ApplyCellFormatting(cellValue: grdTotComplication, cellRange: workSheet.Cells[startRow, (centerTotCol + 1), startRow, (centerTotCol + 1)]
+				  , fontSize: 12, bold: true, fontColor: Color.White, bgColor: Color.Black
+                  , verticalAlignment: ExcelVerticalAlignment.Center, horizontalAlignment: ExcelHorizontalAlignment.Center
+				  , wrapText: true, autoFit: true);
+
+                ApplyCellFormatting(cellValue: grdTotalDeaths, cellRange: workSheet.Cells[startRow, (centerTotCol + 2), startRow, (centerTotCol + 2)]
+                  , fontSize: 12, bold: true, fontColor: Color.White, bgColor: Color.Black
+                  , verticalAlignment: ExcelVerticalAlignment.Center, horizontalAlignment: ExcelHorizontalAlignment.Center
+                  , wrapText: true, autoFit: true);
+
+            }
+
+            var exportbytes = excel.GetAsByteArray();
+			string fileName = "ConsolidatedReport " + reportDuration + ".xlsx";
+            return File(exportbytes, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", fileName);
+
+        }
+
+        #endregion
+
+        private SelectList GetAllYears()
 		{
 			int currentYear = DateTime.Now.Year;
 			List<SelectListItem> objData = new List<SelectListItem>();
@@ -1188,7 +1521,41 @@ namespace CCC.UI.Controllers
 			return new SelectList(objData, "Value", "Text", currentMonth);
 		}
 
-	}
+		private void ApplyCellFormatting(object cellValue, ExcelRange cellRange,
+			float fontSize, bool bold, Color? fontColor = null, Color? bgColor = null, ExcelVerticalAlignment verticalAlignment
+			= ExcelVerticalAlignment.Bottom, ExcelHorizontalAlignment horizontalAlignment = ExcelHorizontalAlignment.Left
+			, bool wrapText = false, bool autoFit = false)
+		{
+
+			fontColor = fontColor ?? Color.Black;
+            bgColor = bgColor ?? Color.White;
+
+			
+
+            cellRange.Value = cellValue;
+			cellRange.Merge = true;
+
+            // Apply border
+            cellRange.Style.Border.BorderAround(ExcelBorderStyle.Thick, Color.Black);
+
+            // Align text
+            cellRange.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+            cellRange.Style.VerticalAlignment = verticalAlignment;
+
+            // Font styles
+            cellRange.Style.Font.Bold = bold;
+            cellRange.Style.Font.Size = fontSize;
+            cellRange.Style.Font.Color.SetColor(fontColor.Value);
+			cellRange.Style.WrapText = wrapText;
+			if (autoFit)
+				cellRange.AutoFitColumns();
+
+            // Background color
+            cellRange.Style.Fill.PatternType = ExcelFillStyle.Solid;
+            cellRange.Style.Fill.BackgroundColor.SetColor(bgColor.Value);
+        }
+
+    }
 }
 
 

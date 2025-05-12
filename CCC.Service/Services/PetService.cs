@@ -78,5 +78,10 @@ namespace CCC.Service.Services
 		{
 			return await _iPetRepository.GetAllPetReportData(obj);
 		}
-	}
+
+        public async Task<IEnumerable<PetServiceDetails>> GetConsolidatedReport(PetServiceDetails obj)
+        {
+            return await _iPetRepository.GetConsolidatedReport(obj);	
+        }
+    }
 }

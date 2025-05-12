@@ -466,8 +466,11 @@ namespace CCC.UI.Controllers
 			var MedicalNotes = await LookupMasterAPI.GetLookupData(CommonConstants.LOOKUPTYPE_MEDICALNOTES);
 			ViewBag.lstMedicalNotes = new SelectList(MedicalNotes.Content, "LookupId", "LookupValue");
 
+            var Complications = await LookupMasterAPI.GetLookupData(CommonConstants.LOOKUPTYPE_COMPLICATIONS);
+            ViewBag.lstComplications = new SelectList(Complications.Content, "LookupId", "LookupValue");
 
-			var Colors = await LookupMasterAPI.GetLookupData(CommonConstants.LOOKUPTYPE_COLOR);
+
+            var Colors = await LookupMasterAPI.GetLookupData(CommonConstants.LOOKUPTYPE_COLOR);
 			ViewBag.lstColors = new SelectList(Colors.Content, "LookupId", "LookupValue");
 
 
@@ -508,16 +511,22 @@ namespace CCC.UI.Controllers
 			var apiResponse = await PetServiceAPI.AddEditPetData(model);
 			string serviceId = apiResponse?.Content?.ReadAsStringAsync().Result;
 
-			var IsNotificationUpdated = await UpdatePetDataForNotification(serviceId, objSessionUSer.UserId, objSessionUSer.IsAdmin);
-
 			if (apiResponse != null && apiResponse.IsSuccessStatusCode)
 			{
-				string msg = IsNewRecord ? "Pet added successfully." : "Pet updated successfully.";
+                var IsNotificationUpdated = await UpdatePetDataForNotification(serviceId, objSessionUSer.UserId, objSessionUSer.IsAdmin);
+                string msg = IsNewRecord ? "Pet added successfully." : "Pet updated successfully.";
 				return Json(new { serviceId = serviceId, isSuccess = true, message = msg, redirectFrom = model.redirectFrom });
 			}
 			else
 			{
-				return Json(new { CountryID = 0, isSuccess = false, message = "" });
+				if (string.IsNullOrEmpty(serviceId))
+				{
+					return Json(new { CountryID = 0, isSuccess = false, message = "" });
+				}
+				else
+				{
+                    return Json(new { CountryID = 0, isSuccess = false, message = serviceId });
+                }
 			}
 		}
 
@@ -635,7 +644,7 @@ namespace CCC.UI.Controllers
 							(ServiceId != apiResponse.Content.ServiceId) ? true : false;
 					}
 				}
-				return Json(IsTagIdExists);
+                return Json(IsTagIdExists);
 			}
 		}
 	}

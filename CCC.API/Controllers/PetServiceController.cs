@@ -2,6 +2,7 @@
 using CCC.Domain;
 using CCC.Service.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -24,8 +25,26 @@ namespace CCC.API.Controllers
         [ProducesResponseType(typeof(List<ErrorLogs>), statusCode: 400)]
         public async Task<IActionResult> AddEditPetData([FromBody] PetServiceDetails request)
         {
-            var serviceId = await _iPetService.AddEditPetData(request);
-            return Ok(serviceId);
+            bool IsTagIdExists = false;
+            var objResponse = await _iPetService.IsTagIdInUse(request.TagId);
+
+            if (objResponse != null)
+            {
+                if (objResponse.ServiceId != request.ServiceId)
+                {
+                    IsTagIdExists = true;
+                }
+            }
+
+            if (!IsTagIdExists)
+            {
+                var serviceId = await _iPetService.AddEditPetData(request);
+                return Ok(serviceId);
+            }
+            else
+            {
+                return BadRequest("Tag Id already exists");
+            }
         }
 
         [HttpGet(ApiRoutes.PetServicesDetails.GetPetData)]
@@ -144,6 +163,16 @@ namespace CCC.API.Controllers
             var objResponse = await _iPetService.IsTagIdInUse(tagId);
             return Ok(objResponse);
         }
-        
+
+        [HttpGet(ApiRoutes.PetServicesDetails.GetConsolidatedReport), DisableRequestSizeLimit]
+        [ProducesResponseType(typeof(PetDataNotification), statusCode: 200)]
+        public async Task<IActionResult> GetConsolidatedReportData(DateTime startDate,DateTime endDate)
+        {
+            var searchRequest = new PetServiceDetails { StartDate= startDate, EndDate= endDate };
+            var objResponse = await _iPetService.GetConsolidatedReport(searchRequest);
+            return Ok(objResponse);
+        }
+
+
     }
 }

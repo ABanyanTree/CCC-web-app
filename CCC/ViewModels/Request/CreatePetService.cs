@@ -45,6 +45,6 @@ namespace CCC.UI.ViewModels
         public bool IsAdmin { get; set; }
         public string redirectFrom { get; set; }
         public string Color { get; set; }
-
+        public string ComplicationID { get; set; }
     }
 }

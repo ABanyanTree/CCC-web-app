@@ -19,7 +19,9 @@
             public const string GetPetUnReadData = Base + "/petservice/getpetunreaddata";
             public const string GetPetCountDetails = Base + "/petservice/getpetcountdetails";
             public const string GetCenterReportData = Base + "/petservice/getcenterreportdata";
+            public const string GetConsolidatedReport = Base + "/petservice/getconsolidatedreport";
             
+
             public const string IsTagIdInUse = Base + "/petservice/istagidinuse";
         }
 
