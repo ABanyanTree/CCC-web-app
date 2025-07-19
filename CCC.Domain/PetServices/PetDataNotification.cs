@@ -19,6 +19,7 @@ namespace CCC.Domain
         public string SurgeryDateDisplay { get; set; }
         public int TotalCount { get; set; }
         public bool IsAdmin { get; set; }
+        public string ComplicationID { get; set; }
 
     }
 
